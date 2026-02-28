@@ -1,0 +1,396 @@
+@page "/components/button"
+
+<PageTitle>Button - blazor-shadcn</PageTitle>
+
+@* Exact shadcn docs page structure: flex with content + TOC sidebar *@
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    @* ── Content column ── *@
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            @* Page header *@
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Button</h1>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="/"
+                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/></svg>
+                        </a>
+                        <a href="/components/card"
+                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Displays a button or a component that looks like a button.
+                </p>
+            </div>
+
+            @* Page content *@
+            <div class="w-full flex-1">
+                @* Main preview *@
+                <ComponentExample CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <Button Variant="ButtonVariant.Outline">Button</Button>
+                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                            </Button>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                @* Installation *@
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the button component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Button.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceButtonRazor">@_sourceButtonRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @* Usage *@
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                @* Examples *@
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Size" Compact="true" CodeText="@codeSizeExample">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Size</code> parameter to change the size of the button.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex flex-col items-start gap-8 sm:flex-row">
+                                <div class="flex items-start gap-2">
+                                    <Button Size="ButtonSize.Xs" Variant="ButtonVariant.Outline">Extra Small</Button>
+                                    <Button Size="ButtonSize.IconXs" Variant="ButtonVariant.Outline"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></Button>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">Small</Button>
+                                    <Button Size="ButtonSize.IconSm" Variant="ButtonVariant.Outline"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></Button>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <Button Variant="ButtonVariant.Outline">Default</Button>
+                                    <Button Size="ButtonSize.Icon" Variant="ButtonVariant.Outline"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></Button>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <Button Size="ButtonSize.Lg" Variant="ButtonVariant.Outline">Large</Button>
+                                    <Button Size="ButtonSize.IconLg" Variant="ButtonVariant.Outline"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></Button>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeSizeExample</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Default" Compact="true" CodeText="@codeDefault">
+                        <Preview><Button>Button</Button></Preview>
+                        <Code>@codeDefault</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Outline" Compact="true" CodeText="@codeOutline">
+                        <Preview><Button Variant="ButtonVariant.Outline">Outline</Button></Preview>
+                        <Code>@codeOutline</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Secondary" Compact="true" CodeText="@codeSecondary">
+                        <Preview><Button Variant="ButtonVariant.Secondary">Secondary</Button></Preview>
+                        <Code>@codeSecondary</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Ghost" Compact="true" CodeText="@codeGhost">
+                        <Preview><Button Variant="ButtonVariant.Ghost">Ghost</Button></Preview>
+                        <Code>@codeGhost</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Destructive" Compact="true" CodeText="@codeDestructive">
+                        <Preview><Button Variant="ButtonVariant.Destructive">Destructive</Button></Preview>
+                        <Code>@codeDestructive</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Link" Compact="true" CodeText="@codeLink">
+                        <Preview><Button Variant="ButtonVariant.Link">Link</Button></Preview>
+                        <Code>@codeLink</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Icon" Compact="true" CodeText="@codeIcon">
+                        <Preview>
+                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+                            </Button>
+                        </Preview>
+                        <Code>@codeIcon</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="With Icon" Compact="true" CodeText="@codeWithIcon">
+                        <Preview>
+                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                                New Branch
+                            </Button>
+                        </Preview>
+                        <Code>@codeWithIcon</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Rounded" Compact="true" CodeText="@codeRounded">
+                        <Description><p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">rounded-full</code> class to make the button rounded.</p></Description>
+                        <Preview>
+                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                            </Button>
+                        </Preview>
+                        <Code>@codeRounded</Code>
+                    </ComponentExample>
+                </div>
+
+                @* API Reference *@
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Button</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Default | Outline | Ghost | Destructive | Secondary | Link</code></td><td class="px-4 py-2 text-left whitespace-nowrap">Default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Size</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Default | Xs | Sm | Lg | Icon</code></td><td class="px-4 py-2 text-left whitespace-nowrap">Default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Href</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ── TOC sidebar (exact shadcn DocsTableOfContents) ── *@
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#size" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Size</a>
+                <a href="#default" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Default</a>
+                <a href="#outline" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Outline</a>
+                <a href="#secondary" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Secondary</a>
+                <a href="#ghost" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Ghost</a>
+                <a href="#destructive" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Destructive</a>
+                <a href="#link" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Link</a>
+                <a href="#icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Icon</a>
+                <a href="#with-icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">With Icon</a>
+                <a href="#rounded" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Rounded</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add button";
+
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+
+    private static readonly string _sourceButtonRazor = """
+@if (string.IsNullOrEmpty(Href))
+{
+    <button class="@GetClasses()" type="@Type" disabled="@Disabled" data-slot="button" data-variant="@Variant.ToString().ToLowerInvariant()" data-size="@Size.ToString().ToLowerInvariant()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </button>
+}
+else
+{
+    <a href="@Href" class="@GetClasses()" data-slot="button" data-variant="@Variant.ToString().ToLowerInvariant()" data-size="@Size.ToString().ToLowerInvariant()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </a>
+}
+
+@code {
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Type { get; set; } = "button";
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "focus-visible:border-ring focus-visible:ring-ring/50 " +
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 " +
+        "aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 " +
+        "rounded-lg border border-transparent bg-clip-padding text-sm font-medium " +
+        "focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 " +
+        "inline-flex items-center justify-center whitespace-nowrap transition-all " +
+        "disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none " +
+        "shrink-0 [&_svg]:shrink-0 outline-none group/button select-none";
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, GetVariantClasses(), GetSizeClasses(), Class);
+
+    private string GetVariantClasses() => Variant switch
+    {
+        ButtonVariant.Default => "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+        ButtonVariant.Destructive => "bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30",
+        ButtonVariant.Outline => "!border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:!border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        ButtonVariant.Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+        ButtonVariant.Ghost => "hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        ButtonVariant.Link => "text-primary underline-offset-4 hover:underline",
+        _ => ""
+    };
+
+    private string GetSizeClasses() => Size switch
+    {
+        ButtonSize.Default => "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        ButtonSize.Xs => "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        ButtonSize.Sm => "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        ButtonSize.Lg => "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        ButtonSize.Icon => "size-8",
+        ButtonSize.IconXs => "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        ButtonSize.IconSm => "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
+        ButtonSize.IconLg => "size-9",
+        _ => ""
+    };
+
+    public enum ButtonVariant
+    {
+        Default,
+        Destructive,
+        Outline,
+        Secondary,
+        Ghost,
+        Link
+    }
+
+    public enum ButtonSize
+    {
+        Default,
+        Xs,
+        Sm,
+        Lg,
+        Icon,
+        IconXs,
+        IconSm,
+        IconLg
+    }
+}
+""";
+
+    private const string codeMainDemo = @"<div class=""flex flex-wrap items-center gap-2"">
+    <Button Variant=""ButtonVariant.Outline"">Button</Button>
+    <Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Icon"">
+        <!-- arrow-up icon -->
+    </Button>
+</div>";
+
+    private const string usingStatement = @"@using BlazorShadcn.Components.UI";
+    private const string usageCode = @"<Button Variant=""ButtonVariant.Outline"">Button</Button>";
+
+    private const string codeSizeExample = @"<Button Size=""ButtonSize.Xs"" Variant=""ButtonVariant.Outline"">Extra Small</Button>
+<Button Size=""ButtonSize.Sm"" Variant=""ButtonVariant.Outline"">Small</Button>
+<Button Variant=""ButtonVariant.Outline"">Default</Button>
+<Button Size=""ButtonSize.Lg"" Variant=""ButtonVariant.Outline"">Large</Button>";
+
+    private const string codeDefault = @"<Button>Button</Button>";
+    private const string codeOutline = @"<Button Variant=""ButtonVariant.Outline"">Outline</Button>";
+    private const string codeSecondary = @"<Button Variant=""ButtonVariant.Secondary"">Secondary</Button>";
+    private const string codeGhost = @"<Button Variant=""ButtonVariant.Ghost"">Ghost</Button>";
+    private const string codeDestructive = @"<Button Variant=""ButtonVariant.Destructive"">Destructive</Button>";
+    private const string codeLink = @"<Button Variant=""ButtonVariant.Link"">Link</Button>";
+    private const string codeIcon = @"<Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Icon"">
+    <!-- check-circle icon -->
+</Button>";
+    private const string codeWithIcon = @"<Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Sm"">
+    <!-- git-branch icon -->
+    New Branch
+</Button>";
+    private const string codeRounded = @"<Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Icon"" Class=""rounded-full"">
+    <!-- arrow-up icon -->
+</Button>";
+}

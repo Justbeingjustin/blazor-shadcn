@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run BlazorShadcn",
+      "type": "node-terminal",
+      "request": "launch",
+      "preLaunchTask": "Dev: BlazorShadcn + OpenCode",
+      "command": "echo BlazorShadcn dev stack started"
+    }
+  ]
+}

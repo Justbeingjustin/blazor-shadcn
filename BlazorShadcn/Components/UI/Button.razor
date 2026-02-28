@@ -1,0 +1,92 @@
+@if (string.IsNullOrEmpty(Href))
+{
+    <button class="@GetClasses()" type="@Type" disabled="@Disabled" data-slot="button" data-variant="@Variant.ToString().ToLowerInvariant()" data-size="@Size.ToString().ToLowerInvariant()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </button>
+}
+else
+{
+    <a href="@Href" class="@GetClasses()" data-slot="button" data-variant="@Variant.ToString().ToLowerInvariant()" data-size="@Size.ToString().ToLowerInvariant()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </a>
+}
+
+@code {
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Type { get; set; } = "button";
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "focus-visible:border-ring focus-visible:ring-ring/50 " +
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 " +
+        "aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 " +
+        "rounded-lg border border-transparent bg-clip-padding text-sm font-medium " +
+        "focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 " +
+        "inline-flex items-center justify-center whitespace-nowrap transition-all " +
+        "disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none " +
+        "shrink-0 [&_svg]:shrink-0 outline-none group/button select-none";
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, GetVariantClasses(), GetSizeClasses(), Class);
+
+    private string GetVariantClasses() => Variant switch
+    {
+        ButtonVariant.Default => "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+        ButtonVariant.Destructive => "bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30",
+        ButtonVariant.Outline => "!border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:!border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        ButtonVariant.Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+        ButtonVariant.Ghost => "hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        ButtonVariant.Link => "text-primary underline-offset-4 hover:underline",
+        _ => ""
+    };
+
+    private string GetSizeClasses() => Size switch
+    {
+        ButtonSize.Default => "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        ButtonSize.Xs => "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        ButtonSize.Sm => "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        ButtonSize.Lg => "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        ButtonSize.Icon => "size-8",
+        ButtonSize.IconXs => "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        ButtonSize.IconSm => "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
+        ButtonSize.IconLg => "size-9",
+        _ => ""
+    };
+
+    public enum ButtonVariant
+    {
+        Default,
+        Destructive,
+        Outline,
+        Secondary,
+        Ghost,
+        Link
+    }
+
+    public enum ButtonSize
+    {
+        Default,
+        Xs,
+        Sm,
+        Lg,
+        Icon,
+        IconXs,
+        IconSm,
+        IconLg
+    }
+}
+
+@* ──────────────────────────────────────────────────────────────
+   blazor-shadcn · Button
+   
+   Copy this file into your project's Components/UI/ folder.
+   You own this code. Modify it however you like.
+   ────────────────────────────────────────────────────────────── *@

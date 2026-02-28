@@ -1,0 +1,15 @@
+@* Renders the sidebar toggle in the doc title row; use CascadingValue from MainLayout. *@
+@if (ToggleSidebar is not null)
+{
+    <button type="button" @onclick="OnToggle" aria-label="Toggle sidebar" title="Toggle sidebar"
+            class="-ml-2 inline-flex size-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground md:size-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m16 15 3 3 3-3"/><path d="M16 21h3"/></svg>
+        <span class="sr-only">Toggle sidebar</span>
+    </button>
+}
+
+@code {
+    [CascadingParameter(Name = "SidebarToggle")] public Action? ToggleSidebar { get; set; }
+
+    private void OnToggle() => ToggleSidebar?.Invoke();
+}

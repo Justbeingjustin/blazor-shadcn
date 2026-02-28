@@ -1,0 +1,72 @@
+@page "/"
+
+<PageTitle>blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    <h1 class="font-heading mt-2 scroll-m-28 text-3xl font-semibold tracking-tight focus:outline-none">Introduction</h1>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Beautifully designed components for Blazor. Copied and pasted into your apps. Open source.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <p class="leading-relaxed mt-6">
+                    This is a port of <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-4">shadcn/ui</a>
+                    for Blazor. It follows the same philosophy — these are <strong class="font-medium">not</strong> packaged
+                    components distributed as a NuGet library.
+                </p>
+
+                <p class="leading-relaxed mt-6">
+                    Instead, you pick the components you need. Copy and paste the code into your project
+                    and customize to your needs. The code is yours.
+                </p>
+
+                <div class="rounded-xl border p-6 my-6">
+                    <p class="font-medium leading-relaxed">
+                        This means you do not need to add it as a dependency. It is not available or
+                        distributed via NuGet. Pick the components you need. Copy and paste the code into
+                        your project and customize to your needs. <strong class="font-medium">The code is yours.</strong>
+                    </p>
+                </div>
+
+                <p class="leading-relaxed mt-6">
+                    Use this as a reference to build your own component libraries.
+                </p>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12">
+                    FAQ
+                </h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Why copy/paste and not packaged as a NuGet library?</h3>
+                <p class="leading-relaxed mt-6 text-muted-foreground">
+                    The idea behind this is to give you ownership and control over the code,
+                    allowing you to decide how the components are built and styled.
+                </p>
+                <p class="leading-relaxed mt-6 text-muted-foreground">
+                    Start with some sensible defaults, then customize the components to your needs.
+                </p>
+                <p class="leading-relaxed mt-6 text-muted-foreground">
+                    One of the drawbacks of packaging components in a library is that the style is
+                    coupled with the implementation. The design of your components should be separate
+                    from their implementation.
+                </p>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Which frameworks are supported?</h3>
+                <p class="leading-relaxed mt-6 text-muted-foreground">
+                    These components are built for Blazor (both Server and WebAssembly) using
+                    Tailwind CSS v4 with the same design tokens as shadcn/ui.
+                </p>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Can I use this in my project?</h3>
+                <p class="leading-relaxed mt-6 text-muted-foreground">
+                    Yes. Free to use for personal and commercial projects. No attribution required.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

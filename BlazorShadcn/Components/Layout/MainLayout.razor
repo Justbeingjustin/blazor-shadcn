@@ -1,0 +1,215 @@
+@inherits LayoutComponentBase
+@inject IJSRuntime JS
+
+<div class="flex min-h-screen flex-col">
+    <header class="bg-background sticky top-0 z-50 w-full" style="border-bottom: none">
+        <div class="container-wrapper px-6">
+            <div class="header-row flex h-14 items-center gap-0">
+                <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Class="header-logo-btn hidden size-8 shrink-0 lg:flex" Href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="size-5 shrink-0 block" aria-hidden="true">
+                        <rect width="256" height="256" fill="none" />
+                        <line x1="208" y1="128" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                        <line x1="192" y1="40" x2="40" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                    </svg>
+                    <span class="sr-only">Home</span>
+                </Button>
+                <nav class="header-nav hidden shrink-0 lg:flex items-center gap-0">
+                    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" Class="px-2.5 rounded-md" Href="/">Docs</Button>
+                    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" Class="px-2.5 rounded-md" Href="/docs/components">Components</Button>
+                    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" Class="px-2.5 rounded-md" Href="#">Blocks</Button>
+                    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" Class="px-2.5 rounded-md" Href="#">Charts</Button>
+                    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" Class="px-2.5 rounded-md" Href="#">Directory</Button>
+                    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" Class="px-2.5 rounded-md" Href="#">Create</Button>
+                </nav>
+                <div class="header-right ml-auto flex min-w-0 flex-1 items-center justify-end gap-2">
+                    <div class="header-search hidden w-full flex-1 md:flex md:w-auto md:flex-none md:max-w-sm md:items-center">
+                        <input placeholder="Search documentation..."
+                               class="header-search-input h-8 w-full rounded-md border border-input bg-background px-3 py-0 text-sm leading-8 text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" />
+                    </div>
+                    <a href="https://github.com/shadcn-ui/ui" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-8 items-center justify-center gap-1.5 rounded-md px-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors shadow-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.549 438.549" class="size-4 shrink-0" fill="currentColor"><path d="M409.132 114.573c-19.608-33.596-46.205-60.194-79.798-79.8-33.598-19.607-70.277-29.408-110.063-29.408-39.781 0-76.472 9.804-110.063 29.408-33.596 19.605-60.192 46.204-79.8 79.8C9.803 148.168 0 184.854 0 224.63c0 47.78 13.94 90.745 41.827 128.906 27.884 38.164 63.906 64.572 108.063 79.227 5.14.954 8.945.283 11.419-1.996 2.475-2.282 3.711-5.14 3.711-8.562 0-.571-.049-5.708-.144-15.417a2549.81 2549.81 0 01-.144-25.406l-6.567 1.136c-4.187.767-9.469 1.092-15.846 1-6.374-.089-12.991-.757-19.842-1.999-6.854-1.231-13.229-4.086-19.13-8.559-5.898-4.473-10.085-10.328-12.56-17.556l-2.855-6.57c-1.903-4.374-4.899-9.233-8.992-14.559-4.093-5.331-8.232-8.945-12.419-10.848l-1.999-1.431c-1.332-.951-2.568-2.098-3.711-3.429-1.142-1.331-1.997-2.663-2.568-3.997-.572-1.335-.098-2.43 1.427-3.289 1.525-.859 4.281-1.276 8.28-1.276l5.708.853c3.807.763 8.516 3.042 14.133 6.851 5.614 3.806 10.229 8.754 13.846 14.842 4.38 7.806 9.657 13.754 15.846 17.847 6.184 4.093 12.419 6.136 18.699 6.136 6.28 0 11.704-.476 16.274-1.423 4.565-.952 8.848-2.383 12.847-4.285 1.713-12.758 6.377-22.559 13.988-29.41-10.848-1.14-20.601-2.857-29.264-5.14-8.658-2.286-17.605-5.996-26.835-11.14-9.235-5.137-16.896-11.516-22.985-19.126-6.09-7.614-11.088-17.61-14.987-29.979-3.901-12.374-5.852-26.648-5.852-42.826 0-23.035 7.52-42.637 22.557-58.817-7.044-17.318-6.379-36.732 1.997-58.24 5.52-1.715 13.706-.428 24.554 3.853 10.85 4.283 18.794 7.952 23.84 10.994 5.046 3.041 9.089 5.618 12.135 7.708 17.705-4.947 35.976-7.421 54.818-7.421s37.117 2.474 54.823 7.421l10.849-6.849c7.419-4.57 16.18-8.758 26.262-12.565 10.088-3.805 17.802-4.853 23.134-3.138 8.562 21.509 9.325 40.922 2.279 58.24 15.036 16.18 22.559 35.787 22.559 58.817 0 16.178-1.958 30.497-5.853 42.966-3.9 12.471-8.941 22.457-15.125 29.979-6.191 7.521-13.901 13.85-23.131 18.986-9.232 5.14-18.182 8.85-26.84 11.136-8.662 2.286-18.415 4.004-29.263 5.146 9.894 8.562 14.842 22.077 14.842 40.539v60.237c0 3.422 1.19 6.279 3.572 8.562 2.379 2.279 6.136 2.95 11.276 1.995 44.163-14.653 80.185-41.062 108.068-79.226 27.88-38.161 41.825-81.126 41.825-128.906-.01-39.771-9.818-76.454-29.414-110.049z" /></svg>
+                        <span class="header-github-stars w-fit text-xs tabular-nums">107k</span>
+                        <span class="sr-only">GitHub</span>
+                    </a>
+                    <button type="button" @onclick="ToggleSidebar" title="Toggle layout" aria-label="Toggle layout"
+                            class="header-layout-toggle inline-flex size-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M2 3v18"/><rect width="12" height="18" x="6" y="3" rx="2"/><path d="M22 3v18"/></svg>
+                        <span class="sr-only">Toggle layout</span>
+                    </button>
+                    <button type="button" @onclick="ToggleDarkMode"
+                            class="inline-flex items-center justify-center size-8 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            aria-label="Toggle theme">
+                        @if (_isDark)
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                        }
+                        else
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 3l0 18"/><path d="M12 9l4.65 -4.65"/><path d="M12 14.3l7.37 -7.37"/><path d="M12 19.6l8.85 -8.85"/></svg>
+                        }
+                    </button>
+                    <Button Variant="ButtonVariant.Default" Size="ButtonSize.Sm" Class="hidden h-[31px] rounded-lg gap-1.5 sm:flex" Href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        New Project
+                    </Button>
+                    <Button Variant="ButtonVariant.Default" Size="ButtonSize.Sm" Class="h-[31px] rounded-lg gap-1.5 sm:hidden" Href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        New
+                    </Button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <CascadingValue Value="@ToggleSidebar" Name="SidebarToggle" IsFixed="true">
+        <div class="@( _sidebarOpen ? "mx-auto w-full flex-1 min-h-0 px-2 lg:grid lg:grid-cols-[240px_minmax(0,1fr)]" : "mx-auto w-full flex-1 min-h-0 px-2 lg:grid lg:grid-cols-[1fr]")">
+            <aside class="sidebar-aside @( _sidebarOpen ? "fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 lg:sticky lg:block" : "fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0") flex">
+                <div class="sidebar-scroll-wrapper relative h-full min-w-0 flex-1 overflow-hidden flex flex-col">
+                    <div class="sidebar-top-spacer shrink-0" aria-hidden="true"></div>
+                    <div class="sidebar-fade-top" aria-hidden="true"></div>
+                    <div class="no-scrollbar sidebar-content flex-1 min-h-0 overflow-x-hidden overflow-y-auto pt-0 flex flex-col min-w-0">
+                        <nav class="sidebar-nav">
+                            <div class="sidebar-nav-group">
+                                <h4 class="sidebar-nav-heading">Sections</h4>
+                                <div class="sidebar-nav-links">
+                                    <SidebarNavLink href="/" ActiveClass="sidebar-nav-link-active" Match="NavLinkMatch.All">Introduction</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/components" ActiveClass="sidebar-nav-link-active">Components</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation" ActiveClass="sidebar-nav-link-active">Installation</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/directory" ActiveClass="sidebar-nav-link-active">Directory</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/rtl" ActiveClass="sidebar-nav-link-active">RTL</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/mcp" ActiveClass="sidebar-nav-link-active">MCP Server</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry" ActiveClass="sidebar-nav-link-active">Registry</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/forms" ActiveClass="sidebar-nav-link-active">Forms</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/changelog" ActiveClass="sidebar-nav-link-active">Changelog</SidebarNavLink>
+                                </div>
+                            </div>
+                            <div class="sidebar-nav-group">
+                                <h4 class="sidebar-nav-heading">Components</h4>
+                                <div class="sidebar-nav-links">
+                                    <SidebarNavLink href="/components/accordion" ActiveClass="sidebar-nav-link-active">Accordion</SidebarNavLink>
+                                    <SidebarNavLink href="/components/alert" ActiveClass="sidebar-nav-link-active">Alert</SidebarNavLink>
+                                    <SidebarNavLink href="/components/alert-dialog" ActiveClass="sidebar-nav-link-active">Alert Dialog</SidebarNavLink>
+                                    <SidebarNavLink href="/components/aspect-ratio" ActiveClass="sidebar-nav-link-active">Aspect Ratio</SidebarNavLink>
+                                    <SidebarNavLink href="/components/avatar" ActiveClass="sidebar-nav-link-active">Avatar</SidebarNavLink>
+                                    <SidebarNavLink href="/components/badge" ActiveClass="sidebar-nav-link-active">Badge</SidebarNavLink>
+                                    <SidebarNavLink href="/components/breadcrumb" ActiveClass="sidebar-nav-link-active">Breadcrumb</SidebarNavLink>
+                                    <SidebarNavLink href="/components/button" ActiveClass="sidebar-nav-link-active">Button</SidebarNavLink>
+                                    <SidebarNavLink href="/components/button-group" ActiveClass="sidebar-nav-link-active">Button Group</SidebarNavLink>
+                                    <SidebarNavLink href="/components/calendar" ActiveClass="sidebar-nav-link-active">Calendar</SidebarNavLink>
+                                    <SidebarNavLink href="/components/card" ActiveClass="sidebar-nav-link-active">Card</SidebarNavLink>
+                                    <SidebarNavLink href="/components/carousel" ActiveClass="sidebar-nav-link-active">Carousel</SidebarNavLink>
+                                    <SidebarNavLink href="/components/chart" ActiveClass="sidebar-nav-link-active">Chart</SidebarNavLink>
+                                    <SidebarNavLink href="/components/checkbox" ActiveClass="sidebar-nav-link-active">Checkbox</SidebarNavLink>
+                                    <SidebarNavLink href="/components/collapsible" ActiveClass="sidebar-nav-link-active">Collapsible</SidebarNavLink>
+                                    <SidebarNavLink href="/components/combobox" ActiveClass="sidebar-nav-link-active">Combobox</SidebarNavLink>
+                                    <SidebarNavLink href="/components/command" ActiveClass="sidebar-nav-link-active">Command</SidebarNavLink>
+                                    <SidebarNavLink href="/components/context-menu" ActiveClass="sidebar-nav-link-active">Context Menu</SidebarNavLink>
+                                    <SidebarNavLink href="/components/dialog" ActiveClass="sidebar-nav-link-active">Dialog</SidebarNavLink>
+                                    <SidebarNavLink href="/components/direction" ActiveClass="sidebar-nav-link-active">Direction</SidebarNavLink>
+                                    <SidebarNavLink href="/components/drawer" ActiveClass="sidebar-nav-link-active">Drawer</SidebarNavLink>
+                                    <SidebarNavLink href="/components/dropdown-menu" ActiveClass="sidebar-nav-link-active">Dropdown Menu</SidebarNavLink>
+                                    <SidebarNavLink href="/components/empty" ActiveClass="sidebar-nav-link-active">Empty</SidebarNavLink>
+                                    <SidebarNavLink href="/components/field" ActiveClass="sidebar-nav-link-active">Field</SidebarNavLink>
+                                    <SidebarNavLink href="/components/form" ActiveClass="sidebar-nav-link-active">Form</SidebarNavLink>
+                                    <SidebarNavLink href="/components/hover-card" ActiveClass="sidebar-nav-link-active">Hover Card</SidebarNavLink>
+                                    <SidebarNavLink href="/components/input" ActiveClass="sidebar-nav-link-active">Input</SidebarNavLink>
+                                    <SidebarNavLink href="/components/input-group" ActiveClass="sidebar-nav-link-active">Input Group</SidebarNavLink>
+                                    <SidebarNavLink href="/components/input-otp" ActiveClass="sidebar-nav-link-active">Input OTP</SidebarNavLink>
+                                    <SidebarNavLink href="/components/item" ActiveClass="sidebar-nav-link-active">Item</SidebarNavLink>
+                                    <SidebarNavLink href="/components/kbd" ActiveClass="sidebar-nav-link-active">Kbd</SidebarNavLink>
+                                    <SidebarNavLink href="/components/label" ActiveClass="sidebar-nav-link-active">Label</SidebarNavLink>
+                                    <SidebarNavLink href="/components/menubar" ActiveClass="sidebar-nav-link-active">Menubar</SidebarNavLink>
+                                    <SidebarNavLink href="/components/native-select" ActiveClass="sidebar-nav-link-active">Native Select</SidebarNavLink>
+                                    <SidebarNavLink href="/components/navigation-menu" ActiveClass="sidebar-nav-link-active">Navigation Menu</SidebarNavLink>
+                                    <SidebarNavLink href="/components/pagination" ActiveClass="sidebar-nav-link-active">Pagination</SidebarNavLink>
+                                    <SidebarNavLink href="/components/popover" ActiveClass="sidebar-nav-link-active">Popover</SidebarNavLink>
+                                    <SidebarNavLink href="/components/progress" ActiveClass="sidebar-nav-link-active">Progress</SidebarNavLink>
+                                    <SidebarNavLink href="/components/radio-group" ActiveClass="sidebar-nav-link-active">Radio Group</SidebarNavLink>
+                                    <SidebarNavLink href="/components/resizable" ActiveClass="sidebar-nav-link-active">Resizable</SidebarNavLink>
+                                    <SidebarNavLink href="/components/scroll-area" ActiveClass="sidebar-nav-link-active">Scroll Area</SidebarNavLink>
+                                    <SidebarNavLink href="/components/select" ActiveClass="sidebar-nav-link-active">Select</SidebarNavLink>
+                                    <SidebarNavLink href="/components/separator" ActiveClass="sidebar-nav-link-active">Separator</SidebarNavLink>
+                                    <SidebarNavLink href="/components/sheet" ActiveClass="sidebar-nav-link-active">Sheet</SidebarNavLink>
+                                    <SidebarNavLink href="/components/sidebar" ActiveClass="sidebar-nav-link-active">Sidebar</SidebarNavLink>
+                                    <SidebarNavLink href="/components/skeleton" ActiveClass="sidebar-nav-link-active">Skeleton</SidebarNavLink>
+                                    <SidebarNavLink href="/components/slider" ActiveClass="sidebar-nav-link-active">Slider</SidebarNavLink>
+                                    <SidebarNavLink href="/components/sonner" ActiveClass="sidebar-nav-link-active">Sonner</SidebarNavLink>
+                                    <SidebarNavLink href="/components/spinner" ActiveClass="sidebar-nav-link-active">Spinner</SidebarNavLink>
+                                    <SidebarNavLink href="/components/switch" ActiveClass="sidebar-nav-link-active">Switch</SidebarNavLink>
+                                    <SidebarNavLink href="/components/table" ActiveClass="sidebar-nav-link-active">Table</SidebarNavLink>
+                                    <SidebarNavLink href="/components/tabs" ActiveClass="sidebar-nav-link-active">Tabs</SidebarNavLink>
+                                    <SidebarNavLink href="/components/textarea" ActiveClass="sidebar-nav-link-active">Textarea</SidebarNavLink>
+                                    <SidebarNavLink href="/components/toast" ActiveClass="sidebar-nav-link-active">Toast</SidebarNavLink>
+                                    <SidebarNavLink href="/components/toggle" ActiveClass="sidebar-nav-link-active">Toggle</SidebarNavLink>
+                                    <SidebarNavLink href="/components/toggle-group" ActiveClass="sidebar-nav-link-active">Toggle Group</SidebarNavLink>
+                                    <SidebarNavLink href="/components/tooltip" ActiveClass="sidebar-nav-link-active">Tooltip</SidebarNavLink>
+                                    <SidebarNavLink href="/components/typography" ActiveClass="sidebar-nav-link-active">Typography</SidebarNavLink>
+                                </div>
+                            </div>
+                            <div class="sidebar-nav-group">
+                                <h4 class="sidebar-nav-heading">Get started</h4>
+                                <div class="sidebar-nav-links">
+                                    <SidebarNavLink href="/docs/installation" ActiveClass="sidebar-nav-link-active">Installation</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/next" ActiveClass="sidebar-nav-link-active">Next.js</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/vite" ActiveClass="sidebar-nav-link-active">Vite</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/laravel" ActiveClass="sidebar-nav-link-active">Laravel</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/react-router" ActiveClass="sidebar-nav-link-active">React Router</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/remix" ActiveClass="sidebar-nav-link-active">Remix</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/astro" ActiveClass="sidebar-nav-link-active">Astro</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/tanstack" ActiveClass="sidebar-nav-link-active">TanStack</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/tanstack-router" ActiveClass="sidebar-nav-link-active">TanStack Router</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/installation/manual" ActiveClass="sidebar-nav-link-active">Manual</SidebarNavLink>
+                                </div>
+                            </div>
+                            <div class="sidebar-nav-group">
+                                <h4 class="sidebar-nav-heading">Forms</h4>
+                                <div class="sidebar-nav-links">
+                                    <SidebarNavLink href="/docs/forms" ActiveClass="sidebar-nav-link-active">Introduction</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/forms/react-hook-form" ActiveClass="sidebar-nav-link-active">React Hook Form</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/forms/tanstack-form" ActiveClass="sidebar-nav-link-active">TanStack Form</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/forms/next" ActiveClass="sidebar-nav-link-active">Next.js</SidebarNavLink>
+                                </div>
+                            </div>
+                            <div class="sidebar-nav-group">
+                                <h4 class="sidebar-nav-heading">Registry</h4>
+                                <div class="sidebar-nav-links">
+                                    <SidebarNavLink href="/docs/registry" ActiveClass="sidebar-nav-link-active">Introduction</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/getting-started" ActiveClass="sidebar-nav-link-active">Getting Started</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/namespace" ActiveClass="sidebar-nav-link-active">Namespace</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/authentication" ActiveClass="sidebar-nav-link-active">Authentication</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/examples" ActiveClass="sidebar-nav-link-active">Examples</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/mcp" ActiveClass="sidebar-nav-link-active">MCP</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/registry-index" ActiveClass="sidebar-nav-link-active">Registry Index</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/open-in-v0" ActiveClass="sidebar-nav-link-active">Open in v0</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/registry-json" ActiveClass="sidebar-nav-link-active">Registry JSON</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/registry-item-json" ActiveClass="sidebar-nav-link-active">Registry Item JSON</SidebarNavLink>
+                                    <SidebarNavLink href="/docs/registry/faq" ActiveClass="sidebar-nav-link-active">FAQ</SidebarNavLink>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="sidebar-bottom-spacer" aria-hidden="true"></div>
+                    <div class="sidebar-fade-bottom" aria-hidden="true"></div>
+                </div>
+                <div class="sidebar-divider" aria-hidden="true"></div>
+            </aside>
+
+            <main class="min-w-0 h-full w-full">
+                @Body
+            </main>
+        </div>
+    </CascadingValue>
+</div>
+
+@code {
+    private bool _isDark;
+    private bool _sidebarOpen = true;
+
+    private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
+
+    private async Task ToggleDarkMode()
+    {
+        _isDark = await JS.InvokeAsync<bool>("toggleDarkMode");
+    }
+}

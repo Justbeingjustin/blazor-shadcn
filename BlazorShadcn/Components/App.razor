@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="app.css" />
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+
+<body class="min-h-screen font-sans antialiased">
+    <Routes @rendermode="InteractiveServer" />
+    <script src="_framework/blazor.web.js"></script>
+    <script>
+        window.toggleDarkMode = function () {
+            document.documentElement.classList.toggle('dark');
+            return document.documentElement.classList.contains('dark');
+        };
+        window.isDarkMode = function () {
+            return document.documentElement.classList.contains('dark');
+        };
+        window.copyToClipboard = function (text) {
+            return navigator.clipboard.writeText(text);
+        };
+
+        (function () {
+            function getTargetFromHash(hash) {
+                if (!hash || hash[0] !== '#') return null;
+                var id = hash.slice(1);
+                if (!id) return null;
+                try { id = decodeURIComponent(id); } catch { }
+                return document.getElementById(id);
+            }
+
+            function scrollToHashOnce(hash) {
+                var el = getTargetFromHash(hash);
+                if (!el) return false;
+                try {
+                    el.scrollIntoView({
+                        behavior: 'auto',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                } catch {
+                    el.scrollIntoView(true);
+                }
+                return true;
+            }
+
+            // Exposed for debugging and manual calls.
+            window.scrollToHash = function (hash) {
+                var attempts = 0;
+                var maxAttempts = 25;
+                var delayMs = 30;
+
+                function tryScroll() {
+                    attempts += 1;
+                    if (scrollToHashOnce(hash)) return;
+                    if (attempts >= maxAttempts) return;
+                    setTimeout(tryScroll, delayMs);
+                }
+
+                tryScroll();
+            };
+
+            // Handle direct hash navigation / back-forward hash changes.
+            window.addEventListener('hashchange', function () {
+                window.scrollToHash(window.location.hash);
+            });
+
+            // Ensure in-page anchors scroll even when enhanced navigation intercepts clicks.
+            document.addEventListener('click', function (e) {
+                var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                if (!a) return;
+                var href = a.getAttribute('href');
+                if (!href || href === '#') return;
+                e.preventDefault();
+                if (window.location.hash !== href) {
+                    history.replaceState(null, '', href);
+                }
+                window.scrollToHash(href);
+            }, true);
+
+            // Best-effort: if a route loads with a hash already present, scroll after first paint.
+            window.requestAnimationFrame(function () {
+                if (window.location.hash) window.scrollToHash(window.location.hash);
+            });
+        })();
+    </script>
+</body>
+
+</html>

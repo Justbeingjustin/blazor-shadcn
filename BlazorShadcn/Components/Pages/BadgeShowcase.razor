@@ -1,0 +1,299 @@
+@page "/components/badge"
+
+<PageTitle>Badge - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Badge</h1>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="/components/avatar"
+                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7" /></svg>
+                        </a>
+                        <a href="/components/breadcrumb"
+                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 5 7 7-7 7" /></svg>
+                        </a>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Displays a badge or a component that looks like a badge.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex w-full flex-wrap justify-center gap-2">
+                            <Badge>Badge</Badge>
+                            <Badge Variant="BadgeVariant.Secondary">Secondary</Badge>
+                            <Badge Variant="BadgeVariant.Destructive">Destructive</Badge>
+                            <Badge Variant="BadgeVariant.Outline">Outline</Badge>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the badge component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Badge.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceBadgeRazor">@_sourceBadgeRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Variants" Compact="true" CodeText="@codeVariants">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Variant</code> parameter to change badge styles.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex flex-wrap gap-2">
+                                <Badge>Default</Badge>
+                                <Badge Variant="BadgeVariant.Secondary">Secondary</Badge>
+                                <Badge Variant="BadgeVariant.Destructive">Destructive</Badge>
+                                <Badge Variant="BadgeVariant.Outline">Outline</Badge>
+                                <Badge Variant="BadgeVariant.Ghost">Ghost</Badge>
+                                <Badge Variant="BadgeVariant.Link" Href="#">Link</Badge>
+                            </div>
+                        </Preview>
+                        <Code>@codeVariants</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="With Icon" Compact="true" CodeText="@codeWithIcon">
+                        <Preview>
+                            <div class="flex flex-wrap gap-2">
+                                <Badge Variant="BadgeVariant.Secondary">
+                                    <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                                        <path d="m9 12 2 2 4-4" />
+                                    </svg>
+                                    Verified
+                                </Badge>
+                                <Badge Variant="BadgeVariant.Outline">
+                                    Bookmark
+                                    <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z" />
+                                    </svg>
+                                </Badge>
+                            </div>
+                        </Preview>
+                        <Code>@codeWithIcon</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Custom Colors" Compact="true" CodeText="@codeCustomColors">
+                        <Preview>
+                            <div class="flex flex-wrap gap-2">
+                                <Badge Class="bg-green-500 text-white dark:bg-green-600">Success</Badge>
+                                <Badge Class="bg-amber-500 text-white dark:bg-amber-600">Warning</Badge>
+                                <Badge Class="bg-cyan-500 text-white dark:bg-cyan-600">Info</Badge>
+                            </div>
+                        </Preview>
+                        <Code>@codeCustomColors</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Badge</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Default | Secondary | Destructive | Outline | Ghost | Link</code></td><td class="px-4 py-2 text-left whitespace-nowrap">Default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Href</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#variants" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Variants</a>
+                <a href="#with-icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">With Icon</a>
+                <a href="#custom-colors" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Custom Colors</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add badge";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+
+    private static readonly string _sourceBadgeRazor = """
+@if (string.IsNullOrEmpty(Href))
+{
+    <span data-slot="badge" data-variant="@Variant.ToString().ToLowerInvariant()" class="@GetClasses()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </span>
+}
+else
+{
+    <a href="@Href" data-slot="badge" data-variant="@Variant.ToString().ToLowerInvariant()" class="@GetClasses()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </a>
+}
+
+@code {
+    [Parameter] public BadgeVariant Variant { get; set; } = BadgeVariant.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "inline-flex w-fit shrink-0 items-center justify-center whitespace-nowrap overflow-hidden " +
+        "h-5 gap-1 rounded-4xl border px-2 py-0.5 text-xs font-medium transition-all " +
+        "has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3 [&>svg]:pointer-events-none " +
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] " +
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, GetVariantClasses(), Class);
+
+    private string GetVariantClasses() => Variant switch
+    {
+        BadgeVariant.Default => "border-transparent bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+        BadgeVariant.Secondary => "border-transparent bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
+        BadgeVariant.Destructive => "border-transparent bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
+        BadgeVariant.Outline => "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
+        BadgeVariant.Ghost => "border-transparent hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
+        BadgeVariant.Link => "border-transparent text-primary underline-offset-4 hover:underline",
+        _ => ""
+    };
+
+    public enum BadgeVariant
+    {
+        Default,
+        Secondary,
+        Destructive,
+        Outline,
+        Ghost,
+        Link
+    }
+}
+""";
+
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = "<Badge Variant=\"BadgeVariant.Outline\">Badge</Badge>";
+
+    private const string codeMainDemo = @"<div class=""flex w-full flex-wrap justify-center gap-2"">
+    <Badge>Badge</Badge>
+    <Badge Variant=""BadgeVariant.Secondary"">Secondary</Badge>
+    <Badge Variant=""BadgeVariant.Destructive"">Destructive</Badge>
+    <Badge Variant=""BadgeVariant.Outline"">Outline</Badge>
+</div>";
+
+    private const string codeVariants = @"<Badge>Default</Badge>
+<Badge Variant=""BadgeVariant.Secondary"">Secondary</Badge>
+<Badge Variant=""BadgeVariant.Destructive"">Destructive</Badge>
+<Badge Variant=""BadgeVariant.Outline"">Outline</Badge>
+<Badge Variant=""BadgeVariant.Ghost"">Ghost</Badge>
+<Badge Variant=""BadgeVariant.Link"" Href=""#"">Link</Badge>";
+
+    private const string codeWithIcon = @"<Badge Variant=""BadgeVariant.Secondary"">
+    <svg data-icon=""inline-start"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"">
+        <path d=""M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"" />
+        <path d=""m9 12 2 2 4-4"" />
+    </svg>
+    Verified
+</Badge>
+
+<Badge Variant=""BadgeVariant.Outline"">
+    Bookmark
+    <svg data-icon=""inline-end"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"">
+        <path d=""M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"" />
+    </svg>
+</Badge>";
+
+    private const string codeCustomColors = @"<Badge Class=""bg-green-500 text-white dark:bg-green-600"">Success</Badge>
+<Badge Class=""bg-amber-500 text-white dark:bg-amber-600"">Warning</Badge>
+<Badge Class=""bg-cyan-500 text-white dark:bg-cyan-600"">Info</Badge>";
+}

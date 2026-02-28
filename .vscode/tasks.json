@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run BlazorShadcn",
+      "type": "shell",
+      "command": "dotnet run --project .\\BlazorShadcn\\BlazorShadcn.csproj --urls http://localhost:5191",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev-stack",
+        "focus": false,
+        "clear": false
+      },
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": [
+          {
+            "regexp": "^(.*)$",
+            "message": 1
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*$",
+          "endsPattern": "Now listening on:\\s+https?://"
+        }
+      }
+    }  ]
+}

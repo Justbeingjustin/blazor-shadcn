@@ -11,6 +11,9 @@
 *.sln.docstates
 *.env
 
+# Local .NET CLI home/cache (used when sandboxing blocks user profile writes).
+**/.dotnet/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -300,6 +303,11 @@ FakesAssemblies/
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
 node_modules/
+
+# Local artifacts (generated during build/test)
+BlazorShadcn/bin-temp/
+**/test-results/
+**/playwright-report/
 
 # Visual Studio 6 build log
 *.plg

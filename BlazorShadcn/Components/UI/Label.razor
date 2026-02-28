@@ -1,0 +1,19 @@
+<label data-slot="label"
+       for="@For"
+       class="@GetClasses()"
+       @attributes="AdditionalAttributes">
+    @ChildContent
+</label>
+
+@code {
+    [Parameter] public string? For { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+            : $"flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 {Class}";
+}

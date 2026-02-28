@@ -1,0 +1,17 @@
+<div data-slot="card-action"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "col-start-2 row-span-2 row-start-1 self-start justify-self-end"
+            : $"col-start-2 row-span-2 row-start-1 self-start justify-self-end {Class}";
+}

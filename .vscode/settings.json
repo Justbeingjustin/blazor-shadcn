@@ -1,0 +1,4 @@
+{
+  "terminal.integrated.tabs.enabled": true,
+  "terminal.integrated.splitCwd": "inherited"
+}

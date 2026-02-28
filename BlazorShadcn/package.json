@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "scripts": {
+    "css:build": "npx @tailwindcss/cli -i ./Styles/globals.css -o ./wwwroot/app.css --minify",
+    "css:watch": "npx @tailwindcss/cli -i ./Styles/globals.css -o ./wwwroot/app.css --watch",
+    "test:button": "playwright test tests/button-compare.spec.ts",
+    "test:button:headed": "playwright test tests/button-compare.spec.ts --headed",
+    "test:badge": "playwright test tests/badge-compare.spec.ts",
+    "test:badge:headed": "playwright test tests/badge-compare.spec.ts --headed",
+    "test:separator": "playwright test tests/separator-compare.spec.ts",
+    "test:separator:headed": "playwright test tests/separator-compare.spec.ts --headed",
+    "test:nav": "playwright test tests/nav-compare.spec.ts",
+    "test:nav:headed": "playwright test tests/nav-compare.spec.ts --headed",
+    "test:sidebar": "playwright test tests/sidebar-compare.spec.ts",
+"test:sidebar:headed": "playwright test tests/sidebar-compare.spec.ts --headed",
+    "test:pixel": "playwright test tests/pixel-perfect.spec.ts",
+    "test:pixel:headed": "playwright test tests/pixel-perfect.spec.ts --headed"
+},
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@tailwindcss/cli": "^4",
+    "tailwindcss": "^4"
+  }
+}

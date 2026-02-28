@@ -1,0 +1,176 @@
+@page "/docs/installation"
+
+<PageTitle>Installation - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Installation</h1>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[90%]">
+                    Set up a fresh Blazor app for copy/paste components from this site. After this, you can drop in files like <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Button.razor</code> and they render correctly.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <h2 class="font-heading mt-2 scroll-m-28 text-xl font-medium tracking-tight" id="create-app">Create app and install Tailwind CLI</h2>
+                <div class="mt-4">
+                    <CodeBlock RawText="@createCommands">@createCommands</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="package-json">Update package.json</h2>
+                <div class="mt-4">
+                    <CodeBlock RawText="@packageJson">@packageJson</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="globals-css">Create Styles/globals.css</h2>
+                <div class="mt-4">
+                    <CodeBlock RawText="@globalsCss">@globalsCss</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="csproj">Add Tailwind build target to MyApp.csproj</h2>
+                <div class="mt-4">
+                    <CodeBlock RawText="@csprojTarget">@csprojTarget</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="app-razor">Update Components/App.razor</h2>
+                <p class="leading-relaxed mt-4">Use this head/body setup:</p>
+                <div class="mt-4">
+                    <CodeBlock RawText="@appRazorHead">@appRazorHead</CodeBlock>
+                </div>
+                <p class="text-muted-foreground mt-4 text-sm">Important: remove Bootstrap CSS link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">lib/bootstrap/dist/css/bootstrap.min.css</code>) and remove the default app stylesheet link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">@Assets["app.css"]</code>). The template <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">app.css</code> is unlayered CSS and can override Tailwind v4 layered utilities (for example font family).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#create-app" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Create app</a>
+                <a href="#package-json" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">package.json</a>
+                <a href="#globals-css" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">globals.css</a>
+                <a href="#csproj" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">csproj target</a>
+                <a href="#app-razor" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">App.razor</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string createCommands = """
+dotnet new blazor -n MyApp
+cd MyApp
+npm init -y
+npm install -D tailwindcss @tailwindcss/cli
+""";
+
+    private const string packageJson = """
+{
+  "private": true,
+  "scripts": {
+    "css:build": "npx @tailwindcss/cli -i ./Styles/globals.css -o ./wwwroot/tailwind.css --minify",
+    "css:watch": "npx @tailwindcss/cli -i ./Styles/globals.css -o ./wwwroot/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4",
+    "tailwindcss": "^4"
+  }
+}
+""";
+
+    private const string globalsCss = """
+@import "tailwindcss";
+
+@source "../Components/**/*.razor";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+}
+""";
+
+    private const string csprojTarget = """
+<Target Name="BuildTailwindCSS" BeforeTargets="Build">
+  <Exec Command="npx @tailwindcss/cli -i ./Styles/globals.css -o ./wwwroot/tailwind.css --minify" />
+</Target>
+""";
+
+    private const string appRazorHead = """
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <ResourcePreloader />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="@Assets["tailwind.css"]" />
+    <link rel="stylesheet" href="@Assets["MyApp.styles.css"]" />
+    <ImportMap />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <HeadOutlet />
+</head>
+
+    <body class="min-h-screen font-sans antialiased">
+""";
+}

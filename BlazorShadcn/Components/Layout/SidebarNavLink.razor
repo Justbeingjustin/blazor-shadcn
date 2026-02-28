@@ -1,0 +1,12 @@
+@* Renders a sidebar nav link with Reference structure: full-width hit area span + label (ChildContent). *@
+<NavLink href="@Href" class="sidebar-nav-link" ActiveClass="@ActiveClass" Match="@Match">
+    <span class="sidebar-nav-link-hit" aria-hidden="true"></span>
+    <span class="sidebar-nav-link-inner">@ChildContent</span>
+</NavLink>
+
+@code {
+    [Parameter] public string Href { get; set; } = "";
+    [Parameter] public string ActiveClass { get; set; } = "sidebar-nav-link-active";
+    [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}
