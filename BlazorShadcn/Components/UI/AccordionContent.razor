@@ -1,0 +1,46 @@
+<div data-slot="accordion-content"
+     id="@ItemContext!.ContentId"
+     role="region"
+     data-state="@StateValue"
+     aria-labelledby="@ItemContext!.TriggerId"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    <div class="@GetTransitionClasses()">
+        <div class="@GetInnerClasses()">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] private AccordionItemContext? ItemContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "overflow-hidden text-sm";
+
+    private const string InnerBaseClasses = "pt-0 pb-2.5";
+
+    private bool IsOpen => ItemContext is not null && ItemContext.Root.IsOpen(ItemContext.Value);
+    private string StateValue => IsOpen ? "open" : "closed";
+
+    protected override void OnParametersSet()
+    {
+        if (ItemContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(AccordionContent)} must be used inside {nameof(AccordionItem)}.");
+        }
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses);
+    private string GetTransitionClasses()
+        => Tw.Merge(
+            "grid transition-all duration-200 ease-out",
+            IsOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0");
+
+    private string GetInnerClasses() => Tw.Merge("min-h-0", InnerBaseClasses, Class);
+}

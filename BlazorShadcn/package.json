@@ -9,6 +9,8 @@
     "test:badge:headed": "playwright test tests/badge-compare.spec.ts --headed",
     "test:separator": "playwright test tests/separator-compare.spec.ts",
     "test:separator:headed": "playwright test tests/separator-compare.spec.ts --headed",
+    "test:accordion": "playwright test tests/accordion-compare.spec.ts",
+    "test:accordion:headed": "playwright test tests/accordion-compare.spec.ts --headed",
     "test:nav": "playwright test tests/nav-compare.spec.ts",
     "test:nav:headed": "playwright test tests/nav-compare.spec.ts --headed",
     "test:sidebar": "playwright test tests/sidebar-compare.spec.ts",

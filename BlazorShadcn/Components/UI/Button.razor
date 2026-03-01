@@ -32,15 +32,15 @@ else
         "disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none " +
         "shrink-0 [&_svg]:shrink-0 outline-none group/button select-none";
 
-    private string GetClasses() => Tw.Merge(BaseClasses, GetVariantClasses(), GetSizeClasses(), Class);
+    private string GetClasses() => MergeClasses(BaseClasses, GetVariantClasses(), GetSizeClasses(), Class);
 
     private string GetVariantClasses() => Variant switch
     {
         ButtonVariant.Default => "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
         ButtonVariant.Destructive => "bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30",
-        ButtonVariant.Outline => "!border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:!border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        ButtonVariant.Outline => "!border-border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:!border-input dark:hover:bg-input/50 aria-expanded:bg-accent aria-expanded:text-accent-foreground",
         ButtonVariant.Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ButtonVariant.Ghost => "hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        ButtonVariant.Ghost => "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 aria-expanded:bg-accent aria-expanded:text-accent-foreground",
         ButtonVariant.Link => "text-primary underline-offset-4 hover:underline",
         _ => ""
     };
@@ -57,6 +57,141 @@ else
         ButtonSize.IconLg => "size-9 rounded-lg",
         _ => ""
     };
+
+    private static string MergeClasses(params string?[] classes)
+    {
+        var tokens = new List<string>();
+        var lastIndexByKey = new Dictionary<string, int>(StringComparer.Ordinal);
+
+        foreach (var chunk in classes)
+        {
+            if (string.IsNullOrWhiteSpace(chunk))
+            {
+                continue;
+            }
+
+            foreach (var token in chunk.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var key = GetMergeKey(token);
+                if (key is null)
+                {
+                    tokens.Add(token);
+                    continue;
+                }
+
+                if (lastIndexByKey.TryGetValue(key, out var prevIndex))
+                {
+                    tokens[prevIndex] = "";
+                }
+
+                lastIndexByKey[key] = tokens.Count;
+                tokens.Add(token);
+            }
+        }
+
+        if (tokens.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        var sb = new System.Text.StringBuilder(tokens.Count * 8);
+        for (var i = 0; i < tokens.Count; i++)
+        {
+            var t = tokens[i];
+            if (string.IsNullOrEmpty(t))
+            {
+                continue;
+            }
+
+            if (sb.Length > 0)
+            {
+                sb.Append(' ');
+            }
+            sb.Append(t);
+        }
+
+        return sb.ToString();
+    }
+
+    private static string? GetMergeKey(string token)
+    {
+        var (variants, utility) = SplitVariants(token);
+        var utilityForKey = utility.Length > 0 && utility[0] == '!' ? utility[1..] : utility;
+
+        if (utilityForKey.StartsWith("bg-", StringComparison.Ordinal))
+        {
+            return variants + "bg";
+        }
+
+        if (utilityForKey == "border" ||
+            utilityForKey is "border-0" or "border-2" or "border-4" or "border-8")
+        {
+            return variants + "border-width";
+        }
+
+        if (utilityForKey is "border-x" or "border-y" or "border-t" or "border-r" or "border-b" or "border-l" or "border-s" or "border-e")
+        {
+            return variants + utilityForKey;
+        }
+
+        if (utilityForKey.StartsWith("border-", StringComparison.Ordinal))
+        {
+            if (utilityForKey.StartsWith("border-t-", StringComparison.Ordinal)) return variants + "border-t-color";
+            if (utilityForKey.StartsWith("border-r-", StringComparison.Ordinal)) return variants + "border-r-color";
+            if (utilityForKey.StartsWith("border-b-", StringComparison.Ordinal)) return variants + "border-b-color";
+            if (utilityForKey.StartsWith("border-l-", StringComparison.Ordinal)) return variants + "border-l-color";
+            if (utilityForKey.StartsWith("border-s-", StringComparison.Ordinal)) return variants + "border-s-color";
+            if (utilityForKey.StartsWith("border-e-", StringComparison.Ordinal)) return variants + "border-e-color";
+            if (utilityForKey.StartsWith("border-x-", StringComparison.Ordinal)) return variants + "border-x-color";
+            if (utilityForKey.StartsWith("border-y-", StringComparison.Ordinal)) return variants + "border-y-color";
+
+            return variants + "border-color";
+        }
+
+        if (utilityForKey.StartsWith("text-", StringComparison.Ordinal))
+        {
+            var rest = utilityForKey[5..];
+
+            if (rest.Length > 0 && rest[0] == '[') return variants + "text-size";
+            if (rest is "xs" or "sm" or "base" or "lg" or "xl" or "2xl" or "3xl" or "4xl" or "5xl" or "6xl" or "7xl" or "8xl" or "9xl") return variants + "text-size";
+            if (rest is "left" or "right" or "center" or "justify" or "start" or "end") return variants + "text-align";
+            if (rest is "balance" or "pretty" or "nowrap" or "wrap") return variants + "text-wrap";
+
+            return variants + "text-color";
+        }
+
+        return null;
+    }
+
+    private static (string variants, string utility) SplitVariants(string token)
+    {
+        var bracketDepth = 0;
+        var lastColon = -1;
+
+        for (var i = 0; i < token.Length; i++)
+        {
+            var c = token[i];
+            switch (c)
+            {
+                case '[':
+                    bracketDepth++;
+                    break;
+                case ']':
+                    if (bracketDepth > 0) bracketDepth--;
+                    break;
+                case ':':
+                    if (bracketDepth == 0) lastColon = i;
+                    break;
+            }
+        }
+
+        if (lastColon < 0)
+        {
+            return ("", token);
+        }
+
+        return (token[..(lastColon + 1)], token[(lastColon + 1)..]);
+    }
 
     public enum ButtonVariant
     {

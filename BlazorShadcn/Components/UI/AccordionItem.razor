@@ -1,0 +1,54 @@
+<div data-slot="accordion-item"
+     data-state="@StateValue"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_itemContext" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    [CascadingParameter] private AccordionContext? AccordionContext { get; set; }
+
+    [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private AccordionItemContext _itemContext = default!;
+    private string _triggerId = string.Empty;
+    private string _contentId = string.Empty;
+
+    private const string BaseClasses = "border-b last:border-b-0";
+
+    private string StateValue => IsOpen ? "open" : "closed";
+    private bool IsOpen => AccordionContext?.IsOpen(Value) == true;
+
+    protected override void OnInitialized()
+    {
+        var key = Guid.NewGuid().ToString("N", System.Globalization.CultureInfo.InvariantCulture);
+        _triggerId = $"accordion-trigger-{key}";
+        _contentId = $"accordion-content-{key}";
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (AccordionContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(AccordionItem)} must be used inside {nameof(Accordion)}.");
+        }
+
+        _itemContext = new AccordionItemContext
+        {
+            Root = AccordionContext,
+            Value = Value,
+            Disabled = Disabled,
+            TriggerId = _triggerId,
+            ContentId = _contentId
+        };
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+}

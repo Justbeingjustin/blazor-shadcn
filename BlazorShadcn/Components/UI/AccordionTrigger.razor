@@ -1,0 +1,57 @@
+<div class="flex">
+    <button data-slot="accordion-trigger"
+            type="button"
+            id="@ItemContext!.TriggerId"
+            data-state="@StateValue"
+            aria-expanded="@IsOpen.ToString().ToLowerInvariant()"
+            aria-controls="@ItemContext!.ContentId"
+            disabled="@ItemContext!.Disabled"
+            class="@GetClasses()"
+            @onclick="OnClick"
+            @attributes="AdditionalAttributes">
+        @ChildContent
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="@GetIconClasses()">
+            <path d="m6 9 6 6 6-6" />
+        </svg>
+    </button>
+</div>
+
+@code {
+    [CascadingParameter] private AccordionItemContext? ItemContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "focus-visible:ring-ring/50 focus-visible:border-ring relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50";
+
+    private bool IsOpen => ItemContext is not null && ItemContext.Root.IsOpen(ItemContext.Value);
+    private string StateValue => IsOpen ? "open" : "closed";
+
+    protected override void OnParametersSet()
+    {
+        if (ItemContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(AccordionTrigger)} must be used inside {nameof(AccordionItem)}.");
+        }
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+    private string GetIconClasses()
+        => Tw.Merge(
+            "text-muted-foreground pointer-events-none ml-auto size-4 shrink-0",
+            IsOpen ? "rotate-180" : null);
+
+    private Task OnClick() => ItemContext!.Root.ToggleAsync(ItemContext.Value, ItemContext.Disabled);
+}

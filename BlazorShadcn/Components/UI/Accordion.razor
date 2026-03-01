@@ -1,0 +1,42 @@
+<div data-slot="accordion"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_context" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    private readonly AccordionContext _context = new();
+    private bool _defaultsInitialized;
+
+    [Parameter] public AccordionType Type { get; set; } = AccordionType.Single;
+    [Parameter] public bool Collapsible { get; set; }
+    [Parameter] public string? DefaultValue { get; set; }
+    [Parameter] public IEnumerable<string>? DefaultValues { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses = "flex w-full flex-col";
+
+    protected override void OnParametersSet()
+    {
+        _context.Configure(Type, Collapsible, () => InvokeAsync(StateHasChanged));
+
+        if (!_defaultsInitialized)
+        {
+            _context.InitializeDefaults(DefaultValue, DefaultValues);
+            _defaultsInitialized = true;
+        }
+    }
+
+    public enum AccordionType
+    {
+        Single,
+        Multiple
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+}

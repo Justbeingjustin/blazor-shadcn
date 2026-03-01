@@ -16,6 +16,10 @@ Compares the left sidebar and layout toggle with shadcn docs: asserts the sideba
 
 Compares horizontal and vertical separators on our `/components/separator` page with [ui.shadcn.com/docs/components/separator](https://ui.shadcn.com/docs/components/separator). Asserts separator thickness and color match within tolerance.
 
+## Accordion test
+
+Compares main accordion trigger metrics on our `/components/accordion` page with [ui.shadcn.com/docs/components/accordion](https://ui.shadcn.com/docs/components/accordion), validates single-collapsible interaction behavior, and verifies disabled item plus docs pager/copy controls.
+
 ## Run the tests
 
 1. **Start the Blazor app** (from `BlazorShadcn` folder):
@@ -25,6 +29,7 @@ Compares horizontal and vertical separators on our `/components/separator` page 
 2. In another terminal (from `BlazorShadcn` folder):
    ```bash
    npm run test:button
+   npm run test:accordion
    npm run test:separator
    npm run test:nav
    npm run test:sidebar

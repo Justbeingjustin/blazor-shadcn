@@ -1,0 +1,589 @@
+@page "/components/accordion"
+
+<PageTitle>Accordion - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Accordion</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/typography"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/alert"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    A vertically stacked set of interactive headings that each reveal a section of content.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample CodeText="@codeMainDemo">
+                    <Preview>
+                        <Accordion Type="AccordionType.Single" Collapsible="true" DefaultValue="item-1" Class="w-full">
+                            <AccordionItem Value="item-1">
+                                <AccordionTrigger>Product Information</AccordionTrigger>
+                                <AccordionContent>
+                                    Our flagship product combines cutting-edge technology with sleek design and premium materials.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem Value="item-2">
+                                <AccordionTrigger>Shipping Details</AccordionTrigger>
+                                <AccordionContent>
+                                    Standard delivery takes 3-5 business days, while express shipping takes 1-2 business days.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem Value="item-3">
+                                <AccordionTrigger>Return Policy</AccordionTrigger>
+                                <AccordionContent>
+                                    We provide a 30-day return policy with free return shipping.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the accordion component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following files into your project.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualSourceBundle">@manualSourceBundle</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Multiple" Compact="true" CodeText="@codeMultiple">
+                        <Preview>
+                            <Accordion Type="AccordionType.Multiple" DefaultValues="@_multipleDefaults" Class="max-w-lg">
+                                <AccordionItem Value="notifications">
+                                    <AccordionTrigger>Notification Settings</AccordionTrigger>
+                                    <AccordionContent>Manage how you receive notifications.</AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem Value="privacy">
+                                    <AccordionTrigger>Privacy and Security</AccordionTrigger>
+                                    <AccordionContent>Control your privacy settings and security preferences.</AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        </Preview>
+                        <Code>@codeMultiple</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled">
+                        <Preview>
+                            <Accordion Type="AccordionType.Single" Collapsible="true" Class="w-full">
+                                <AccordionItem Value="item-1">
+                                    <AccordionTrigger>Can I access my account history?</AccordionTrigger>
+                                    <AccordionContent>Yes, you can view your complete account history.</AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem Value="item-2" Disabled="true">
+                                    <AccordionTrigger>Premium feature information</AccordionTrigger>
+                                    <AccordionContent>This section contains premium feature information.</AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        </Preview>
+                        <Code>@codeDisabled</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Type</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Single | Multiple</code></td><td class="px-4 py-2 text-left whitespace-nowrap">Single</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Collapsible</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultValue</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultValues</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">IEnumerable&lt;string&gt;?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#multiple" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Multiple</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Disabled</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+    private static readonly string[] _multipleDefaults = ["notifications"];
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add accordion";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/accordion";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private static readonly string manualSourceBundle = $$"""
+// Components/UI/Accordion.razor
+{{_sourceAccordionRazor}}
+
+// Components/UI/AccordionItem.razor
+{{_sourceAccordionItemRazor}}
+
+// Components/UI/AccordionTrigger.razor
+{{_sourceAccordionTriggerRazor}}
+
+// Components/UI/AccordionContent.razor
+{{_sourceAccordionContentRazor}}
+
+// Components/UI/AccordionContext.cs
+{{_sourceAccordionContextCs}}
+""";
+
+    private static readonly string _sourceAccordionRazor = """
+<div data-slot="accordion"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_context" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    private readonly AccordionContext _context = new();
+    private bool _defaultsInitialized;
+
+    [Parameter] public AccordionType Type { get; set; } = AccordionType.Single;
+    [Parameter] public bool Collapsible { get; set; }
+    [Parameter] public string? DefaultValue { get; set; }
+    [Parameter] public IEnumerable<string>? DefaultValues { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses = "flex w-full flex-col";
+
+    protected override void OnParametersSet()
+    {
+        _context.Configure(Type, Collapsible, () => InvokeAsync(StateHasChanged));
+
+        if (!_defaultsInitialized)
+        {
+            _context.InitializeDefaults(DefaultValue, DefaultValues);
+            _defaultsInitialized = true;
+        }
+    }
+
+    public enum AccordionType
+    {
+        Single,
+        Multiple
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+}
+""";
+
+    private static readonly string _sourceAccordionItemRazor = """
+<div data-slot="accordion-item"
+     data-state="@StateValue"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_itemContext" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    [CascadingParameter] private AccordionContext? AccordionContext { get; set; }
+
+    [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private AccordionItemContext _itemContext = default!;
+    private string _triggerId = string.Empty;
+    private string _contentId = string.Empty;
+
+    private const string BaseClasses = "border-b last:border-b-0";
+
+    private string StateValue => IsOpen ? "open" : "closed";
+    private bool IsOpen => AccordionContext?.IsOpen(Value) == true;
+
+    protected override void OnInitialized()
+    {
+        var key = Guid.NewGuid().ToString("N", System.Globalization.CultureInfo.InvariantCulture);
+        _triggerId = $"accordion-trigger-{key}";
+        _contentId = $"accordion-content-{key}";
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (AccordionContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(AccordionItem)} must be used inside {nameof(Accordion)}.");
+        }
+
+        _itemContext = new AccordionItemContext
+        {
+            Root = AccordionContext,
+            Value = Value,
+            Disabled = Disabled,
+            TriggerId = _triggerId,
+            ContentId = _contentId
+        };
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+}
+""";
+
+    private static readonly string _sourceAccordionTriggerRazor = """
+<div class="flex">
+    <button data-slot="accordion-trigger"
+            type="button"
+            id="@ItemContext!.TriggerId"
+            data-state="@StateValue"
+            aria-expanded="@IsOpen.ToString().ToLowerInvariant()"
+            aria-controls="@ItemContext!.ContentId"
+            disabled="@ItemContext!.Disabled"
+            class="@GetClasses()"
+            @onclick="OnClick"
+            @attributes="AdditionalAttributes">
+        @ChildContent
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="@GetIconClasses()">
+            <path d="m6 9 6 6 6-6" />
+        </svg>
+    </button>
+</div>
+
+@code {
+    [CascadingParameter] private AccordionItemContext? ItemContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "focus-visible:ring-ring/50 focus-visible:border-ring relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50";
+
+    private bool IsOpen => ItemContext is not null && ItemContext.Root.IsOpen(ItemContext.Value);
+    private string StateValue => IsOpen ? "open" : "closed";
+
+    protected override void OnParametersSet()
+    {
+        if (ItemContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(AccordionTrigger)} must be used inside {nameof(AccordionItem)}.");
+        }
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+    private string GetIconClasses()
+        => Tw.Merge(
+            "text-muted-foreground pointer-events-none ml-auto size-4 shrink-0",
+            IsOpen ? "rotate-180" : null);
+
+    private Task OnClick() => ItemContext!.Root.ToggleAsync(ItemContext.Value, ItemContext.Disabled);
+}
+""";
+
+    private static readonly string _sourceAccordionContentRazor = """
+<div data-slot="accordion-content"
+     id="@ItemContext!.ContentId"
+     role="region"
+     data-state="@StateValue"
+     aria-labelledby="@ItemContext!.TriggerId"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    <div class="@GetTransitionClasses()">
+        <div class="@GetInnerClasses()">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] private AccordionItemContext? ItemContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "overflow-hidden text-sm";
+
+    private const string InnerBaseClasses = "pt-0 pb-2.5";
+
+    private bool IsOpen => ItemContext is not null && ItemContext.Root.IsOpen(ItemContext.Value);
+    private string StateValue => IsOpen ? "open" : "closed";
+
+    protected override void OnParametersSet()
+    {
+        if (ItemContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(AccordionContent)} must be used inside {nameof(AccordionItem)}.");
+        }
+    }
+
+    private string GetClasses() => Tw.Merge(BaseClasses);
+    private string GetTransitionClasses()
+        => Tw.Merge(
+            "grid transition-all duration-200 ease-out",
+            IsOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0");
+
+    private string GetInnerClasses() => Tw.Merge("min-h-0", InnerBaseClasses, Class);
+}
+""";
+
+    private static readonly string _sourceAccordionContextCs = """
+namespace BlazorShadcn.Components.UI;
+
+internal sealed class AccordionContext
+{
+    private readonly HashSet<string> _openItems = new(StringComparer.Ordinal);
+    private Func<Task>? _stateChanged;
+
+    public Accordion.AccordionType Type { get; private set; } = Accordion.AccordionType.Single;
+    public bool Collapsible { get; private set; }
+
+    public void Configure(Accordion.AccordionType type, bool collapsible, Func<Task> stateChanged)
+    {
+        Type = type;
+        Collapsible = collapsible;
+        _stateChanged = stateChanged;
+    }
+
+    public void InitializeDefaults(string? defaultValue, IEnumerable<string>? defaultValues)
+    {
+        _openItems.Clear();
+
+        if (Type == Accordion.AccordionType.Single)
+        {
+            if (!string.IsNullOrWhiteSpace(defaultValue))
+            {
+                _openItems.Add(defaultValue);
+            }
+
+            return;
+        }
+
+        if (defaultValues is null)
+        {
+            return;
+        }
+
+        foreach (var value in defaultValues)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                _openItems.Add(value);
+            }
+        }
+    }
+
+    public bool IsOpen(string value) => _openItems.Contains(value);
+
+    public async Task ToggleAsync(string value, bool disabled)
+    {
+        if (disabled || string.IsNullOrWhiteSpace(value))
+        {
+            return;
+        }
+
+        if (Type == Accordion.AccordionType.Single)
+        {
+            if (_openItems.Contains(value))
+            {
+                if (Collapsible)
+                {
+                    _openItems.Clear();
+                    await NotifyChangedAsync();
+                }
+
+                return;
+            }
+
+            _openItems.Clear();
+            _openItems.Add(value);
+            await NotifyChangedAsync();
+            return;
+        }
+
+        if (_openItems.Contains(value))
+        {
+            _openItems.Remove(value);
+        }
+        else
+        {
+            _openItems.Add(value);
+        }
+
+        await NotifyChangedAsync();
+    }
+
+    private Task NotifyChangedAsync() => _stateChanged is null ? Task.CompletedTask : _stateChanged();
+}
+
+internal sealed class AccordionItemContext
+{
+    public required AccordionContext Root { get; init; }
+    public required string Value { get; init; }
+    public bool Disabled { get; init; }
+    public required string TriggerId { get; init; }
+    public required string ContentId { get; init; }
+}
+""";
+
+    private const string usingStatement = "@using BlazorShadcn.Components.UI\n@using AccordionType = BlazorShadcn.Components.UI.Accordion.AccordionType";
+
+    private const string usageCode = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"">
+    <AccordionItem Value=""item-1"">
+        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+            Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>";
+
+    private const string codeMainDemo = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"" Class=""w-full"">
+    <AccordionItem Value=""item-1"">
+        <AccordionTrigger>Product Information</AccordionTrigger>
+        <AccordionContent>Our flagship product combines cutting-edge technology with sleek design.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""item-2"">
+        <AccordionTrigger>Shipping Details</AccordionTrigger>
+        <AccordionContent>Standard delivery takes 3-5 business days.</AccordionContent>
+    </AccordionItem>
+</Accordion>";
+
+    private const string codeMultiple = @"<Accordion Type=""AccordionType.Multiple"" DefaultValues=""new[] { ""notifications"" }"" Class=""max-w-lg"">
+    <AccordionItem Value=""notifications"">
+        <AccordionTrigger>Notification Settings</AccordionTrigger>
+        <AccordionContent>Manage how you receive notifications.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""privacy"">
+        <AccordionTrigger>Privacy and Security</AccordionTrigger>
+        <AccordionContent>Control your privacy settings and security preferences.</AccordionContent>
+    </AccordionItem>
+</Accordion>";
+
+    private const string codeDisabled = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" Class=""w-full"">
+    <AccordionItem Value=""item-1"">
+        <AccordionTrigger>Can I access my account history?</AccordionTrigger>
+        <AccordionContent>Yes, you can view your complete account history.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""item-2"" Disabled=""true"">
+        <AccordionTrigger>Premium feature information</AccordionTrigger>
+        <AccordionContent>This section contains premium feature information.</AccordionContent>
+    </AccordionItem>
+</Accordion>";
+}
