@@ -1,0 +1,22 @@
+<div data-slot="collapsible-content"
+     data-state="@(_context?.GetOpen() == true ? "open" : "closed")"
+     hidden="@(!_forceMount && _context?.GetOpen() != true)"
+     class="@Class"
+     @attributes="AdditionalAttributes">
+    @if (_forceMount || _context?.GetOpen() == true)
+    {
+        @ChildContent
+    }
+</div>
+
+@code {
+    [CascadingParameter] private CollapsibleContext? _context { get; set; }
+
+    [Parameter] public bool ForceMount { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool _forceMount => ForceMount;
+}

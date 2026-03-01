@@ -48,7 +48,7 @@
             @* Page content *@
             <div class="w-full flex-1">
                 @* Main preview *@
-                <ComponentExample>
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
                     <Preview>
                         <Card Class="w-full max-w-sm">
                             <CardHeader>
@@ -81,16 +81,86 @@
 
                 @* Installation *@
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
-                <p class="leading-relaxed mt-6">Copy the component files into your project:</p>
-                <div class="mt-6">
-                    <CodeBlock RawText="Components/UI/Card.razor&#10;Components/UI/CardHeader.razor&#10;Components/UI/CardTitle.razor&#10;Components/UI/CardDescription.razor&#10;Components/UI/CardContent.razor&#10;Components/UI/CardFooter.razor&#10;Components/UI/CardAction.razor">Components/UI/Card.razor
-Components/UI/CardHeader.razor
-Components/UI/CardTitle.razor
-Components/UI/CardDescription.razor
-Components/UI/CardContent.razor
-Components/UI/CardFooter.razor
-Components/UI/CardAction.razor</CodeBlock>
+                <p class="leading-relaxed mt-6">Install the card component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
                 </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following files into your project.</p>
+
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Card.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardRazor">@_sourceCardRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardHeader.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardHeaderRazor">@_sourceCardHeaderRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardTitle.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardTitleRazor">@_sourceCardTitleRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardDescription.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardDescriptionRazor">@_sourceCardDescriptionRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardContent.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardContentRazor">@_sourceCardContentRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardFooter.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardFooterRazor">@_sourceCardFooterRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardAction.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCardActionRazor">@_sourceCardActionRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 @* Usage *@
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
@@ -193,7 +263,157 @@ Components/UI/CardAction.razor</CodeBlock>
 </div>
 
 @code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add card";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/card";
+
+    private static readonly string _sourceCardRazor = """
+<div data-slot="card"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+            : $"bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm {Class}";
+}
+""";
+
+    private static readonly string _sourceCardHeaderRazor = """
+<div data-slot="card-header"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6"
+            : $"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 {Class}";
+}
+""";
+
+    private static readonly string _sourceCardTitleRazor = """
+<div data-slot="card-title"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "leading-none font-semibold"
+            : $"leading-none font-semibold {Class}";
+}
+""";
+
+    private static readonly string _sourceCardDescriptionRazor = """
+<div data-slot="card-description"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "text-muted-foreground text-sm"
+            : $"text-muted-foreground text-sm {Class}";
+}
+""";
+
+    private static readonly string _sourceCardContentRazor = """
+<div data-slot="card-content"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "px-6"
+            : $"px-6 {Class}";
+}
+""";
+
+    private static readonly string _sourceCardFooterRazor = """
+<div data-slot="card-footer"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "flex items-center px-6 [.border-t]:pt-6"
+            : $"flex items-center px-6 [.border-t]:pt-6 {Class}";
+}
+""";
+
+    private static readonly string _sourceCardActionRazor = """
+<div data-slot="card-action"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "col-start-2 row-span-2 row-start-1 self-start justify-self-end"
+            : $"col-start-2 row-span-2 row-start-1 self-start justify-self-end {Class}";
+}
+""";
 
     private const string codeMainDemo = @"<Card Class=""w-full max-w-sm"">
     <CardHeader>

@@ -1,0 +1,67 @@
+<CascadingValue Value="@_context" IsFixed="true">
+    <div data-slot="collapsible"
+         data-state="@(_currentOpen ? "open" : "closed")"
+         class="@GetClasses()"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    [Parameter] public bool? Open { get; set; }
+    [Parameter] public bool DefaultOpen { get; set; }
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool _isInitialized;
+    private bool _uncontrolledOpen;
+
+    private bool _currentOpen => Open ?? _uncontrolledOpen;
+
+    private CollapsibleContext _context = default!;
+
+    protected override void OnInitialized()
+    {
+        _context = new CollapsibleContext
+        {
+            GetOpen = () => _currentOpen,
+            ToggleAsync = ToggleAsync
+        };
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (_isInitialized)
+        {
+            return;
+        }
+
+        _uncontrolledOpen = DefaultOpen;
+        _isInitialized = true;
+    }
+
+    private async Task ToggleAsync()
+    {
+        var next = !_currentOpen;
+
+        if (Open is null)
+        {
+            _uncontrolledOpen = next;
+        }
+
+        if (OpenChanged.HasDelegate)
+        {
+            await OpenChanged.InvokeAsync(next);
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? string.Empty
+            : Class;
+}

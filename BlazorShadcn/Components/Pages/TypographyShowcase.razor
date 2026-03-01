@@ -1,0 +1,397 @@
+@page "/components/typography"
+
+<PageTitle>Typography - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Typography</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/tooltip"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/docs/components"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Styles for headings, paragraphs, lists, and other text elements.
+                </p>
+                <p class="text-muted-foreground text-sm leading-relaxed md:max-w-[90%]">
+                    We do not ship any typography styles by default. This page shows how to use utility classes to style text.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeDemo">
+                    <Preview>
+                        <div>
+                            <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
+                                Taxing Laughter: The Joke Tax Chronicles
+                            </h1>
+                            <p class="text-muted-foreground text-xl leading-7 [&amp;:not(:first-child)]:mt-6">
+                                Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne.
+                                One day, his advisors came to him with a problem: the kingdom was running out of money.
+                            </p>
+                            <h2 class="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+                                The King's Plan
+                            </h2>
+                            <p class="leading-7 [&amp;:not(:first-child)]:mt-6">
+                                The king thought long and hard, and finally came up with
+                                <a href="#" @onclick:preventDefault="true" class="text-primary font-medium underline underline-offset-4"> a brilliant plan </a>
+                                : he would tax the jokes in the kingdom.
+                            </p>
+                            <blockquote class="mt-6 border-l-2 pl-6 italic">
+                                "After all," he said, "everyone enjoys a good joke, so it's only fair that they should pay for the privilege."
+                            </blockquote>
+                            <h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
+                                The Joke Tax
+                            </h3>
+                            <p class="leading-7 [&amp;:not(:first-child)]:mt-6">
+                                The king's subjects were not amused. They grumbled and complained, but the king was firm:
+                            </p>
+                            <ul class="my-6 ml-6 list-disc [&amp;>li]:mt-2">
+                                <li>1st level of puns: 5 gold coins</li>
+                                <li>2nd level of jokes: 10 gold coins</li>
+                                <li>3rd level of one-liners : 20 gold coins</li>
+                            </ul>
+                            <p class="leading-7 [&amp;:not(:first-child)]:mt-6">
+                                As a result, people stopped telling jokes, and the kingdom fell into a gloom.
+                            </p>
+                            <div class="my-6 w-full overflow-y-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <th class="border px-4 py-2 text-left font-bold [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">King's Treasury</th>
+                                            <th class="border px-4 py-2 text-left font-bold [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">People's happiness</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Empty</td>
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Overflowing</td>
+                                        </tr>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Modest</td>
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Satisfied</td>
+                                        </tr>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Full</td>
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Ecstatic</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="leading-7 [&amp;:not(:first-child)]:mt-6">
+                                The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax.
+                            </p>
+                        </div>
+                    </Preview>
+                    <Code>@codeDemo</Code>
+                </ComponentExample>
+
+                <div class="mt-6">
+                    <ComponentExample Title="h1" Compact="true" CodeText="@codeH1">
+                        <Preview>
+                            <h1 class="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
+                                Taxing Laughter: The Joke Tax Chronicles
+                            </h1>
+                        </Preview>
+                        <Code>@codeH1</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="h2" Compact="true" CodeText="@codeH2">
+                        <Preview>
+                            <h2 class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+                                The People of the Kingdom
+                            </h2>
+                        </Preview>
+                        <Code>@codeH2</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="h3" Compact="true" CodeText="@codeH3">
+                        <Preview>
+                            <h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">
+                                The Joke Tax
+                            </h3>
+                        </Preview>
+                        <Code>@codeH3</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="h4" Compact="true" CodeText="@codeH4">
+                        <Preview>
+                            <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
+                                People stopped telling jokes
+                            </h4>
+                        </Preview>
+                        <Code>@codeH4</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="p" Compact="true" CodeText="@codeP">
+                        <Preview>
+                            <p class="leading-7 [&amp;:not(:first-child)]:mt-6">
+                                The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax.
+                            </p>
+                        </Preview>
+                        <Code>@codeP</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="blockquote" Compact="true" CodeText="@codeBlockquote">
+                        <Preview>
+                            <blockquote class="mt-6 border-l-2 pl-6 italic">
+                                "After all," he said, "everyone enjoys a good joke, so it's only fair that they should pay for the privilege."
+                            </blockquote>
+                        </Preview>
+                        <Code>@codeBlockquote</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="table" Compact="true" CodeText="@codeTable">
+                        <Preview>
+                            <div class="my-6 w-full overflow-y-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <th class="border px-4 py-2 text-left font-bold [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">King's Treasury</th>
+                                            <th class="border px-4 py-2 text-left font-bold [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">People's happiness</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Empty</td>
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Overflowing</td>
+                                        </tr>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Modest</td>
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Satisfied</td>
+                                        </tr>
+                                        <tr class="even:bg-muted m-0 border-t p-0">
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Full</td>
+                                            <td class="border px-4 py-2 text-left [&amp;[align=center]]:text-center [&amp;[align=right]]:text-right">Ecstatic</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Preview>
+                        <Code>@codeTable</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="list" Compact="true" CodeText="@codeList">
+                        <Preview>
+                            <ul class="my-6 ml-6 list-disc [&amp;>li]:mt-2">
+                                <li>1st level of puns: 5 gold coins</li>
+                                <li>2nd level of jokes: 10 gold coins</li>
+                                <li>3rd level of one-liners : 20 gold coins</li>
+                            </ul>
+                        </Preview>
+                        <Code>@codeList</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Inline code" Compact="true" CodeText="@codeInlineCode">
+                        <Preview>
+                            <code class="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+                                @("@radix-ui/react-alert-dialog")
+                            </code>
+                        </Preview>
+                        <Code>@codeInlineCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Lead" Compact="true" CodeText="@codeLead">
+                        <Preview>
+                            <p class="text-muted-foreground text-xl">
+                                A modal dialog that interrupts the user with important content and expects a response.
+                            </p>
+                        </Preview>
+                        <Code>@codeLead</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Large" Compact="true" CodeText="@codeLarge">
+                        <Preview>
+                            <div class="text-lg font-semibold">Are you absolutely sure?</div>
+                        </Preview>
+                        <Code>@codeLarge</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Small" Compact="true" CodeText="@codeSmall">
+                        <Preview>
+                            <small class="text-sm leading-none font-medium">Email address</small>
+                        </Preview>
+                        <Code>@codeSmall</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Muted" Compact="true" CodeText="@codeMuted">
+                        <Preview>
+                            <p class="text-muted-foreground text-sm">Enter your email address.</p>
+                        </Preview>
+                        <Code>@codeMuted</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                <p class="text-muted-foreground mt-4 text-sm">
+                    To enable RTL support in shadcn/ui, see the RTL configuration guide.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@codeRtl">
+                        <Preview>
+                            <div dir="rtl">
+                                <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
+                                    Taxing Laughter: The Joke Tax Chronicles
+                                </h1>
+                                <p class="text-muted-foreground text-xl leading-7 [&amp;:not(:first-child)]:mt-6">
+                                    Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne.
+                                </p>
+                            </div>
+                        </Preview>
+                        <Code>@codeRtl</Code>
+                    </ComponentExample>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#h1" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h1</a>
+                <a href="#h2" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h2</a>
+                <a href="#h3" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h3</a>
+                <a href="#h4" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h4</a>
+                <a href="#p" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">p</a>
+                <a href="#blockquote" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">blockquote</a>
+                <a href="#table" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">table</a>
+                <a href="#list" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">list</a>
+                <a href="#inline-code" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Inline code</a>
+                <a href="#lead" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Lead</a>
+                <a href="#large" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Large</a>
+                <a href="#small" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Small</a>
+                <a href="#muted" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Muted</a>
+                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/typography";
+
+    private const string codeDemo = @"<div>
+  <h1 class=""scroll-m-20 text-4xl font-extrabold tracking-tight text-balance"">
+    Taxing Laughter: The Joke Tax Chronicles
+  </h1>
+  <p class=""text-muted-foreground text-xl leading-7 [&:not(:first-child)]:mt-6"">
+    Once upon a time, in a far-off land...
+  </p>
+  <h2 class=""mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"">
+    The King's Plan
+  </h2>
+  <blockquote class=""mt-6 border-l-2 pl-6 italic"">
+    ""After all,"" he said...
+  </blockquote>
+</div>";
+
+    private const string codeH1 = @"<h1 class=""scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance"">
+  Taxing Laughter: The Joke Tax Chronicles
+</h1>";
+
+    private const string codeH2 = @"<h2 class=""scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0"">
+  The People of the Kingdom
+</h2>";
+
+    private const string codeH3 = @"<h3 class=""scroll-m-20 text-2xl font-semibold tracking-tight"">
+  The Joke Tax
+</h3>";
+
+    private const string codeH4 = @"<h4 class=""scroll-m-20 text-xl font-semibold tracking-tight"">
+  People stopped telling jokes
+</h4>";
+
+    private const string codeP = @"<p class=""leading-7 [&:not(:first-child)]:mt-6"">
+  The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax.
+</p>";
+
+    private const string codeBlockquote = @"<blockquote class=""mt-6 border-l-2 pl-6 italic"">
+  ""After all,"" he said, ""everyone enjoys a good joke, so it's only fair that they should pay for the privilege.""
+</blockquote>";
+
+    private const string codeTable = @"<div class=""my-6 w-full overflow-y-auto"">
+  <table class=""w-full"">...</table>
+</div>";
+
+    private const string codeList = @"<ul class=""my-6 ml-6 list-disc [&>li]:mt-2"">
+  <li>1st level of puns: 5 gold coins</li>
+  <li>2nd level of jokes: 10 gold coins</li>
+  <li>3rd level of one-liners : 20 gold coins</li>
+</ul>";
+
+    private const string codeInlineCode = @"<code class=""bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold"">
+  @radix-ui/react-alert-dialog
+</code>";
+
+    private const string codeLead = @"<p class=""text-muted-foreground text-xl"">
+  A modal dialog that interrupts the user with important content and expects a response.
+</p>";
+
+    private const string codeLarge = @"<div class=""text-lg font-semibold"">Are you absolutely sure?</div>";
+
+    private const string codeSmall = @"<small class=""text-sm leading-none font-medium"">Email address</small>";
+
+    private const string codeMuted = @"<p class=""text-muted-foreground text-sm"">Enter your email address.</p>";
+
+    private const string codeRtl = @"<div dir=""rtl"">
+  <h1 class=""scroll-m-20 text-4xl font-extrabold tracking-tight text-balance"">
+    Taxing Laughter: The Joke Tax Chronicles
+  </h1>
+  <p class=""text-muted-foreground text-xl leading-7 [&:not(:first-child)]:mt-6"">
+    Once upon a time, in a far-off land, there was a very lazy king...
+  </p>
+</div>";
+}

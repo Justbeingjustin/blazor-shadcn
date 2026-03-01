@@ -1,0 +1,524 @@
+@page "/components/input"
+
+<PageTitle>Input - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Input</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/hover-card"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/input-group"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    A text input component for forms and user data entry with built-in styling and accessibility features.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="grid w-full max-w-sm items-center gap-3">
+                            <Label For="input-api-key">API Key</Label>
+                            <Input id="input-api-key" Type="password" Placeholder="sk-4f9f2b5a6c8d1e3f" />
+                            <p class="text-muted-foreground text-sm">Keep your API key secure and never share it publicly.</p>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the input component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Input.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceInputRazor">@_sourceInputRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true" CodeText="@codeBasic">
+                        <Preview>
+                            <div class="w-full max-w-xs">
+                                <Input Type="text" Placeholder="Enter text" />
+                            </div>
+                        </Preview>
+                        <Code>@codeBasic</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Field" Compact="true" CodeText="@codeField">
+                        <Preview>
+                            <div class="grid w-full max-w-sm items-center gap-3">
+                                <Label For="input-field-username">Username</Label>
+                                <Input id="input-field-username" Type="text" Placeholder="Enter your username" />
+                                <p class="text-muted-foreground text-sm">Choose a unique username for your account.</p>
+                            </div>
+                        </Preview>
+                        <Code>@codeField</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Field Group" Compact="true" CodeText="@codeFieldGroup">
+                        <Preview>
+                            <div class="grid w-full max-w-sm gap-4">
+                                <div class="grid gap-2">
+                                    <Label For="input-field-group-name">Name</Label>
+                                    <Input id="input-field-group-name" Placeholder="Evil Rabbit" />
+                                </div>
+                                <div class="grid gap-2">
+                                    <Label For="input-field-group-email">Email</Label>
+                                    <Input id="input-field-group-email" Type="email" Placeholder="Email" />
+                                    <p class="text-muted-foreground text-sm">We will send updates to this address.</p>
+                                </div>
+                                <div class="flex items-center justify-end gap-2">
+                                    <Button Variant="ButtonVariant.Outline" Type="button">Reset</Button>
+                                    <Button Type="submit">Submit</Button>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeFieldGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled">
+                        <Preview>
+                            <div class="grid w-full max-w-sm items-center gap-3">
+                                <Label For="input-disabled-email">Email</Label>
+                                <Input id="input-disabled-email" Placeholder="Email" Disabled="true" />
+                                <p class="text-muted-foreground text-sm">This field is currently disabled.</p>
+                            </div>
+                        </Preview>
+                        <Code>@codeDisabled</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Invalid" Compact="true" CodeText="@codeInvalid">
+                        <Preview>
+                            <div class="grid w-full max-w-sm items-center gap-3">
+                                <Label For="input-invalid-email">Email</Label>
+                                <Input id="input-invalid-email" Type="email" Placeholder="Email" aria-invalid="true" />
+                                <p class="text-destructive text-sm">Please enter a valid email address.</p>
+                            </div>
+                        </Preview>
+                        <Code>@codeInvalid</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="File" Compact="true" CodeText="@codeFile">
+                        <Preview>
+                            <div class="grid w-full max-w-sm items-center gap-3">
+                                <Label For="input-file-picture">Picture</Label>
+                                <Input id="input-file-picture" Type="file" />
+                                <p class="text-muted-foreground text-sm">Select a picture to upload.</p>
+                            </div>
+                        </Preview>
+                        <Code>@codeFile</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Inline" Compact="true" CodeText="@codeInline">
+                        <Preview>
+                            <div class="flex w-full max-w-sm items-center gap-2">
+                                <Label For="input-inline-search" Class="sr-only">Search</Label>
+                                <Input id="input-inline-search" Type="text" Placeholder="Search..." />
+                                <Button Variant="ButtonVariant.Outline" Type="submit">Search</Button>
+                            </div>
+                        </Preview>
+                        <Code>@codeInline</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Grid" Compact="true" CodeText="@codeGrid">
+                        <Preview>
+                            <div class="grid w-full max-w-sm grid-cols-2 gap-2">
+                                <div class="grid gap-2">
+                                    <Label For="input-grid-first">First Name</Label>
+                                    <Input id="input-grid-first" Placeholder="John" />
+                                </div>
+                                <div class="grid gap-2">
+                                    <Label For="input-grid-last">Last Name</Label>
+                                    <Input id="input-grid-last" Placeholder="Doe" />
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeGrid</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Required" Compact="true" CodeText="@codeRequired">
+                        <Preview>
+                            <div class="grid w-full max-w-sm items-center gap-3">
+                                <Label For="input-required-field">Required Field <span aria-hidden="true" class="text-destructive">*</span></Label>
+                                <Input id="input-required-field" Type="text" Placeholder="This field is required" required />
+                                <p class="text-muted-foreground text-sm">This field must be filled in before submitting.</p>
+                            </div>
+                        </Preview>
+                        <Code>@codeRequired</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Badge" Compact="true" CodeText="@codeBadge">
+                        <Preview>
+                            <div class="grid w-full max-w-sm items-center gap-3">
+                                <div class="flex items-center gap-2">
+                                    <Label For="input-badge-url">Webhook URL</Label>
+                                    <Badge Variant="BadgeVariant.Secondary">Beta</Badge>
+                                </div>
+                                <Input id="input-badge-url" Type="url" Placeholder="https://api.example.com/webhook" />
+                            </div>
+                        </Preview>
+                        <Code>@codeBadge</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Input Group" Compact="true" CodeText="@codeInputGroup">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Fallback example until the dedicated <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Input Group</code> component page is implemented.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex w-full max-w-sm items-center rounded-md border border-input bg-background px-3">
+                                <span class="text-muted-foreground text-sm">https://</span>
+                                <Input Class="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:border-transparent" Placeholder="example.com" />
+                            </div>
+                        </Preview>
+                        <Code>@codeInputGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Button Group" Compact="true" CodeText="@codeButtonGroup">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Fallback example until the dedicated <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Button Group</code> component page is implemented.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex w-full max-w-sm items-center gap-2">
+                                <Input Placeholder="Search..." />
+                                <Button Variant="ButtonVariant.Outline" Type="button">Go</Button>
+                                <Button Variant="ButtonVariant.Outline" Type="button">Clear</Button>
+                            </div>
+                        </Preview>
+                        <Code>@codeButtonGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Form" Compact="true" CodeText="@codeForm">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Fallback form example using currently implemented components.</p>
+                        </Description>
+                        <Preview>
+                            <form class="grid w-full max-w-sm gap-4" onsubmit="return false;">
+                                <div class="grid gap-2">
+                                    <Label For="input-form-name">Name</Label>
+                                    <Input id="input-form-name" Placeholder="Evil Rabbit" required />
+                                </div>
+                                <div class="grid gap-2">
+                                    <Label For="input-form-email">Email</Label>
+                                    <Input id="input-form-email" Type="email" Placeholder="m@example.com" required />
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <Button Type="submit">Submit</Button>
+                                    <Button Variant="ButtonVariant.Outline" Type="button">Cancel</Button>
+                                </div>
+                            </form>
+                        </Preview>
+                        <Code>@codeForm</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Input</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Type</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"text"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Placeholder</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Value</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#basic" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Basic</a>
+                <a href="#field" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Field</a>
+                <a href="#field-group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Field Group</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Disabled</a>
+                <a href="#invalid" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Invalid</a>
+                <a href="#file" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">File</a>
+                <a href="#inline" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Inline</a>
+                <a href="#grid" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Grid</a>
+                <a href="#required" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Required</a>
+                <a href="#badge" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Badge</a>
+                <a href="#input-group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Input Group</a>
+                <a href="#button-group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Button Group</a>
+                <a href="#form" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Form</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add input";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/input";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+
+    private static readonly string _sourceInputRazor = """
+<input type="@Type"
+       data-slot="input"
+       class="@GetClasses()"
+       placeholder="@Placeholder"
+       value="@Value"
+       disabled="@Disabled"
+       @attributes="AdditionalAttributes" />
+
+@code {
+    [Parameter] public string Type { get; set; } = "text";
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground " +
+        "dark:bg-input/30 border-input h-8 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-sm " +
+        "shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 " +
+        "file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed " +
+        "disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] " +
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? BaseClasses
+            : $"{BaseClasses} {Class}";
+}
+""";
+
+    private const string usingStatement = "@using MyApp.Components.UI";
+    private const string usageCode = "<Input />";
+
+    private const string codeMainDemo = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <Label For=""api-key"">API Key</Label>
+    <Input id=""api-key"" Type=""password"" Placeholder=""sk-4f9f2b5a6c8d1e3f"" />
+    <p class=""text-muted-foreground text-sm"">Keep your API key secure and never share it publicly.</p>
+</div>";
+
+    private const string codeBasic = @"<div class=""w-full max-w-xs"">
+    <Input Type=""text"" Placeholder=""Enter text"" />
+</div>";
+
+    private const string codeField = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <Label For=""username"">Username</Label>
+    <Input id=""username"" Type=""text"" Placeholder=""Enter your username"" />
+    <p class=""text-muted-foreground text-sm"">Choose a unique username for your account.</p>
+</div>";
+
+    private const string codeFieldGroup = @"<div class=""grid w-full max-w-sm gap-4"">
+    <div class=""grid gap-2"">
+        <Label For=""name"">Name</Label>
+        <Input id=""name"" Placeholder=""Evil Rabbit"" />
+    </div>
+    <div class=""grid gap-2"">
+        <Label For=""email"">Email</Label>
+        <Input id=""email"" Type=""email"" Placeholder=""Email"" />
+        <p class=""text-muted-foreground text-sm"">We will send updates to this address.</p>
+    </div>
+    <div class=""flex items-center justify-end gap-2"">
+        <Button Variant=""ButtonVariant.Outline"" Type=""button"">Reset</Button>
+        <Button Type=""submit"">Submit</Button>
+    </div>
+</div>";
+
+    private const string codeDisabled = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <Label For=""email-disabled"">Email</Label>
+    <Input id=""email-disabled"" Placeholder=""Email"" Disabled=""true"" />
+    <p class=""text-muted-foreground text-sm"">This field is currently disabled.</p>
+</div>";
+
+    private const string codeInvalid = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <Label For=""email-invalid"">Email</Label>
+    <Input id=""email-invalid"" Type=""email"" Placeholder=""Email"" aria-invalid=""true"" />
+    <p class=""text-destructive text-sm"">Please enter a valid email address.</p>
+</div>";
+
+    private const string codeFile = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <Label For=""picture"">Picture</Label>
+    <Input id=""picture"" Type=""file"" />
+    <p class=""text-muted-foreground text-sm"">Select a picture to upload.</p>
+</div>";
+
+    private const string codeInline = @"<div class=""flex w-full max-w-sm items-center gap-2"">
+    <Label For=""search"" Class=""sr-only"">Search</Label>
+    <Input id=""search"" Type=""text"" Placeholder=""Search..."" />
+    <Button Variant=""ButtonVariant.Outline"" Type=""submit"">Search</Button>
+</div>";
+
+    private const string codeGrid = @"<div class=""grid w-full max-w-sm grid-cols-2 gap-2"">
+    <div class=""grid gap-2"">
+        <Label For=""first-name"">First Name</Label>
+        <Input id=""first-name"" Placeholder=""John"" />
+    </div>
+    <div class=""grid gap-2"">
+        <Label For=""last-name"">Last Name</Label>
+        <Input id=""last-name"" Placeholder=""Doe"" />
+    </div>
+</div>";
+
+    private const string codeRequired = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <Label For=""required-field"">Required Field <span aria-hidden=""true"" class=""text-destructive"">*</span></Label>
+    <Input id=""required-field"" Type=""text"" Placeholder=""This field is required"" required />
+    <p class=""text-muted-foreground text-sm"">This field must be filled in before submitting.</p>
+</div>";
+
+    private const string codeBadge = @"<div class=""grid w-full max-w-sm items-center gap-3"">
+    <div class=""flex items-center gap-2"">
+        <Label For=""webhook-url"">Webhook URL</Label>
+        <Badge Variant=""BadgeVariant.Secondary"">Beta</Badge>
+    </div>
+    <Input id=""webhook-url"" Type=""url"" Placeholder=""https://api.example.com/webhook"" />
+</div>";
+
+    private const string codeInputGroup = @"<div class=""flex w-full max-w-sm items-center rounded-md border border-input bg-background px-3"">
+    <span class=""text-muted-foreground text-sm"">https://</span>
+    <Input Class=""border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:border-transparent"" Placeholder=""example.com"" />
+</div>";
+
+    private const string codeButtonGroup = @"<div class=""flex w-full max-w-sm items-center gap-2"">
+    <Input Placeholder=""Search..."" />
+    <Button Variant=""ButtonVariant.Outline"" Type=""button"">Go</Button>
+    <Button Variant=""ButtonVariant.Outline"" Type=""button"">Clear</Button>
+</div>";
+
+    private const string codeForm = @"<form class=""grid w-full max-w-sm gap-4"" onsubmit=""return false;"">
+    <div class=""grid gap-2"">
+        <Label For=""name"">Name</Label>
+        <Input id=""name"" Placeholder=""Evil Rabbit"" required />
+    </div>
+    <div class=""grid gap-2"">
+        <Label For=""email"">Email</Label>
+        <Input id=""email"" Type=""email"" Placeholder=""m@example.com"" required />
+    </div>
+    <div class=""flex items-center gap-2"">
+        <Button Type=""submit"">Submit</Button>
+        <Button Variant=""ButtonVariant.Outline"" Type=""button"">Cancel</Button>
+    </div>
+</form>";
+}

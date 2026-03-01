@@ -1,0 +1,287 @@
+@page "/components/checkbox"
+
+<PageTitle>Checkbox - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Checkbox</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/chart" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/collapsible" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    A control that allows the user to toggle between checked and not checked.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex flex-col gap-6">
+                            <div class="flex items-center gap-3">
+                                <Checkbox Id="terms" />
+                                <Label For="terms">Accept terms and conditions</Label>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <Checkbox Id="terms-2" DefaultChecked="true" />
+                                <div class="grid gap-2">
+                                    <Label For="terms-2">Accept terms and conditions</Label>
+                                    <p class="text-muted-foreground text-sm">By clicking this checkbox, you agree to the terms and conditions.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <Checkbox Id="toggle" Disabled="true" />
+                                <Label For="toggle">Enable notifications</Label>
+                            </div>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the checkbox component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Command</button>
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Manual</button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Checkbox.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceCheckboxRazor">@_sourceCheckboxRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="checked-state">Checked State</h2>
+                <div class="mt-6">
+                    <ComponentExample Compact="true">
+                        <Preview>
+                            <div class="flex items-center gap-3">
+                                <Checkbox Id="checked-a" DefaultChecked="true" />
+                                <Label For="checked-a">DefaultChecked example</Label>
+                            </div>
+                        </Preview>
+                        <Code>@("<Checkbox Id=\"checked-a\" DefaultChecked=\"true\" />")</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="invalid-state">Invalid State</h2>
+                <div class="mt-6">
+                    <ComponentExample Compact="true">
+                        <Preview>
+                            <div class="flex items-center gap-3 text-destructive" data-invalid="true">
+                                <Checkbox Id="invalid-a" aria-invalid="true" />
+                                <Label For="invalid-a">Accept terms and conditions</Label>
+                            </div>
+                        </Preview>
+                        <Code>@("<div class=\"flex items-center gap-3 text-destructive\" data-invalid=\"true\"><Checkbox Id=\"invalid-a\" aria-invalid=\"true\" /><Label For=\"invalid-a\">Accept terms and conditions</Label></div>")</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true">
+                        <Preview><div class="flex items-center gap-3"><Checkbox Id="basic-a" /><Label For="basic-a">Accept terms and conditions</Label></div></Preview>
+                        <Code>@("<Checkbox Id=\"basic-a\" />")</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Description" Compact="true">
+                        <Preview>
+                            <div class="flex items-start gap-3">
+                                <Checkbox Id="desc-a" DefaultChecked="true" />
+                                <div class="grid gap-2">
+                                    <Label For="desc-a">Accept terms and conditions</Label>
+                                    <p class="text-muted-foreground text-sm">By clicking this checkbox, you agree to the terms and conditions.</p>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@("<Checkbox Id=\"desc-a\" DefaultChecked=\"true\" />")</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true">
+                        <Preview><div class="flex items-center gap-3" data-disabled="true"><Checkbox Id="disabled-a" Disabled="true" /><Label For="disabled-a">Accept terms and conditions</Label></div></Preview>
+                        <Code>@("<Checkbox Id=\"disabled-a\" Disabled=\"true\" />")</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Group" Compact="true">
+                        <Preview>
+                            <div class="grid gap-3">
+                                <p class="text-sm font-medium">Show these items on the desktop:</p>
+                                <div class="flex items-center gap-3"><Checkbox Id="group-hard" DefaultChecked="true" /><Label For="group-hard" Class="font-normal">Hard disks</Label></div>
+                                <div class="flex items-center gap-3"><Checkbox Id="group-external" DefaultChecked="true" /><Label For="group-external" Class="font-normal">External disks</Label></div>
+                                <div class="flex items-center gap-3"><Checkbox Id="group-cds" /><Label For="group-cds" Class="font-normal">CDs, DVDs, and iPods</Label></div>
+                                <div class="flex items-center gap-3"><Checkbox Id="group-servers" /><Label For="group-servers" Class="font-normal">Connected servers</Label></div>
+                            </div>
+                        </Preview>
+                        <Code>@("<Checkbox Id=\"group-hard\" DefaultChecked=\"true\" />")</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Table" Compact="true">
+                        <Preview>
+                            <div class="w-full max-w-lg overflow-x-auto rounded-lg border">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="border-b"><tr><th class="w-10 px-3 py-2"><Checkbox Id="table-all" /></th><th class="px-3 py-2 font-medium">Name</th><th class="px-3 py-2 font-medium">Email</th><th class="px-3 py-2 font-medium">Role</th></tr></thead>
+                                    <tbody>
+                                        <tr class="border-b"><td class="px-3 py-2"><Checkbox Id="table-1" DefaultChecked="true" /></td><td class="px-3 py-2 font-medium">Sarah Chen</td><td class="px-3 py-2">sarah.chen@example.com</td><td class="px-3 py-2">Admin</td></tr>
+                                        <tr><td class="px-3 py-2"><Checkbox Id="table-2" /></td><td class="px-3 py-2 font-medium">Marcus Rodriguez</td><td class="px-3 py-2">marcus.rodriguez@example.com</td><td class="px-3 py-2">User</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Preview>
+                        <Code>@("<table><tr><td><Checkbox /></td></tr></table>")</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                <div class="mt-6">
+                    <ComponentExample Compact="true">
+                        <Preview><div class="flex items-center gap-3" dir="rtl"><Checkbox Id="rtl-a" /><Label For="rtl-a">Accept terms and conditions</Label></div></Preview>
+                        <Code>@("<div dir=\"rtl\"><Checkbox /></div>")</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Checkbox</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Checked</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultChecked</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">CheckedChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Id</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#checked-state" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Checked State</a>
+                <a href="#invalid-state" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Invalid State</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#basic" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Basic</a>
+                <a href="#description" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Description</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Disabled</a>
+                <a href="#group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Group</a>
+                <a href="#table" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Table</a>
+                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add checkbox";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/checkbox";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+
+    private static readonly string _sourceCheckboxRazor = """
+<span class="relative inline-flex size-4 shrink-0">
+    <input type="checkbox"
+           id="@Id"
+           name="@Name"
+           checked="@CurrentChecked"
+           disabled="@Disabled"
+           data-slot="checkbox"
+           class="@GetClasses()"
+           @onchange="OnChanged"
+           @attributes="AdditionalAttributes" />
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="3"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         data-slot="checkbox-indicator"
+         class="pointer-events-none absolute inset-0 m-auto size-3.5 text-primary-foreground opacity-0 peer-checked:opacity-100 transition-none">
+        <path d="M20 6 9 17l-5-5" />
+    </svg>
+</span>
+""";
+
+    private const string usingStatement = "@using MyApp.Components.UI";
+    private const string usageCode = "<Checkbox />";
+
+    private const string codeMainDemo = @"<div class=""flex flex-col gap-6"">
+    <div class=""flex items-center gap-3"">
+        <Checkbox Id=""terms"" />
+        <Label For=""terms"">Accept terms and conditions</Label>
+    </div>
+    <div class=""flex items-start gap-3"">
+        <Checkbox Id=""terms-2"" DefaultChecked=""true"" />
+        <div class=""grid gap-2"">
+            <Label For=""terms-2"">Accept terms and conditions</Label>
+            <p class=""text-muted-foreground text-sm"">By clicking this checkbox, you agree to the terms and conditions.</p>
+        </div>
+    </div>
+    <div class=""flex items-start gap-3"">
+        <Checkbox Id=""toggle"" Disabled=""true"" />
+        <Label For=""toggle"">Enable notifications</Label>
+    </div>
+</div>";
+}

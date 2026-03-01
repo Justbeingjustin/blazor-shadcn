@@ -1,0 +1,347 @@
+@page "/components/collapsible"
+
+<PageTitle>Collapsible - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Collapsible</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/checkbox" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/combobox" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">An interactive component which expands/collapses a panel.</p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <Collapsible Class="flex w-[350px] flex-col gap-2">
+                            <div class="flex items-center justify-between gap-4 px-4">
+                                <h4 class="text-sm font-semibold">@("@peduarte starred 3 repositories")</h4>
+                                <CollapsibleTrigger Class="text-muted-foreground hover:bg-accent hover:text-foreground inline-flex size-8 items-center justify-center rounded-md transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                                    <span class="sr-only">Toggle</span>
+                                </CollapsibleTrigger>
+                            </div>
+                            <div class="rounded-md border px-4 py-2 font-mono text-sm">@("@radix-ui/primitives")</div>
+                            <CollapsibleContent Class="flex flex-col gap-2">
+                                <div class="rounded-md border px-4 py-2 font-mono text-sm">@("@radix-ui/colors")</div>
+                                <div class="rounded-md border px-4 py-2 font-mono text-sm">@("@stitches/react")</div>
+                            </CollapsibleContent>
+                        </Collapsible>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the collapsible component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Command</button>
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Manual</button>
+                    </div>
+                </div>
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4"><CodeBlock RawText="@installCommand">@installCommand</CodeBlock></div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div><p class="text-muted-foreground text-sm">Components/UI/CollapsibleContext.cs</p><div class="mt-2"><CodeBlock RawText="@_sourceContext">@_sourceContext</CodeBlock></div></div>
+                        <div><p class="text-muted-foreground text-sm">Components/UI/Collapsible.razor</p><div class="mt-2"><CodeBlock RawText="@_sourceRoot">@_sourceRoot</CodeBlock></div></div>
+                        <div><p class="text-muted-foreground text-sm">Components/UI/CollapsibleTrigger.razor</p><div class="mt-2"><CodeBlock RawText="@_sourceTrigger">@_sourceTrigger</CodeBlock></div></div>
+                        <div><p class="text-muted-foreground text-sm">Components/UI/CollapsibleContent.razor</p><div class="mt-2"><CodeBlock RawText="@_sourceContent">@_sourceContent</CodeBlock></div></div>
+                        <div><p class="font-medium">Update the import paths to match your project setup.</p><div class="mt-2"><CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock></div></div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true" CodeText="@codeBasic">
+                        <Preview>
+                            <Card Class="w-full max-w-sm gap-2 py-2">
+                                <CardContent Class="px-2.5">
+                                    <Collapsible Class="rounded-md data-[state=open]:bg-muted">
+                                        <CollapsibleTrigger Class="group inline-flex w-full items-center rounded-md px-2.5 py-2 text-left text-sm hover:bg-accent">
+                                            Product details
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="ml-auto transition-transform group-data-[state=open]:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                                        </CollapsibleTrigger>
+                                        <CollapsibleContent Class="flex flex-col items-start gap-2 px-2.5 pb-2.5 pt-0 text-sm">
+                                            <div>This panel can be expanded or collapsed to reveal additional content.</div>
+                                            <Button Size="ButtonSize.Xs">Learn More</Button>
+                                        </CollapsibleContent>
+                                    </Collapsible>
+                                </CardContent>
+                            </Card>
+                        </Preview>
+                        <Code>@codeBasic</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Settings Panel" Compact="true" CodeText="@codeSettings">
+                        <Description><p class="text-muted-foreground text-sm">Fallback example until <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> is implemented.</p></Description>
+                        <Preview>
+                            <Card Class="w-full max-w-xs gap-2">
+                                <CardHeader><CardTitle>Radius</CardTitle><CardDescription>Set the corner radius of the element.</CardDescription></CardHeader>
+                                <CardContent>
+                                    <Collapsible Open="@_settingsOpen" OpenChanged="OnSettingsOpenChanged" Class="flex items-start gap-2">
+                                        <div class="grid w-full grid-cols-2 gap-2">
+                                            <Input Placeholder="0" />
+                                            <Input Placeholder="0" />
+                                            <CollapsibleContent Class="col-span-full grid grid-cols-2 gap-2">
+                                                <Input Placeholder="0" />
+                                                <Input Placeholder="0" />
+                                            </CollapsibleContent>
+                                        </div>
+                                        <CollapsibleTrigger Class="inline-flex size-8 items-center justify-center rounded-md border hover:bg-accent">
+                                            @if (_settingsOpen)
+                                            {
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M8 3v3a2 2 0 0 1-2 2H3" />
+                                                    <path d="M21 8h-3a2 2 0 0 1-2-2V3" />
+                                                    <path d="M3 16h3a2 2 0 0 1 2 2v3" />
+                                                    <path d="M16 21v-3a2 2 0 0 1 2-2h3" />
+                                                </svg>
+                                            }
+                                            else
+                                            {
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+                                                    <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+                                                    <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+                                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+                                                </svg>
+                                            }
+                                        </CollapsibleTrigger>
+                                    </Collapsible>
+                                </CardContent>
+                            </Card>
+                        </Preview>
+                        <Code>@codeSettings</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="File Tree" Compact="true" CodeText="@codeFileTree">
+                        <Description><p class="text-muted-foreground text-sm">Fallback example until <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Tabs</code> is implemented.</p></Description>
+                        <Preview>
+                            <Card Class="w-full max-w-[16rem] gap-2">
+                                <CardHeader>
+                                    <div class="inline-flex w-full rounded-md border p-1">
+                                        <button @onclick="() => _fileTreeTab = FileTreeTab.Explorer"
+                                                class="@(_fileTreeTab == FileTreeTab.Explorer ? "bg-muted text-foreground flex-1 rounded-sm px-2 py-1 text-xs font-medium" : "text-muted-foreground flex-1 rounded-sm px-2 py-1 text-xs font-medium hover:text-foreground")">
+                                            Explorer
+                                        </button>
+                                        <button @onclick="() => _fileTreeTab = FileTreeTab.Outline"
+                                                class="@(_fileTreeTab == FileTreeTab.Outline ? "bg-muted text-foreground flex-1 rounded-sm px-2 py-1 text-xs font-medium" : "text-muted-foreground flex-1 rounded-sm px-2 py-1 text-xs font-medium hover:text-foreground")">
+                                            Outline
+                                        </button>
+                                    </div>
+                                </CardHeader>
+                                <CardContent>
+                                    @if (_fileTreeTab == FileTreeTab.Explorer)
+                                    {
+                                        <div class="flex flex-col gap-1">
+                                            <Collapsible DefaultOpen="true">
+                                                <CollapsibleTrigger Class="group inline-flex w-full items-center justify-start gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="transition-transform group-data-[state=open]:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                                    components
+                                                </CollapsibleTrigger>
+                                                <CollapsibleContent Class="ml-5 mt-1 flex flex-col gap-1">
+                                                    <Collapsible DefaultOpen="true">
+                                                        <CollapsibleTrigger Class="group inline-flex w-full items-center justify-start gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="transition-transform group-data-[state=open]:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                                            ui
+                                                        </CollapsibleTrigger>
+                                                        <CollapsibleContent Class="ml-5 mt-1 flex flex-col gap-1">
+                                                            <button class="text-foreground inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:underline underline-offset-4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>button.tsx</button>
+                                                            <button class="text-foreground inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:underline underline-offset-4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>card.tsx</button>
+                                                            <button class="text-foreground inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:underline underline-offset-4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>dialog.tsx</button>
+                                                            <button class="text-foreground inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:underline underline-offset-4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>input.tsx</button>
+                                                        </CollapsibleContent>
+                                                    </Collapsible>
+                                                    <button class="text-foreground inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:underline underline-offset-4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>login-form.tsx</button>
+                                                </CollapsibleContent>
+                                            </Collapsible>
+
+                                            <Collapsible>
+                                                <CollapsibleTrigger Class="group inline-flex w-full items-center justify-start gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="transition-transform group-data-[state=open]:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                                    lib
+                                                </CollapsibleTrigger>
+                                                <CollapsibleContent Class="ml-5 mt-1 flex flex-col gap-1">
+                                                    <button class="text-foreground inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:underline underline-offset-4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>utils.ts</button>
+                                                </CollapsibleContent>
+                                            </Collapsible>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="flex flex-col gap-1">
+                                            <button class="text-foreground inline-flex w-full items-center rounded-md px-2 py-1.5 text-sm hover:bg-accent">components</button>
+                                            <button class="text-muted-foreground inline-flex w-full items-center rounded-md px-2 py-1.5 text-sm hover:bg-accent">components/ui/button.tsx</button>
+                                            <button class="text-muted-foreground inline-flex w-full items-center rounded-md px-2 py-1.5 text-sm hover:bg-accent">components/ui/card.tsx</button>
+                                            <button class="text-muted-foreground inline-flex w-full items-center rounded-md px-2 py-1.5 text-sm hover:bg-accent">components/ui/dialog.tsx</button>
+                                            <button class="text-foreground inline-flex w-full items-center rounded-md px-2 py-1.5 text-sm hover:bg-accent">lib</button>
+                                            <button class="text-muted-foreground inline-flex w-full items-center rounded-md px-2 py-1.5 text-sm hover:bg-accent">lib/utils.ts</button>
+                                        </div>
+                                    }
+                                </CardContent>
+                            </Card>
+                        </Preview>
+                        <Code>@codeFileTree</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Collapsible</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Open</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultOpen</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">OpenChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#basic" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Basic</a>
+                <a href="#settings-panel" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Settings Panel</a>
+                <a href="#file-tree" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">File Tree</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+    private bool _settingsOpen;
+    private FileTreeTab _fileTreeTab = FileTreeTab.Explorer;
+
+    private enum InstallationTab { Command, Manual }
+    private enum FileTreeTab { Explorer, Outline }
+
+    private const string installCommand = "npx shadcn@latest add collapsible";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/collapsible";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+
+    private static readonly string _sourceContext = """
+namespace BlazorShadcn.Components.UI;
+
+public sealed class CollapsibleContext
+{
+    public required Func<bool> GetOpen { get; init; }
+    public required Func<Task> ToggleAsync { get; init; }
+}
+""";
+
+    private static readonly string _sourceRoot = """
+<CascadingValue Value="@_context" IsFixed="true">
+    <div data-slot="collapsible"
+         data-state="@(_currentOpen ? "open" : "closed")"
+         class="@GetClasses()"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
+""";
+
+    private static readonly string _sourceTrigger = """
+<button type="@Type"
+        data-slot="collapsible-trigger"
+        data-state="@(_context?.GetOpen() == true ? "open" : "closed")"
+        aria-expanded="@(_context?.GetOpen() == true)"
+        disabled="@Disabled"
+        class="@Class"
+        @onclick="OnClick"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</button>
+""";
+
+    private static readonly string _sourceContent = """
+<div data-slot="collapsible-content"
+     data-state="@(_context?.GetOpen() == true ? "open" : "closed")"
+     hidden="@(!_forceMount && _context?.GetOpen() != true)"
+     class="@Class"
+     @attributes="AdditionalAttributes">
+    @if (_forceMount || _context?.GetOpen() == true)
+    {
+        @ChildContent
+    }
+</div>
+""";
+
+    private const string usingStatement = @"@using BlazorShadcn.Components.UI";
+    private const string usageCode = @"<Collapsible>
+    <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
+    <CollapsibleContent>
+        Yes. Free to use for personal and commercial projects.
+    </CollapsibleContent>
+</Collapsible>";
+
+    private const string codeMainDemo = @"<Collapsible class=""flex w-[350px] flex-col gap-2"">
+    <CollapsibleTrigger>Toggle</CollapsibleTrigger>
+    <CollapsibleContent>Content</CollapsibleContent>
+</Collapsible>";
+
+    private const string codeBasic = @"<Collapsible>
+    <CollapsibleTrigger>Product details</CollapsibleTrigger>
+    <CollapsibleContent>...</CollapsibleContent>
+</Collapsible>";
+
+    private const string codeSettings = @"<Collapsible>
+    <CollapsibleTrigger>Expand settings</CollapsibleTrigger>
+    <CollapsibleContent>...</CollapsibleContent>
+</Collapsible>";
+
+    private const string codeFileTree = @"<Collapsible DefaultOpen=""true"">
+    <CollapsibleTrigger>components</CollapsibleTrigger>
+    <CollapsibleContent>
+        <Collapsible DefaultOpen=""true"">
+            <CollapsibleTrigger>ui</CollapsibleTrigger>
+            <CollapsibleContent>button.tsx</CollapsibleContent>
+        </Collapsible>
+    </CollapsibleContent>
+</Collapsible>";
+
+    private Task OnSettingsOpenChanged(bool value)
+    {
+        _settingsOpen = value;
+        return Task.CompletedTask;
+    }
+}
