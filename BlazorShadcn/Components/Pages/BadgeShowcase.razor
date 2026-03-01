@@ -10,15 +10,32 @@
                     <div class="flex items-center gap-2">
                         <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Badge</h1>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <a href="/components/avatar"
-                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7" /></svg>
-                        </a>
-                        <a href="/components/breadcrumb"
-                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 5 7 7-7 7" /></svg>
-                        </a>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/avatar"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/breadcrumb"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
                     </div>
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
@@ -111,7 +128,7 @@
                                 <Badge Variant="BadgeVariant.Destructive">Destructive</Badge>
                                 <Badge Variant="BadgeVariant.Outline">Outline</Badge>
                                 <Badge Variant="BadgeVariant.Ghost">Ghost</Badge>
-                                <Badge Variant="BadgeVariant.Link" Href="#">Link</Badge>
+                                <Badge Variant="BadgeVariant.Link" Href="#" onclick="return false;">Link</Badge>
                             </div>
                         </Preview>
                         <Code>@codeVariants</Code>
@@ -142,12 +159,53 @@
                 </div>
 
                 <div class="mt-6">
+                    <ComponentExample Title="With Spinner" Compact="true" CodeText="@codeWithSpinner">
+                        <Preview>
+                            <div class="flex flex-wrap gap-2">
+                                <Badge Variant="BadgeVariant.Destructive" Class="bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300">
+                                    <svg role="status" aria-label="Loading" data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                    </svg>
+                                    Deleting
+                                </Badge>
+                                <Badge Variant="BadgeVariant.Secondary">
+                                    Generating
+                                    <svg role="status" aria-label="Loading" data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                    </svg>
+                                </Badge>
+                            </div>
+                        </Preview>
+                        <Code>@codeWithSpinner</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Link" Compact="true" CodeText="@codeLink">
+                        <Preview>
+                            <div class="flex flex-wrap gap-2">
+                                <Badge Href="#" onclick="return false;">
+                                    Link
+                                    <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M7 7h10v10" />
+                                        <path d="M7 17 17 7" />
+                                    </svg>
+                                </Badge>
+                            </div>
+                        </Preview>
+                        <Code>@codeLink</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
                     <ComponentExample Title="Custom Colors" Compact="true" CodeText="@codeCustomColors">
                         <Preview>
                             <div class="flex flex-wrap gap-2">
-                                <Badge Class="bg-green-500 text-white dark:bg-green-600">Success</Badge>
-                                <Badge Class="bg-amber-500 text-white dark:bg-amber-600">Warning</Badge>
-                                <Badge Class="bg-cyan-500 text-white dark:bg-cyan-600">Info</Badge>
+                                <Badge Class="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">Blue</Badge>
+                                <Badge Class="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">Green</Badge>
+                                <Badge Class="bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300">Sky</Badge>
+                                <Badge Class="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">Purple</Badge>
+                                <Badge Class="bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300">Red</Badge>
                             </div>
                         </Preview>
                         <Code>@codeCustomColors</Code>
@@ -185,6 +243,8 @@
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
                 <a href="#variants" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Variants</a>
                 <a href="#with-icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">With Icon</a>
+                <a href="#with-spinner" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">With Spinner</a>
+                <a href="#link" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Link</a>
                 <a href="#custom-colors" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Custom Colors</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
@@ -203,6 +263,7 @@
 
     private const string installCommand = "npx shadcn@latest add badge";
     private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/badge";
 
     private static readonly string _sourceBadgeRazor = """
 @if (string.IsNullOrEmpty(Href))
@@ -228,24 +289,21 @@ else
 
     private const string BaseClasses =
         "inline-flex w-fit shrink-0 items-center justify-center whitespace-nowrap overflow-hidden " +
-        "h-5 gap-1 rounded-4xl border px-2 py-0.5 text-xs font-medium transition-all " +
+        "h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all " +
         "has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3 [&>svg]:pointer-events-none " +
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] " +
         "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
 
-    private static string Cn(params string?[] classes)
-        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
-
-    private string GetClasses() => Cn(BaseClasses, GetVariantClasses(), Class);
+    private string GetClasses() => Tw.Merge(BaseClasses, GetVariantClasses(), Class);
 
     private string GetVariantClasses() => Variant switch
     {
-        BadgeVariant.Default => "border-transparent bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-        BadgeVariant.Secondary => "border-transparent bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
-        BadgeVariant.Destructive => "border-transparent bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
-        BadgeVariant.Outline => "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-        BadgeVariant.Ghost => "border-transparent hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
-        BadgeVariant.Link => "border-transparent text-primary underline-offset-4 hover:underline",
+        BadgeVariant.Default => "bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+        BadgeVariant.Secondary => "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+        BadgeVariant.Destructive => "bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
+        BadgeVariant.Outline => "border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        BadgeVariant.Ghost => "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        BadgeVariant.Link => "text-primary underline-offset-4 [a&]:hover:underline",
         _ => ""
     };
 
@@ -276,7 +334,7 @@ else
 <Badge Variant=""BadgeVariant.Destructive"">Destructive</Badge>
 <Badge Variant=""BadgeVariant.Outline"">Outline</Badge>
 <Badge Variant=""BadgeVariant.Ghost"">Ghost</Badge>
-<Badge Variant=""BadgeVariant.Link"" Href=""#"">Link</Badge>";
+<Badge Variant=""BadgeVariant.Link"" Href=""#"" onclick=""return false;"">Link</Badge>";
 
     private const string codeWithIcon = @"<Badge Variant=""BadgeVariant.Secondary"">
     <svg data-icon=""inline-start"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"">
@@ -293,7 +351,31 @@ else
     </svg>
 </Badge>";
 
-    private const string codeCustomColors = @"<Badge Class=""bg-green-500 text-white dark:bg-green-600"">Success</Badge>
-<Badge Class=""bg-amber-500 text-white dark:bg-amber-600"">Warning</Badge>
-<Badge Class=""bg-cyan-500 text-white dark:bg-cyan-600"">Info</Badge>";
+    private const string codeWithSpinner = @"<Badge Variant=""BadgeVariant.Destructive"" Class=""bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300"">
+    <svg role=""status"" aria-label=""Loading"" data-icon=""inline-start"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"" class=""animate-spin"">
+        <path d=""M21 12a9 9 0 1 1-6.219-8.56"" />
+    </svg>
+    Deleting
+</Badge>
+
+<Badge Variant=""BadgeVariant.Secondary"">
+    Generating
+    <svg role=""status"" aria-label=""Loading"" data-icon=""inline-end"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"" class=""animate-spin"">
+        <path d=""M21 12a9 9 0 1 1-6.219-8.56"" />
+    </svg>
+</Badge>";
+
+    private const string codeLink = @"<Badge Href=""#"" onclick=""return false;"">
+    Link
+    <svg data-icon=""inline-end"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"">
+        <path d=""M7 7h10v10"" />
+        <path d=""M7 17 17 7"" />
+    </svg>
+</Badge>";
+
+    private const string codeCustomColors = @"<Badge Class=""bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300"">Blue</Badge>
+<Badge Class=""bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300"">Green</Badge>
+<Badge Class=""bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300"">Sky</Badge>
+<Badge Class=""bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300"">Purple</Badge>
+<Badge Class=""bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300"">Red</Badge>";
 }

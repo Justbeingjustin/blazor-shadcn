@@ -138,6 +138,12 @@
   background-color: var(--code);
 }
 
+@utility extend-touch-target {
+  @media (pointer: coarse) {
+    @apply relative touch-manipulation after:absolute after:-inset-2;
+  }
+}
+
 /* Top nav: reference site-header "container-wrapper px-6" + "flex h-(--header-height) items-center" */
 .container-wrapper {
   width: 100%;

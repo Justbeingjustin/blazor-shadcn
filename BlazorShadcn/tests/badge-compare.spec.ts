@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const SHADCN_BADGE_URL = 'https://ui.shadcn.com/docs/components/badge';
+const SHADCN_BADGE_URL = 'https://ui.shadcn.com/docs/components/radix/badge';
 
 type BadgeMetrics = {
   height: number;
@@ -37,16 +37,25 @@ async function getColors(locator: any): Promise<BadgeColors> {
     const s = getComputedStyle(el);
 
     const normalize = (value: string) => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return value;
-      ctx.fillStyle = '#000';
-      ctx.fillStyle = value;
-      return ctx.fillStyle;
+      // Use the browser's CSS parser + computed style to normalize to rgb/rgba.
+      // This is more reliable than <canvas> for modern color syntaxes (oklch, color-mix, etc).
+      const tmp = document.createElement('div');
+      tmp.style.color = value;
+      document.body.appendChild(tmp);
+      const out = getComputedStyle(tmp).color;
+      tmp.remove();
+      return out;
     };
 
     return {
-      backgroundColor: normalize(s.backgroundColor),
+      backgroundColor: (() => {
+        const tmp = document.createElement('div');
+        tmp.style.backgroundColor = s.backgroundColor;
+        document.body.appendChild(tmp);
+        const out = getComputedStyle(tmp).backgroundColor;
+        tmp.remove();
+        return out;
+      })(),
       color: normalize(s.color),
       className: el.className,
     };
@@ -71,9 +80,20 @@ function maxColorDelta(a: string, b: string): number {
   return max;
 }
 
+async function forceLightTheme(page: any): Promise<void> {
+  await page.evaluate(() => {
+    try {
+      localStorage.setItem('theme', 'light');
+    } catch {}
+    document.documentElement.classList.remove('dark');
+    document.documentElement.style.colorScheme = 'light';
+  });
+}
+
 test.describe('Badge visual match shadcn', () => {
   test('default and outline badge metrics match shadcn', async ({ page }) => {
     await page.goto(SHADCN_BADGE_URL, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await forceLightTheme(page);
     await page.waitForSelector('[data-slot="badge"]', { timeout: 10000 });
 
     const shadcnDefault = page.locator('[data-slot="badge"]').filter({ hasText: 'Badge' }).first();
@@ -90,6 +110,7 @@ test.describe('Badge visual match shadcn', () => {
 
     const blazorUrl = process.env['BLAZOR_URL'] || 'http://localhost:5190';
     await page.goto(`${blazorUrl}/`, { waitUntil: 'networkidle', timeout: 20000 });
+    await forceLightTheme(page);
     await page.locator('a[href="/components/badge"]').first().click();
     await page.waitForURL(/\/components\/badge/, { timeout: 10000 });
     await page.waitForSelector('[data-slot="badge"]', { timeout: 10000 });
@@ -122,7 +143,34 @@ test.describe('Badge visual match shadcn', () => {
     expect(Math.abs(parsePx(ourOutlineMetrics.borderWidth) - parsePx(shadcnOutlineMetrics.borderWidth)), 'outline border width').toBeLessThanOrEqual(tol);
     expect(Math.abs(parsePx(ourOutlineMetrics.fontSize) - parsePx(shadcnOutlineMetrics.fontSize)), 'outline font size').toBeLessThanOrEqual(tol);
 
+    console.log('Shadcn destructive:', shadcnDestructiveColors);
+    console.log('Our destructive:', ourDestructiveColors);
+
+    // This should be stable and identical if our tokens match shadcn's theme.
     expect(maxColorDelta(ourDestructiveColors.backgroundColor, shadcnDestructiveColors.backgroundColor), 'destructive background color').toBeLessThanOrEqual(0.001);
     expect(ourDestructiveColors.className, 'destructive class').toContain('text-destructive');
+  });
+
+  test('docs pager buttons and Copy page exist on our badge page', async ({ page }) => {
+    const blazorUrl = process.env['BLAZOR_URL'] || 'http://localhost:5190';
+
+    // Sidebar + pager only render at xl breakpoint (>= 1280px).
+    await page.setViewportSize({ width: 1400, height: 900 });
+    await page.goto(`${blazorUrl}/components/badge`, { waitUntil: 'networkidle', timeout: 20000 });
+
+    const copyPage = page.getByRole('button', { name: 'Copy page' });
+    await expect(copyPage).toBeVisible();
+
+    await copyPage.click();
+    await expect(copyPage.locator('svg').first()).toBeVisible();
+
+    const prev = page.locator('a[data-slot="button"][aria-label="Previous"]');
+    const next = page.locator('a[data-slot="button"][aria-label="Next"]');
+
+    await expect(prev).toHaveAttribute('href', '/components/avatar');
+    await expect(prev).toHaveClass(/extend-touch-target/);
+
+    await expect(next).toHaveAttribute('href', '/components/breadcrumb');
+    await expect(next).toHaveClass(/extend-touch-target/);
   });
 });

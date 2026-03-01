@@ -73,4 +73,27 @@ test.describe('Button visual match shadcn', () => {
     expect(Math.abs(ourIconMetrics.width - shadcnIconMetrics.width), `Icon width`).toBeLessThanOrEqual(tol);
     expect(Math.abs(parsePx(ourIconMetrics.borderRadius) - parsePx(shadcnIconMetrics.borderRadius)), `Icon borderRadius`).toBeLessThanOrEqual(tol);
   });
+
+  test('docs pager buttons and Copy page exist on our button page', async ({ page }) => {
+    const blazorUrl = process.env['BLAZOR_URL'] || 'http://localhost:5190';
+
+    // Sidebar + pager only render at xl breakpoint (>= 1280px).
+    await page.setViewportSize({ width: 1400, height: 900 });
+    await page.goto(`${blazorUrl}/components/button`, { waitUntil: 'networkidle', timeout: 20000 });
+
+    const copyPage = page.getByRole('button', { name: 'Copy page' });
+    await expect(copyPage).toBeVisible();
+
+    await copyPage.click();
+    await expect(copyPage.locator('svg').first()).toBeVisible();
+
+    const prev = page.locator('a[data-slot="button"][aria-label="Previous"]');
+    const next = page.locator('a[data-slot="button"][aria-label="Next"]');
+
+    await expect(prev).toHaveAttribute('href', '/');
+    await expect(prev).toHaveClass(/extend-touch-target/);
+
+    await expect(next).toHaveAttribute('href', '/components/card');
+    await expect(next).toHaveClass(/extend-touch-target/);
+  });
 });

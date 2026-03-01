@@ -12,15 +12,32 @@
                     <div class="flex items-center gap-2">
                         <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Card</h1>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <a href="/components/button"
-                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/></svg>
-                        </a>
-                        <a href="/"
-                           class="inline-flex items-center justify-center size-8 rounded-md bg-secondary text-secondary-foreground shadow-none hover:bg-secondary/80 transition-colors md:size-7">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 5 7 7-7 7"/></svg>
-                        </a>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/button"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
                     </div>
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
@@ -176,6 +193,8 @@ Components/UI/CardAction.razor</CodeBlock>
 </div>
 
 @code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/card";
+
     private const string codeMainDemo = @"<Card Class=""w-full max-w-sm"">
     <CardHeader>
         <CardTitle>Login to your account</CardTitle>

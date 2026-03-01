@@ -1,0 +1,101 @@
+@inject IJSRuntime JS
+
+<div class="@Tw.Merge("relative", Class)">
+    <div class="bg-secondary group/buttons relative flex rounded-lg">
+        <Button Variant="ButtonVariant.Secondary"
+                Size="ButtonSize.Sm"
+                Class="h-8 shadow-none md:h-7 md:text-[0.8rem]"
+                @onclick="CopyPage">
+            @if (_copied)
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+                    <path d="M20 6 9 17l-5-5" />
+                </svg>
+            }
+            else
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                </svg>
+            }
+            Copy Page
+        </Button>
+
+        <Button Variant="ButtonVariant.Secondary"
+                Size="ButtonSize.Sm"
+                Class="peer -ml-0.5 size-8 shadow-none md:size-7 md:text-[0.8rem]"
+                aria-haspopup="menu"
+                aria-expanded="@_menuOpen"
+                @onclick="ToggleMenu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="@($"size-4 transition-transform {(_menuOpen ? "rotate-180" : string.Empty)}")">
+                <path d="m6 9 6 6 6-6" />
+            </svg>
+            <span class="sr-only">Open page links</span>
+        </Button>
+
+        <div class="bg-foreground/5 absolute top-1 right-8 z-0 h-6 w-px sm:right-7 sm:h-5"></div>
+    </div>
+
+    @if (_menuOpen)
+    {
+        <button type="button" class="fixed inset-0 z-40 cursor-default" aria-label="Close page links menu" @onclick="CloseMenu"></button>
+        <div role="menu" class="bg-popover text-popover-foreground absolute right-0 z-50 mt-1 flex w-52 flex-col rounded-lg border p-1 shadow-md">
+            <a href="@MarkdownUrl" target="_blank" rel="noopener noreferrer" class="hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm transition-colors" @onclick="CloseMenu">View as Markdown</a>
+            <a href="@GetPromptUrl("https://v0.dev")" target="_blank" rel="noopener noreferrer" class="hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm transition-colors" @onclick="CloseMenu">Open in v0</a>
+            <a href="@GetPromptUrl("https://chatgpt.com")" target="_blank" rel="noopener noreferrer" class="hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm transition-colors" @onclick="CloseMenu">Open in ChatGPT</a>
+            <a href="@GetPromptUrl("https://claude.ai/new")" target="_blank" rel="noopener noreferrer" class="hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm transition-colors" @onclick="CloseMenu">Open in Claude</a>
+            <a href="@GetPromptUrl("https://scira.ai/")" target="_blank" rel="noopener noreferrer" class="hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm transition-colors" @onclick="CloseMenu">Open in Scira</a>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string PageUrl { get; set; } = string.Empty;
+    [Parameter] public string? Class { get; set; }
+
+    private bool _copied;
+    private bool _menuOpen;
+
+    private string MarkdownUrl => $"{PageUrl}.md";
+
+    private string GetPromptUrl(string baseUrl)
+    {
+        var prompt = $"I'm looking at this shadcn/ui documentation: {PageUrl}. Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it.";
+        return $"{baseUrl}?q={Uri.EscapeDataString(prompt)}";
+    }
+
+    private async Task CopyPage()
+    {
+        if (string.IsNullOrWhiteSpace(PageUrl))
+        {
+            return;
+        }
+
+        _menuOpen = false;
+        _copied = true;
+        StateHasChanged();
+
+        try
+        {
+            await JS.InvokeVoidAsync("copyToClipboard", PageUrl);
+        }
+        catch
+        {
+        }
+
+        await Task.Delay(2000);
+        _copied = false;
+        StateHasChanged();
+    }
+
+    private void ToggleMenu()
+    {
+        _menuOpen = !_menuOpen;
+    }
+
+    private void CloseMenu()
+    {
+        _menuOpen = false;
+    }
+}
