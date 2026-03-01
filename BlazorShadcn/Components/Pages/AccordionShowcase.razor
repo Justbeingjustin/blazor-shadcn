@@ -102,17 +102,41 @@
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following files into your project.</p>
-                                <div class="mt-3">
-                                    <CodeBlock RawText="@manualSourceBundle">@manualSourceBundle</CodeBlock>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Accordion.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAccordionRazor">@_sourceAccordionRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionItem.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAccordionItemRazor">@_sourceAccordionItemRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionTrigger.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAccordionTriggerRazor">@_sourceAccordionTriggerRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionContent.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAccordionContentRazor">@_sourceAccordionContentRazor</CodeBlock>
+                                </div>
+
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionContext.cs</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAccordionContextCs">@_sourceAccordionContextCs</CodeBlock>
                                 </div>
                             </div>
                         </div>
+
                         <div class="flex gap-4">
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
                             <div class="min-w-0 flex-1">
-                                <p class="font-medium">Update the import paths to match your project setup.</p>
-                                <div class="mt-3">
-                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                <p class="font-medium">Enable interactive render mode (required for accordion interactions).</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Replace your existing tags. Do not add a second <code>&lt;Routes /&gt;</code>.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">In <code>Components/App.razor</code>:</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@interactiveAppRazorCode">@interactiveAppRazorCode</CodeBlock>
                                 </div>
                             </div>
                         </div>
@@ -215,23 +239,12 @@
 
     private const string installCommand = "npx shadcn@latest add accordion";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/accordion";
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
-    private static readonly string manualSourceBundle = $$"""
-// Components/UI/Accordion.razor
-{{_sourceAccordionRazor}}
+    private const string interactiveAppRazorCode = @"// Components/App.razor
+// In <head>, replace:
+<HeadOutlet @rendermode=""InteractiveServer"" />
 
-// Components/UI/AccordionItem.razor
-{{_sourceAccordionItemRazor}}
-
-// Components/UI/AccordionTrigger.razor
-{{_sourceAccordionTriggerRazor}}
-
-// Components/UI/AccordionContent.razor
-{{_sourceAccordionContentRazor}}
-
-// Components/UI/AccordionContext.cs
-{{_sourceAccordionContextCs}}
-""";
+// In <body>, replace:
+<Routes @rendermode=""InteractiveServer"" />";
 
     private static readonly string _sourceAccordionRazor = """
 <div data-slot="accordion"
@@ -274,7 +287,10 @@
         Multiple
     }
 
-    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, Class);
 }
 """;
 
@@ -331,7 +347,10 @@
         };
     }
 
-    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, Class);
 }
 """;
 
@@ -385,9 +404,12 @@
         }
     }
 
-    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, Class);
     private string GetIconClasses()
-        => Tw.Merge(
+        => Cn(
             "text-muted-foreground pointer-events-none ml-auto size-4 shrink-0",
             IsOpen ? "rotate-180" : null);
 
@@ -434,18 +456,21 @@
         }
     }
 
-    private string GetClasses() => Tw.Merge(BaseClasses);
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses);
     private string GetTransitionClasses()
-        => Tw.Merge(
+        => Cn(
             "grid transition-all duration-200 ease-out",
             IsOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0");
 
-    private string GetInnerClasses() => Tw.Merge("min-h-0", InnerBaseClasses, Class);
+    private string GetInnerClasses() => Cn("min-h-0", InnerBaseClasses, Class);
 }
 """;
 
     private static readonly string _sourceAccordionContextCs = """
-namespace BlazorShadcn.Components.UI;
+namespace MyApp.Components.UI;
 
 internal sealed class AccordionContext
 {
@@ -543,7 +568,7 @@ internal sealed class AccordionItemContext
 }
 """;
 
-    private const string usingStatement = "@using BlazorShadcn.Components.UI\n@using AccordionType = BlazorShadcn.Components.UI.Accordion.AccordionType";
+    private const string usingStatement = "@using MyApp.Components.UI\n@using AccordionType = MyApp.Components.UI.Accordion.AccordionType";
 
     private const string usageCode = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"">
     <AccordionItem Value=""item-1"">

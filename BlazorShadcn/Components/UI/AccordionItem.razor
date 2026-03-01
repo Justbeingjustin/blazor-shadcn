@@ -50,5 +50,8 @@
         };
     }
 
-    private string GetClasses() => Tw.Merge(BaseClasses, Class);
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, Class);
 }

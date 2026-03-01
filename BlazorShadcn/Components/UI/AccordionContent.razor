@@ -36,11 +36,14 @@
         }
     }
 
-    private string GetClasses() => Tw.Merge(BaseClasses);
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses);
     private string GetTransitionClasses()
-        => Tw.Merge(
+        => Cn(
             "grid transition-all duration-200 ease-out",
             IsOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0");
 
-    private string GetInnerClasses() => Tw.Merge("min-h-0", InnerBaseClasses, Class);
+    private string GetInnerClasses() => Cn("min-h-0", InnerBaseClasses, Class);
 }
