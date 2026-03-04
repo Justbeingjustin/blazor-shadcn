@@ -1,0 +1,143 @@
+@page "/components/avatar"
+
+<PageTitle>Avatar - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Avatar</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage />
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/aspect-ratio" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/badge" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    An image element with a fallback for representing the user.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@mainDemoCode">
+                    <Preview>
+                        <Avatar>
+                            <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                    </Preview>
+                    <Code>@mainDemoCode</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true">
+                        <Preview>
+                            <Avatar>
+                                <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                        </Preview>
+                        <Code>@basicCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Badge" Compact="true">
+                        <Preview>
+                            <Avatar>
+                                <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+                                <AvatarFallback>CN</AvatarFallback>
+                                <AvatarBadge Class="bg-green-600 dark:bg-green-800" />
+                            </Avatar>
+                        </Preview>
+                        <Code>@badgeCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Avatar Group" Compact="true">
+                        <Preview>
+                            <AvatarGroup>
+                                <Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" /><AvatarFallback>CN</AvatarFallback></Avatar>
+                                <Avatar><AvatarImage Src="https://avatars.githubusercontent.com/u/124599?v=4" Alt="Lee" /><AvatarFallback>LE</AvatarFallback></Avatar>
+                                <Avatar><AvatarImage Src="https://avatars.githubusercontent.com/u/2?v=4" Alt="Defunkt" /><AvatarFallback>DF</AvatarFallback></Avatar>
+                                <AvatarGroupCount>+4</AvatarGroupCount>
+                            </AvatarGroup>
+                        </Preview>
+                        <Code>@groupCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Sizes" Compact="true">
+                        <Preview>
+                            <div class="flex items-center gap-4">
+                                <Avatar Size="sm"><AvatarFallback>SM</AvatarFallback></Avatar>
+                                <Avatar><AvatarFallback>DF</AvatarFallback></Avatar>
+                                <Avatar Size="lg"><AvatarFallback>LG</AvatarFallback></Avatar>
+                            </div>
+                        </Preview>
+                        <Code>@sizesCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="RTL" Compact="true">
+                        <Preview>
+                            <div dir="rtl" class="flex justify-end">
+                                <AvatarGroup>
+                                    <Avatar><AvatarFallback>AR</AvatarFallback></Avatar>
+                                    <Avatar><AvatarFallback>RT</AvatarFallback></Avatar>
+                                    <AvatarGroupCount>+2</AvatarGroupCount>
+                                </AvatarGroup>
+                            </div>
+                        </Preview>
+                        <Code>@rtlCode</Code>
+                    </ComponentExample>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = """
+<Avatar>
+    <AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" />
+    <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+""";
+    private const string mainDemoCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" /><AvatarFallback>CN</AvatarFallback></Avatar>""";
+    private const string basicCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" /><AvatarFallback>CN</AvatarFallback></Avatar>""";
+    private const string badgeCode = """<Avatar><AvatarImage Src="..." /><AvatarFallback>CN</AvatarFallback><AvatarBadge Class="bg-green-600 dark:bg-green-800" /></Avatar>""";
+    private const string groupCode = """<AvatarGroup><Avatar>...</Avatar><AvatarGroupCount>+4</AvatarGroupCount></AvatarGroup>""";
+    private const string sizesCode = """<Avatar Size="sm" /> <Avatar /> <Avatar Size="lg" />""";
+    private const string rtlCode = """<div dir="rtl"><AvatarGroup>...</AvatarGroup></div>""";
+}

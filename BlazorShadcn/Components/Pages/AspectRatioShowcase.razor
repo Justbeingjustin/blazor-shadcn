@@ -1,0 +1,128 @@
+@page "/components/aspect-ratio"
+
+<PageTitle>Aspect Ratio - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Aspect Ratio</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage />
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/alert-dialog" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/avatar" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Displays content within a desired ratio.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@demoCode">
+                    <Preview>
+                        <div class="w-full max-w-md">
+                            <AspectRatio Ratio="(16d / 9d)" Class="overflow-hidden rounded-md border bg-muted/30">
+                                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200&q=80" alt="Landscape" class="size-full object-cover" />
+                            </AspectRatio>
+                        </div>
+                    </Preview>
+                    <Code>@demoCode</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Square" Compact="true">
+                        <Preview>
+                            <div class="w-full max-w-xs">
+                                <AspectRatio Ratio="1" Class="overflow-hidden rounded-md border bg-muted/30">
+                                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80" alt="Square" class="size-full object-cover" />
+                                </AspectRatio>
+                            </div>
+                        </Preview>
+                        <Code>@squareCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Portrait" Compact="true">
+                        <Preview>
+                            <div class="h-72 w-48">
+                                <AspectRatio Ratio="(9d / 16d)" Class="overflow-hidden rounded-md border bg-muted/30">
+                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80" alt="Portrait" class="size-full object-cover" />
+                                </AspectRatio>
+                            </div>
+                        </Preview>
+                        <Code>@portraitCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="RTL" Compact="true">
+                        <Preview>
+                            <div dir="rtl" class="w-full max-w-sm">
+                                <AspectRatio Ratio="(4d / 3d)" Class="overflow-hidden rounded-md border bg-muted/30">
+                                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000&q=80" alt="RTL example" class="size-full object-cover" />
+                                </AspectRatio>
+                            </div>
+                        </Preview>
+                        <Code>@rtlCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AspectRatio</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Ratio</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double</code></td><td class="px-4 py-2 text-left whitespace-nowrap">16/9</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = """
+<AspectRatio Ratio="(16d / 9d)">
+    <img src="..." alt="Image" class="size-full object-cover" />
+</AspectRatio>
+""";
+    private const string demoCode = """
+<AspectRatio Ratio="(16d / 9d)" Class="overflow-hidden rounded-md border">
+    <img src="..." alt="Landscape" class="size-full object-cover" />
+</AspectRatio>
+""";
+    private const string squareCode = """<AspectRatio Ratio="1" Class="overflow-hidden rounded-md border">...</AspectRatio>""";
+    private const string portraitCode = """<AspectRatio Ratio="(9d / 16d)" Class="overflow-hidden rounded-md border">...</AspectRatio>""";
+    private const string rtlCode = """<div dir="rtl"><AspectRatio Ratio="(4d / 3d)">...</AspectRatio></div>""";
+}

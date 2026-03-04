@@ -1,0 +1,23 @@
+<div data-slot="avatar"
+     data-size="@Size"
+     class="@Tw.Merge("group/avatar relative flex size-8 shrink-0 select-none overflow-hidden rounded-full data-[size=sm]:size-6 data-[size=lg]:size-10", Class)"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_context" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    private readonly AvatarContext _context = new();
+
+    [Parameter] public string Size { get; set; } = "default";
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        _context.Configure(() => InvokeAsync(StateHasChanged));
+    }
+}

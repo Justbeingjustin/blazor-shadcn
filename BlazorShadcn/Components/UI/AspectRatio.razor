@@ -1,0 +1,20 @@
+<div data-slot="aspect-ratio"
+     class="@Tw.Merge(Class)"
+     style="@GetContainerStyle()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public double Ratio { get; set; } = 16d / 9d;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetContainerStyle()
+    {
+        var ratio = Ratio <= 0 ? 16d / 9d : Ratio;
+        return $"aspect-ratio: {ratio.ToString(System.Globalization.CultureInfo.InvariantCulture)};";
+    }
+}

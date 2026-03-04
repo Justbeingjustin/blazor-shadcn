@@ -1,0 +1,27 @@
+﻿<div data-slot="progress"
+     role="progressbar"
+     aria-valuemin="0"
+     aria-valuemax="@ResolvedMax"
+     aria-valuenow="@CurrentValue"
+     class="@Tw.Merge("bg-secondary relative h-2 w-full overflow-hidden rounded-full", Class)"
+     @attributes="AdditionalAttributes">
+    <div class="bg-primary h-full w-full flex-1 transition-all" style="@GetIndicatorStyle()"></div>
+</div>
+
+@code {
+    [Parameter] public double Value { get; set; }
+    [Parameter] public double Max { get; set; } = 100;
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private double ResolvedMax => Max <= 0 ? 100 : Max;
+    private double CurrentValue => Math.Clamp(Value, 0, ResolvedMax);
+
+    private string GetIndicatorStyle()
+    {
+        var percentage = Math.Clamp((CurrentValue / ResolvedMax) * 100d, 0d, 100d);
+        var hidden = 100d - percentage;
+        return $"transform: translateX(-{hidden.ToString(System.Globalization.CultureInfo.InvariantCulture)}%);";
+    }
+}

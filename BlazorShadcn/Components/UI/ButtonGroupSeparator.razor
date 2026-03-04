@@ -1,0 +1,11 @@
+<Separator data-slot="button-group-separator"
+           Orientation="@Orientation"
+           Class="@Tw.Merge("bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto", Class)"
+           @attributes="AdditionalAttributes" />
+
+@code {
+    [Parameter] public Separator.SeparatorOrientation Orientation { get; set; } = Separator.SeparatorOrientation.Vertical;
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

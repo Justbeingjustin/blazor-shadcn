@@ -1,0 +1,100 @@
+@page "/components/alert"
+
+<PageTitle>Alert - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Alert</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage />
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/accordion" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/alert-dialog" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Displays a callout for user attention.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@mainDemoCode">
+                    <Preview>
+                        <Alert>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+                            <AlertTitle>Heads up!</AlertTitle>
+                            <AlertDescription>You can add components and dependencies to your app using the CLI.</AlertDescription>
+                        </Alert>
+                    </Preview>
+                    <Code>@mainDemoCode</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Destructive" Compact="true">
+                        <Preview>
+                            <Alert Variant="Alert.AlertVariant.Destructive">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4" /><path d="M12 17h.01" /><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /></svg>
+                                <AlertTitle>Error</AlertTitle>
+                                <AlertDescription>Your session has expired. Please sign in again.</AlertDescription>
+                            </Alert>
+                        </Preview>
+                        <Code>@destructiveCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Action" Compact="true">
+                        <Preview>
+                            <Alert>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+                                <AlertTitle>Updates available</AlertTitle>
+                                <AlertDescription>New updates are available for your environment.</AlertDescription>
+                                <AlertAction><Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Enable</Button></AlertAction>
+                            </Alert>
+                        </Preview>
+                        <Code>@actionCode</Code>
+                    </ComponentExample>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = """
+<Alert>
+    <AlertTitle>Heads up!</AlertTitle>
+    <AlertDescription>You can add components and dependencies using the CLI.</AlertDescription>
+</Alert>
+""";
+    private const string mainDemoCode = """<Alert><AlertTitle>Heads up!</AlertTitle><AlertDescription>You can add components and dependencies to your app using the CLI.</AlertDescription></Alert>""";
+    private const string destructiveCode = """<Alert Variant="Alert.AlertVariant.Destructive"><AlertTitle>Error</AlertTitle><AlertDescription>Your session has expired.</AlertDescription></Alert>""";
+    private const string actionCode = """<Alert><AlertTitle>Updates available</AlertTitle><AlertDescription>New updates are available.</AlertDescription><AlertAction><Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Enable</Button></AlertAction></Alert>""";
+}

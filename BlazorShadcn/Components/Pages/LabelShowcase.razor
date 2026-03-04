@@ -47,9 +47,7 @@
                 <ComponentExample Compact="true" CodeText="@codeMainDemo">
                     <Preview>
                         <div class="flex items-center gap-2">
-                            <input id="label-demo-terms"
-                                   type="checkbox"
-                                   class="border-input text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] size-4 rounded border" />
+                            <Checkbox Id="label-demo-terms" />
                             <Label For="label-demo-terms">Accept terms and conditions</Label>
                         </div>
                     </Preview>
@@ -136,9 +134,7 @@
                     <ComponentExample Compact="true" CodeText="@codeRtl">
                         <Preview>
                             <div class="flex items-center gap-2" dir="rtl">
-                                <input id="label-rtl-terms"
-                                       type="checkbox"
-                                       class="border-input text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] size-4 rounded border" />
+                                <Checkbox Id="label-rtl-terms" />
                                 <Label For="label-rtl-terms">Accept terms and conditions</Label>
                             </div>
                         </Preview>
@@ -220,7 +216,7 @@
     private const string usageCode = @"<Label For=""email"">Your email address</Label>";
 
     private const string codeMainDemo = @"<div class=""flex items-center gap-2"">
-    <input id=""terms"" type=""checkbox"" class=""border-input text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] size-4 rounded border"" />
+    <Checkbox Id=""terms"" />
     <Label For=""terms"">Accept terms and conditions</Label>
 </div>";
 
@@ -231,7 +227,7 @@
 </div>";
 
     private const string codeRtl = @"<div class=""flex items-center gap-2"" dir=""rtl"">
-    <input id=""terms-rtl"" type=""checkbox"" class=""border-input text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] size-4 rounded border"" />
+    <Checkbox Id=""terms-rtl"" />
     <Label For=""terms-rtl"">Accept terms and conditions</Label>
 </div>";
 }
