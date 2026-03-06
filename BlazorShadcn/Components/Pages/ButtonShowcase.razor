@@ -305,9 +305,11 @@
     private const string installCommand = "npx shadcn@latest add button";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/button";
 
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
 
     private static readonly string _sourceButtonRazor = """
+@namespace ShadcnBlazor.Components.UI
+
 @if (string.IsNullOrEmpty(Href))
 {
     <button class="@GetClasses()" type="@Type" disabled="@Disabled" data-slot="button" data-variant="@Variant.ToString().ToLowerInvariant()" data-size="@Size.ToString().ToLowerInvariant()" @attributes="AdditionalAttributes">
@@ -528,34 +530,34 @@ else
 """;
 
     private const string codeMainDemo = @"<div class=""flex flex-wrap items-center gap-2"">
-    <Button Variant=""ButtonVariant.Outline"">Button</Button>
-    <Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Icon"">
+    <Button Variant=""@Button.ButtonVariant.Outline"">Button</Button>
+    <Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"">
         <!-- arrow-up icon -->
     </Button>
 </div>";
 
-    private const string usingStatement = @"@using MyApp.Components.UI";
-    private const string usageCode = @"<Button Variant=""@MyApp.Components.UI.Button.ButtonVariant.Outline"">Button</Button>";
+    private const string usingStatement = @"@using ShadcnBlazor.Components.UI";
+    private const string usageCode = @"<Button Variant=""@Button.ButtonVariant.Outline"">Button</Button>";
 
-    private const string codeSizeExample = @"<Button Size=""ButtonSize.Xs"" Variant=""ButtonVariant.Outline"">Extra Small</Button>
-<Button Size=""ButtonSize.Sm"" Variant=""ButtonVariant.Outline"">Small</Button>
-<Button Variant=""ButtonVariant.Outline"">Default</Button>
-<Button Size=""ButtonSize.Lg"" Variant=""ButtonVariant.Outline"">Large</Button>";
+    private const string codeSizeExample = @"<Button Size=""@Button.ButtonSize.Xs"" Variant=""@Button.ButtonVariant.Outline"">Extra Small</Button>
+<Button Size=""@Button.ButtonSize.Sm"" Variant=""@Button.ButtonVariant.Outline"">Small</Button>
+<Button Variant=""@Button.ButtonVariant.Outline"">Default</Button>
+<Button Size=""@Button.ButtonSize.Lg"" Variant=""@Button.ButtonVariant.Outline"">Large</Button>";
 
     private const string codeDefault = @"<Button>Button</Button>";
-    private const string codeOutline = @"<Button Variant=""ButtonVariant.Outline"">Outline</Button>";
-    private const string codeSecondary = @"<Button Variant=""ButtonVariant.Secondary"">Secondary</Button>";
-    private const string codeGhost = @"<Button Variant=""ButtonVariant.Ghost"">Ghost</Button>";
-    private const string codeDestructive = @"<Button Variant=""ButtonVariant.Destructive"">Destructive</Button>";
-    private const string codeLink = @"<Button Variant=""ButtonVariant.Link"">Link</Button>";
-    private const string codeIcon = @"<Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Icon"">
+    private const string codeOutline = @"<Button Variant=""@Button.ButtonVariant.Outline"">Outline</Button>";
+    private const string codeSecondary = @"<Button Variant=""@Button.ButtonVariant.Secondary"">Secondary</Button>";
+    private const string codeGhost = @"<Button Variant=""@Button.ButtonVariant.Ghost"">Ghost</Button>";
+    private const string codeDestructive = @"<Button Variant=""@Button.ButtonVariant.Destructive"">Destructive</Button>";
+    private const string codeLink = @"<Button Variant=""@Button.ButtonVariant.Link"">Link</Button>";
+    private const string codeIcon = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"">
     <!-- check-circle icon -->
 </Button>";
-    private const string codeWithIcon = @"<Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Sm"">
+    private const string codeWithIcon = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Sm"">
     <!-- git-branch icon -->
     New Branch
 </Button>";
-    private const string codeRounded = @"<Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Icon"" Class=""rounded-full"">
+    private const string codeRounded = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"" Class=""rounded-full"">
     <!-- arrow-up icon -->
 </Button>";
 }
