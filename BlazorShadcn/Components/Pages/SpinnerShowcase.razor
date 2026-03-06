@@ -50,7 +50,7 @@
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
                 <div class="mt-4">
-                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
                         <button type="button"
                                 @onclick="() => _installationTab = InstallationTab.Command"
                                 data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
@@ -357,3 +357,4 @@
     private const string emptyCode = """<div data-slot="empty" class="flex w-full flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center md:p-12"><div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2"><div data-slot="empty-icon" data-variant="icon" class="bg-muted text-foreground mb-2 flex size-10 items-center justify-center rounded-lg"><Spinner /></div><div data-slot="empty-title" class="text-lg font-medium tracking-tight">Processing your request</div><div data-slot="empty-description" class="text-muted-foreground text-sm/relaxed">Please wait while we process your request. Do not refresh the page.</div></div></div>""";
     private const string rtlCode = """<div dir="rtl" class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]"><div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm"><div data-slot="item-media" class="flex shrink-0 items-center justify-center gap-2"><Spinner /></div><div data-slot="item-content" class="flex flex-1 flex-col gap-1"><div data-slot="item-title" class="line-clamp-1 text-sm leading-snug font-medium">جاري معالجة الدفع...</div></div><div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1"><span class="text-sm tabular-nums">١٠٠.٠٠ دولار</span></div></div></div>""";
 }
+

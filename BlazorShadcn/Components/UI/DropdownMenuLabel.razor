@@ -1,0 +1,7 @@
+<div data-slot="dropdown-menu-label" class="@Tw.Merge("px-2 py-1.5 text-sm font-medium", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

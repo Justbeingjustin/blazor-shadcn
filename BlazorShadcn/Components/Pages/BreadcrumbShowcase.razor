@@ -48,7 +48,7 @@
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
                 <p class="leading-relaxed mt-6">Install the breadcrumb component using the command or manual steps.</p>
-                <div class="mt-4 inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                <div class="mt-4 inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
                     <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground">Command</button>
                     <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground">Manual</button>
                 </div>
@@ -216,3 +216,4 @@
 <span data-slot="breadcrumb-ellipsis" role="presentation" aria-hidden="true" class="@Tw.Merge("flex size-9 items-center justify-center", Class)" @attributes="AdditionalAttributes">...</span>
 """;
 }
+

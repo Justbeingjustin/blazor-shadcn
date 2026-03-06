@@ -55,6 +55,10 @@
                     <Code>@usageCode</Code>
                 </ComponentExample>
 
+                <DocsInstallationSection ComponentLabel="carousel"
+                                         InstallCommand="npx shadcn@latest add carousel"
+                                         SourcePaths="@_manualSourcePaths" />
+
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
                     <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
@@ -71,6 +75,7 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
             </div>
         </div>
@@ -113,6 +118,16 @@
     <CarouselPrevious />
     <CarouselNext />
 </Carousel>";
+    private static readonly string[] _manualSourcePaths =
+    [
+        "Components/UI/Carousel.razor",
+        "Components/UI/CarouselContent.razor",
+        "Components/UI/CarouselItem.razor",
+        "Components/UI/CarouselPrevious.razor",
+        "Components/UI/CarouselNext.razor",
+        "Components/UI/CarouselApi.cs",
+        "Components/UI/CarouselContext.cs"
+    ];
 }
 
 

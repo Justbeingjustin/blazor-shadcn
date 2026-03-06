@@ -1,9 +1,27 @@
-﻿<div data-slot="navigation-menu" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<nav data-slot="navigation-menu"
+     class="@Tw.Merge("flex w-full max-w-xl items-center gap-2 rounded-lg border bg-background p-2", Class)"
+     @attributes="AdditionalAttributes">
+    @if (Items is not null)
+    {
+        @foreach (var item in Items)
+        {
+            <a href="@item.Href"
+               class="hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm font-medium">
+                @item.Label
+            </a>
+        }
+    }
+    else
+    {
+        @ChildContent
+    }
+</nav>
 
 @code {
+    [Parameter] public IEnumerable<NavigationMenuItem>? Items { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    public sealed record NavigationMenuItem(string Label, string Href);
+}

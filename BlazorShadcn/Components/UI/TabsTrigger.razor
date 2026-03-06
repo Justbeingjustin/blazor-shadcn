@@ -1,0 +1,36 @@
+<button type="button"
+        data-slot="tabs-trigger"
+        data-state="@(IsActive ? "active" : "inactive")"
+        class="@Tw.Merge(GetClasses(), Class)"
+        disabled="@Disabled"
+        @onclick="ActivateAsync"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</button>
+
+@code {
+    [CascadingParameter(Name = "TabsContext")] private TabsContext? Context { get; set; }
+    [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool IsActive => string.Equals(Context?.ActiveValue, Value, StringComparison.Ordinal);
+
+    private string GetClasses()
+    {
+        var orientation = Context?.Orientation ?? "horizontal";
+        var variant = Context?.Variant ?? "default";
+        var baseClasses = "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50";
+        var orientationClasses = orientation == "vertical" ? "w-full justify-start" : string.Empty;
+        var variantClasses = variant == "line"
+            ? "bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none after:bg-foreground after:absolute after:opacity-0 after:transition-opacity data-[state=active]:after:opacity-100 after:inset-x-0 after:bottom-[-5px] after:h-0.5"
+            : "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm";
+        return $"{baseClasses} {orientationClasses} {variantClasses}";
+    }
+
+    private Task ActivateAsync()
+        => Context?.ActivateAsync.Invoke(Value) ?? Task.CompletedTask;
+}

@@ -1,9 +1,39 @@
-﻿<div data-slot="dialog" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<CascadingValue Name="DialogContext" Value="@_context">
+    <div data-slot="dialog" class="@Tw.Merge("inline-block", Class)" @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
 
 @code {
+    [Parameter] public bool Open { get; set; }
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+    [Parameter] public bool DefaultOpen { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
 
+    private bool _open;
+    private DialogContext _context = default!;
+
+    protected override void OnParametersSet()
+    {
+        _open = Open || (!OpenChanged.HasDelegate && DefaultOpen);
+        _context = new DialogContext
+        {
+            Open = _open,
+            SetOpenAsync = SetOpenAsync
+        };
+    }
+
+    private async Task SetOpenAsync(bool value)
+    {
+        _open = value;
+        if (OpenChanged.HasDelegate)
+        {
+            await OpenChanged.InvokeAsync(value);
+        }
+
+        StateHasChanged();
+    }
+}

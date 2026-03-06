@@ -1,0 +1,29 @@
+@if (Context?.Open == true)
+{
+    <button type="button"
+            data-slot="dialog-overlay"
+            class="fixed inset-0 z-50 bg-black/50"
+            aria-label="Close dialog"
+            @onclick="CloseAsync"></button>
+
+    <div data-slot="dialog-content"
+         class="@Tw.Merge("bg-background fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg outline-none sm:max-w-lg", Class)"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+        @if (ShowCloseButton)
+        {
+            <DialogClose />
+        }
+    </div>
+}
+
+@code {
+    [CascadingParameter(Name = "DialogContext")] private DialogContext? Context { get; set; }
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task CloseAsync() => Context?.SetOpenAsync(false) ?? Task.CompletedTask;
+}

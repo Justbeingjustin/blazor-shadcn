@@ -42,6 +42,10 @@
                     <Code>@usageCode</Code>
                 </ComponentExample>
 
+                <DocsInstallationSection ComponentLabel="skeleton"
+                                         InstallCommand="npx shadcn@latest add skeleton"
+                                         SourcePaths="@_manualSourcePaths" />
+
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
                 <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
@@ -94,6 +98,7 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
             </div>
@@ -107,4 +112,5 @@
     private const string cardCode = """<div class="space-y-4"><Skeleton Class="h-4 w-[180px]" /><Skeleton Class="h-32 w-full" /></div>""";
     private const string textCode = """<Skeleton Class="h-4 w-full" /><Skeleton Class="h-4 w-[92%]" />""";
     private const string rtlCode = """<div dir="rtl"><Skeleton Class="mr-auto h-4 w-[220px]" /></div>""";
+    private static readonly string[] _manualSourcePaths = ["Components/UI/Skeleton.razor"];
 }

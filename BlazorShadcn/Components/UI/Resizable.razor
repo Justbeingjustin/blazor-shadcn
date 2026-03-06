@@ -1,9 +1,55 @@
-﻿<div data-slot="resizable" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<div data-slot="resizable"
+     class="@Tw.Merge("grid w-full max-w-3xl overflow-hidden rounded-lg border", Orientation == "vertical" ? "grid-cols-[var(--panel-size)_12px_1fr]" : "grid-rows-[var(--panel-size)_12px_1fr]", Class)"
+     style="@($"--panel-size:{Size}%")"
+     @attributes="AdditionalAttributes">
+    <div class="bg-card p-4">
+        @if (First is not null)
+        {
+            @First
+        }
+        else
+        {
+            <p class="font-medium">First panel</p>
+        }
+    </div>
+    <div class="bg-muted flex items-center justify-center p-1">
+        <input type="range"
+               min="20"
+               max="80"
+               value="@Size"
+               class="@Tw.Merge("accent-primary w-full", Orientation == "vertical" ? "-rotate-90" : string.Empty)"
+               @oninput="OnInput" />
+    </div>
+    <div class="bg-background p-4">
+        @if (Second is not null)
+        {
+            @Second
+        }
+        else
+        {
+            <p class="font-medium">Second panel</p>
+        }
+    </div>
+</div>
 
 @code {
+    [Parameter] public int Size { get; set; } = 40;
+    [Parameter] public EventCallback<int> SizeChanged { get; set; }
+    [Parameter] public string Orientation { get; set; } = "vertical";
+    [Parameter] public RenderFragment? First { get; set; }
+    [Parameter] public RenderFragment? Second { get; set; }
     [Parameter] public string? Class { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private async Task OnInput(ChangeEventArgs args)
+    {
+        if (int.TryParse(args.Value?.ToString(), out var value))
+        {
+            Size = value;
+            if (SizeChanged.HasDelegate)
+            {
+                await SizeChanged.InvokeAsync(value);
+            }
+        }
+    }
+}

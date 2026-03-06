@@ -1,0 +1,17 @@
+@if (string.Equals(Context?.ActiveValue, Value, StringComparison.Ordinal))
+{
+    <div data-slot="tabs-content"
+         class="@Tw.Merge("flex-1 outline-none", Class)"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [CascadingParameter(Name = "TabsContext")] private TabsContext? Context { get; set; }
+    [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

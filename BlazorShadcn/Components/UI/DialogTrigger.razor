@@ -1,0 +1,25 @@
+@if (Context is not null)
+{
+    <span data-slot="dialog-trigger"
+          class="@Tw.Merge("inline-flex", Class)"
+          tabindex="0"
+          role="button"
+          @onclick="OpenAsync"
+          @onkeydown="HandleKeyDown"
+          @attributes="AdditionalAttributes">
+        @ChildContent
+    </span>
+}
+
+@code {
+    [CascadingParameter(Name = "DialogContext")] private DialogContext? Context { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task OpenAsync() => Context?.SetOpenAsync(true) ?? Task.CompletedTask;
+
+    private Task HandleKeyDown(KeyboardEventArgs args)
+        => args.Key is "Enter" or " " ? OpenAsync() : Task.CompletedTask;
+}

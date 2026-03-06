@@ -1,0 +1,18 @@
+@if (Context?.Open == true)
+{
+    <div data-slot="hover-card-content"
+         class="@Tw.Merge("bg-popover text-popover-foreground absolute top-full left-0 z-50 mt-2 w-80 rounded-md border p-4 shadow-md", Class)"
+         @onmouseenter="@(() => SetOpenAsync(true))"
+         @onmouseleave="@(() => SetOpenAsync(false))"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [CascadingParameter(Name = "HoverCardContext")] private HoverCardContext? Context { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    private Task SetOpenAsync(bool value) => Context?.SetOpenAsync(value) ?? Task.CompletedTask;
+}

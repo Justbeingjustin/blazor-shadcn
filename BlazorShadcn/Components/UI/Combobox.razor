@@ -1,9 +1,67 @@
-﻿<div data-slot="combobox" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<div data-slot="combobox"
+     class="@Tw.Merge("relative w-full max-w-sm", Class)"
+     @attributes="AdditionalAttributes">
+    <button type="button"
+            class="border-input bg-background flex h-9 w-full items-center justify-between rounded-md border px-3 py-2 text-sm shadow-xs"
+            @onclick="ToggleOpen">
+        <span class="truncate">@(SelectedLabel ?? Placeholder)</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-4"><path d="m6 9 6 6 6-6" /></svg>
+    </button>
+
+    @if (_open)
+    {
+        <div class="bg-popover text-popover-foreground absolute top-full left-0 z-50 mt-2 w-full rounded-md border p-2 shadow-md">
+            <Input Placeholder="Search..." Value="@Query" @oninput="OnInput" Class="mb-2" />
+            <div class="max-h-56 overflow-y-auto">
+                @foreach (var item in FilteredItems)
+                {
+                    <button type="button"
+                            class="hover:bg-accent hover:text-accent-foreground flex w-full items-center rounded-md px-2 py-2 text-left text-sm"
+                            @onclick="() => SelectAsync(item)">
+                        @item.Label
+                    </button>
+                }
+            </div>
+        </div>
+    }
+</div>
 
 @code {
+    [Parameter] public IEnumerable<ComboboxItem>? Items { get; set; }
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+    [Parameter] public string Placeholder { get; set; } = "Select an option";
     [Parameter] public string? Class { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private bool _open;
+    private string Query { get; set; } = string.Empty;
+
+    private IEnumerable<ComboboxItem> SourceItems => Items ?? DefaultItems;
+    private IEnumerable<ComboboxItem> FilteredItems => SourceItems.Where(item => string.IsNullOrWhiteSpace(Query) || item.Label.Contains(Query, StringComparison.OrdinalIgnoreCase));
+    private string? SelectedLabel => SourceItems.FirstOrDefault(item => item.Value == Value)?.Label;
+
+    private void ToggleOpen() => _open = !_open;
+    private void OnInput(ChangeEventArgs args) => Query = args.Value?.ToString() ?? string.Empty;
+
+    private async Task SelectAsync(ComboboxItem item)
+    {
+        Value = item.Value;
+        _open = false;
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(item.Value);
+        }
+    }
+
+    public sealed record ComboboxItem(string Value, string Label);
+
+    private static readonly List<ComboboxItem> DefaultItems =
+    [
+        new("next", "Next.js"),
+        new("sveltekit", "SvelteKit"),
+        new("nuxt", "Nuxt"),
+        new("remix", "Remix"),
+        new("astro", "Astro")
+    ];
+}

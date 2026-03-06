@@ -1,0 +1,18 @@
+@if (Context?.Open == true)
+{
+    <div data-slot="tooltip-content"
+         class="@Tw.Merge("bg-primary text-primary-foreground absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md px-3 py-1.5 text-xs shadow-md", Class)"
+         @onmouseenter="@(() => SetOpenAsync(true))"
+         @onmouseleave="@(() => SetOpenAsync(false))"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [CascadingParameter(Name = "TooltipContext")] private TooltipContext? Context { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    private Task SetOpenAsync(bool value) => Context?.SetOpenAsync(value) ?? Task.CompletedTask;
+}

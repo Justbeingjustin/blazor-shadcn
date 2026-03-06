@@ -1,9 +1,35 @@
-﻿<div data-slot="menubar" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<div data-slot="menubar"
+     class="@Tw.Merge("bg-background flex w-fit items-center gap-1 rounded-md border p-1", Class)"
+     @attributes="AdditionalAttributes">
+    @foreach (var menu in Menus ?? DefaultMenus)
+    {
+        <DropdownMenu>
+            <DropdownMenuTrigger>
+                <button type="button" class="hover:bg-accent hover:text-accent-foreground rounded-sm px-3 py-1.5 text-sm font-medium">
+                    @menu.Label
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                @foreach (var item in menu.Items)
+                {
+                    <DropdownMenuItem>@item</DropdownMenuItem>
+                }
+            </DropdownMenuContent>
+        </DropdownMenu>
+    }
+</div>
 
 @code {
+    [Parameter] public IEnumerable<MenubarMenu>? Menus { get; set; }
     [Parameter] public string? Class { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    public sealed record MenubarMenu(string Label, IEnumerable<string> Items);
+
+    private static readonly List<MenubarMenu> DefaultMenus =
+    [
+        new("File", ["New Tab", "New Window", "Share"]),
+        new("Edit", ["Undo", "Redo", "Find"]),
+        new("View", ["Always Show Bookmarks Bar", "Always Show Full URLs"])
+    ];
+}

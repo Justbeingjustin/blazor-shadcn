@@ -1,0 +1,19 @@
+<DialogContent ShowCloseButton="@ShowCloseButton" Class="@Tw.Merge(GetSideClasses(), Class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</DialogContent>
+
+@code {
+    [Parameter] public string Side { get; set; } = "right";
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetSideClasses() => Side switch
+    {
+        "left" => "left-0 top-0 h-full max-w-sm translate-x-0 translate-y-0 rounded-none border-r",
+        "top" => "top-0 left-1/2 w-full max-w-none translate-x-[-50%] translate-y-0 rounded-none border-b sm:max-w-none",
+        "bottom" => "bottom-0 top-auto left-1/2 w-full max-w-none translate-x-[-50%] translate-y-0 rounded-none border-t sm:max-w-none",
+        _ => "right-0 left-auto top-0 h-full max-w-sm translate-x-0 translate-y-0 rounded-none border-l"
+    };
+}

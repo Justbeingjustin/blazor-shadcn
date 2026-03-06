@@ -1,9 +1,41 @@
-﻿<div data-slot="sidebar" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<aside data-slot="sidebar"
+       class="@Tw.Merge("bg-sidebar text-sidebar-foreground flex w-full max-w-xs flex-col rounded-xl border p-3", Class)"
+       @attributes="AdditionalAttributes">
+    @if (Header is not null)
+    {
+        <div class="mb-3">@Header</div>
+    }
+
+    <div class="flex-1 space-y-1">
+        @if (Items is not null)
+        {
+            @foreach (var item in Items)
+            {
+                <a href="@item.Href"
+                   class="hover:bg-accent hover:text-accent-foreground flex items-center rounded-md px-3 py-2 text-sm font-medium">
+                    @item.Label
+                </a>
+            }
+        }
+        else
+        {
+            @ChildContent
+        }
+    </div>
+
+    @if (Footer is not null)
+    {
+        <div class="mt-3">@Footer</div>
+    }
+</aside>
 
 @code {
-    [Parameter] public string? Class { get; set; }
+    [Parameter] public IEnumerable<SidebarItem>? Items { get; set; }
+    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter] public RenderFragment? Footer { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    public sealed record SidebarItem(string Label, string Href);
+}

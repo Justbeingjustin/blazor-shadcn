@@ -1,0 +1,12 @@
+<p data-slot="popover-description"
+   class="@Tw.Merge("text-muted-foreground", Class)"
+   @attributes="AdditionalAttributes">
+    @ChildContent
+</p>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

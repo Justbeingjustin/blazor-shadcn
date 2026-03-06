@@ -1,0 +1,27 @@
+<button type="button"
+        data-slot="dropdown-menu-item"
+        class="@Tw.Merge("hover:bg-accent hover:text-accent-foreground flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm text-left outline-none", Class)"
+        @onclick="OnClick"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</button>
+
+@code {
+    [CascadingParameter(Name = "DropdownMenuContext")] private DropdownMenuContext? Context { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback OnSelect { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private async Task OnClick()
+    {
+        if (OnSelect.HasDelegate)
+        {
+            await OnSelect.InvokeAsync();
+        }
+        if (Context is not null)
+        {
+            await Context.SetOpenAsync(false);
+        }
+    }
+}

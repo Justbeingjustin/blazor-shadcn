@@ -36,15 +36,21 @@
                 var month = GetVisibleMonth(monthIndex);
                 var weeks = BuildWeeks(month);
 
-                <div class="flex w-full flex-col gap-4">
+                <div class="flex flex-col gap-4">
                     <div class="flex w-full items-center justify-center" style="@GetCaptionContainerStyle()">
                         @if (CaptionLayout == CalendarCaptionLayout.Dropdown)
                         {
                             <div class="flex h-full w-full items-center justify-center gap-1.5 text-sm font-medium">
                                 <label class="sr-only" for="@GetMonthSelectId(monthIndex)">Month</label>
                                 <div class="relative rounded-md border border-input shadow-xs focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50">
+                                    <div class="flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm">
+                                        <span class="select-none">@Culture.DateTimeFormat.GetAbbreviatedMonthName(month.Month)</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                    </div>
                                     <select id="@GetMonthSelectId(monthIndex)"
-                                            class="h-8 rounded-md bg-background pl-2 pr-7 text-sm outline-none"
+                                            class="bg-popover absolute inset-0 opacity-0 outline-none"
                                             value="@month.Month"
                                             @onchange="args => OnMonthDropdownChanged(args, monthIndex)">
                                         @for (var monthNumber = 1; monthNumber <= 12; monthNumber++)
@@ -52,15 +58,18 @@
                                             <option value="@monthNumber">@Culture.DateTimeFormat.GetAbbreviatedMonthName(monthNumber)</option>
                                         }
                                     </select>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute right-2 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m6 9 6 6 6-6" />
-                                    </svg>
                                 </div>
 
                                 <label class="sr-only" for="@GetYearSelectId(monthIndex)">Year</label>
                                 <div class="relative rounded-md border border-input shadow-xs focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50">
+                                    <div class="flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm">
+                                        <span class="select-none">@month.Year</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                    </div>
                                     <select id="@GetYearSelectId(monthIndex)"
-                                            class="h-8 rounded-md bg-background pl-2 pr-7 text-sm outline-none"
+                                            class="bg-popover absolute inset-0 opacity-0 outline-none"
                                             value="@month.Year"
                                             @onchange="args => OnYearDropdownChanged(args, monthIndex)">
                                         @foreach (var year in GetYearOptions())
@@ -68,9 +77,6 @@
                                             <option value="@year">@year</option>
                                         }
                                     </select>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute right-2 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m6 9 6 6 6-6" />
-                                    </svg>
                                 </div>
                             </div>
                         }
@@ -81,7 +87,7 @@
                     </div>
 
                     <div class="grid gap-2">
-                        <div class="grid gap-0" style="@GetWeekGridStyle()">
+                        <div class="flex" data-slot="weekdays">
                             @if (ShowWeekNumber)
                             {
                                 <div style="@GetCellStyle()"></div>
@@ -97,7 +103,7 @@
 
                         @foreach (var week in weeks)
                         {
-                            <div class="mt-2 grid gap-0" style="@GetWeekGridStyle()">
+                            <div class="mt-2 flex w-full" data-slot="week">
                                 @if (ShowWeekNumber)
                                 {
                                     <div class="flex items-center justify-center text-[0.8rem] text-muted-foreground" style="@GetCellStyle()">
@@ -113,7 +119,7 @@
                                         continue;
                                     }
 
-                                    <div class="@GetDayContainerClasses(day, month)" style="@GetCellStyle()">
+                                    <div class="@GetDayContainerClasses(day, month, week.Days[0], week.Days[^1])" style="@GetCellStyle()">
                                         <button type="button"
                                                 class="@GetDayButtonClasses(day)"
                                                 style="@GetCellStyle()"
@@ -175,7 +181,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private const string DefaultCellSize = "1.75rem";
+    private const string DefaultCellSize = "2rem";
 
     protected override void OnParametersSet()
     {
@@ -188,7 +194,7 @@
     }
 
     private string GetRootClasses()
-        => Tw.Merge("bg-background group/calendar w-fit p-2 [--cell-size:1.75rem] [--cell-radius:var(--radius-md)]", Class);
+        => Tw.Merge("bg-background group/calendar w-fit p-3 [--cell-size:2rem] [--cell-radius:var(--radius-md)]", Class);
 
     private string GetRootStyle()
         => CellSize == DefaultCellSize
@@ -201,19 +207,14 @@
     private string GetCaptionContainerStyle()
         => "height:var(--cell-size);padding-left:var(--cell-size);padding-right:var(--cell-size);";
 
-    private string GetWeekGridStyle()
-        => ShowWeekNumber
-            ? "grid-template-columns:repeat(8,var(--cell-size));"
-            : "grid-template-columns:repeat(7,var(--cell-size));";
-
     private string GetNavigationButtonClasses()
-        => "inline-flex select-none items-center justify-center rounded-md p-0 text-sm transition-colors hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50";
+        => "focus-visible:border-ring focus-visible:ring-ring/50 inline-flex items-center justify-center rounded-md border border-transparent bg-clip-padding p-0 text-sm shadow-none outline-none select-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50";
 
-    private string GetDayContainerClasses(DateOnly day, DateOnly visibleMonth)
+    private string GetDayContainerClasses(DateOnly day, DateOnly visibleMonth, DateOnly firstDayOfWeek, DateOnly lastDayOfWeek)
     {
         var classes = new List<string>
         {
-            "group/day relative p-0 text-center"
+            "group/day relative h-full w-full p-0 text-center select-none"
         };
 
         if (IsRangeStart(day))
@@ -223,7 +224,7 @@
 
         if (IsRangeMiddle(day))
         {
-            classes.Add("rounded-none bg-accent");
+            classes.Add("rounded-none");
         }
 
         if (IsRangeEnd(day))
@@ -231,7 +232,17 @@
             classes.Add("rounded-r-md bg-accent");
         }
 
-        if (IsToday(day))
+        if (IsSelected(day) && day == firstDayOfWeek && (!ShowWeekNumber || weekStartsWithVisibleDay(firstDayOfWeek)))
+        {
+            classes.Add("rounded-l-md");
+        }
+
+        if (IsSelected(day) && day == lastDayOfWeek)
+        {
+            classes.Add("rounded-r-md");
+        }
+
+        if (IsToday(day) && !IsSelected(day))
         {
             classes.Add("rounded-md");
         }
@@ -242,14 +253,17 @@
         }
 
         return string.Join(' ', classes);
+
+        bool weekStartsWithVisibleDay(DateOnly weekStart)
+            => weekStart.Month == visibleMonth.Month;
     }
 
     private string GetDayButtonClasses(DateOnly day)
     {
         var classes = new List<string>
         {
-            "inline-flex size-auto min-w-0 w-full flex-col items-center justify-center gap-1 rounded-md text-sm font-normal leading-none transition-colors outline-none",
-            "hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+            "focus-visible:border-ring focus-visible:ring-ring/50 inline-flex size-auto w-full min-w-0 flex-col items-center justify-center gap-1 rounded-md text-sm font-normal leading-none outline-none transition-all",
+            "hover:bg-accent hover:text-accent-foreground focus-visible:ring-3",
             "disabled:pointer-events-none disabled:opacity-50",
             "[&>span]:text-xs [&>span]:opacity-70"
         };
@@ -260,7 +274,7 @@
         }
         else if (IsRangeMiddle(day))
         {
-            classes.Add("bg-accent text-accent-foreground rounded-none");
+            classes.Add("rounded-none bg-accent text-accent-foreground");
         }
         else if (IsToday(day))
         {
@@ -269,7 +283,7 @@
 
         if (day.Month != GetOwningVisibleMonth(day).Month)
         {
-            classes.Add("text-muted-foreground");
+            classes.Add("text-muted-foreground aria-selected:text-muted-foreground");
         }
 
         if (IsDisabled(day))

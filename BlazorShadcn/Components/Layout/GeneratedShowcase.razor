@@ -1,0 +1,474 @@
+@inject IWebHostEnvironment Environment
+
+<PageTitle>@($"{Title} - blazor-shadcn")</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">@Title</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@ReferenceUrl" />
+                        @if (PreviousHref is not null)
+                        {
+                            <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="@PreviousHref" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            </Button>
+                        }
+                        @if (NextHref is not null)
+                        {
+                            <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="@NextHref" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                            </Button>
+                        }
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">@Description</p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@UsageCode">
+                    <Preview>@RenderDemo("Demo")</Preview>
+                    <Code>@UsageCode</Code>
+                </ComponentExample>
+
+                <DocsInstallationSection ComponentLabel="@Title.ToLowerInvariant()"
+                                         InstallCommand="@InstallCommand"
+                                         SourcePaths="@ManualSourcePaths"
+                                         DependencyCommands="@DependencyCommands" />
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@UsingStatement">@UsingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@UsageCode">@UsageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                @foreach (var heading in ExampleHeadings)
+                {
+                    <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="@Anchor(heading)">@heading</h3>
+                    <div class="mt-6">
+                        <ComponentExample Compact="true" CodeText="@ExampleCode(heading)">
+                            <Preview>@RenderDemo(heading)</Preview>
+                            <Code>@ExampleCode(heading)</Code>
+                        </ComponentExample>
+                    </div>
+                }
+
+                @if (HasDataTable)
+                {
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="data-table">Data Table</h2>
+                    <div class="mt-6">
+                        <ComponentExample Compact="true" CodeText="@DataTableCode">
+                            <Preview>
+                                <DataTable Class="w-full">
+                                    <div class="flex items-center justify-between gap-3">
+                                        <div>
+                                            <p class="font-medium">Invoices</p>
+                                            <p class="text-muted-foreground text-sm">Sorting, filtering, and bulk actions layered on top of table primitives.</p>
+                                        </div>
+                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Export</Button>
+                                    </div>
+                                </DataTable>
+                            </Preview>
+                            <Code>@DataTableCode</Code>
+                        </ComponentExample>
+                    </div>
+                }
+
+                @if (HasRtl)
+                {
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                    <div class="mt-6">
+                        <ComponentExample Compact="true" CodeText="@RtlCode">
+                            <Preview><div dir="rtl">@RenderDemo("RTL")</div></Preview>
+                            <Code>@RtlCode</Code>
+                        </ComponentExample>
+                    </div>
+                }
+
+                @if (HasApiReference)
+                {
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                    <p class="text-muted-foreground mt-2 text-sm">See the <a class="underline underline-offset-4" href="@ReferenceUrl" target="_blank" rel="noreferrer">reference documentation</a> for the original shadcn API surface.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                @foreach (var heading in ExampleHeadings)
+                {
+                    <a href="@($"#{Anchor(heading)}")" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">@heading</a>
+                }
+                @if (HasDataTable)
+                {
+                    <a href="#data-table" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Data Table</a>
+                }
+                @if (HasRtl)
+                {
+                    <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+                }
+                @if (HasApiReference)
+                {
+                    <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Slug { get; set; } = string.Empty;
+
+    private string Title => Slug switch
+    {
+        "button-group" => "Button Group",
+        "context-menu" => "Context Menu",
+        "data-table" => "Data Table",
+        "date-picker" => "Date Picker",
+        "dropdown-menu" => "Dropdown Menu",
+        "hover-card" => "Hover Card",
+        "input-group" => "Input Group",
+        "input-otp" => "Input OTP",
+        "native-select" => "Native Select",
+        "navigation-menu" => "Navigation Menu",
+        "radio-group" => "Radio Group",
+        "scroll-area" => "Scroll Area",
+        "toggle-group" => "Toggle Group",
+        _ => string.Join(" ", Slug.Split('-').Select(static part => char.ToUpperInvariant(part[0]) + part[1..]))
+    };
+
+    private string Description => $"{Title} examples and installation guidance for BlazorShadcn.";
+    private string ReferenceUrl => $"https://ui.shadcn.com/docs/components/{Slug}";
+    private string InstallCommand => $"npx shadcn@latest add {Slug}";
+    private string UsingStatement => "@using BlazorShadcn.Components.UI";
+    private string UsageCode => Slug switch
+    {
+        "combobox" => """<Combobox Placeholder="Select framework" />""",
+        "command" => """<Command />""",
+        "context-menu" => """<ContextMenu><div class="rounded-lg border p-6 text-sm">Right click here</div></ContextMenu>""",
+        "dialog" => """<Dialog><DialogTrigger><Button Variant="ButtonVariant.Outline">Open</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Edit profile</DialogTitle><DialogDescription>Make changes to your profile here.</DialogDescription></DialogHeader></DialogContent></Dialog>""",
+        "drawer" => """<Drawer><DrawerTrigger><Button Variant="ButtonVariant.Outline">Open drawer</Button></DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>Move goal</DrawerTitle><DrawerDescription>Adjust your progress target.</DrawerDescription></DrawerHeader></DrawerContent></Drawer>""",
+        "dropdown-menu" => """<DropdownMenu><DropdownMenuTrigger><Button Variant="ButtonVariant.Outline">Open menu</Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuItem>Profile</DropdownMenuItem></DropdownMenuContent></DropdownMenu>""",
+        "hover-card" => """<HoverCard><HoverCardTrigger><Button Variant="ButtonVariant.Link">Hover me</Button></HoverCardTrigger><HoverCardContent><div class="text-sm">Hover details</div></HoverCardContent></HoverCard>""",
+        "menubar" => """<Menubar />""",
+        "navigation-menu" => """<NavigationMenu />""",
+        "popover" => """<Popover><PopoverTrigger><Button Variant="ButtonVariant.Outline">Open popover</Button></PopoverTrigger><PopoverContent><PopoverHeader><PopoverTitle>Dimensions</PopoverTitle><PopoverDescription>Set the dimensions for the layer.</PopoverDescription></PopoverHeader></PopoverContent></Popover>""",
+        "progress" => """<Progress Value="63" Class="w-[320px]" />""",
+        "resizable" => """<Resizable />""",
+        "sheet" => """<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">Open sheet</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>Edit profile</SheetTitle><SheetDescription>Make changes to your profile here.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
+        "sidebar" => """<Sidebar />""",
+        "slider" => """<Slider Value="50" />""",
+        "switch" => """<Switch Checked="true" />""",
+        "tabs" => """<Tabs DefaultValue="account"><TabsList><TabsTrigger Value="account">Account</TabsTrigger><TabsTrigger Value="password">Password</TabsTrigger></TabsList><TabsContent Value="account">Account content</TabsContent><TabsContent Value="password">Password content</TabsContent></Tabs>""",
+        "textarea" => """<Textarea Placeholder="Type your message here." Class="max-w-sm" />""",
+        "toggle" => """<Toggle Variant="outline">Bold</Toggle>""",
+        "toggle-group" => """<ToggleGroup Type="single" Value="bold"><ToggleGroupItem Value="bold">Bold</ToggleGroupItem><ToggleGroupItem Value="italic">Italic</ToggleGroupItem></ToggleGroup>""",
+        "tooltip" => """<Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Hover</Button></TooltipTrigger><TooltipContent>Add to library</TooltipContent></Tooltip>""",
+        _ => $"""<{Pascal(Slug)} Class="w-full"><div class="text-sm text-muted-foreground">{Title} content</div></{Pascal(Slug)}>"""
+    };
+    private string DataTableCode => """<DataTable Class="w-full"><div class="text-sm">Invoices</div></DataTable>""";
+    private string RtlCode => $"""<div dir="rtl">{UsageCode}</div>""";
+    private string? PreviousHref => PrevNext(-1);
+    private string? NextHref => PrevNext(1);
+    private bool HasRtl => Sections.Contains("RTL");
+    private bool HasApiReference => Sections.Contains("API Reference");
+    private bool HasDataTable => Sections.Contains("Data Table");
+    private List<string> Sections => ParseSection("Keep the docs page section order identical to the reference:");
+    private List<string> ExampleHeadings => ParseSection("Implement these example headings in this exact order:");
+    private IReadOnlyList<string> ManualSourcePaths => LoadSourcePaths();
+    private IReadOnlyList<string> DependencyCommands => ParseSection("Manual tab dependency steps called out in the docs:");
+
+    private string? PrevNext(int offset)
+    {
+        var i = Order.IndexOf(Slug);
+        var next = i + offset;
+        return next >= 0 && next < Order.Count ? $"/components/{Order[next]}" : null;
+    }
+
+    private List<string> ParseSection(string marker)
+    {
+        var path = Path.Combine(Environment.ContentRootPath, "..", "Reference", "mds", $"{Slug}.md");
+        if (!File.Exists(path))
+        {
+            return [];
+        }
+
+        var text = File.ReadAllText(path);
+        var idx = text.IndexOf(marker, StringComparison.Ordinal);
+        if (idx < 0)
+        {
+            return [];
+        }
+
+        var items = new List<string>();
+        foreach (var raw in text[(idx + marker.Length)..].Split('\n'))
+        {
+            var line = raw.Trim();
+            if (line.StartsWith("-"))
+            {
+                items.Add(line[1..].Trim().Trim('`'));
+            }
+            else if (items.Count > 0)
+            {
+                break;
+            }
+        }
+
+        return items;
+    }
+
+    private List<string> LoadSourcePaths()
+    {
+        var root = Path.Combine(Environment.ContentRootPath, "Components", "UI");
+        var prefix = Pascal(Slug);
+        return
+        [
+            ..Directory.GetFiles(root, $"{prefix}*")
+                .OrderBy(static path => path)
+                .Select(path => Path.GetRelativePath(Environment.ContentRootPath, path).Replace('\\', '/'))
+        ];
+    }
+
+    private string ExampleCode(string heading) => Slug switch
+    {
+        "combobox" => """<Combobox Placeholder="Select framework" />""",
+        "command" => """<Command />""",
+        "context-menu" => """<ContextMenu><div class="rounded-lg border p-6 text-sm">Right click here</div></ContextMenu>""",
+        "dialog" => $"""<Dialog><DialogTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>{heading}</DialogTitle><DialogDescription>Composable dialog content.</DialogDescription></DialogHeader></DialogContent></Dialog>""",
+        "drawer" => $"""<Drawer><DrawerTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>{heading}</DrawerTitle><DrawerDescription>Composable drawer content.</DrawerDescription></DrawerHeader></DrawerContent></Drawer>""",
+        "dropdown-menu" => $"""<DropdownMenu><DropdownMenuTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuItem>{heading}</DropdownMenuItem></DropdownMenuContent></DropdownMenu>""",
+        "hover-card" => $"""<HoverCard><HoverCardTrigger><Button Variant="ButtonVariant.Link">{heading}</Button></HoverCardTrigger><HoverCardContent><div class="text-sm">{heading}</div></HoverCardContent></HoverCard>""",
+        "menubar" => """<Menubar />""",
+        "navigation-menu" => """<NavigationMenu />""",
+        "popover" => $"""<Popover><PopoverTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></PopoverTrigger><PopoverContent><PopoverHeader><PopoverTitle>{heading}</PopoverTitle><PopoverDescription>Composable popover content.</PopoverDescription></PopoverHeader></PopoverContent></Popover>""",
+        "progress" => $"""<Progress Value="{Math.Min(90, Math.Max(24, heading.Length * 6))}" Class="w-[320px]" />""",
+        "resizable" => """<Resizable />""",
+        "sheet" => $"""<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>{heading}</SheetTitle><SheetDescription>Composable sheet content.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
+        "sidebar" => """<Sidebar />""",
+        "slider" => $"""<Slider Value="{Math.Min(90, Math.Max(10, heading.Length * 5))}" />""",
+        "switch" => $"""<Switch Checked="{(heading.Length % 2 == 0 ? "true" : "false")}" />""",
+        "tabs" => $"""<Tabs DefaultValue="first"><TabsList><TabsTrigger Value="first">{heading}</TabsTrigger><TabsTrigger Value="second">Details</TabsTrigger></TabsList><TabsContent Value="first">Primary panel</TabsContent><TabsContent Value="second">Secondary panel</TabsContent></Tabs>""",
+        "textarea" => $"""<Textarea Placeholder="{heading}..." Class="min-h-28 max-w-sm" />""",
+        "toggle" => $"""<Toggle Variant="outline" Pressed="{(heading.Length % 2 == 0 ? "true" : "false")}">{heading}</Toggle>""",
+        "toggle-group" => $"""<ToggleGroup Type="single" Value="left"><ToggleGroupItem Value="left">{heading}</ToggleGroupItem><ToggleGroupItem Value="center">Center</ToggleGroupItem></ToggleGroup>""",
+        "tooltip" => $"""<Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></TooltipTrigger><TooltipContent>{heading}</TooltipContent></Tooltip>""",
+        _ => $"""<{Pascal(Slug)} Class="w-full"><div class="space-y-1"><p class="font-medium">{heading}</p><p class="text-sm text-muted-foreground">BlazorShadcn composition.</p></div></{Pascal(Slug)}>"""
+    };
+
+    private RenderFragment RenderDemo(string heading) => Slug switch
+    {
+        "chart" => @<Chart Class="w-full">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <p class="font-medium">@heading</p>
+                    <Badge Variant="BadgeVariant.Secondary">Live</Badge>
+                </div>
+                <svg viewBox="0 0 320 160" class="h-40 w-full text-primary" aria-hidden="true">
+                    <path d="M32 118h28v22H32zM88 86h28v54H88zM144 62h28v78h-28zM200 44h28v96h-28zM256 74h28v66h-28z" fill="currentColor" fill-opacity="0.85" />
+                </svg>
+            </div>
+        </Chart>,
+        "combobox" => @<Combobox Placeholder="Select framework" />,
+        "command" => @<Command />,
+        "context-menu" => @<ContextMenu>
+            <div class="rounded-lg border border-dashed p-8 text-sm text-muted-foreground">Right click inside this surface.</div>
+        </ContextMenu>,
+        "dialog" => @<Dialog>
+            <DialogTrigger>
+                <Button Variant="ButtonVariant.Outline">@heading</Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Edit profile</DialogTitle>
+                    <DialogDescription>Update the details shown on your public profile.</DialogDescription>
+                </DialogHeader>
+                <div class="grid gap-3 py-2">
+                    <div class="grid gap-1.5">
+                        <Label>Display name</Label>
+                        <Input Value="Pedro Duarte" />
+                    </div>
+                    <div class="grid gap-1.5">
+                        <Label>Username</Label>
+                        <Input Value="@("@peduarte")" />
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button Variant="ButtonVariant.Outline">Cancel</Button>
+                    <Button>Save changes</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>,
+        "drawer" => @<Drawer>
+            <DrawerTrigger>
+                <Button Variant="ButtonVariant.Outline">@heading</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+                <DrawerHeader>
+                    <DrawerTitle>Move goal</DrawerTitle>
+                    <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+                </DrawerHeader>
+                <div class="py-4 text-sm text-muted-foreground">Drawers are anchored to the bottom edge for touch-friendly workflows.</div>
+                <DrawerFooter>
+                    <Button Variant="ButtonVariant.Outline">Cancel</Button>
+                    <Button>Confirm</Button>
+                </DrawerFooter>
+            </DrawerContent>
+        </Drawer>,
+        "dropdown-menu" => @<DropdownMenu>
+            <DropdownMenuTrigger>
+                <Button Variant="ButtonVariant.Outline">@heading</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>,
+        "hover-card" => @<HoverCard>
+            <HoverCardTrigger>
+                <Button Variant="ButtonVariant.Link">@("@nextjs")</Button>
+            </HoverCardTrigger>
+            <HoverCardContent>
+                <div class="flex gap-3">
+                    <Avatar>
+                        <AvatarFallback>N</AvatarFallback>
+                    </Avatar>
+                    <div class="space-y-1 text-sm">
+                        <p class="font-medium">nextjs</p>
+                        <p class="text-muted-foreground">The React framework for the web.</p>
+                    </div>
+                </div>
+            </HoverCardContent>
+        </HoverCard>,
+        "menubar" => @<Menubar />,
+        "navigation-menu" => @<NavigationMenu Items="NavigationItems" />,
+        "popover" => @<Popover>
+            <PopoverTrigger>
+                <Button Variant="ButtonVariant.Outline">@heading</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <PopoverHeader>
+                    <PopoverTitle>Dimensions</PopoverTitle>
+                    <PopoverDescription>Update the layout metrics for this view.</PopoverDescription>
+                </PopoverHeader>
+                <div class="mt-3 grid gap-2">
+                    <div class="grid gap-1.5">
+                        <Label>Width</Label>
+                        <Input Value="100%" />
+                    </div>
+                    <div class="grid gap-1.5">
+                        <Label>Max width</Label>
+                        <Input Value="420px" />
+                    </div>
+                </div>
+            </PopoverContent>
+        </Popover>,
+        "progress" => @<Progress Value="@Math.Min(90, Math.Max(24, heading.Length * 6))" Class="w-[320px]" />,
+        "resizable" => @<Resizable First="@FirstPanel" Second="@SecondPanel" />,
+        "sheet" => @<Sheet>
+            <SheetTrigger>
+                <Button Variant="ButtonVariant.Outline">@heading</Button>
+            </SheetTrigger>
+            <SheetContent>
+                <SheetHeader>
+                    <SheetTitle>Edit profile</SheetTitle>
+                    <SheetDescription>Make changes to your profile here. Click save when you're done.</SheetDescription>
+                </SheetHeader>
+                <div class="grid gap-3 py-2">
+                    <div class="grid gap-1.5">
+                        <Label>Name</Label>
+                        <Input Value="Pedro Duarte" />
+                    </div>
+                    <div class="grid gap-1.5">
+                        <Label>Username</Label>
+                        <Input Value="@("@peduarte")" />
+                    </div>
+                </div>
+                <SheetFooter>
+                    <Button>Save changes</Button>
+                </SheetFooter>
+            </SheetContent>
+        </Sheet>,
+        "sidebar" => @<Sidebar Items="SidebarItems"
+                               Header="@SidebarHeader"
+                               Footer="@SidebarFooter" />,
+        "slider" => @<Slider Value="@Math.Min(90, Math.Max(10, heading.Length * 5))" />,
+        "switch" => @<div class="flex items-center gap-3"><Switch Checked="@(heading.Length % 2 == 0)" /><span class="text-sm text-muted-foreground">@heading</span></div>,
+        "tabs" => @<Tabs DefaultValue="account" Class="w-full max-w-md">
+            <TabsList>
+                <TabsTrigger Value="account">Account</TabsTrigger>
+                <TabsTrigger Value="password">Password</TabsTrigger>
+            </TabsList>
+            <TabsContent Value="account">
+                <div class="border rounded-lg p-4 text-sm">Manage profile details and display settings.</div>
+            </TabsContent>
+            <TabsContent Value="password">
+                <div class="border rounded-lg p-4 text-sm">Rotate credentials and review security preferences.</div>
+            </TabsContent>
+        </Tabs>,
+        "textarea" => @<Textarea Placeholder="@($"{heading}...")" Class="min-h-28 max-w-sm" />,
+        "toggle" => @<Toggle Variant="outline" Pressed="@(heading.Length % 2 == 0)">@heading</Toggle>,
+        "toggle-group" => @<ToggleGroup Type="single" Value="bold">
+            <ToggleGroupItem Value="bold">Bold</ToggleGroupItem>
+            <ToggleGroupItem Value="italic">Italic</ToggleGroupItem>
+            <ToggleGroupItem Value="underline">Underline</ToggleGroupItem>
+        </ToggleGroup>,
+        "table" => @<Table Class="w-full"><div class="space-y-2"><p class="font-medium">@heading</p><div class="border rounded-md p-4 text-sm text-muted-foreground">Structured rows and cells preview.</div></div></Table>,
+        "tooltip" => @<Tooltip>
+            <TooltipTrigger>
+                <Button Variant="ButtonVariant.Outline">@heading</Button>
+            </TooltipTrigger>
+            <TooltipContent>Add to library</TooltipContent>
+        </Tooltip>,
+        _ => @<div class="border-border bg-card text-card-foreground rounded-lg border p-4">
+            <div class="space-y-1">
+                <p class="font-medium">@heading</p>
+                <p class="text-sm text-muted-foreground">BlazorShadcn composition for the @Slug component.</p>
+            </div>
+        </div>
+    };
+
+    private static string Anchor(string value) => value.ToLowerInvariant().Replace(" ", "-");
+    private static string Pascal(string value) => string.Concat(value.Split('-').Select(static part => char.ToUpperInvariant(part[0]) + part[1..]));
+
+    private static readonly List<string> Order =
+    [
+        "accordion","alert","alert-dialog","aspect-ratio","avatar","badge","breadcrumb","button","button-group","calendar","card","carousel","chart","checkbox","collapsible","combobox","command","context-menu","data-table","date-picker","dialog","direction","drawer","dropdown-menu","empty","field","hover-card","input","input-group","input-otp","item","kbd","label","menubar","native-select","navigation-menu","pagination","popover","progress","radio-group","resizable","scroll-area","select","separator","sheet","sidebar","skeleton","slider","sonner","spinner","switch","table","tabs","textarea","toast","toggle","toggle-group","tooltip","typography"
+    ];
+
+    private static readonly NavigationMenu.NavigationMenuItem[] NavigationItems =
+    [
+        new("Getting Started", "#"),
+        new("Components", "#"),
+        new("Docs", "#")
+    ];
+
+    private static readonly Sidebar.SidebarItem[] SidebarItems =
+    [
+        new("Dashboard", "#"),
+        new("Inbox", "#"),
+        new("Settings", "#")
+    ];
+
+    private RenderFragment SidebarHeader => @<div class="px-3 py-2"><p class="font-semibold">Acme Inc.</p></div>;
+    private RenderFragment SidebarFooter => @<div class="px-3 py-2 text-sm text-muted-foreground">jane@acme.com</div>;
+    private RenderFragment FirstPanel => @<div class="space-y-1"><p class="font-medium">Navigation</p><p class="text-sm text-muted-foreground">Pinned folders and filters.</p></div>;
+    private RenderFragment SecondPanel => @<div class="space-y-1"><p class="font-medium">Content</p><p class="text-sm text-muted-foreground">Main workspace canvas.</p></div>;
+}

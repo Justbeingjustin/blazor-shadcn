@@ -31,10 +31,18 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@usageCode">
                     <Preview>
-                        <Calendar><span class="text-sm text-muted-foreground">Example</span></Calendar>
+                        <Calendar Mode="CalendarMode.Single"
+                                  Selected="@_selectedDate"
+                                  SelectedChanged="OnSelectedDateChanged"
+                                  CaptionLayout="CalendarCaptionLayout.Dropdown"
+                                  Class="rounded-md border shadow-sm" />
                     </Preview>
                     <Code>@usageCode</Code>
                 </ComponentExample>
+
+                <DocsInstallationSection ComponentLabel="calendar"
+                                         InstallCommand="npx shadcn@latest add calendar"
+                                         SourcePaths="@_manualSourcePaths" />
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -52,6 +60,7 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
             </div>
         </div>
@@ -60,5 +69,29 @@
 
 @code {
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = @"<Calendar><span class=""text-sm text-muted-foreground"">Example</span></Calendar>";
+    private const string usageCode = @"@code {
+    private DateOnly? date = DateOnly.FromDateTime(DateTime.Today);
+}
+
+<Calendar Mode=""CalendarMode.Single""
+          Selected=""@date""
+          SelectedChanged=""value => date = value""
+          CaptionLayout=""CalendarCaptionLayout.Dropdown""
+          Class=""rounded-md border shadow-sm"" />";
+    private static readonly string[] _manualSourcePaths =
+    [
+        "Components/UI/Calendar.razor",
+        "Components/UI/CalendarMode.cs",
+        "Components/UI/CalendarDayContext.cs",
+        "Components/UI/CalendarDateRange.cs",
+        "Components/UI/CalendarCaptionLayout.cs"
+    ];
+
+    private DateOnly? _selectedDate = DateOnly.FromDateTime(DateTime.Today);
+
+    private Task OnSelectedDateChanged(DateOnly? value)
+    {
+        _selectedDate = value;
+        return Task.CompletedTask;
+    }
 }

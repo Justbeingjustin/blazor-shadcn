@@ -114,6 +114,11 @@
                     <Code>@codeDemo</Code>
                 </ComponentExample>
 
+                <DocsInstallationSection ComponentLabel="typography"
+                                         InstallCommand="npx shadcn@latest add typography"
+                                         SourcePaths="@_manualSourcePaths"
+                                         ImportStep="No import is required. Apply the utility classes directly in your markup." />
+
                 <div class="mt-6">
                     <ComponentExample Title="h1" Compact="true" CodeText="@codeH1">
                         <Preview>
@@ -301,6 +306,7 @@
         <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#h1" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h1</a>
                 <a href="#h2" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h2</a>
                 <a href="#h3" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">h3</a>
@@ -322,6 +328,11 @@
 
 @code {
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/typography";
+    private static readonly string[] _manualSourcePaths =
+    [
+        "Styles/globals.css",
+        "Components/Pages/TypographyShowcase.razor"
+    ];
 
     private const string codeDemo = @"<div>
   <h1 class=""scroll-m-20 text-4xl font-extrabold tracking-tight text-balance"">

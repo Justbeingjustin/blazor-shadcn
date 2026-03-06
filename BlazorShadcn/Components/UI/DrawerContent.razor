@@ -1,0 +1,10 @@
+<DialogContent ShowCloseButton="@ShowCloseButton" Class="@Tw.Merge("bottom-0 top-auto left-1/2 w-full max-w-xl translate-x-[-50%] translate-y-0 rounded-t-xl rounded-b-none border-t", Class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</DialogContent>
+
+@code {
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

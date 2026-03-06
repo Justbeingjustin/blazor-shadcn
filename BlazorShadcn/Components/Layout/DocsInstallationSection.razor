@@ -1,0 +1,104 @@
+@inject IWebHostEnvironment Environment
+
+<h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
+<p class="leading-relaxed mt-6">Install the @ComponentLabel component using the command or manual steps.</p>
+<div class="mt-4">
+    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+        <button type="button"
+                @onclick="() => _tab = InstallationTab.Command"
+                data-state="@(_tab == InstallationTab.Command ? "active" : "inactive")"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+            Command
+        </button>
+        <button type="button"
+                @onclick="() => _tab = InstallationTab.Manual"
+                data-state="@(_tab == InstallationTab.Manual ? "active" : "inactive")"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+            Manual
+        </button>
+    </div>
+</div>
+
+@if (_tab == InstallationTab.Command)
+{
+    <div class="mt-4">
+        <CodeBlock RawText="@InstallCommand">@InstallCommand</CodeBlock>
+    </div>
+}
+else
+{
+    <div class="mt-6 space-y-6">
+        @if (ResolvedDependencyCommands.Count > 0)
+        {
+            <div class="flex gap-4">
+                <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                <div class="min-w-0 flex-1">
+                    <p class="font-medium">Install the required dependencies.</p>
+                    @foreach (var dependency in ResolvedDependencyCommands)
+                    {
+                        <div class="mt-3">
+                            <CodeBlock RawText="@dependency">@dependency</CodeBlock>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="flex gap-4">
+            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">@(ResolvedDependencyCommands.Count > 0 ? 2 : 1)</div>
+            <div class="min-w-0 flex-1">
+                <p class="font-medium">Copy and paste the following code into your project.</p>
+                @foreach (var source in LoadedSources)
+                {
+                    <p class="text-muted-foreground mt-3 text-sm">@source.Path</p>
+                    <div class="mt-2">
+                        <CodeBlock RawText="@source.Content">@source.Content</CodeBlock>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="flex gap-4">
+            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">@(ResolvedDependencyCommands.Count > 0 ? 3 : 2)</div>
+            <div class="min-w-0 flex-1">
+                <p class="font-medium">Update the import paths to match your project setup.</p>
+                <div class="mt-3">
+                    <CodeBlock RawText="@ImportStep">@ImportStep</CodeBlock>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] public string ComponentLabel { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string InstallCommand { get; set; } = string.Empty;
+    [Parameter] public IEnumerable<string>? SourcePaths { get; set; }
+    [Parameter] public IEnumerable<string>? DependencyCommands { get; set; }
+    [Parameter] public string ImportStep { get; set; } = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
+
+    private InstallationTab _tab = InstallationTab.Command;
+
+    private IReadOnlyList<string> ResolvedDependencyCommands => [..(DependencyCommands ?? [])];
+
+    private IReadOnlyList<LoadedSource> LoadedSources =>
+    [
+        ..(SourcePaths ?? [])
+            .Select(path => new LoadedSource(path, LoadSource(path)))
+    ];
+
+    private string LoadSource(string relativePath)
+    {
+        var path = Path.Combine(Environment.ContentRootPath, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        return File.Exists(path) ? File.ReadAllText(path) : $"Missing source: {relativePath}";
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private sealed record LoadedSource(string Path, string Content);
+}
+

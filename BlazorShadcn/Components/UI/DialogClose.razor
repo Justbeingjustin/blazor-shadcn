@@ -1,0 +1,28 @@
+<button type="button"
+        data-slot="dialog-close"
+        class="@Tw.Merge("ring-offset-background focus:ring-ring absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", Class)"
+        @onclick="CloseAsync"
+        @attributes="AdditionalAttributes">
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+        </svg>
+        <span class="sr-only">Close</span>
+    }
+</button>
+
+@code {
+    [CascadingParameter(Name = "DialogContext")] private DialogContext? Context { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task CloseAsync() => Context?.SetOpenAsync(false) ?? Task.CompletedTask;
+}

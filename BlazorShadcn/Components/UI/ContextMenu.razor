@@ -1,9 +1,41 @@
-﻿<div data-slot="context-menu" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<div data-slot="context-menu"
+     class="@Tw.Merge("relative inline-block", Class)"
+     @oncontextmenu="OpenMenu"
+     @oncontextmenu:preventDefault
+     @attributes="AdditionalAttributes">
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        <div class="border-border bg-card text-card-foreground rounded-lg border p-6 text-sm">Right click inside this surface.</div>
+    }
+
+    @if (_open)
+    {
+        <div class="bg-popover text-popover-foreground absolute left-0 top-full z-50 mt-2 min-w-44 rounded-md border p-1 shadow-md">
+            @foreach (var item in Items ?? DefaultItems)
+            {
+                <button type="button"
+                        class="hover:bg-accent hover:text-accent-foreground flex w-full rounded-sm px-2 py-1.5 text-left text-sm"
+                        @onclick="CloseMenu">
+                    @item
+                </button>
+            }
+        </div>
+    }
+</div>
 
 @code {
+    [Parameter] public IEnumerable<string>? Items { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private bool _open;
+    private static readonly string[] DefaultItems = ["Back", "Forward", "Reload", "More Tools"];
+
+    private void OpenMenu(MouseEventArgs _) => _open = true;
+    private void CloseMenu() => _open = false;
+}
