@@ -1,0 +1,16 @@
+<Button data-slot="alert-dialog-cancel"
+        Variant="@Variant"
+        Size="@Size"
+        Class="@Class"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</Button>
+
+@code {
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Outline;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

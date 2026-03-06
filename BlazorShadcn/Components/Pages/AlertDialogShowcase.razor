@@ -9,7 +9,7 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Alert Dialog</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
+                        <DocsCopyPage PageUrl="@referenceUrl" />
                         <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/alert" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
@@ -24,17 +24,125 @@
                     <DocsPageLinks Padded="false" />
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
-                    Displays the Alert Dialog component.
+                    A modal dialog that interrupts the user with important content and expects a response.
                 </p>
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample Compact="true" CodeText="@usageCode">
+                <ComponentExample Compact="true" CodeText="@demoCode">
                     <Preview>
-                        <AlertDialog><span class="text-sm text-muted-foreground">Example</span></AlertDialog>
+                        <div class="grid w-full place-items-center">
+                            <AlertDialog>
+                                <AlertDialogTrigger>
+                                    <Button Variant="ButtonVariant.Outline" @onclick="() => _showDemo = true">Show Dialog</Button>
+                                </AlertDialogTrigger>
+                                @if (_showDemo)
+                                {
+                                    <AlertDialogContent OnCancel="() => _showDemo = false">
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                This action cannot be undone. This will permanently delete your account from our servers.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                            <AlertDialogCancel @onclick="() => _showDemo = false">Cancel</AlertDialogCancel>
+                                            <AlertDialogAction @onclick="() => _showDemo = false">Continue</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                }
+                            </AlertDialog>
+                        </div>
                     </Preview>
-                    <Code>@usageCode</Code>
+                    <Code>@demoCode</Code>
                 </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the alert-dialog component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following files into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/AlertDialog.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogRazor">@_sourceAlertDialogRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogTrigger.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogTriggerRazor">@_sourceAlertDialogTriggerRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogContent.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogContentRazor">@_sourceAlertDialogContentRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogHeader.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogHeaderRazor">@_sourceAlertDialogHeaderRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogFooter.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogFooterRazor">@_sourceAlertDialogFooterRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogTitle.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogTitleRazor">@_sourceAlertDialogTitleRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogDescription.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogDescriptionRazor">@_sourceAlertDialogDescriptionRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogMedia.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogMediaRazor">@_sourceAlertDialogMediaRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogAction.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogActionRazor">@_sourceAlertDialogActionRazor</CodeBlock>
+                                </div>
+                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AlertDialogCancel.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@_sourceAlertDialogCancelRazor">@_sourceAlertDialogCancelRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/_Imports.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@manualImportsCode">@manualImportsCode</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -42,6 +150,156 @@
                 </div>
                 <div class="mt-4">
                     <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true" CodeText="@basicCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <AlertDialog>
+                                    <AlertDialogTrigger><Button Variant="ButtonVariant.Outline" @onclick="() => _showBasic = true">Show Dialog</Button></AlertDialogTrigger>
+                                    @if (_showBasic)
+                                    {
+                                        <AlertDialogContent OnCancel="() => _showBasic = false">
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                <AlertDialogDescription>This action cannot be undone. This will permanently delete your account and remove your data from our servers.</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel @onclick="() => _showBasic = false">Cancel</AlertDialogCancel>
+                                                <AlertDialogAction @onclick="() => _showBasic = false">Continue</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    }
+                                </AlertDialog>
+                            </div>
+                        </Preview>
+                        <Code>@basicCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Small" Compact="true" CodeText="@smallCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <AlertDialog>
+                                    <AlertDialogTrigger><Button Variant="ButtonVariant.Outline" @onclick="() => _showSmall = true">Show Dialog</Button></AlertDialogTrigger>
+                                    @if (_showSmall)
+                                    {
+                                        <AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm" OnCancel="() => _showSmall = false">
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+                                                <AlertDialogDescription>Do you want to allow the USB accessory to connect to this device?</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel @onclick="() => _showSmall = false">Don't allow</AlertDialogCancel>
+                                                <AlertDialogAction @onclick="() => _showSmall = false">Allow</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    }
+                                </AlertDialog>
+                            </div>
+                        </Preview>
+                        <Code>@smallCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Media" Compact="true" CodeText="@mediaCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <AlertDialog>
+                                    <AlertDialogTrigger><Button Variant="ButtonVariant.Outline" @onclick="() => _showMedia = true">Share Project</Button></AlertDialogTrigger>
+                                    @if (_showMedia)
+                                    {
+                                        <AlertDialogContent OnCancel="() => _showMedia = false">
+                                            <AlertDialogHeader>
+                                                <AlertDialogMedia>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M12 3v12" />
+                                                        <path d="M8 7h8" />
+                                                        <circle cx="12" cy="17" r="4" />
+                                                    </svg>
+                                                </AlertDialogMedia>
+                                                <AlertDialogTitle>Share this project?</AlertDialogTitle>
+                                                <AlertDialogDescription>Anyone with the link will be able to view and edit this project.</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel @onclick="() => _showMedia = false">Cancel</AlertDialogCancel>
+                                                <AlertDialogAction @onclick="() => _showMedia = false">Share</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    }
+                                </AlertDialog>
+                            </div>
+                        </Preview>
+                        <Code>@mediaCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Small with Media" Compact="true" CodeText="@smallWithMediaCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <AlertDialog>
+                                    <AlertDialogTrigger><Button Variant="ButtonVariant.Outline" @onclick="() => _showSmallWithMedia = true">Show Dialog</Button></AlertDialogTrigger>
+                                    @if (_showSmallWithMedia)
+                                    {
+                                        <AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm" OnCancel="() => _showSmallWithMedia = false">
+                                            <AlertDialogHeader>
+                                                <AlertDialogMedia>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M8 7h8" />
+                                                        <path d="M12 7v10" />
+                                                        <path d="M12 21a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                                                    </svg>
+                                                </AlertDialogMedia>
+                                                <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+                                                <AlertDialogDescription>Do you want to allow the USB accessory to connect to this device?</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel @onclick="() => _showSmallWithMedia = false">Don't allow</AlertDialogCancel>
+                                                <AlertDialogAction @onclick="() => _showSmallWithMedia = false">Allow</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    }
+                                </AlertDialog>
+                            </div>
+                        </Preview>
+                        <Code>@smallWithMediaCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Destructive" Compact="true" CodeText="@destructiveCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <AlertDialog>
+                                    <AlertDialogTrigger><Button Variant="ButtonVariant.Destructive" @onclick="() => _showDestructive = true">Delete Chat</Button></AlertDialogTrigger>
+                                    @if (_showDestructive)
+                                    {
+                                        <AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm" OnCancel="() => _showDestructive = false">
+                                            <AlertDialogHeader>
+                                                <AlertDialogMedia Class="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M3 6h18" />
+                                                        <path d="M8 6V4h8v2" />
+                                                        <path d="M19 6l-1 14H6L5 6" />
+                                                        <path d="M10 11v6" />
+                                                        <path d="M14 11v6" />
+                                                    </svg>
+                                                </AlertDialogMedia>
+                                                <AlertDialogTitle>Delete chat?</AlertDialogTitle>
+                                                <AlertDialogDescription>This will permanently delete this chat conversation. View <a href="#">Settings</a> delete any memories saved during this chat.</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel Variant="ButtonVariant.Outline" @onclick="() => _showDestructive = false">Cancel</AlertDialogCancel>
+                                                <AlertDialogAction Variant="ButtonVariant.Destructive" @onclick="() => _showDestructive = false">Delete</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    }
+                                </AlertDialog>
+                            </div>
+                        </Preview>
+                        <Code>@destructiveCode</Code>
+                    </ComponentExample>
                 </div>
             </div>
         </div>
@@ -52,15 +310,258 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#basic" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Basic</a>
+                <a href="#small" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Small</a>
+                <a href="#media" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Media</a>
+                <a href="#small-with-media" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Small with Media</a>
+                <a href="#destructive" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Destructive</a>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+    private bool _showDemo;
+    private bool _showBasic;
+    private bool _showSmall;
+    private bool _showMedia;
+    private bool _showSmallWithMedia;
+    private bool _showDestructive;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/alert-dialog";
+    private const string installCommand = "npx shadcn@latest add alert-dialog";
+    private const string manualImportsCode = "@using MyApp.Components.UI";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = @"<AlertDialog><span class=""text-sm text-muted-foreground"">Example</span></AlertDialog>";
+    private const string usageCode = """
+<AlertDialog>
+    <AlertDialogTrigger>
+        <Button Variant="ButtonVariant.Outline">Show Dialog</Button>
+    </AlertDialogTrigger>
+    <AlertDialogContent>
+        <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your account from our servers.
+            </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+    </AlertDialogContent>
+</AlertDialog>
+""";
+
+    private const string demoCode = """<AlertDialog><AlertDialogTrigger><Button Variant="ButtonVariant.Outline">Show Dialog</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete your account from our servers.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Continue</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>""";
+    private const string basicCode = """<AlertDialog><AlertDialogTrigger><Button Variant="ButtonVariant.Outline">Show Dialog</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete your account and remove your data from our servers.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Continue</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>""";
+    private const string smallCode = """<AlertDialog><AlertDialogTrigger><Button Variant="ButtonVariant.Outline">Show Dialog</Button></AlertDialogTrigger><AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm"><AlertDialogHeader><AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle><AlertDialogDescription>Do you want to allow the USB accessory to connect to this device?</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Don't allow</AlertDialogCancel><AlertDialogAction>Allow</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>""";
+    private const string mediaCode = """<AlertDialog><AlertDialogTrigger><Button Variant="ButtonVariant.Outline">Share Project</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogMedia><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" /><path d="M8 7h8" /><circle cx="12" cy="17" r="4" /></svg></AlertDialogMedia><AlertDialogTitle>Share this project?</AlertDialogTitle><AlertDialogDescription>Anyone with the link will be able to view and edit this project.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Share</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>""";
+    private const string smallWithMediaCode = """<AlertDialog><AlertDialogTrigger><Button Variant="ButtonVariant.Outline">Show Dialog</Button></AlertDialogTrigger><AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm"><AlertDialogHeader><AlertDialogMedia><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h8" /><path d="M12 7v10" /><path d="M12 21a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" /></svg></AlertDialogMedia><AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle><AlertDialogDescription>Do you want to allow the USB accessory to connect to this device?</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Don't allow</AlertDialogCancel><AlertDialogAction>Allow</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>""";
+    private const string destructiveCode = """<AlertDialog><AlertDialogTrigger><Button Variant="ButtonVariant.Destructive">Delete Chat</Button></AlertDialogTrigger><AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm"><AlertDialogHeader><AlertDialogMedia Class="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M19 6l-1 14H6L5 6" /><path d="M10 11v6" /><path d="M14 11v6" /></svg></AlertDialogMedia><AlertDialogTitle>Delete chat?</AlertDialogTitle><AlertDialogDescription>This will permanently delete this chat conversation. View <a href="#">Settings</a> delete any memories saved during this chat.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel Variant="ButtonVariant.Outline">Cancel</AlertDialogCancel><AlertDialogAction Variant="ButtonVariant.Destructive">Delete</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>""";
+
+    private static readonly string _sourceAlertDialogRazor = """
+<div data-slot="alert-dialog"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string GetBaseClasses()
+        => "inline-block";
+
+    private string GetClasses()
+        => Tw.Merge(GetBaseClasses(), Class);
 }
+""";
 
+    private static readonly string _sourceAlertDialogTriggerRazor = """
+<div data-slot="alert-dialog-trigger"
+     class="@Tw.Merge("inline-flex", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
 
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogContentRazor = """
+<div data-slot="alert-dialog-overlay"
+     class="fixed inset-0 z-50 animate-in fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs"
+     @onclick="OnOverlayClick">
+</div>
+
+<div data-slot="alert-dialog-content"
+     data-size="@Size.ToString().ToLowerInvariant()"
+     class="@Tw.Merge(GetBaseClasses(), GetSizeClasses(), Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public AlertDialogContentSize Size { get; set; } = AlertDialogContentSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string GetBaseClasses()
+        => "bg-background animate-in fade-in-0 zoom-in-95 ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none";
+
+    private string GetSizeClasses()
+        => Size switch
+        {
+            AlertDialogContentSize.Sm => "max-w-xs",
+            _ => "max-w-xs sm:max-w-sm"
+        };
+
+    public enum AlertDialogContentSize
+    {
+        Default,
+        Sm
+    }
+
+    private async Task OnOverlayClick()
+    {
+        if (OnCancel.HasDelegate)
+        {
+            await OnCancel.InvokeAsync();
+        }
+    }
+}
+""";
+
+    private static readonly string _sourceAlertDialogHeaderRazor = """
+<div data-slot="alert-dialog-header"
+     class="@Tw.Merge("grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center has-[>[data-slot=alert-dialog-media]]:grid-rows-[auto_auto_1fr] has-[>[data-slot=alert-dialog-media]]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-left sm:group-data-[size=default]/alert-dialog-content:has-[>[data-slot=alert-dialog-media]]:grid-rows-[auto_1fr]", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogFooterRazor = """
+<div data-slot="alert-dialog-footer"
+     class="@Tw.Merge("bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4 flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogTitleRazor = """
+<div data-slot="alert-dialog-title"
+     class="@Tw.Merge("text-base font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-[>[data-slot=alert-dialog-media]]/alert-dialog-content:col-start-2", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogDescriptionRazor = """
+<div data-slot="alert-dialog-description"
+     class="@Tw.Merge("text-muted-foreground text-sm text-balance md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogMediaRazor = """
+<div data-slot="alert-dialog-media"
+     class="@Tw.Merge("bg-muted mb-2 inline-flex size-10 items-center justify-center rounded-md sm:group-data-[size=default]/alert-dialog-content:row-span-2 [&_svg:not([class*='size-'])]:size-6", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogActionRazor = """
+<Button data-slot="alert-dialog-action"
+        Variant="@Variant"
+        Size="@Size"
+        Class="@Class"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</Button>
+
+@code {
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDialogCancelRazor = """
+<Button data-slot="alert-dialog-cancel"
+        Variant="@Variant"
+        Size="@Size"
+        Class="@Class"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</Button>
+
+@code {
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Outline;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+}

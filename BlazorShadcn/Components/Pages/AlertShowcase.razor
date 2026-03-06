@@ -9,7 +9,7 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Alert</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
+                        <DocsCopyPage PageUrl="@referenceUrl" />
                         <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/accordion" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
@@ -31,14 +31,91 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@mainDemoCode">
                     <Preview>
-                        <Alert>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
-                            <AlertTitle>Heads up!</AlertTitle>
-                            <AlertDescription>You can add components and dependencies to your app using the CLI.</AlertDescription>
-                        </Alert>
+                        <div class="grid w-full max-w-md items-start gap-4">
+                            <Alert>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>
+                                <AlertTitle>Payment successful</AlertTitle>
+                                <AlertDescription>Your payment of $29.99 has been processed. A receipt has been sent to your email address.</AlertDescription>
+                            </Alert>
+                            <Alert>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+                                <AlertTitle>New feature available</AlertTitle>
+                                <AlertDescription>We've added dark mode support. You can enable it in your account settings.</AlertDescription>
+                            </Alert>
+                        </div>
                     </Preview>
                     <Code>@mainDemoCode</Code>
                 </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the alert component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Alert.razor</p>
+                                <div class="mt-3"><CodeBlock RawText="@_sourceAlertRazor">@_sourceAlertRazor</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy the title component.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/AlertTitle.razor</p>
+                                <div class="mt-3"><CodeBlock RawText="@_sourceAlertTitleRazor">@_sourceAlertTitleRazor</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">3</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy the description component.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/AlertDescription.razor</p>
+                                <div class="mt-3"><CodeBlock RawText="@_sourceAlertDescriptionRazor">@_sourceAlertDescriptionRazor</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">4</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy the action component.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/AlertAction.razor</p>
+                                <div class="mt-3"><CodeBlock RawText="@_sourceAlertActionRazor">@_sourceAlertActionRazor</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">5</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3"><CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock></div>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
@@ -46,12 +123,24 @@
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
                 <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true">
+                        <Preview>
+                            <Alert>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>
+                                <AlertTitle>Account updated successfully</AlertTitle>
+                                <AlertDescription>Your profile information has been saved. Changes will be reflected immediately.</AlertDescription>
+                            </Alert>
+                        </Preview>
+                        <Code>@basicCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
                     <ComponentExample Title="Destructive" Compact="true">
                         <Preview>
-                            <Alert Variant="Alert.AlertVariant.Destructive">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4" /><path d="M12 17h.01" /><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /></svg>
-                                <AlertTitle>Error</AlertTitle>
-                                <AlertDescription>Your session has expired. Please sign in again.</AlertDescription>
+                            <Alert Variant="Alert.AlertVariant.Destructive" Class="max-w-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v5" /><path d="M12 16h.01" /></svg>
+                                <AlertTitle>Payment failed</AlertTitle>
+                                <AlertDescription>Your payment could not be processed. Please check your payment method and try again.</AlertDescription>
                             </Alert>
                         </Preview>
                         <Code>@destructiveCode</Code>
@@ -61,13 +150,24 @@
                     <ComponentExample Title="Action" Compact="true">
                         <Preview>
                             <Alert>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
-                                <AlertTitle>Updates available</AlertTitle>
-                                <AlertDescription>New updates are available for your environment.</AlertDescription>
-                                <AlertAction><Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Enable</Button></AlertAction>
+                                <AlertTitle>Dark mode is now available</AlertTitle>
+                                <AlertDescription>Enable it under your profile settings to get started.</AlertDescription>
+                                <AlertAction><Button Size="ButtonSize.Xs">Enable</Button></AlertAction>
                             </Alert>
                         </Preview>
                         <Code>@actionCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Custom Colors" Compact="true">
+                        <Preview>
+                            <Alert Class="max-w-md border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+                                <AlertTitle>Your subscription will expire in 3 days.</AlertTitle>
+                                <AlertDescription>Renew now to avoid service interruption or upgrade to a paid plan to continue using the service.</AlertDescription>
+                            </Alert>
+                        </Preview>
+                        <Code>@customColorsCode</Code>
                     </ComponentExample>
                 </div>
             </div>
@@ -79,6 +179,7 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
             </div>
@@ -87,14 +188,102 @@
 </div>
 
 @code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add alert";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/alert";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = """
 <Alert>
-    <AlertTitle>Heads up!</AlertTitle>
-    <AlertDescription>You can add components and dependencies using the CLI.</AlertDescription>
+    <AlertTitle>Account updated successfully</AlertTitle>
+    <AlertDescription>Your profile information has been saved. Changes will be reflected immediately.</AlertDescription>
 </Alert>
 """;
-    private const string mainDemoCode = """<Alert><AlertTitle>Heads up!</AlertTitle><AlertDescription>You can add components and dependencies to your app using the CLI.</AlertDescription></Alert>""";
-    private const string destructiveCode = """<Alert Variant="Alert.AlertVariant.Destructive"><AlertTitle>Error</AlertTitle><AlertDescription>Your session has expired.</AlertDescription></Alert>""";
-    private const string actionCode = """<Alert><AlertTitle>Updates available</AlertTitle><AlertDescription>New updates are available.</AlertDescription><AlertAction><Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Enable</Button></AlertAction></Alert>""";
+    private const string basicCode = """<Alert><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg><AlertTitle>Account updated successfully</AlertTitle><AlertDescription>Your profile information has been saved. Changes will be reflected immediately.</AlertDescription></Alert>""";
+    private const string mainDemoCode = """<div class="grid w-full max-w-md items-start gap-4"><Alert><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg><AlertTitle>Payment successful</AlertTitle><AlertDescription>Your payment of $29.99 has been processed. A receipt has been sent to your email address.</AlertDescription></Alert><Alert><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg><AlertTitle>New feature available</AlertTitle><AlertDescription>We've added dark mode support. You can enable it in your account settings.</AlertDescription></Alert></div>""";
+    private const string destructiveCode = """<Alert Variant="Alert.AlertVariant.Destructive" Class="max-w-md"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v5" /><path d="M12 16h.01" /></svg><AlertTitle>Payment failed</AlertTitle><AlertDescription>Your payment could not be processed. Please check your payment method and try again.</AlertDescription></Alert>""";
+    private const string actionCode = """<Alert><AlertTitle>Dark mode is now available</AlertTitle><AlertDescription>Enable it under your profile settings to get started.</AlertDescription><AlertAction><Button Size="ButtonSize.Xs">Enable</Button></AlertAction></Alert>""";
+    private const string customColorsCode = """<Alert Class="max-w-md border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg><AlertTitle>Your subscription will expire in 3 days.</AlertTitle><AlertDescription>Renew now to avoid service interruption or upgrade to a paid plan to continue using the service.</AlertDescription></Alert>""";
+
+    private static readonly string _sourceAlertRazor = """
+<div data-slot="alert"
+     role="alert"
+     data-variant="@VariantClass"
+     class="@Tw.Merge("relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 has-[>[data-slot=alert-action]]:pr-18 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current", VariantClass, Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public AlertVariant Variant { get; set; } = AlertVariant.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string VariantClass
+        => Variant == AlertVariant.Destructive
+            ? "text-destructive bg-card [&>svg]:text-current [&>[data-slot=alert-description]]:text-destructive/90"
+            : "bg-card text-card-foreground";
+
+    public enum AlertVariant
+    {
+        Default,
+        Destructive
+    }
 }
+""";
+
+    private static readonly string _sourceAlertTitleRazor = """
+<div data-slot="alert-title"
+     class="@Tw.Merge("col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertDescriptionRazor = """
+<div data-slot="alert-description"
+     class="@Tw.Merge("text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private static readonly string _sourceAlertActionRazor = """
+<div data-slot="alert-action"
+     class="@Tw.Merge("absolute top-2.5 right-3", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+}
+

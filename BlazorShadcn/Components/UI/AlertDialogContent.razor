@@ -1,0 +1,44 @@
+<div data-slot="alert-dialog-overlay"
+     class="fixed inset-0 z-50 animate-in fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs"
+     @onclick="OnOverlayClick">
+</div>
+
+<div data-slot="alert-dialog-content"
+     data-size="@Size.ToString().ToLowerInvariant()"
+     class="@Tw.Merge(GetBaseClasses(), GetSizeClasses(), Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public AlertDialogContentSize Size { get; set; } = AlertDialogContentSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string GetBaseClasses()
+        => "bg-background animate-in fade-in-0 zoom-in-95 ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none";
+
+    private string GetSizeClasses()
+        => Size switch
+        {
+            AlertDialogContentSize.Sm => "max-w-xs",
+            _ => "max-w-xs sm:max-w-sm"
+        };
+
+    public enum AlertDialogContentSize
+    {
+        Default,
+        Sm
+    }
+
+    private async Task OnOverlayClick()
+    {
+        if (OnCancel.HasDelegate)
+        {
+            await OnCancel.InvokeAsync();
+        }
+    }
+}

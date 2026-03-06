@@ -1,9 +1,18 @@
-﻿<div data-slot="alert-dialog" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+<div data-slot="alert-dialog"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
 
 @code {
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
 
+    private static string GetBaseClasses()
+        => "inline-block";
+
+    private string GetClasses()
+        => Tw.Merge(GetBaseClasses(), Class);
+}
