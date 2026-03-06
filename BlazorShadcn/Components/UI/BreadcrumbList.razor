@@ -1,12 +1,10 @@
-<nav aria-label="@AriaLabel"
-     data-slot="breadcrumb"
-     class="@Tw.Merge(Class)"
-     @attributes="AdditionalAttributes">
+<ol data-slot="breadcrumb-list"
+    class="@Tw.Merge("text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5", Class)"
+    @attributes="AdditionalAttributes">
     @ChildContent
-</nav>
+</ol>
 
 @code {
-    [Parameter] public string AriaLabel { get; set; } = "breadcrumb";
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]

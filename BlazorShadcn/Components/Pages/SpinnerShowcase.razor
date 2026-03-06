@@ -9,7 +9,7 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Spinner</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
+                        <DocsCopyPage PageUrl="@referenceUrl" />
                         <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/sonner" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
@@ -29,22 +29,115 @@
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample Compact="true" CodeText="@usageCode">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
                     <Preview>
-                        <Spinner />
+                        <div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
+                            <div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm outline-none transition-colors duration-100">
+                                <div data-slot="item-media" data-variant="default" class="flex shrink-0 items-center justify-center gap-2">
+                                    <Spinner />
+                                </div>
+                                <div data-slot="item-content" class="flex flex-1 flex-col gap-1">
+                                    <div data-slot="item-title" class="line-clamp-1 flex w-fit items-center gap-2 text-sm leading-snug font-medium">Processing payment...</div>
+                                </div>
+                                <div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1">
+                                    <span class="text-sm tabular-nums">$100.00</span>
+                                </div>
+                            </div>
+                        </div>
                     </Preview>
-                    <Code>@usageCode</Code>
+                    <Code>@codeMainDemo</Code>
                 </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Spinner.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sourceSpinnerRazor">@_sourceSpinnerRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
                 <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="customization">Customization</h2>
+                <p class="leading-relaxed mt-6">You can replace the default spinner icon with any other icon by editing the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Spinner</code> component.</p>
                 <div class="mt-6">
-                    <ComponentExample Title="Size" Compact="true">
+                    <ComponentExample Compact="true" CodeText="@customizationCode">
                         <Preview>
                             <div class="flex items-center gap-4">
+                                <svg role="status"
+                                     aria-label="Loading"
+                                     class="size-4 animate-spin"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2v4"></path>
+                                    <path d="m16.2 7.8 2.9-2.9"></path>
+                                    <path d="M18 12h4"></path>
+                                    <path d="m16.2 16.2 2.9 2.9"></path>
+                                    <path d="M12 18v4"></path>
+                                    <path d="m4.9 19.1 2.9-2.9"></path>
+                                    <path d="M2 12h4"></path>
+                                    <path d="m4.9 4.9 2.9 2.9"></path>
+                                </svg>
+                            </div>
+                        </Preview>
+                        <Code>@customizationCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Size" Compact="true" CodeText="@sizeCode">
+                        <Preview>
+                            <div class="flex items-center gap-6">
+                                <Spinner Class="size-3" />
                                 <Spinner Class="size-4" />
                                 <Spinner Class="size-6" />
                                 <Spinner Class="size-8" />
@@ -54,32 +147,109 @@
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
-                    <ComponentExample Title="Button" Compact="true">
+                    <ComponentExample Title="Button" Compact="true" CodeText="@buttonCode">
                         <Preview>
-                            <div class="flex gap-3">
-                                <Button Disabled="true"><Spinner data-icon="inline-start" />Saving</Button>
-                                <Button Variant="ButtonVariant.Outline" Disabled="true">Loading<Spinner data-icon="inline-end" /></Button>
+                            <div class="flex flex-col items-center gap-4">
+                                <Button Disabled="true" Size="ButtonSize.Sm">
+                                    <Spinner />
+                                    Loading...
+                                </Button>
+                                <Button Variant="ButtonVariant.Outline" Disabled="true" Size="ButtonSize.Sm">
+                                    <Spinner />
+                                    Please wait
+                                </Button>
+                                <Button Variant="ButtonVariant.Secondary" Disabled="true" Size="ButtonSize.Sm">
+                                    <Spinner />
+                                    Processing
+                                </Button>
                             </div>
                         </Preview>
                         <Code>@buttonCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
-                    <ComponentExample Title="Badge" Compact="true">
+                    <ComponentExample Title="Badge" Compact="true" CodeText="@badgeCode">
                         <Preview>
-                            <div class="flex gap-3">
-                                <Badge Variant="BadgeVariant.Secondary"><Spinner data-icon="inline-start" />Generating</Badge>
-                                <Badge Variant="BadgeVariant.Outline">Syncing<Spinner data-icon="inline-end" /></Badge>
+                            <div class="flex items-center gap-4 [--radius:1.2rem]">
+                                <Badge>
+                                    <Spinner />
+                                    Syncing
+                                </Badge>
+                                <Badge Variant="BadgeVariant.Secondary">
+                                    <Spinner />
+                                    Updating
+                                </Badge>
+                                <Badge Variant="BadgeVariant.Outline">
+                                    <Spinner />
+                                    Processing
+                                </Badge>
                             </div>
                         </Preview>
                         <Code>@badgeCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
-                    <ComponentExample Title="RTL" Compact="true">
+                    <ComponentExample Title="Input Group" Compact="true" CodeText="@inputGroupCode">
                         <Preview>
-                            <div dir="rtl">
-                                <Button Disabled="true"><Spinner data-icon="inline-start" />Loading</Button>
+                            <div class="flex w-full max-w-md flex-col gap-4">
+                                <div data-slot="input-group" role="group" class="group/input-group border-input dark:bg-input/30 relative flex h-9 min-w-0 w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none">
+                                    <Input Placeholder="Send a message..." Disabled="true" Class="flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent pr-2" />
+                                    <div role="group" data-slot="input-group-addon" data-align="inline-end" class="text-muted-foreground order-last flex h-auto cursor-text items-center justify-center gap-2 py-1.5 pr-3 text-sm font-medium select-none [&>svg:not([class*='size-'])]:size-4">
+                                        <Spinner />
+                                    </div>
+                                </div>
+                                <div data-slot="input-group" role="group" class="group/input-group border-input dark:bg-input/30 relative flex h-auto min-w-0 w-full flex-col rounded-md border shadow-xs transition-[color,box-shadow] outline-none">
+                                    <Textarea Placeholder="Send a message..." Disabled="true" Class="min-h-24 flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent" />
+                                    <div role="group" data-slot="input-group-addon" data-align="block-end" class="text-muted-foreground order-last flex h-auto w-full items-center justify-start gap-2 px-3 pb-3 text-sm font-medium select-none">
+                                        <Spinner />
+                                        <span>Validating...</span>
+                                        <Button Class="ml-auto shadow-none" Size="ButtonSize.IconXs">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                                            <span class="sr-only">Send</span>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@inputGroupCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Empty" Compact="true" CodeText="@emptyCode">
+                        <Preview>
+                            <div data-slot="empty" class="flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center text-balance md:p-12">
+                                <div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2 text-center">
+                                    <div data-slot="empty-icon" data-variant="icon" class="bg-muted text-foreground mb-2 flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6">
+                                        <Spinner />
+                                    </div>
+                                    <div data-slot="empty-title" class="text-lg font-medium tracking-tight">Processing your request</div>
+                                    <div data-slot="empty-description" class="text-muted-foreground text-sm/relaxed">Please wait while we process your request. Do not refresh the page.</div>
+                                </div>
+                                <div data-slot="empty-content" class="flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance">
+                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Cancel</Button>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@emptyCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@rtlCode">
+                        <Preview>
+                            <div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]" dir="rtl">
+                                <div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm outline-none transition-colors duration-100" dir="rtl">
+                                    <div data-slot="item-media" data-variant="default" class="flex shrink-0 items-center justify-center gap-2">
+                                        <Spinner />
+                                    </div>
+                                    <div data-slot="item-content" class="flex flex-1 flex-col gap-1">
+                                        <div data-slot="item-title" class="line-clamp-1 flex w-fit items-center gap-2 text-sm leading-snug font-medium">جاري معالجة الدفع...</div>
+                                    </div>
+                                    <div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1">
+                                        <span class="text-sm tabular-nums">١٠٠.٠٠ دولار</span>
+                                    </div>
+                                </div>
                             </div>
                         </Preview>
                         <Code>@rtlCode</Code>
@@ -94,18 +264,96 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#customization" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Customization</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add spinner";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/spinner";
+    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = """<Spinner />""";
-    private const string sizeCode = """<Spinner Class="size-4" /><Spinner Class="size-6" /><Spinner Class="size-8" />""";
-    private const string buttonCode = """<Button Disabled="true"><Spinner data-icon="inline-start" />Saving</Button>""";
-    private const string badgeCode = """<Badge Variant="BadgeVariant.Secondary"><Spinner data-icon="inline-start" />Generating</Badge>""";
-    private const string rtlCode = """<div dir="rtl"><Button Disabled="true"><Spinner data-icon="inline-start" />Loading</Button></div>""";
+    private const string usageCode = "<Spinner />";
+
+    private static readonly string _sourceSpinnerRazor = """
+<svg data-slot="spinner"
+     role="status"
+     aria-label="Loading"
+     class="@Tw.Merge("size-4 animate-spin", Class)"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     xmlns="http://www.w3.org/2000/svg"
+     @attributes="AdditionalAttributes">
+    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+</svg>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+
+    private const string codeMainDemo = """
+<div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
+    <div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm">
+        <div data-slot="item-media" class="flex shrink-0 items-center justify-center gap-2">
+            <Spinner />
+        </div>
+        <div data-slot="item-content" class="flex flex-1 flex-col gap-1">
+            <div data-slot="item-title" class="line-clamp-1 text-sm leading-snug font-medium">Processing payment...</div>
+        </div>
+        <div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1">
+            <span class="text-sm tabular-nums">$100.00</span>
+        </div>
+    </div>
+</div>
+""";
+
+    private const string customizationCode = """
+<svg role="status"
+     aria-label="Loading"
+     class="size-4 animate-spin"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2v4"></path>
+    <path d="m16.2 7.8 2.9-2.9"></path>
+    <path d="M18 12h4"></path>
+    <path d="m16.2 16.2 2.9 2.9"></path>
+    <path d="M12 18v4"></path>
+    <path d="m4.9 19.1 2.9-2.9"></path>
+    <path d="M2 12h4"></path>
+    <path d="m4.9 4.9 2.9 2.9"></path>
+</svg>
+""";
+
+    private const string sizeCode = """<div class="flex items-center gap-6"><Spinner Class="size-3" /><Spinner Class="size-4" /><Spinner Class="size-6" /><Spinner Class="size-8" /></div>""";
+    private const string buttonCode = """<Button Disabled="true" Size="ButtonSize.Sm"><Spinner />Loading...</Button>""";
+    private const string badgeCode = """<Badge><Spinner />Syncing</Badge>""";
+    private const string inputGroupCode = """<div class="flex w-full max-w-md flex-col gap-4"><div data-slot="input-group" class="group/input-group border-input dark:bg-input/30 relative flex h-9 min-w-0 w-full items-center rounded-md border shadow-xs"><Input Placeholder="Send a message..." Disabled="true" Class="flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent pr-2" /><div data-slot="input-group-addon" data-align="inline-end" class="text-muted-foreground order-last flex items-center gap-2 py-1.5 pr-3 text-sm font-medium"><Spinner /></div></div></div>""";
+    private const string emptyCode = """<div data-slot="empty" class="flex w-full flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center md:p-12"><div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2"><div data-slot="empty-icon" data-variant="icon" class="bg-muted text-foreground mb-2 flex size-10 items-center justify-center rounded-lg"><Spinner /></div><div data-slot="empty-title" class="text-lg font-medium tracking-tight">Processing your request</div><div data-slot="empty-description" class="text-muted-foreground text-sm/relaxed">Please wait while we process your request. Do not refresh the page.</div></div></div>""";
+    private const string rtlCode = """<div dir="rtl" class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]"><div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm"><div data-slot="item-media" class="flex shrink-0 items-center justify-center gap-2"><Spinner /></div><div data-slot="item-content" class="flex flex-1 flex-col gap-1"><div data-slot="item-title" class="line-clamp-1 text-sm leading-snug font-medium">جاري معالجة الدفع...</div></div><div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1"><span class="text-sm tabular-nums">١٠٠.٠٠ دولار</span></div></div></div>""";
 }

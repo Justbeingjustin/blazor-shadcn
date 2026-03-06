@@ -1,9 +1,525 @@
-﻿<div data-slot="calendar" class="@Tw.Merge("border-border bg-card text-card-foreground rounded-lg border p-4", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
+@using System.Globalization
+@using System.Collections.ObjectModel
+
+<div data-slot="calendar"
+     class="@GetRootClasses()"
+     style="@GetRootStyle()"
+     @attributes="AdditionalAttributes">
+    <div class="w-fit">
+        <div class="relative flex flex-col gap-4 md:flex-row">
+            <div class="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1">
+                <button type="button"
+                        class="@GetNavigationButtonClasses()"
+                        style="@GetCellStyle()"
+                        @onclick="() => ChangeMonthBy(-1)"
+                        disabled="@(!CanNavigatePrevious())"
+                        aria-label="Go to previous month">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </button>
+
+                <button type="button"
+                        class="@GetNavigationButtonClasses()"
+                        style="@GetCellStyle()"
+                        @onclick="() => ChangeMonthBy(1)"
+                        disabled="@(!CanNavigateNext())"
+                        aria-label="Go to next month">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </button>
+            </div>
+
+            @for (var monthIndex = 0; monthIndex < Math.Max(1, NumberOfMonths); monthIndex++)
+            {
+                var month = GetVisibleMonth(monthIndex);
+                var weeks = BuildWeeks(month);
+
+                <div class="flex w-full flex-col gap-4">
+                    <div class="flex w-full items-center justify-center" style="@GetCaptionContainerStyle()">
+                        @if (CaptionLayout == CalendarCaptionLayout.Dropdown)
+                        {
+                            <div class="flex h-full w-full items-center justify-center gap-1.5 text-sm font-medium">
+                                <label class="sr-only" for="@GetMonthSelectId(monthIndex)">Month</label>
+                                <div class="relative rounded-md border border-input shadow-xs focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50">
+                                    <select id="@GetMonthSelectId(monthIndex)"
+                                            class="h-8 rounded-md bg-background pl-2 pr-7 text-sm outline-none"
+                                            value="@month.Month"
+                                            @onchange="args => OnMonthDropdownChanged(args, monthIndex)">
+                                        @for (var monthNumber = 1; monthNumber <= 12; monthNumber++)
+                                        {
+                                            <option value="@monthNumber">@Culture.DateTimeFormat.GetAbbreviatedMonthName(monthNumber)</option>
+                                        }
+                                    </select>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute right-2 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m6 9 6 6 6-6" />
+                                    </svg>
+                                </div>
+
+                                <label class="sr-only" for="@GetYearSelectId(monthIndex)">Year</label>
+                                <div class="relative rounded-md border border-input shadow-xs focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50">
+                                    <select id="@GetYearSelectId(monthIndex)"
+                                            class="h-8 rounded-md bg-background pl-2 pr-7 text-sm outline-none"
+                                            value="@month.Year"
+                                            @onchange="args => OnYearDropdownChanged(args, monthIndex)">
+                                        @foreach (var year in GetYearOptions())
+                                        {
+                                            <option value="@year">@year</option>
+                                        }
+                                    </select>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute right-2 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m6 9 6 6 6-6" />
+                                    </svg>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="select-none text-sm font-medium">@month.ToString("MMMM yyyy", Culture)</div>
+                        }
+                    </div>
+
+                    <div class="grid gap-2">
+                        <div class="grid gap-0" style="@GetWeekGridStyle()">
+                            @if (ShowWeekNumber)
+                            {
+                                <div style="@GetCellStyle()"></div>
+                            }
+
+                            @foreach (var weekday in GetWeekdayLabels())
+                            {
+                                <div class="flex select-none items-center justify-center rounded-md text-[0.8rem] font-normal text-muted-foreground" style="@GetCellStyle()">
+                                    @weekday
+                                </div>
+                            }
+                        </div>
+
+                        @foreach (var week in weeks)
+                        {
+                            <div class="mt-2 grid gap-0" style="@GetWeekGridStyle()">
+                                @if (ShowWeekNumber)
+                                {
+                                    <div class="flex items-center justify-center text-[0.8rem] text-muted-foreground" style="@GetCellStyle()">
+                                        @week.WeekNumber
+                                    </div>
+                                }
+
+                                @foreach (var day in week.Days)
+                                {
+                                    if (!ShowOutsideDays && day.Month != month.Month)
+                                    {
+                                        <div style="@GetCellStyle()"></div>
+                                        continue;
+                                    }
+
+                                    <div class="@GetDayContainerClasses(day, month)" style="@GetCellStyle()">
+                                        <button type="button"
+                                                class="@GetDayButtonClasses(day)"
+                                                style="@GetCellStyle()"
+                                                @onclick="() => OnDaySelectedAsync(day)"
+                                                disabled="@IsDisabled(day)"
+                                                aria-label="@day.ToString("D", Culture)"
+                                                aria-pressed="@IsSelected(day)">
+                                            @if (DayTemplate is not null)
+                                            {
+                                                @DayTemplate(new CalendarDayContext(day, day.Month == month.Month, IsSelected(day), IsDisabled(day), IsToday(day)))
+                                            }
+                                            else
+                                            {
+                                                <span>@day.Day</span>
+                                            }
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
 @code {
+    private DateOnly _displayMonth;
+
+    [Parameter] public CalendarMode Mode { get; set; } = CalendarMode.Single;
+    [Parameter] public CalendarCaptionLayout CaptionLayout { get; set; } = CalendarCaptionLayout.Label;
     [Parameter] public string? Class { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string CellSize { get; set; } = DefaultCellSize;
+    [Parameter] public int NumberOfMonths { get; set; } = 1;
+    [Parameter] public bool ShowOutsideDays { get; set; } = true;
+    [Parameter] public bool ShowWeekNumber { get; set; }
+    [Parameter] public bool FixedWeeks { get; set; } = true;
+    [Parameter] public bool Required { get; set; }
+    [Parameter] public DateOnly? DefaultMonth { get; set; }
+    [Parameter] public DateOnly? Month { get; set; }
+    [Parameter] public DateOnly? FromMonth { get; set; }
+    [Parameter] public DateOnly? ToMonth { get; set; }
+    [Parameter] public DateOnly? Selected { get; set; }
+    [Parameter] public IReadOnlyList<DateOnly>? SelectedDates { get; set; }
+    [Parameter] public CalendarDateRange? SelectedRange { get; set; }
+    [Parameter] public EventCallback<DateOnly?> SelectedChanged { get; set; }
+    [Parameter] public EventCallback<IReadOnlyList<DateOnly>> SelectedDatesChanged { get; set; }
+    [Parameter] public EventCallback<CalendarDateRange?> SelectedRangeChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly?> OnSelect { get; set; }
+    [Parameter] public EventCallback<IReadOnlyList<DateOnly>> OnSelectDates { get; set; }
+    [Parameter] public EventCallback<CalendarDateRange?> OnSelectRange { get; set; }
+    [Parameter] public EventCallback<DateOnly> MonthChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly> OnMonthChange { get; set; }
+    [Parameter] public Func<DateOnly, bool>? Disabled { get; set; }
+    [Parameter] public IReadOnlyCollection<DateOnly>? DisabledDates { get; set; }
+    [Parameter] public CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+    [Parameter] public RenderFragment<CalendarDayContext>? DayTemplate { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
 
+    private const string DefaultCellSize = "1.75rem";
+
+    protected override void OnParametersSet()
+    {
+        var desiredMonth = ToMonthStart(Month ?? DefaultMonth ?? Selected ?? SelectedDates?.FirstOrDefault() ?? SelectedRange?.From ?? DateOnly.FromDateTime(DateTime.Today));
+
+        if (Month.HasValue || _displayMonth == default)
+        {
+            _displayMonth = ClampMonth(desiredMonth);
+        }
+    }
+
+    private string GetRootClasses()
+        => Tw.Merge("bg-background group/calendar w-fit p-2 [--cell-size:1.75rem] [--cell-radius:var(--radius-md)]", Class);
+
+    private string GetRootStyle()
+        => CellSize == DefaultCellSize
+            ? string.Empty
+            : $"--cell-size:{CellSize};--cell-radius:var(--radius-md);";
+
+    private string GetCellStyle()
+        => "width:var(--cell-size);height:var(--cell-size);";
+
+    private string GetCaptionContainerStyle()
+        => "height:var(--cell-size);padding-left:var(--cell-size);padding-right:var(--cell-size);";
+
+    private string GetWeekGridStyle()
+        => ShowWeekNumber
+            ? "grid-template-columns:repeat(8,var(--cell-size));"
+            : "grid-template-columns:repeat(7,var(--cell-size));";
+
+    private string GetNavigationButtonClasses()
+        => "inline-flex select-none items-center justify-center rounded-md p-0 text-sm transition-colors hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50";
+
+    private string GetDayContainerClasses(DateOnly day, DateOnly visibleMonth)
+    {
+        var classes = new List<string>
+        {
+            "group/day relative p-0 text-center"
+        };
+
+        if (IsRangeStart(day))
+        {
+            classes.Add("rounded-l-md bg-accent");
+        }
+
+        if (IsRangeMiddle(day))
+        {
+            classes.Add("rounded-none bg-accent");
+        }
+
+        if (IsRangeEnd(day))
+        {
+            classes.Add("rounded-r-md bg-accent");
+        }
+
+        if (IsToday(day))
+        {
+            classes.Add("rounded-md");
+        }
+
+        if (day.Month != visibleMonth.Month)
+        {
+            classes.Add("text-muted-foreground");
+        }
+
+        return string.Join(' ', classes);
+    }
+
+    private string GetDayButtonClasses(DateOnly day)
+    {
+        var classes = new List<string>
+        {
+            "inline-flex size-auto min-w-0 w-full flex-col items-center justify-center gap-1 rounded-md text-sm font-normal leading-none transition-colors outline-none",
+            "hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+            "disabled:pointer-events-none disabled:opacity-50",
+            "[&>span]:text-xs [&>span]:opacity-70"
+        };
+
+        if (IsSelectedSingle(day) || IsRangeStart(day) || IsRangeEnd(day))
+        {
+            classes.Add("bg-primary text-primary-foreground hover:bg-primary");
+        }
+        else if (IsRangeMiddle(day))
+        {
+            classes.Add("bg-accent text-accent-foreground rounded-none");
+        }
+        else if (IsToday(day))
+        {
+            classes.Add("bg-accent text-accent-foreground");
+        }
+
+        if (day.Month != GetOwningVisibleMonth(day).Month)
+        {
+            classes.Add("text-muted-foreground");
+        }
+
+        if (IsDisabled(day))
+        {
+            classes.Add("opacity-50");
+        }
+
+        return string.Join(' ', classes);
+    }
+
+    private async Task OnDaySelectedAsync(DateOnly day)
+    {
+        if (IsDisabled(day))
+        {
+            return;
+        }
+
+        switch (Mode)
+        {
+            case CalendarMode.Single:
+                DateOnly? nextSingle = Selected == day && !Required ? null : day;
+                await SelectedChanged.InvokeAsync(nextSingle);
+                await OnSelect.InvokeAsync(nextSingle);
+                break;
+
+            case CalendarMode.Multiple:
+                var currentDates = SelectedDates?.ToList() ?? [];
+                if (currentDates.Contains(day))
+                {
+                    if (Required && currentDates.Count == 1)
+                    {
+                        return;
+                    }
+
+                    currentDates.Remove(day);
+                }
+                else
+                {
+                    currentDates.Add(day);
+                }
+
+                var orderedDates = new ReadOnlyCollection<DateOnly>(currentDates.Order().ToList());
+                await SelectedDatesChanged.InvokeAsync(orderedDates);
+                await OnSelectDates.InvokeAsync(orderedDates);
+                break;
+
+            case CalendarMode.Range:
+                CalendarDateRange? nextRange;
+                if (SelectedRange is null || SelectedRange.From is null || SelectedRange.To is not null)
+                {
+                    nextRange = new CalendarDateRange(day, null);
+                }
+                else if (day < SelectedRange.From.Value)
+                {
+                    nextRange = new CalendarDateRange(day, SelectedRange.From);
+                }
+                else
+                {
+                    nextRange = new CalendarDateRange(SelectedRange.From, day);
+                }
+
+                await SelectedRangeChanged.InvokeAsync(nextRange);
+                await OnSelectRange.InvokeAsync(nextRange);
+                break;
+        }
+    }
+
+    private async Task ChangeMonthBy(int monthOffset)
+    {
+        var next = ClampMonth(_displayMonth.AddMonths(monthOffset));
+        if (next == _displayMonth)
+        {
+            return;
+        }
+
+        _displayMonth = next;
+        await MonthChanged.InvokeAsync(_displayMonth);
+        await OnMonthChange.InvokeAsync(_displayMonth);
+    }
+
+    private async Task OnMonthDropdownChanged(ChangeEventArgs args, int monthIndex)
+    {
+        if (!int.TryParse(args.Value?.ToString(), out var selectedMonth))
+        {
+            return;
+        }
+
+        var current = GetVisibleMonth(monthIndex);
+        await SetVisibleMonthAsync(monthIndex, new DateOnly(current.Year, selectedMonth, 1));
+    }
+
+    private async Task OnYearDropdownChanged(ChangeEventArgs args, int monthIndex)
+    {
+        if (!int.TryParse(args.Value?.ToString(), out var selectedYear))
+        {
+            return;
+        }
+
+        var current = GetVisibleMonth(monthIndex);
+        var day = Math.Min(DateTime.DaysInMonth(selectedYear, current.Month), 1);
+        await SetVisibleMonthAsync(monthIndex, new DateOnly(selectedYear, current.Month, day));
+    }
+
+    private async Task SetVisibleMonthAsync(int monthIndex, DateOnly visibleMonth)
+    {
+        var baseMonth = ClampMonth(ToMonthStart(visibleMonth.AddMonths(-monthIndex)));
+        _displayMonth = baseMonth;
+        await MonthChanged.InvokeAsync(_displayMonth);
+        await OnMonthChange.InvokeAsync(_displayMonth);
+    }
+
+    private bool CanNavigatePrevious()
+        => _displayMonth > ToMonthStart(FromMonth ?? DateOnly.MinValue);
+
+    private bool CanNavigateNext()
+        => GetVisibleMonth(Math.Max(0, NumberOfMonths - 1)) < ToMonthStart(ToMonth ?? DateOnly.MaxValue);
+
+    private DateOnly GetVisibleMonth(int monthIndex)
+        => ToMonthStart(_displayMonth.AddMonths(monthIndex));
+
+    private DateOnly GetOwningVisibleMonth(DateOnly day)
+    {
+        for (var monthIndex = 0; monthIndex < Math.Max(1, NumberOfMonths); monthIndex++)
+        {
+            var visibleMonth = GetVisibleMonth(monthIndex);
+            if (day.Year == visibleMonth.Year && day.Month == visibleMonth.Month)
+            {
+                return visibleMonth;
+            }
+        }
+
+        return GetVisibleMonth(0);
+    }
+
+    private List<CalendarWeek> BuildWeeks(DateOnly month)
+    {
+        var firstDayOfWeek = Culture.DateTimeFormat.FirstDayOfWeek;
+        var monthStart = new DateOnly(month.Year, month.Month, 1);
+        var monthEnd = monthStart.AddMonths(1).AddDays(-1);
+        var start = monthStart.AddDays(-GetDayOffset(monthStart.DayOfWeek, firstDayOfWeek));
+        var end = monthEnd.AddDays(GetTrailingOffset(monthEnd.DayOfWeek, firstDayOfWeek));
+
+        if (FixedWeeks)
+        {
+            end = start.AddDays(41);
+        }
+
+        var weeks = new List<CalendarWeek>();
+        var cursor = start;
+
+        while (cursor <= end)
+        {
+            var days = new List<DateOnly>(7);
+            for (var i = 0; i < 7; i++)
+            {
+                days.Add(cursor.AddDays(i));
+            }
+
+            weeks.Add(new CalendarWeek(ISOWeek.GetWeekOfYear(cursor.ToDateTime(TimeOnly.MinValue)), days));
+            cursor = cursor.AddDays(7);
+        }
+
+        return weeks;
+    }
+
+    private IEnumerable<string> GetWeekdayLabels()
+    {
+        var firstDay = (int)Culture.DateTimeFormat.FirstDayOfWeek;
+        var labels = Culture.DateTimeFormat.AbbreviatedDayNames;
+
+        for (var i = 0; i < 7; i++)
+        {
+            yield return labels[(firstDay + i) % 7];
+        }
+    }
+
+    private IEnumerable<int> GetYearOptions()
+    {
+        var minYear = (FromMonth ?? _displayMonth.AddYears(-50)).Year;
+        var maxYear = (ToMonth ?? _displayMonth.AddYears(50)).Year;
+
+        for (var year = minYear; year <= maxYear; year++)
+        {
+            yield return year;
+        }
+    }
+
+    private bool IsDisabled(DateOnly day)
+        => (Disabled?.Invoke(day) ?? false) || (DisabledDates?.Contains(day) ?? false);
+
+    private bool IsSelected(DateOnly day)
+        => IsSelectedSingle(day) || IsRangeStart(day) || IsRangeMiddle(day) || IsRangeEnd(day);
+
+    private bool IsSelectedSingle(DateOnly day)
+        => Mode == CalendarMode.Single
+            ? Selected == day
+            : Mode == CalendarMode.Multiple
+                ? SelectedDates?.Contains(day) ?? false
+                : SelectedRange?.From == day && SelectedRange?.To == day;
+
+    private bool IsRangeStart(DateOnly day)
+        => Mode == CalendarMode.Range && SelectedRange?.From == day;
+
+    private bool IsRangeEnd(DateOnly day)
+        => Mode == CalendarMode.Range && SelectedRange?.To == day && SelectedRange?.From != day;
+
+    private bool IsRangeMiddle(DateOnly day)
+        => Mode == CalendarMode.Range
+            && SelectedRange?.From is not null
+            && SelectedRange?.To is not null
+            && day > SelectedRange.From.Value
+            && day < SelectedRange.To.Value;
+
+    private static bool IsToday(DateOnly day)
+        => day == DateOnly.FromDateTime(DateTime.Today);
+
+    private string GetMonthSelectId(int monthIndex)
+        => $"calendar-month-{monthIndex}";
+
+    private string GetYearSelectId(int monthIndex)
+        => $"calendar-year-{monthIndex}";
+
+    private static int GetDayOffset(DayOfWeek current, DayOfWeek firstDayOfWeek)
+        => ((int)current - (int)firstDayOfWeek + 7) % 7;
+
+    private static int GetTrailingOffset(DayOfWeek current, DayOfWeek firstDayOfWeek)
+        => (6 - (((int)current - (int)firstDayOfWeek + 7) % 7) + 7) % 7;
+
+    private static DateOnly ToMonthStart(DateOnly value)
+        => new(value.Year, value.Month, 1);
+
+    private DateOnly ClampMonth(DateOnly month)
+    {
+        var candidate = ToMonthStart(month);
+        var min = ToMonthStart(FromMonth ?? DateOnly.MinValue);
+        var max = ToMonthStart(ToMonth ?? DateOnly.MaxValue);
+
+        if (candidate < min)
+        {
+            return min;
+        }
+
+        var lastVisible = candidate.AddMonths(Math.Max(0, NumberOfMonths - 1));
+        if (lastVisible > max)
+        {
+            candidate = max.AddMonths(-Math.Max(0, NumberOfMonths - 1));
+        }
+
+        return candidate < min ? min : candidate;
+    }
+
+    private sealed record CalendarWeek(int WeekNumber, IReadOnlyList<DateOnly> Days);
+}

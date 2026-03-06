@@ -1,0 +1,30 @@
+<div data-slot="carousel-item"
+     role="group"
+     aria-roledescription="slide"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [CascadingParameter] private CarouselContext? CarouselContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (CarouselContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(CarouselItem)} must be used inside {nameof(Carousel)}.");
+        }
+    }
+
+    private string GetClasses()
+        => Tw.Merge(
+            "min-w-0 shrink-0 grow-0 basis-full snap-start",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal ? "pl-4" : "pt-4",
+            Class);
+}

@@ -29,52 +29,120 @@
             </div>
 
             <div class="w-full flex-1">
+                @* Reference ComponentPreview: aspect-ratio-demo *@
                 <ComponentExample Compact="true" CodeText="@demoCode">
                     <Preview>
                         <div class="w-full max-w-md">
-                            <AspectRatio Ratio="(16d / 9d)" Class="overflow-hidden rounded-md border bg-muted/30">
-                                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200&q=80" alt="Landscape" class="size-full object-cover" />
+                            <AspectRatio Ratio="(16d / 9d)" Class="bg-muted rounded-lg">
+                                <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Photo by Drew Beamer" class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
                             </AspectRatio>
                         </div>
                     </Preview>
                     <Code>@demoCode</Code>
                 </ComponentExample>
 
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the aspect ratio component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Install the following dependencies:</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@manualDependencyCommand">@manualDependencyCommand</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/AspectRatio.razor</p>
+                                <div class="mt-2">
+                                    <CodeBlock RawText="@sourceAspectRatioRazor">@sourceAspectRatioRazor</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">3</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
                 <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="square">Square</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">A square aspect ratio component using the <code>ratio=1</code> prop. This is useful for displaying images in a square format.</p>
                 <div class="mt-6">
-                    <ComponentExample Title="Square" Compact="true">
+                    @* Reference ComponentPreview: aspect-ratio-square *@
+                    <ComponentExample Compact="true" CodeText="@squareCode">
                         <Preview>
-                            <div class="w-full max-w-xs">
-                                <AspectRatio Ratio="1" Class="overflow-hidden rounded-md border bg-muted/30">
-                                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80" alt="Square" class="size-full object-cover" />
+                            <div class="w-full max-w-md">
+                                <AspectRatio Ratio="1" Class="bg-muted rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Photo by Drew Beamer" class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
                                 </AspectRatio>
                             </div>
                         </Preview>
                         <Code>@squareCode</Code>
                     </ComponentExample>
                 </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="portrait">Portrait</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">A portrait aspect ratio component using the <code>ratio=(9d / 16d)</code> prop. This is useful for displaying images in a portrait format.</p>
                 <div class="mt-6">
-                    <ComponentExample Title="Portrait" Compact="true">
+                    @* Reference ComponentPreview: aspect-ratio-portrait *@
+                    <ComponentExample Compact="true" CodeText="@portraitCode">
                         <Preview>
-                            <div class="h-72 w-48">
-                                <AspectRatio Ratio="(9d / 16d)" Class="overflow-hidden rounded-md border bg-muted/30">
-                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80" alt="Portrait" class="size-full object-cover" />
+                            <div class="h-96 w-auto max-w-[13.5rem]">
+                                <AspectRatio Ratio="(9d / 16d)" Class="bg-muted rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Photo by Drew Beamer" class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
                                 </AspectRatio>
                             </div>
                         </Preview>
                         <Code>@portraitCode</Code>
                     </ComponentExample>
                 </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                <p class="leading-relaxed mt-6">To enable RTL support in shadcn/ui, see the <a href="/docs/rtl" class="underline underline-offset-4">RTL configuration guide</a>.</p>
                 <div class="mt-6">
-                    <ComponentExample Title="RTL" Compact="true">
+                    @* Reference ComponentPreview: aspect-ratio-rtl *@
+                    <ComponentExample Compact="true" CodeText="@rtlCode">
                         <Preview>
-                            <div dir="rtl" class="w-full max-w-sm">
-                                <AspectRatio Ratio="(4d / 3d)" Class="overflow-hidden rounded-md border bg-muted/30">
-                                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000&q=80" alt="RTL example" class="size-full object-cover" />
+                            <div dir="rtl" class="h-96 w-auto max-w-[13.5rem]">
+                                <AspectRatio Ratio="(9d / 16d)" Class="bg-muted rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Photo by Drew Beamer" class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
                                 </AspectRatio>
                             </div>
                         </Preview>
@@ -84,15 +152,17 @@
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AspectRatio</h3>
+                <p class="leading-relaxed mt-4">The <code>AspectRatio</code> component displays content within a desired ratio.</p>
                 <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
                     <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
-                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th><th class="px-4 py-2 text-left font-bold">Required</th></tr></thead>
                         <tbody class="[&_tr:last-child]:border-b-0">
-                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Ratio</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double</code></td><td class="px-4 py-2 text-left whitespace-nowrap">16/9</td></tr>
-                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">ratio</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">number</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td><td class="px-4 py-2 text-left whitespace-nowrap">Yes</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">className</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td><td class="px-4 py-2 text-left whitespace-nowrap">No</td></tr>
                         </tbody>
                     </table>
                 </div>
+                <p class="leading-relaxed">For more information, see the <a href="https://www.radix-ui.com/primitives/docs/components/aspect-ratio#api-reference" class="underline underline-offset-4">Radix UI documentation</a>.</p>
             </div>
         </div>
     </div>
@@ -102,8 +172,12 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#square" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Square</a>
+                <a href="#portrait" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Portrait</a>
+                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -111,18 +185,100 @@
 </div>
 
 @code {
-    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add aspect-ratio";
+    private const string manualDependencyCommand = "npm install radix-ui";
+    private const string usingStatement = "import { AspectRatio } from \"@/components/ui/aspect-ratio\"";
     private const string usageCode = """
 <AspectRatio Ratio="(16d / 9d)">
-    <img src="..." alt="Image" class="size-full object-cover" />
+    <img src="..." alt="Image" class="rounded-md object-cover" />
 </AspectRatio>
 """;
     private const string demoCode = """
-<AspectRatio Ratio="(16d / 9d)" Class="overflow-hidden rounded-md border">
-    <img src="..." alt="Landscape" class="size-full object-cover" />
-</AspectRatio>
+<div class="w-full max-w-md">
+    <AspectRatio Ratio="(16d / 9d)" Class="bg-muted rounded-lg">
+        <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+             alt="Photo by Drew Beamer"
+             class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
+    </AspectRatio>
+</div>
 """;
-    private const string squareCode = """<AspectRatio Ratio="1" Class="overflow-hidden rounded-md border">...</AspectRatio>""";
-    private const string portraitCode = """<AspectRatio Ratio="(9d / 16d)" Class="overflow-hidden rounded-md border">...</AspectRatio>""";
-    private const string rtlCode = """<div dir="rtl"><AspectRatio Ratio="(4d / 3d)">...</AspectRatio></div>""";
+    private const string squareCode = """
+<div class="w-full max-w-md">
+    <AspectRatio Ratio="1" Class="bg-muted rounded-lg">
+        <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+             alt="Photo by Drew Beamer"
+             class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
+    </AspectRatio>
+</div>
+""";
+    private const string portraitCode = """
+<div class="h-96 w-auto max-w-[13.5rem]">
+    <AspectRatio Ratio="(9d / 16d)" Class="bg-muted rounded-lg">
+        <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+             alt="Photo by Drew Beamer"
+             class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
+    </AspectRatio>
+</div>
+""";
+    private const string rtlCode = """
+<div dir="rtl" class="h-96 w-auto max-w-[13.5rem]">
+    <AspectRatio Ratio="(9d / 16d)" Class="bg-muted rounded-lg">
+        <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+             alt="Photo by Drew Beamer"
+             class="h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale" />
+    </AspectRatio>
+</div>
+""";
+    private const string sourceAspectRatioRazor = """
+<div data-slot="aspect-ratio"
+     class="@Tw.Merge(Class)"
+     style="@GetContainerStyle()"
+     @attributes="GetAdditionalAttributes()">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public double Ratio { get; set; } = 16d / 9d;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private IReadOnlyDictionary<string, object>? GetAdditionalAttributes()
+    {
+        if (AdditionalAttributes is null || !AdditionalAttributes.ContainsKey("style"))
+        {
+            return AdditionalAttributes;
+        }
+
+        return AdditionalAttributes
+            .Where(static pair => !string.Equals(pair.Key, "style", StringComparison.OrdinalIgnoreCase))
+            .ToDictionary();
+    }
+
+    private string GetContainerStyle()
+    {
+        var ratio = Ratio <= 0 ? 16d / 9d : Ratio;
+        var aspectRatio = ratio.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        if (AdditionalAttributes is not null &&
+            AdditionalAttributes.TryGetValue("style", out var styleValue) &&
+            styleValue is not null &&
+            !string.IsNullOrWhiteSpace(styleValue.ToString()))
+        {
+            return $"aspect-ratio: {aspectRatio}; {styleValue}";
+        }
+
+        return $"aspect-ratio: {aspectRatio};";
+    }
+}
+""";
 }

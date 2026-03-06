@@ -1,7 +1,7 @@
 <div data-slot="aspect-ratio"
      class="@Tw.Merge(Class)"
      style="@GetContainerStyle()"
-     @attributes="AdditionalAttributes">
+     @attributes="GetAdditionalAttributes()">
     @ChildContent
 </div>
 
@@ -12,9 +12,31 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private IReadOnlyDictionary<string, object>? GetAdditionalAttributes()
+    {
+        if (AdditionalAttributes is null || !AdditionalAttributes.ContainsKey("style"))
+        {
+            return AdditionalAttributes;
+        }
+
+        return AdditionalAttributes
+            .Where(static pair => !string.Equals(pair.Key, "style", StringComparison.OrdinalIgnoreCase))
+            .ToDictionary();
+    }
+
     private string GetContainerStyle()
     {
         var ratio = Ratio <= 0 ? 16d / 9d : Ratio;
-        return $"aspect-ratio: {ratio.ToString(System.Globalization.CultureInfo.InvariantCulture)};";
+        var aspectRatio = ratio.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        if (AdditionalAttributes is not null &&
+            AdditionalAttributes.TryGetValue("style", out var styleValue) &&
+            styleValue is not null &&
+            !string.IsNullOrWhiteSpace(styleValue.ToString()))
+        {
+            return $"aspect-ratio: {aspectRatio}; {styleValue}";
+        }
+
+        return $"aspect-ratio: {aspectRatio};";
     }
 }

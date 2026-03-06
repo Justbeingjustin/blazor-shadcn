@@ -1,0 +1,42 @@
+<div data-slot="carousel-content"
+     class="overflow-hidden">
+    <div id="@Carousel?.ViewportId"
+         @ref="_viewportRef"
+         class="@GetTrackClasses()"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] private CarouselContext? CarouselContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private ElementReference _viewportRef;
+    private Carousel? Carousel => CarouselContext?.Root;
+
+    protected override void OnParametersSet()
+    {
+        if (CarouselContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(CarouselContent)} must be used inside {nameof(Carousel)}.");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Carousel?.RegisterViewport(_viewportRef);
+    }
+
+    private string GetTrackClasses()
+        => Tw.Merge(
+            "no-scrollbar flex overflow-auto scroll-smooth snap-mandatory",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
+                ? "-ml-4 snap-x touch-pan-y"
+                : "-mt-4 h-full snap-y flex-col touch-pan-x",
+            Class);
+}

@@ -26,6 +26,135 @@
         window.copyToClipboard = function (text) {
             return navigator.clipboard.writeText(text);
         };
+        window.blazorShadcnCarousel = (function () {
+            const carousels = new Map();
+
+            function getState(id) {
+                return carousels.get(id) || null;
+            }
+
+            function getAxis(axis) {
+                return axis === 'y' ? 'top' : 'left';
+            }
+
+            function getSizeProp(axis) {
+                return axis === 'y' ? 'clientHeight' : 'clientWidth';
+            }
+
+            function getScrollProp(axis) {
+                return axis === 'y' ? 'scrollTop' : 'scrollLeft';
+            }
+
+            function getMaxScroll(viewport, axis) {
+                return axis === 'y'
+                    ? Math.max(0, viewport.scrollHeight - viewport.clientHeight)
+                    : Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+            }
+
+            function getSlides(viewport) {
+                return Array.from(viewport.children || []);
+            }
+
+            function getSlidePositions(viewport, axis) {
+                const offsetProp = 'offset' + (axis === 'y' ? 'Top' : 'Left');
+                return getSlides(viewport).map(slide => slide[offsetProp] || 0);
+            }
+
+            function notify(id) {
+                const state = getState(id);
+                if (!state) return;
+
+                const viewport = state.viewport;
+                const axis = state.axis;
+                const current = viewport[getScrollProp(axis)];
+                const max = getMaxScroll(viewport, axis);
+                const epsilon = 2;
+
+                state.dotNet.invokeMethodAsync('UpdateState', current > epsilon, current < max - epsilon);
+            }
+
+            function scrollToIndex(id, direction) {
+                const state = getState(id);
+                if (!state) return;
+
+                const viewport = state.viewport;
+                const axis = state.axis;
+                const positions = getSlidePositions(viewport, axis);
+                if (!positions.length) return;
+
+                const scrollProp = getScrollProp(axis);
+                const current = viewport[scrollProp];
+                const epsilon = 2;
+                let target = current;
+
+                if (direction < 0) {
+                    for (let i = positions.length - 1; i >= 0; i -= 1) {
+                        if (positions[i] < current - epsilon) {
+                            target = positions[i];
+                            break;
+                        }
+                    }
+                } else {
+                    for (let i = 0; i < positions.length; i += 1) {
+                        if (positions[i] > current + epsilon) {
+                            target = positions[i];
+                            break;
+                        }
+                    }
+                }
+
+                viewport.scrollTo({
+                    [getAxis(axis)]: target,
+                    behavior: 'smooth'
+                });
+            }
+
+            function init(id, viewport, dotNet, axis) {
+                dispose(id);
+
+                const onScroll = () => notify(id);
+                const onResize = () => notify(id);
+                const resizeObserver = new ResizeObserver(onResize);
+
+                viewport.addEventListener('scroll', onScroll, { passive: true });
+                resizeObserver.observe(viewport);
+                getSlides(viewport).forEach(slide => resizeObserver.observe(slide));
+
+                carousels.set(id, {
+                    viewport,
+                    dotNet,
+                    axis,
+                    onScroll,
+                    resizeObserver
+                });
+
+                notify(id);
+            }
+
+            function refresh(id, axis) {
+                const state = getState(id);
+                if (!state) return;
+                state.axis = axis;
+                notify(id);
+            }
+
+            function dispose(id) {
+                const state = getState(id);
+                if (!state) return;
+
+                state.viewport.removeEventListener('scroll', state.onScroll);
+                state.resizeObserver.disconnect();
+                carousels.delete(id);
+            }
+
+            return {
+                init,
+                refresh,
+                dispose,
+                scrollPrev: (id) => scrollToIndex(id, -1),
+                scrollNext: (id) => scrollToIndex(id, 1)
+            };
+        })();
 
         (function () {
             function getTargetFromHash(hash) {

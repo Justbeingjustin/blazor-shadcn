@@ -1,4 +1,5 @@
 @page "/components/select"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Select - blazor-shadcn</PageTitle>
 
@@ -9,7 +10,7 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Select</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
+                        <DocsCopyPage PageUrl="@referenceUrl" />
                         <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/scroll-area" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
@@ -24,17 +25,83 @@
                     <DocsPageLinks Padded="false" />
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
-                    Displays the Select component.
+                    Displays a list of options for the user to pick from, triggered by a button.
                 </p>
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample Compact="true" CodeText="@usageCode">
+                <ComponentExample Compact="true" CodeText="@mainDemoCode">
                     <Preview>
-                        <Select><span class="text-sm text-muted-foreground">Example</span></Select>
+                        <Select>
+                            <SelectTrigger Class="w-[180px]">
+                                <SelectValue Placeholder="Select a fruit" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Fruits</SelectLabel>
+                                    <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                    <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                    <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                    <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                                    <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
                     </Preview>
-                    <Code>@usageCode</Code>
+                    <Code>@mainDemoCode</Code>
                 </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the select component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Command</button>
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Manual</button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Install the required dependencies.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualDependencyStep">@manualDependencyStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                @foreach (var source in _manualSources)
+                                {
+                                    <p class="text-muted-foreground mt-3 text-sm">@source.Path</p>
+                                    <div class="mt-2">
+                                        <CodeBlock RawText="@source.Content">@source.Content</CodeBlock>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">3</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -43,6 +110,184 @@
                 <div class="mt-4">
                     <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
                 </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="align-item-with-trigger">Align Item With Trigger</h3>
+                <p class="text-muted-foreground mt-2 text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Position</code> parameter on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectContent</code> to control alignment.</p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@alignItemCode">
+                        <Preview>
+                            <Select>
+                                <SelectTrigger Class="w-[180px]">
+                                    <SelectValue Placeholder="Select a fruit" />
+                                </SelectTrigger>
+                                <SelectContent Position="popper">
+                                    <SelectGroup>
+                                        <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                        <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                        <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                        <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                                        <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </Preview>
+                        <Code>@alignItemCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="groups">Groups</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@groupsCode">
+                        <Preview>
+                            <Select>
+                                <SelectTrigger Class="w-[180px]">
+                                    <SelectValue Placeholder="Select a fruit" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Fruits</SelectLabel>
+                                        <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                        <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                        <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                    </SelectGroup>
+                                    <SelectSeparator />
+                                    <SelectGroup>
+                                        <SelectLabel>Vegetables</SelectLabel>
+                                        <SelectItem Value="carrot" Text="Carrot">Carrot</SelectItem>
+                                        <SelectItem Value="broccoli" Text="Broccoli">Broccoli</SelectItem>
+                                        <SelectItem Value="spinach" Text="Spinach">Spinach</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </Preview>
+                        <Code>@groupsCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="scrollable">Scrollable</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@scrollableCode">
+                        <Preview>
+                            <Select>
+                                <SelectTrigger Class="w-[280px]">
+                                    <SelectValue Placeholder="Select a timezone" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>North America</SelectLabel>
+                                        <SelectItem Value="est" Text="Eastern Standard Time (EST)">Eastern Standard Time (EST)</SelectItem>
+                                        <SelectItem Value="cst" Text="Central Standard Time (CST)">Central Standard Time (CST)</SelectItem>
+                                        <SelectItem Value="mst" Text="Mountain Standard Time (MST)">Mountain Standard Time (MST)</SelectItem>
+                                        <SelectItem Value="pst" Text="Pacific Standard Time (PST)">Pacific Standard Time (PST)</SelectItem>
+                                        <SelectItem Value="akst" Text="Alaska Standard Time (AKST)">Alaska Standard Time (AKST)</SelectItem>
+                                        <SelectItem Value="hst" Text="Hawaii Standard Time (HST)">Hawaii Standard Time (HST)</SelectItem>
+                                    </SelectGroup>
+                                    <SelectGroup>
+                                        <SelectLabel>Europe & Africa</SelectLabel>
+                                        <SelectItem Value="gmt" Text="Greenwich Mean Time (GMT)">Greenwich Mean Time (GMT)</SelectItem>
+                                        <SelectItem Value="cet" Text="Central European Time (CET)">Central European Time (CET)</SelectItem>
+                                        <SelectItem Value="eet" Text="Eastern European Time (EET)">Eastern European Time (EET)</SelectItem>
+                                        <SelectItem Value="west" Text="Western European Summer Time (WEST)">Western European Summer Time (WEST)</SelectItem>
+                                        <SelectItem Value="cat" Text="Central Africa Time (CAT)">Central Africa Time (CAT)</SelectItem>
+                                        <SelectItem Value="eat" Text="East Africa Time (EAT)">East Africa Time (EAT)</SelectItem>
+                                    </SelectGroup>
+                                    <SelectGroup>
+                                        <SelectLabel>Asia</SelectLabel>
+                                        <SelectItem Value="msk" Text="Moscow Time (MSK)">Moscow Time (MSK)</SelectItem>
+                                        <SelectItem Value="ist" Text="India Standard Time (IST)">India Standard Time (IST)</SelectItem>
+                                        <SelectItem Value="cst-china" Text="China Standard Time (CST)">China Standard Time (CST)</SelectItem>
+                                        <SelectItem Value="jst" Text="Japan Standard Time (JST)">Japan Standard Time (JST)</SelectItem>
+                                        <SelectItem Value="kst" Text="Korea Standard Time (KST)">Korea Standard Time (KST)</SelectItem>
+                                        <SelectItem Value="wita" Text="Indonesia Central Standard Time (WITA)">Indonesia Central Standard Time (WITA)</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </Preview>
+                        <Code>@scrollableCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="disabled">Disabled</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@disabledCode">
+                        <Preview>
+                            <Select Disabled="true">
+                                <SelectTrigger Class="w-[180px]">
+                                    <SelectValue Placeholder="Select a fruit" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                        <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                        <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                        <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                                        <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </Preview>
+                        <Code>@disabledCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="invalid">Invalid</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@invalidCode">
+                        <Preview>
+                            <div class="grid gap-2">
+                                <Label For="invalid-select">Fruit</Label>
+                                <Select>
+                                    <SelectTrigger Id="invalid-select" Class="w-[180px]" aria-invalid="true">
+                                        <SelectValue Placeholder="Select a fruit" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                            <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                                            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                                <p class="text-destructive text-sm">Please select a valid fruit.</p>
+                            </div>
+                        </Preview>
+                        <Code>@invalidCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                <p class="text-muted-foreground mt-2 text-sm">To enable RTL support, render the example inside an RTL container.</p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@rtlCode">
+                        <Preview>
+                            <div dir="rtl" class="flex justify-center">
+                                <Select>
+                                    <SelectTrigger Class="w-[180px]">
+                                        <SelectValue Placeholder="Select a fruit" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Fruits</SelectLabel>
+                                            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </Preview>
+                        <Code>@rtlCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <p class="text-muted-foreground mt-2 text-sm">
+                    See the <a class="underline underline-offset-4" href="https://www.radix-ui.com/docs/primitives/components/select#api-reference" target="_blank" rel="noreferrer">Radix UI Select</a> documentation for the source API reference.
+                </p>
             </div>
         </div>
     </div>
@@ -52,15 +297,192 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#align-item-with-trigger" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Align Item With Trigger</a>
+                <a href="#groups" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Groups</a>
+                <a href="#scrollable" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Scrollable</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Disabled</a>
+                <a href="#invalid" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Invalid</a>
+                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private const string installCommand = "npx shadcn@latest add select";
+    private const string manualDependencyStep = "npm install radix-ui";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/select";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = @"<Select><span class=""text-sm text-muted-foreground"">Example</span></Select>";
+    private const string usageCode = """
+<Select>
+    <SelectTrigger Class="w-[180px]">
+        <SelectValue Placeholder="Theme" />
+    </SelectTrigger>
+    <SelectContent>
+        <SelectGroup>
+            <SelectItem Value="light" Text="Light">Light</SelectItem>
+            <SelectItem Value="dark" Text="Dark">Dark</SelectItem>
+            <SelectItem Value="system" Text="System">System</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string mainDemoCode = """
+<Select>
+    <SelectTrigger Class="w-[180px]">
+        <SelectValue Placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
+        <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
+            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+            <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string alignItemCode = """
+<Select>
+    <SelectTrigger Class="w-[180px]">
+        <SelectValue Placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent Position="popper">
+        <SelectGroup>
+            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+            <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string groupsCode = """
+<Select>
+    <SelectTrigger Class="w-[180px]">
+        <SelectValue Placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
+        <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
+            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+        </SelectGroup>
+        <SelectSeparator />
+        <SelectGroup>
+            <SelectLabel>Vegetables</SelectLabel>
+            <SelectItem Value="carrot" Text="Carrot">Carrot</SelectItem>
+            <SelectItem Value="broccoli" Text="Broccoli">Broccoli</SelectItem>
+            <SelectItem Value="spinach" Text="Spinach">Spinach</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string scrollableCode = """
+<Select>
+    <SelectTrigger Class="w-[280px]">
+        <SelectValue Placeholder="Select a timezone" />
+    </SelectTrigger>
+    <SelectContent>
+        <SelectGroup>
+            <SelectLabel>North America</SelectLabel>
+            <SelectItem Value="est" Text="Eastern Standard Time (EST)">Eastern Standard Time (EST)</SelectItem>
+            <SelectItem Value="cst" Text="Central Standard Time (CST)">Central Standard Time (CST)</SelectItem>
+            <SelectItem Value="mst" Text="Mountain Standard Time (MST)">Mountain Standard Time (MST)</SelectItem>
+            <SelectItem Value="pst" Text="Pacific Standard Time (PST)">Pacific Standard Time (PST)</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string disabledCode = """
+<Select Disabled="true">
+    <SelectTrigger Class="w-[180px]">
+        <SelectValue Placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
+        <SelectGroup>
+            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string invalidCode = """
+<Select>
+    <SelectTrigger Class="w-[180px]" aria-invalid="true">
+        <SelectValue Placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
+        <SelectGroup>
+            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+        </SelectGroup>
+    </SelectContent>
+</Select>
+""";
+    private const string rtlCode = """
+<div dir="rtl">
+    <Select>
+        <SelectTrigger Class="w-[180px]">
+            <SelectValue Placeholder="Select a fruit" />
+        </SelectTrigger>
+        <SelectContent>
+            <SelectGroup>
+                <SelectLabel>Fruits</SelectLabel>
+                <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+            </SelectGroup>
+        </SelectContent>
+    </Select>
+</div>
+""";
+
+    private readonly List<ManualSource> _manualSources = [];
+
+    protected override void OnInitialized()
+    {
+        foreach (var path in new[]
+        {
+            "Components/UI/Select.razor",
+            "Components/UI/SelectContext.cs",
+            "Components/UI/SelectTrigger.razor",
+            "Components/UI/SelectValue.razor",
+            "Components/UI/SelectContent.razor",
+            "Components/UI/SelectGroup.razor",
+            "Components/UI/SelectLabel.razor",
+            "Components/UI/SelectItem.razor",
+            "Components/UI/SelectSeparator.razor"
+        })
+        {
+            _manualSources.Add(new ManualSource(path, ReadSource(path)));
+        }
+    }
+
+    private string ReadSource(string relativePath)
+    {
+        var path = Path.Combine(Environment.ContentRootPath, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        return File.Exists(path) ? File.ReadAllText(path) : $"Missing source: {relativePath}";
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private sealed record ManualSource(string Path, string Content);
 }
-
-

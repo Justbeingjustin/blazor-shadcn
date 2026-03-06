@@ -31,7 +31,26 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@usageCode">
                     <Preview>
-                        <Carousel><span class="text-sm text-muted-foreground">Example</span></Carousel>
+                        <div class="mx-auto max-w-xs px-12">
+                            <Carousel>
+                                <CarouselContent>
+                                    @foreach (var slide in slides)
+                                    {
+                                        <CarouselItem>
+                                            <div class="p-1">
+                                                <Card>
+                                                    <CardContent Class="flex aspect-square items-center justify-center p-6">
+                                                        <span class="text-4xl font-semibold">@slide</span>
+                                                    </CardContent>
+                                                </Card>
+                                            </div>
+                                        </CarouselItem>
+                                    }
+                                </CarouselContent>
+                                <CarouselPrevious />
+                                <CarouselNext />
+                            </Carousel>
+                        </div>
                     </Preview>
                     <Code>@usageCode</Code>
                 </ComponentExample>
@@ -60,7 +79,40 @@
 
 @code {
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = @"<Carousel><span class=""text-sm text-muted-foreground"">Example</span></Carousel>";
+    private static readonly int[] slides = [1, 2, 3, 4, 5];
+    private const string usageCode = @"<Carousel class=""w-full max-w-xs"">
+    <CarouselContent>
+        <CarouselItem>
+            <div class=""p-1"">
+                <Card>
+                    <CardContent Class=""flex aspect-square items-center justify-center p-6"">
+                        <span class=""text-4xl font-semibold"">1</span>
+                    </CardContent>
+                </Card>
+            </div>
+        </CarouselItem>
+        <CarouselItem>
+            <div class=""p-1"">
+                <Card>
+                    <CardContent Class=""flex aspect-square items-center justify-center p-6"">
+                        <span class=""text-4xl font-semibold"">2</span>
+                    </CardContent>
+                </Card>
+            </div>
+        </CarouselItem>
+        <CarouselItem>
+            <div class=""p-1"">
+                <Card>
+                    <CardContent Class=""flex aspect-square items-center justify-center p-6"">
+                        <span class=""text-4xl font-semibold"">3</span>
+                    </CardContent>
+                </Card>
+            </div>
+        </CarouselItem>
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+</Carousel>";
 }
 
 

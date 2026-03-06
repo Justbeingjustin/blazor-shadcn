@@ -1,0 +1,60 @@
+<button type="button"
+        id="@Id"
+        data-slot="select-trigger"
+        data-size="@SizeValue"
+        disabled="@Context.Disabled"
+        aria-expanded="@Context.IsOpen"
+        aria-haspopup="listbox"
+        aria-controls="@Context.ContentId"
+        class="@TriggerClass"
+        @onclick="Context.ToggleAsync"
+        @attributes="AdditionalAttributes">
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        <SelectValue Placeholder="@Placeholder" />
+    }
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="16"
+         height="16"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         class="size-4 shrink-0 opacity-50">
+        <path d="m6 9 6 6 6-6" />
+    </svg>
+</button>
+
+@code {
+    [CascadingParameter] internal SelectContext Context { get; set; } = default!;
+
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public SelectTriggerSize Size { get; set; } = SelectTriggerSize.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string SizeValue => Size == SelectTriggerSize.Sm ? "sm" : "default";
+
+    private string TriggerClass => Tw.Merge(
+        "border-input data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='text-'])]:text-muted-foreground",
+        Size == SelectTriggerSize.Sm
+            ? "h-8 px-2.5 text-[0.8rem]"
+            : "h-9",
+        Class);
+
+    public enum SelectTriggerSize
+    {
+        Sm,
+        Default
+    }
+}

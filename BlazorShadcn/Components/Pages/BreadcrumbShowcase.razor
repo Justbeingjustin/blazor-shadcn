@@ -24,24 +24,130 @@
                     <DocsPageLinks Padded="false" />
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
-                    Displays the Breadcrumb component.
+                    Displays the path to the current resource using a hierarchy of links.
                 </p>
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample Compact="true" CodeText="@usageCode">
+                <ComponentExample Compact="true" CodeText="@mainDemoCode">
                     <Preview>
-                        <Breadcrumb><span class="text-sm text-muted-foreground">Example</span></Breadcrumb>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem><BreadcrumbEllipsis Class="size-4" /></BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem><BreadcrumbLink Href="/docs/components">Components</BreadcrumbLink></BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                     </Preview>
-                    <Code>@usageCode</Code>
+                    <Code>@mainDemoCode</Code>
                 </ComponentExample>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
-                <div class="mt-6">
-                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the breadcrumb component using the command or manual steps.</p>
+                <div class="mt-4 inline-flex w-fit items-center justify-start gap-4 rounded-none border-b bg-transparent px-0">
+                    <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground">Command</button>
+                    <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground">Manual</button>
                 </div>
-                <div class="mt-4">
-                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4"><CodeBlock RawText="@installCommand">@installCommand</CodeBlock></div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following files into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Breadcrumb*.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@manualSourcesCode">@manualSourcesCode</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-2"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true" CodeText="@basicCode">
+                        <Preview><Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb></Preview>
+                        <Code>@basicCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Custom separator" Compact="true" CodeText="@customSeparatorCode">
+                        <Preview><Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator><span>&middot;</span></BreadcrumbSeparator><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator><span>&middot;</span></BreadcrumbSeparator><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb></Preview>
+                        <Code>@customSeparatorCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Dropdown" Compact="true" CodeText="@dropdownCode">
+                        <Preview>
+                            <div class="space-y-3">
+                                <p class="text-muted-foreground text-sm">Temporary fallback example until dropdown-menu reaches parity.</p>
+                                <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator><span>/</span></BreadcrumbSeparator><BreadcrumbItem><button type="button" class="flex items-center gap-1">Components<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5"><path d="m6 9 6 6 6-6" /></svg></button></BreadcrumbItem><BreadcrumbSeparator><span>/</span></BreadcrumbSeparator><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+                            </div>
+                        </Preview>
+                        <Code>@dropdownCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Collapsed" Compact="true" CodeText="@collapsedCode">
+                        <Preview><Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/docs/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb></Preview>
+                        <Code>@collapsedCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Link component" Compact="true" CodeText="@linkComponentCode">
+                        <Preview>
+                            <div class="space-y-3">
+                                <p class="text-muted-foreground text-sm">Blazor routing uses standard links directly, so no `asChild` prop is required.</p>
+                                <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+                            </div>
+                        </Preview>
+                        <Code>@linkComponentCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@rtlCode">
+                        <Preview><div dir="rtl"><Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb></div></Preview>
+                        <Code>@rtlCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="w-full caption-bottom text-sm">
+                        <thead class="[&_tr]:border-b bg-muted/50">
+                            <tr class="border-b transition-colors"><th class="h-10 px-4 text-left font-medium whitespace-nowrap">Component</th><th class="h-10 px-4 text-left font-medium whitespace-nowrap">Prop</th><th class="h-10 px-4 text-left font-medium whitespace-nowrap">Type</th><th class="h-10 px-4 text-left font-medium whitespace-nowrap">Default</th></tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Breadcrumb</td><td class="px-4 py-2 text-left whitespace-nowrap">AriaLabel</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"breadcrumb"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">BreadcrumbList</td><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">BreadcrumbItem</td><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">BreadcrumbLink</td><td class="px-4 py-2 text-left whitespace-nowrap">Href</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"#"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">BreadcrumbPage</td><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">BreadcrumbSeparator</td><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default chevron</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">BreadcrumbEllipsis</td><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -52,15 +158,61 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    private enum InstallationTab { Command, Manual }
+
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private const string installCommand = "npx shadcn@latest add breadcrumb";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = @"<Breadcrumb><span class=""text-sm text-muted-foreground"">Example</span></Breadcrumb>";
+    private const string mainDemoCode = """<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbEllipsis Class="size-4" /></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/docs/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>""";
+    private const string usageCode = """
+<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>
+""";
+    private const string basicCode = """<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>""";
+    private const string customSeparatorCode = """<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator>&middot;</BreadcrumbSeparator><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator>&middot;</BreadcrumbSeparator><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>""";
+    private const string dropdownCode = """<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator>/</BreadcrumbSeparator><BreadcrumbItem><!-- Temporary fallback dropdown trigger/menu until dropdown-menu reaches parity --></BreadcrumbItem><BreadcrumbSeparator>/</BreadcrumbSeparator><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>""";
+    private const string collapsedCode = """<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/docs/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>""";
+    private const string linkComponentCode = """<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>""";
+    private const string rtlCode = """<div dir="rtl"><Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink Href="/">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink Href="/components">Components</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb></div>""";
+    private const string manualSourcesCode = """
+// Breadcrumb.razor
+<nav aria-label="@AriaLabel" data-slot="breadcrumb" class="@Tw.Merge(Class)" @attributes="AdditionalAttributes">@ChildContent</nav>
+
+// BreadcrumbList.razor
+<ol data-slot="breadcrumb-list" class="@Tw.Merge("text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5", Class)" @attributes="AdditionalAttributes">@ChildContent</ol>
+
+// BreadcrumbItem.razor
+<li data-slot="breadcrumb-item" class="@Tw.Merge("inline-flex items-center gap-1.5", Class)" @attributes="AdditionalAttributes">@ChildContent</li>
+
+// BreadcrumbLink.razor
+<a data-slot="breadcrumb-link" href="@Href" class="@Tw.Merge("hover:text-foreground transition-colors", Class)" @attributes="AdditionalAttributes">@ChildContent</a>
+
+// BreadcrumbPage.razor
+<span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" class="@Tw.Merge("text-foreground font-normal", Class)" @attributes="AdditionalAttributes">@ChildContent</span>
+
+// BreadcrumbSeparator.razor
+<li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="@Tw.Merge("[&>svg]:size-3.5", Class)" @attributes="AdditionalAttributes">...</li>
+
+// BreadcrumbEllipsis.razor
+<span data-slot="breadcrumb-ellipsis" role="presentation" aria-hidden="true" class="@Tw.Merge("flex size-9 items-center justify-center", Class)" @attributes="AdditionalAttributes">...</span>
+""";
 }
-
-

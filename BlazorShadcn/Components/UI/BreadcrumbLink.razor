@@ -1,12 +1,12 @@
-<nav aria-label="@AriaLabel"
-     data-slot="breadcrumb"
-     class="@Tw.Merge(Class)"
-     @attributes="AdditionalAttributes">
+<a data-slot="breadcrumb-link"
+   href="@Href"
+   class="@Tw.Merge("hover:text-foreground transition-colors", Class)"
+   @attributes="AdditionalAttributes">
     @ChildContent
-</nav>
+</a>
 
 @code {
-    [Parameter] public string AriaLabel { get; set; } = "breadcrumb";
+    [Parameter] public string Href { get; set; } = "#";
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
