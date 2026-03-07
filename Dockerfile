@@ -21,6 +21,14 @@ RUN npm ci --prefix BlazorShadcn
 COPY BlazorShadcn/ BlazorShadcn/
 
 RUN dotnet publish BlazorShadcn/BlazorShadcn.csproj -c Release -o /app/publish --no-restore
+RUN mkdir -p /app/publish/wwwroot/_framework \
+    && BLAZOR_SERVER_JS="$(find /root /home /usr/share/dotnet -name blazor.server.js 2>/dev/null | head -n 1)" \
+    && BLAZOR_WEB_JS="$(find /root /home /usr/share/dotnet -name blazor.web.js 2>/dev/null | head -n 1)" \
+    && if [ -n "$BLAZOR_SERVER_JS" ]; then cp "$BLAZOR_SERVER_JS" /app/publish/wwwroot/_framework/; fi \
+    && if [ -n "$BLAZOR_WEB_JS" ]; then cp "$BLAZOR_WEB_JS" /app/publish/wwwroot/_framework/; fi \
+    && echo "--- publish framework files ---" \
+    && ls -la /app/publish/wwwroot/_framework || true
+
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 
@@ -28,7 +36,6 @@ ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_HTTP_PORTS=8080
 
 COPY --from=build /app/publish .
-COPY --from=build /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets
 
 EXPOSE 8080
 
