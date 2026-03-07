@@ -19,6 +19,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
@@ -29,7 +32,19 @@ jobs:
             exit 1
           fi
 
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          load: true
+          tags: blazor-shadcn:${{ github.sha }}
+
+      - name: Inspect published app contents
+        run: |
+          docker run --rm --entrypoint sh blazor-shadcn:${{ github.sha }} -lc "echo '--- /app ---'; ls -la /app; echo '--- /app/_framework ---'; ls -la /app/_framework || true"
+
       - name: Deploy
-        run: flyctl deploy --remote-only --config fly.toml
+        run: flyctl deploy --local-only --config fly.toml --image-label "${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
