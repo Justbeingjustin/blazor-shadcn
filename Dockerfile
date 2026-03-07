@@ -3,7 +3,7 @@ WORKDIR /src
 
 # Install Node.js because the Blazor project builds Tailwind CSS during publish.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates gnupg \
+    && apt-get install -y --no-install-recommends curl ca-certificates gnupg unzip \
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
@@ -22,10 +22,10 @@ COPY BlazorShadcn/ BlazorShadcn/
 
 RUN dotnet publish BlazorShadcn/BlazorShadcn.csproj -c Release -o /app/publish --no-restore
 RUN mkdir -p /app/publish/wwwroot/_framework \
-    && BLAZOR_SERVER_JS="$(find /root /home /usr/share/dotnet -name blazor.server.js 2>/dev/null | head -n 1)" \
-    && BLAZOR_WEB_JS="$(find /root /home /usr/share/dotnet -name blazor.web.js 2>/dev/null | head -n 1)" \
-    && if [ -n "$BLAZOR_SERVER_JS" ]; then cp "$BLAZOR_SERVER_JS" /app/publish/wwwroot/_framework/; fi \
-    && if [ -n "$BLAZOR_WEB_JS" ]; then cp "$BLAZOR_WEB_JS" /app/publish/wwwroot/_framework/; fi \
+    && ASPNETCORE_VERSION="$(dotnet --list-runtimes | awk '/Microsoft.AspNetCore.App / { print $2; exit }')" \
+    && curl -fsSL -o /tmp/aspnetcore-assets.nupkg "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.internal.assets/${ASPNETCORE_VERSION}/microsoft.aspnetcore.app.internal.assets.${ASPNETCORE_VERSION}.nupkg" \
+    && unzip -j /tmp/aspnetcore-assets.nupkg "_framework/blazor.server.js" "_framework/blazor.web.js" -d /app/publish/wwwroot/_framework \
+    && rm -f /tmp/aspnetcore-assets.nupkg \
     && echo "--- publish framework files ---" \
     && ls -la /app/publish/wwwroot/_framework || true
 
