@@ -22,8 +22,12 @@ COPY BlazorShadcn/ BlazorShadcn/
 
 RUN dotnet publish BlazorShadcn/BlazorShadcn.csproj -c Release -o /app/publish --no-restore
 RUN mkdir -p /app/publish/_framework \
-    && cp /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets/*/_framework/blazor.web.js /app/publish/_framework/ \
-    && cp /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets/*/_framework/blazor.server.js /app/publish/_framework/
+    && BLAZOR_WEB_JS="$(find /root /usr/share/dotnet -path '*/_framework/blazor.web.js' | head -n 1)" \
+    && BLAZOR_SERVER_JS="$(find /root /usr/share/dotnet -path '*/_framework/blazor.server.js' | head -n 1)" \
+    && test -n "$BLAZOR_WEB_JS" \
+    && test -n "$BLAZOR_SERVER_JS" \
+    && cp "$BLAZOR_WEB_JS" /app/publish/_framework/ \
+    && cp "$BLAZOR_SERVER_JS" /app/publish/_framework/
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
