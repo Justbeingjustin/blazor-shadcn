@@ -21,53 +21,30 @@
 
             <div class="w-full flex-1">
                 <p class="leading-relaxed mt-6">
-                    This is not a component library. It is how you build your component library.
+                    Blazor ShadCN brings the shadcn/ui workflow to Blazor.
                 </p>
 
                 <p class="leading-relaxed mt-6">
-                    Blazor ShadCN brings the <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-4">shadcn/ui</a>
-                    approach to Blazor. Instead of importing components from a packaged UI library, you install the source code directly into your project.
+                    Inspired by <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-4">shadcn/ui</a>, it lets you add components as source code directly to your app instead of consuming a packaged UI library.
                 </p>
 
                 <p class="leading-relaxed mt-6">
-                    Traditional component libraries work well until you need deeper customization. At that point, you often end up wrapping library components, overriding styles, or mixing APIs from multiple libraries to get the result you want.
+                    That means the components live in your project, follow your architecture, and can be changed without fighting a third-party abstraction.
                 </p>
 
                 <p class="leading-relaxed mt-6">
-                    Blazor ShadCN takes a different approach. Use the CLI to scaffold a project and install components into your app. Once added, the code is part of your project and can be customized freely.
+                    Use the CLI to scaffold a project and add components as you need them. Once they are installed, the code is yours to inspect, refactor, and extend.
                 </p>
 
                 <div class="rounded-xl border p-6 my-6">
                     <p class="font-medium leading-relaxed">
-                        The CLI is distributed via NuGet as a .NET tool. The components themselves are not distributed as a UI library. They are installed into your project as source code, and the code is yours.
+                        The CLI is distributed as a .NET tool, but the components are installed into your app as Razor and C# source files. You own the code after generation.
                     </p>
                 </div>
 
                 <p class="leading-relaxed mt-6">
-                    There is no runtime dependency on a separate UI package.
+                    The goal is the same one that made shadcn/ui compelling: start with solid building blocks, but keep full control over the implementation.
                 </p>
-
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12">
-                    Install
-                </h2>
-
-                <div class="mt-6 space-y-6">
-                    <div class="space-y-3">
-                        <p class="text-sm font-medium">Install the CLI:</p>
-                        <CodeBlock RawText="@installToolCode">@installToolCode</CodeBlock>
-                    </div>
-
-                    <div class="space-y-3">
-                        <p class="text-sm font-medium">Create a new project:</p>
-                        <CodeBlock RawText="@createProjectCode">@createProjectCode</CodeBlock>
-                    </div>
-
-                    <div class="space-y-3">
-                        <p class="text-sm font-medium">Add your first component:</p>
-                        <CodeBlock RawText="@addComponentCode">@addComponentCode</CodeBlock>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -75,13 +52,4 @@
 
 @code {
     private const string referenceUrl = "https://ui.shadcn.com/docs";
-
-    private const string installToolCode = "dotnet tool install -g blazor-shadcn";
-
-    private const string createProjectCode = """
-blazor-shadcn new MyApp
-cd MyApp
-""";
-
-    private const string addComponentCode = "blazor-shadcn add button";
 }
