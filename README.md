@@ -51,10 +51,11 @@ The container listens on port `8080`, which matches Fly's default .NET/container
 
 This repository includes a GitHub Actions workflow at `.github/workflows/fly-deploy.yml` that deploys on every push to `main`.
 
-Add these repository secrets before relying on it:
+Add this repository secret before relying on it:
 
 - `FLY_API_TOKEN`: a Fly API token with deploy access
-- `FLY_APP_NAME`: your Fly app name
+
+The workflow deploys using the committed `fly.toml`, so no app-name secret is needed.
 
 ### Manual setup in a new Blazor app (copy/paste workflow)
 
