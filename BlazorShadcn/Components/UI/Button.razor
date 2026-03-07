@@ -34,7 +34,7 @@ else
         "focus-visible:border-ring focus-visible:ring-ring/50 " +
         "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 " +
         "aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 " +
-        "border border-transparent bg-clip-padding text-sm font-medium " +
+        "rounded-md border border-transparent bg-clip-padding text-sm font-medium " +
         "focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 " +
         "inline-flex items-center justify-center whitespace-nowrap transition-all " +
         "disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none " +
@@ -55,14 +55,14 @@ else
 
     private string GetSizeClasses() => Size switch
     {
-        ButtonSize.Default => "h-8 rounded-lg gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        ButtonSize.Xs => "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        ButtonSize.Sm => "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        ButtonSize.Lg => "h-9 rounded-lg gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-        ButtonSize.Icon => "size-8 rounded-md",
-        ButtonSize.IconXs => "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        ButtonSize.IconSm => "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        ButtonSize.IconLg => "size-9 rounded-lg",
+        ButtonSize.Default => "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        ButtonSize.Xs => "h-6 gap-1 rounded-md px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        ButtonSize.Sm => "h-7 gap-1 rounded-md px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        ButtonSize.Lg => "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        ButtonSize.Icon => "size-8",
+        ButtonSize.IconXs => "size-6 rounded-md in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        ButtonSize.IconSm => "size-7 rounded-md in-data-[slot=button-group]:rounded-lg",
+        ButtonSize.IconLg => "size-9",
         _ => ""
     };
 
@@ -166,6 +166,11 @@ else
             if (rest is "balance" or "pretty" or "nowrap" or "wrap") return variants + "text-wrap";
 
             return variants + "text-color";
+        }
+
+        if (utilityForKey == "rounded" || utilityForKey.StartsWith("rounded-", StringComparison.Ordinal))
+        {
+            return variants + "rounded";
         }
 
         return null;

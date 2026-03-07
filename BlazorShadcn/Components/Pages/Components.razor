@@ -13,90 +13,29 @@
                     </div>
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[90%]">
-                    Browse the current BlazorShadcn component catalog, including the parity work from the component briefs in the reference folder.
+                    The primary docs track the supported install surface. Right now that means Button.
                 </p>
             </div>
 
             <div class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20">
-                @foreach (var component in _implementedComponents)
-                {
-                    <a href="@component.Href"
-                       class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base">
-                        @component.Name
-                    </a>
-                }
+                <a href="/components/button"
+                   class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base">
+                    Button
+                </a>
             </div>
 
-           
+            <div class="rounded-xl border p-6">
+                <p class="font-medium leading-relaxed">
+                    Existing showcase work for the broader component set is still available.
+                </p>
+                <p class="text-muted-foreground mt-2 leading-relaxed">
+                    Browse the current in-progress catalog at <a href="/docs/components2" class="underline underline-offset-4">Components 2</a>.
+                </p>
+            </div>
         </div>
     </div>
 </div>
 
 @code {
     private const string referenceUrl = "https://ui.shadcn.com/docs/components";
-
-    private static readonly ComponentLink[] _implementedComponents =
-    [
-        new("Accordion", "/components/accordion"),
-        new("Alert", "/components/alert"),
-        new("Alert Dialog", "/components/alert-dialog"),
-        new("Aspect Ratio", "/components/aspect-ratio"),
-        new("Avatar", "/components/avatar"),
-        new("Badge", "/components/badge"),
-        new("Breadcrumb", "/components/breadcrumb"),
-        new("Button", "/components/button"),
-        new("Button Group", "/components/button-group"),
-        new("Calendar", "/components/calendar"),
-        new("Card", "/components/card"),
-        new("Carousel", "/components/carousel"),
-        new("Chart", "/components/chart"),
-        new("Checkbox", "/components/checkbox"),
-        new("Collapsible", "/components/collapsible"),
-        new("Combobox", "/components/combobox"),
-        new("Command", "/components/command"),
-        new("Context Menu", "/components/context-menu"),
-        new("Data Table", "/components/data-table"),
-        new("Date Picker", "/components/date-picker"),
-        new("Dialog", "/components/dialog"),
-        new("Direction", "/components/direction"),
-        new("Drawer", "/components/drawer"),
-        new("Dropdown Menu", "/components/dropdown-menu"),
-        new("Empty", "/components/empty"),
-        new("Field", "/components/field"),
-        new("Hover Card", "/components/hover-card"),
-        new("Input", "/components/input"),
-        new("Input Group", "/components/input-group"),
-        new("Input OTP", "/components/input-otp"),
-        new("Item", "/components/item"),
-        new("Kbd", "/components/kbd"),
-        new("Label", "/components/label"),
-        new("Menubar", "/components/menubar"),
-        new("Native Select", "/components/native-select"),
-        new("Navigation Menu", "/components/navigation-menu"),
-        new("Pagination", "/components/pagination"),
-        new("Popover", "/components/popover"),
-        new("Progress", "/components/progress"),
-        new("Radio Group", "/components/radio-group"),
-        new("Resizable", "/components/resizable"),
-        new("Scroll Area", "/components/scroll-area"),
-        new("Select", "/components/select"),
-        new("Separator", "/components/separator"),
-        new("Sheet", "/components/sheet"),
-        new("Sidebar", "/components/sidebar"),
-        new("Skeleton", "/components/skeleton"),
-        new("Slider", "/components/slider"),
-        new("Sonner", "/components/sonner"),
-        new("Spinner", "/components/spinner"),
-        new("Switch", "/components/switch"),
-        new("Table", "/components/table"),
-        new("Tabs", "/components/tabs"),
-        new("Textarea", "/components/textarea"),
-        new("Toast", "/components/toast"),
-        new("Toggle", "/components/toggle"),
-        new("Toggle Group", "/components/toggle-group"),
-        new("Tooltip", "/components/tooltip"),
-        new("Typography", "/components/typography")
-    ];
-
-    private sealed record ComponentLink(string Name, string Href);
 }

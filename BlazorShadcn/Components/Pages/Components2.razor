@@ -1,0 +1,100 @@
+@page "/docs/components2"
+
+<PageTitle>Components 2 - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Components 2</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[90%]">
+                    Browse the current BlazorShadcn showcase catalog, including the parity work from the component briefs in the reference folder.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20">
+                @foreach (var component in _implementedComponents)
+                {
+                    <a href="@component.Href"
+                       class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base">
+                        @component.Name
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components";
+
+    private static readonly ComponentLink[] _implementedComponents =
+    [
+        new("Accordion", "/components/accordion"),
+        new("Alert", "/components/alert"),
+        new("Alert Dialog", "/components/alert-dialog"),
+        new("Aspect Ratio", "/components/aspect-ratio"),
+        new("Avatar", "/components/avatar"),
+        new("Badge", "/components/badge"),
+        new("Breadcrumb", "/components/breadcrumb"),
+        new("Button", "/components/button"),
+        new("Button Group", "/components/button-group"),
+        new("Calendar", "/components/calendar"),
+        new("Card", "/components/card"),
+        new("Carousel", "/components/carousel"),
+        new("Chart", "/components/chart"),
+        new("Checkbox", "/components/checkbox"),
+        new("Collapsible", "/components/collapsible"),
+        new("Combobox", "/components/combobox"),
+        new("Command", "/components/command"),
+        new("Context Menu", "/components/context-menu"),
+        new("Data Table", "/components/data-table"),
+        new("Date Picker", "/components/date-picker"),
+        new("Dialog", "/components/dialog"),
+        new("Direction", "/components/direction"),
+        new("Drawer", "/components/drawer"),
+        new("Dropdown Menu", "/components/dropdown-menu"),
+        new("Empty", "/components/empty"),
+        new("Field", "/components/field"),
+        new("Hover Card", "/components/hover-card"),
+        new("Input", "/components/input"),
+        new("Input Group", "/components/input-group"),
+        new("Input OTP", "/components/input-otp"),
+        new("Item", "/components/item"),
+        new("Kbd", "/components/kbd"),
+        new("Label", "/components/label"),
+        new("Menubar", "/components/menubar"),
+        new("Native Select", "/components/native-select"),
+        new("Navigation Menu", "/components/navigation-menu"),
+        new("Pagination", "/components/pagination"),
+        new("Popover", "/components/popover"),
+        new("Progress", "/components/progress"),
+        new("Radio Group", "/components/radio-group"),
+        new("Resizable", "/components/resizable"),
+        new("Scroll Area", "/components/scroll-area"),
+        new("Select", "/components/select"),
+        new("Separator", "/components/separator"),
+        new("Sheet", "/components/sheet"),
+        new("Sidebar", "/components/sidebar"),
+        new("Skeleton", "/components/skeleton"),
+        new("Slider", "/components/slider"),
+        new("Sonner", "/components/sonner"),
+        new("Spinner", "/components/spinner"),
+        new("Switch", "/components/switch"),
+        new("Table", "/components/table"),
+        new("Tabs", "/components/tabs"),
+        new("Textarea", "/components/textarea"),
+        new("Toast", "/components/toast"),
+        new("Toggle", "/components/toggle"),
+        new("Toggle Group", "/components/toggle-group"),
+        new("Tooltip", "/components/tooltip"),
+        new("Typography", "/components/typography")
+    ];
+
+    private sealed record ComponentLink(string Name, string Href);
+}
