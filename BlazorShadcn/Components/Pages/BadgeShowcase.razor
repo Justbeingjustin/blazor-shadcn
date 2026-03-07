@@ -1,4 +1,5 @@
 @page "/components/badge"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Badge - blazor-shadcn</PageTitle>
 
@@ -90,16 +91,7 @@
                                 <p class="font-medium">Copy and paste the following code into your project.</p>
                                 <p class="text-muted-foreground mt-2 text-sm">Components/UI/Badge.razor</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceBadgeRazor">@_sourceBadgeRazor</CodeBlock>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Update the import paths to match your project setup.</p>
-                                <div class="mt-3">
-                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                    <CodeBlock RawText="@_badgeManualSource">@_badgeManualSource</CodeBlock>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +177,7 @@
                         <Preview>
                             <div class="flex flex-wrap gap-2">
                                 <Badge Href="#" onclick="return false;">
-                                    Link
+                                    Open Link
                                     <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M7 7h10v10" />
                                         <path d="M7 17 17 7" />
@@ -253,6 +245,17 @@
 </div>
 
 @code {
+    private const string canonicalBadgeSourcePath = "components/badge/Badge.razor";
+    private string _badgeManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalBadgeSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _badgeManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : _sourceBadgeRazor;
+    }
+
     private InstallationTab _installationTab = InstallationTab.Command;
 
     private enum InstallationTab
@@ -262,7 +265,6 @@
     }
 
     private const string installCommand = "npx shadcn@latest add badge";
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/badge";
 
     private static readonly string _sourceBadgeRazor = """
@@ -366,7 +368,7 @@ else
 </Badge>";
 
     private const string codeLink = @"<Badge Href=""#"" onclick=""return false;"">
-    Link
+    Open Link
     <svg data-icon=""inline-end"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"">
         <path d=""M7 7h10v10"" />
         <path d=""M7 17 17 7"" />

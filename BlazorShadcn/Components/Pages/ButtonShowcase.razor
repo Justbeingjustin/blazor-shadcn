@@ -101,18 +101,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Update the import paths to match your project setup.</p>
-                                <div class="mt-3">
-                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
-                                </div>
-                                <p class="text-muted-foreground mt-3 text-sm">
-                                    Ensure your theme includes shadcn color tokens in <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Styles/globals.css</code> (especially <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">--accent</code>/<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">--accent-foreground</code>).
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 }
 
@@ -328,8 +316,6 @@
 
     private const string installCommand = "blazor-shadcn add button";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/button";
-
-    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
 
     private static readonly string _sourceButtonRazor = """
 @namespace ShadcnBlazor.Components.UI

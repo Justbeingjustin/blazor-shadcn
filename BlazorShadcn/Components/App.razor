@@ -29,6 +29,36 @@
         window.copyToClipboard = function (text) {
             return navigator.clipboard.writeText(text);
         };
+        window.copyDocsPage = async function (url) {
+            if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                return false;
+            }
+
+            const docsRoot = document.querySelector('div[data-slot="docs"]');
+            if (!docsRoot) {
+                return false;
+            }
+
+            const contentColumn = docsRoot.querySelector(':scope > div:first-child');
+            const copySource = contentColumn || docsRoot;
+            const clone = copySource.cloneNode(true);
+
+            clone.querySelectorAll('[data-copy-exclude="true"]').forEach(el => el.remove());
+            clone.querySelectorAll('script, style, noscript').forEach(el => el.remove());
+
+            const text = (clone.innerText || clone.textContent || '')
+                .replace(/\r\n/g, '\n')
+                .replace(/\n{3,}/g, '\n\n')
+                .trim();
+
+            if (!text) {
+                return false;
+            }
+
+            const payload = url ? `${url}\n\n${text}` : text;
+            await navigator.clipboard.writeText(payload);
+            return true;
+        };
         window.blazorShadcnCarousel = (function () {
             const carousels = new Map();
 

@@ -1,0 +1,70 @@
+@namespace ShadcnBlazor.Components.UI
+
+@if (string.IsNullOrEmpty(Href))
+{
+    <span data-slot="badge" data-variant="@Variant.ToString().ToLowerInvariant()" class="@GetClasses()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </span>
+}
+else
+{
+    <a href="@Href" data-slot="badge" data-variant="@Variant.ToString().ToLowerInvariant()" class="@GetClasses()" @attributes="AdditionalAttributes">
+        @ChildContent
+    </a>
+}
+
+@code {
+    [Parameter] public BadgeVariant Variant { get; set; } = BadgeVariant.Default;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "inline-flex w-fit shrink-0 items-center justify-center whitespace-nowrap overflow-hidden " +
+        "h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all " +
+        "has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3 [&>svg]:pointer-events-none " +
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] " +
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
+
+    private string GetClasses() => MergeClasses(BaseClasses, GetVariantClasses(), Class);
+
+    private string GetVariantClasses() => Variant switch
+    {
+        BadgeVariant.Default => "bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+        BadgeVariant.Secondary => "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+        BadgeVariant.Destructive => "bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
+        BadgeVariant.Outline => "border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        BadgeVariant.Ghost => "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        BadgeVariant.Link => "text-primary underline-offset-4 [a&]:hover:underline",
+        _ => ""
+    };
+
+    private static string MergeClasses(params string?[] classes)
+    {
+        var tokens = new List<string>();
+
+        foreach (var chunk in classes)
+        {
+            if (string.IsNullOrWhiteSpace(chunk))
+            {
+                continue;
+            }
+
+            tokens.AddRange(chunk.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        return tokens.Count == 0 ? string.Empty : string.Join(" ", tokens);
+    }
+
+    public enum BadgeVariant
+    {
+        Default,
+        Secondary,
+        Destructive,
+        Outline,
+        Ghost,
+        Link
+    }
+}

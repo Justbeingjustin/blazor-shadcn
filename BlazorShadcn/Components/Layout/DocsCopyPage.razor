@@ -1,6 +1,7 @@
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
 
-<div class="@Tw.Merge("relative", Class)">
+<div data-copy-exclude="true" class="@Tw.Merge("relative", Class)">
     <div class="bg-secondary group/buttons relative flex rounded-lg">
         <Button Variant="ButtonVariant.Secondary"
                 Size="ButtonSize.Sm"
@@ -67,21 +68,26 @@
 
     private async Task CopyPage()
     {
-        if (string.IsNullOrWhiteSpace(PageUrl))
-        {
-            return;
-        }
-
         _menuOpen = false;
-        _copied = true;
-        StateHasChanged();
 
         try
         {
-            await JS.InvokeVoidAsync("copyToClipboard", PageUrl);
+            var url = string.IsNullOrWhiteSpace(PageUrl)
+                ? Navigation.Uri
+                : PageUrl;
+
+            var copied = await JS.InvokeAsync<bool>("copyDocsPage", url);
+            if (!copied)
+            {
+                return;
+            }
+
+            _copied = true;
+            StateHasChanged();
         }
         catch
         {
+            return;
         }
 
         await Task.Delay(2000);
