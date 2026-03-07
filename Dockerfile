@@ -21,13 +21,13 @@ RUN npm ci --prefix BlazorShadcn
 COPY BlazorShadcn/ BlazorShadcn/
 
 RUN dotnet publish BlazorShadcn/BlazorShadcn.csproj -c Release -o /app/publish --no-restore
-FROM build AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_HTTP_PORTS=8080
 
-RUN cp -r /app/publish/. /app/
+COPY --from=build /app/publish .
 
 EXPOSE 8080
 
