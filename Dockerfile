@@ -21,6 +21,9 @@ RUN npm ci --prefix BlazorShadcn
 COPY BlazorShadcn/ BlazorShadcn/
 
 RUN dotnet publish BlazorShadcn/BlazorShadcn.csproj -c Release -o /app/publish --no-restore
+RUN mkdir -p /app/publish/_framework \
+    && cp /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets/*/_framework/blazor.web.js /app/publish/_framework/ \
+    && cp /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets/*/_framework/blazor.server.js /app/publish/_framework/
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
