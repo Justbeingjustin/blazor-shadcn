@@ -28,6 +28,7 @@ ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_HTTP_PORTS=8080
 
 COPY --from=build /app/publish .
+COPY --from=build /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets /root/.nuget/packages/microsoft.aspnetcore.app.internal.assets
 
 EXPOSE 8080
 
