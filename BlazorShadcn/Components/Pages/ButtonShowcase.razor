@@ -234,6 +234,29 @@
                     </ComponentExample>
                 </div>
 
+                <div class="mt-6">
+                    <ComponentExample Title="Spinner" Compact="true" CodeText="@codeSpinner">
+                        <Description><p class="text-muted-foreground text-sm">Render a <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Spinner</code> inside the button to show a loading state.</p></Description>
+                        <Preview>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <Button Disabled="true">
+                                    <Spinner data-icon="inline-start" />
+                                    Loading...
+                                </Button>
+                                <Button Variant="ButtonVariant.Outline" Disabled="true">
+                                    <Spinner data-icon="inline-start" />
+                                    Loading...
+                                </Button>
+                                <Button Variant="ButtonVariant.Secondary" Disabled="true">
+                                    <Spinner data-icon="inline-start" />
+                                    Loading...
+                                </Button>
+                            </div>
+                        </Preview>
+                        <Code>@codeSpinner</Code>
+                    </ComponentExample>
+                </div>
+
                 @* API Reference *@
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Button</h3>
@@ -276,6 +299,7 @@
                 <a href="#icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Icon</a>
                 <a href="#with-icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">With Icon</a>
                 <a href="#rounded" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Rounded</a>
+                <a href="#spinner" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Spinner</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -539,10 +563,32 @@ else
     private const string usingStatement = @"@using ShadcnBlazor.Components.UI";
     private const string usageCode = @"<Button Variant=""@Button.ButtonVariant.Outline"">Button</Button>";
 
-    private const string codeSizeExample = @"<Button Size=""@Button.ButtonSize.Xs"" Variant=""@Button.ButtonVariant.Outline"">Extra Small</Button>
-<Button Size=""@Button.ButtonSize.Sm"" Variant=""@Button.ButtonVariant.Outline"">Small</Button>
-<Button Variant=""@Button.ButtonVariant.Outline"">Default</Button>
-<Button Size=""@Button.ButtonSize.Lg"" Variant=""@Button.ButtonVariant.Outline"">Large</Button>";
+    private const string codeSizeExample = @"<div class=""flex flex-col items-start gap-8 sm:flex-row"">
+    <div class=""flex items-start gap-2"">
+        <Button Size=""@Button.ButtonSize.Xs"" Variant=""@Button.ButtonVariant.Outline"">Extra Small</Button>
+        <Button Size=""@Button.ButtonSize.IconXs"" Variant=""@Button.ButtonVariant.Outline"">
+            <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m7 7 10 10""/><path d=""M17 7v10H7""/></svg>
+        </Button>
+    </div>
+    <div class=""flex items-start gap-2"">
+        <Button Size=""@Button.ButtonSize.Sm"" Variant=""@Button.ButtonVariant.Outline"">Small</Button>
+        <Button Size=""@Button.ButtonSize.IconSm"" Variant=""@Button.ButtonVariant.Outline"">
+            <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m7 7 10 10""/><path d=""M17 7v10H7""/></svg>
+        </Button>
+    </div>
+    <div class=""flex items-start gap-2"">
+        <Button Variant=""@Button.ButtonVariant.Outline"">Default</Button>
+        <Button Size=""@Button.ButtonSize.Icon"" Variant=""@Button.ButtonVariant.Outline"">
+            <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m7 7 10 10""/><path d=""M17 7v10H7""/></svg>
+        </Button>
+    </div>
+    <div class=""flex items-start gap-2"">
+        <Button Size=""@Button.ButtonSize.Lg"" Variant=""@Button.ButtonVariant.Outline"">Large</Button>
+        <Button Size=""@Button.ButtonSize.IconLg"" Variant=""@Button.ButtonVariant.Outline"">
+            <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m7 7 10 10""/><path d=""M17 7v10H7""/></svg>
+        </Button>
+    </div>
+</div>";
 
     private const string codeDefault = @"<Button>Button</Button>";
     private const string codeOutline = @"<Button Variant=""@Button.ButtonVariant.Outline"">Outline</Button>";
@@ -560,5 +606,19 @@ else
     private const string codeRounded = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"" Class=""rounded-full"">
     <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m5 12 7-7 7 7""/><path d=""M12 19V5""/></svg>
 </Button>";
+    private const string codeSpinner = @"<div class=""flex flex-wrap items-center gap-2"">
+    <Button Disabled=""true"">
+        <Spinner data-icon=""inline-start"" />
+        Loading...
+    </Button>
+    <Button Variant=""@Button.ButtonVariant.Outline"" Disabled=""true"">
+        <Spinner data-icon=""inline-start"" />
+        Loading...
+    </Button>
+    <Button Variant=""@Button.ButtonVariant.Secondary"" Disabled=""true"">
+        <Spinner data-icon=""inline-start"" />
+        Loading...
+    </Button>
+</div>";
 }
 
