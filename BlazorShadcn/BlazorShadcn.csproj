@@ -13,12 +13,12 @@
 
   <Target Name="CopyBlazorFrameworkScripts" AfterTargets="Publish">
     <ItemGroup>
-      <BlazorServerScript Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.internal.assets\**\_framework\blazor.server.js" />
+      <BlazorServerScript Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.internal.assets/**/_framework/blazor.server.js" />
     </ItemGroup>
 
-    <MakeDir Directories="$(PublishDir)wwwroot\_framework" Condition="'@(BlazorServerScript)' != ''" />
+    <MakeDir Directories="$(PublishDir)wwwroot/_framework" Condition="'@(BlazorServerScript)' != ''" />
     <Copy SourceFiles="@(BlazorServerScript)"
-          DestinationFolder="$(PublishDir)wwwroot\_framework"
+          DestinationFolder="$(PublishDir)wwwroot/_framework"
           SkipUnchangedFiles="true"
           Condition="'@(BlazorServerScript)' != ''" />
   </Target>

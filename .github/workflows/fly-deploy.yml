@@ -42,7 +42,7 @@ jobs:
 
       - name: Inspect published app contents
         run: |
-          docker run --rm --entrypoint sh blazor-shadcn:${{ github.sha }} -lc "echo '--- /app ---'; ls -la /app; echo '--- /app/_framework ---'; ls -la /app/_framework || true"
+          docker run --rm --entrypoint sh blazor-shadcn:${{ github.sha }} -lc "echo '--- /app ---'; ls -la /app; echo '--- /app/wwwroot ---'; ls -la /app/wwwroot; echo '--- /app/wwwroot/_framework ---'; ls -la /app/wwwroot/_framework || true"
 
       - name: Deploy
         run: flyctl deploy --local-only --config fly.toml --image-label "${{ github.sha }}"
