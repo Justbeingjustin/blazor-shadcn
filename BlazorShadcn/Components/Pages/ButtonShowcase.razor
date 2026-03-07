@@ -302,7 +302,7 @@
         Manual
     }
 
-    private const string installCommand = "npx shadcn@latest add button";
+    private const string installCommand = "blazor-shadcn add button";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/button";
 
     private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
@@ -532,7 +532,7 @@ else
     private const string codeMainDemo = @"<div class=""flex flex-wrap items-center gap-2"">
     <Button Variant=""@Button.ButtonVariant.Outline"">Button</Button>
     <Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"">
-        <!-- arrow-up icon -->
+        <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m5 12 7-7 7 7""/><path d=""M12 19V5""/></svg>
     </Button>
 </div>";
 
@@ -551,14 +551,14 @@ else
     private const string codeDestructive = @"<Button Variant=""@Button.ButtonVariant.Destructive"">Destructive</Button>";
     private const string codeLink = @"<Button Variant=""@Button.ButtonVariant.Link"">Link</Button>";
     private const string codeIcon = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"">
-    <!-- check-circle icon -->
+    <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><circle cx=""12"" cy=""12"" r=""10""/><path d=""m8 12 2.5 2.5L16 9""/></svg>
 </Button>";
     private const string codeWithIcon = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Sm"">
-    <!-- git-branch icon -->
+    <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><line x1=""6"" x2=""6"" y1=""3"" y2=""15""/><circle cx=""18"" cy=""6"" r=""3""/><circle cx=""6"" cy=""18"" r=""3""/><path d=""M18 9a9 9 0 0 1-9 9""/></svg>
     New Branch
 </Button>";
     private const string codeRounded = @"<Button Variant=""@Button.ButtonVariant.Outline"" Size=""@Button.ButtonSize.Icon"" Class=""rounded-full"">
-    <!-- arrow-up icon -->
+    <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round""><path d=""m5 12 7-7 7 7""/><path d=""M12 19V5""/></svg>
 </Button>";
 }
 

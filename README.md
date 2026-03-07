@@ -36,6 +36,17 @@ dotnet run
 
 The project uses Tailwind CSS v4 with the exact same design tokens as shadcn/ui. Tailwind CSS is built automatically during `dotnet build`.
 
+### Deploying to Fly.io
+
+Fly.io cannot auto-detect this app from the repository root because the Blazor project lives in `BlazorShadcn/`. This repository includes a root-level `Dockerfile` so Fly can build it explicitly.
+
+```bash
+fly launch --dockerfile Dockerfile
+fly deploy
+```
+
+The container listens on port `8080`, which matches Fly's default .NET/container setup.
+
 ### Manual setup in a new Blazor app (copy/paste workflow)
 
 If you want to create a fresh Blazor app and then copy a component like `Button.razor`, follow these exact steps.

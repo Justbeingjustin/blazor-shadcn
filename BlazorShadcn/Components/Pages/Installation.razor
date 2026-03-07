@@ -6,39 +6,78 @@
     <div class="flex min-w-0 flex-1 flex-col">
         <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
             <div class="flex flex-col gap-2">
-                <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Installation</h1>
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Installation</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                    </div>
+                </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[90%]">
-                    Set up a fresh Blazor app for copy/paste components from this site. After this, you can drop in files like <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Button.razor</code> and they render correctly.
+                    Get started with the CLI or use the manual setup.
                 </p>
             </div>
 
             <div class="w-full flex-1">
-                <h2 class="font-heading mt-2 scroll-m-28 text-xl font-medium tracking-tight" id="create-app">Create app and install Tailwind CLI</h2>
+                <h2 class="font-heading mt-2 scroll-m-28 text-xl font-medium tracking-tight" id="quick-start">Quick Start</h2>
+                <p class="leading-relaxed mt-6">Install with the CLI or follow the manual setup steps.</p>
                 <div class="mt-4">
-                    <CodeBlock RawText="@createCommands">@createCommands</CodeBlock>
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="package-json">Update package.json</h2>
-                <div class="mt-4">
-                    <CodeBlock RawText="@packageJson">@packageJson</CodeBlock>
-                </div>
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="install-cli">Install</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCliCommand">@installCliCommand</CodeBlock>
+                    </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="globals-css">Create Styles/globals.css</h2>
-                <div class="mt-4">
-                    <CodeBlock RawText="@globalsCss">@globalsCss</CodeBlock>
-                </div>
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="create-project">Create a project</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@createProjectCommand">@createProjectCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="create-app">Create app and install Tailwind CLI</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@createCommands">@createCommands</CodeBlock>
+                    </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="csproj">Add Tailwind build target to MyApp.csproj</h2>
-                <div class="mt-4">
-                    <CodeBlock RawText="@csprojTarget">@csprojTarget</CodeBlock>
-                </div>
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="package-json">Update package.json</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@packageJson">@packageJson</CodeBlock>
+                    </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="app-razor">Update Components/App.razor</h2>
-                <p class="leading-relaxed mt-4">Use this head/body setup:</p>
-                <div class="mt-4">
-                    <CodeBlock RawText="@appRazorHead">@appRazorHead</CodeBlock>
-                </div>
-                <p class="text-muted-foreground mt-4 text-sm">Important: remove Bootstrap CSS link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">lib/bootstrap/dist/css/bootstrap.min.css</code>) and remove the default app stylesheet link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">@Assets["app.css"]</code>). The template <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">app.css</code> is unlayered CSS and can override Tailwind v4 layered utilities (for example font family).</p>
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="globals-css">Create Styles/globals.css</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@globalsCss">@globalsCss</CodeBlock>
+                    </div>
+
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="csproj">Add Tailwind build target to MyApp.csproj</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@csprojTarget">@csprojTarget</CodeBlock>
+                    </div>
+
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="app-razor">Update Components/App.razor</h2>
+                    <p class="leading-relaxed mt-4">Use this head/body setup:</p>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@appRazorHead">@appRazorHead</CodeBlock>
+                    </div>
+                    <p class="text-muted-foreground mt-4 text-sm">Important: remove Bootstrap CSS link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">lib/bootstrap/dist/css/bootstrap.min.css</code>) and remove the default app stylesheet link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">@Assets["app.css"]</code>). The template <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">app.css</code> is unlayered CSS and can override Tailwind v4 layered utilities (for example font family).</p>
+                }
             </div>
         </div>
     </div>
@@ -47,17 +86,45 @@
         <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
-                <a href="#create-app" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Create app</a>
-                <a href="#package-json" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">package.json</a>
-                <a href="#globals-css" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">globals.css</a>
-                <a href="#csproj" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">csproj target</a>
-                <a href="#app-razor" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">App.razor</a>
+                <a href="#quick-start" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Quick Start</a>
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <a href="#install-cli" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Install</a>
+                    <a href="#create-project" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Create a project</a>
+                }
+                else
+                {
+                    <a href="#create-app" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Create app</a>
+                    <a href="#package-json" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">package.json</a>
+                    <a href="#globals-css" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">globals.css</a>
+                    <a href="#csproj" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">csproj target</a>
+                    <a href="#app-razor" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">App.razor</a>
+                }
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/installation";
+
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCliCommand = """
+dotnet tool install -g blazor-shadcn
+""";
+
+    private const string createProjectCommand = """
+blazor-shadcn new MyApp
+cd MyApp
+""";
+
     private const string createCommands = """
 dotnet new blazor -n MyApp
 cd MyApp

@@ -1,0 +1,14 @@
+.git
+.gitignore
+.vscode
+.codex-build-output
+.dotnet
+Reference
+
+**/bin
+**/obj
+**/node_modules
+**/test-results
+**/*.log
+
+fly.toml

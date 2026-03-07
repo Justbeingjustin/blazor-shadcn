@@ -115,6 +115,16 @@
 }
 
 @layer base {
+  ::selection {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .dark ::selection {
+    background-color: #fff;
+    color: #000;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
@@ -150,9 +160,19 @@
   max-width: 100%;
   overflow: hidden;
 }
+.container-wrapper.layout-fixed {
+  max-width: calc(1400px + 3rem);
+  margin-left: auto;
+  margin-right: auto;
+}
 .header-row {
   align-items: center;
   min-height: 3.5rem;  /* h-14 */
+}
+.header-row.layout-fixed {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* Reference MainNav: items-center gap-0; move nav items left a little */
 .header-nav {
@@ -214,6 +234,14 @@
 .header-search-input {
   box-sizing: border-box;
   vertical-align: middle;
+}
+
+.layout-shell {
+  width: 100%;
+}
+
+.layout-shell-fixed {
+  max-width: 1400px;
 }
 
 @utility no-scrollbar {
