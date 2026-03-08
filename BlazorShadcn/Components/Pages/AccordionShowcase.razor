@@ -311,6 +311,8 @@
     private const string installCommand = "blazor-shadcn add accordion";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/accordion";
     private static readonly string _sourceAccordionRazor = """
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="accordion"
      class="@GetClasses()"
      @attributes="AdditionalAttributes">
@@ -359,6 +361,8 @@
 """;
 
     private static readonly string _sourceAccordionItemRazor = """
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="accordion-item"
      data-state="@StateValue"
      class="@GetClasses()"
@@ -419,6 +423,8 @@
 """;
 
     private static readonly string _sourceAccordionTriggerRazor = """
+@namespace ShadcnBlazor.Components.UI
+
 <div class="flex">
     <button data-slot="accordion-trigger"
             type="button"
@@ -482,6 +488,8 @@
 """;
 
     private static readonly string _sourceAccordionContentRazor = """
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="accordion-content"
      id="@ItemContext!.ContentId"
      role="region"
@@ -535,7 +543,7 @@
 """;
 
     private static readonly string _sourceAccordionContextCs = """
-namespace MyApp.Components.UI;
+namespace ShadcnBlazor.Components.UI;
 
 internal sealed class AccordionContext
 {
@@ -633,7 +641,7 @@ internal sealed class AccordionItemContext
 }
 """;
 
-    private const string usingStatement = "@using MyApp.Components.UI";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
 
     private const string usageCode = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"">
     <AccordionItem Value=""item-1"">

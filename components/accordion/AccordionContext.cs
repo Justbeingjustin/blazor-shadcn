@@ -1,4 +1,4 @@
-namespace BlazorShadcn.Components.UI;
+namespace ShadcnBlazor.Components.UI;
 
 internal sealed class AccordionContext
 {
