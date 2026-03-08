@@ -305,6 +305,7 @@ FakesAssemblies/
 node_modules/
 
 # Local artifacts (generated during build/test)
+.codex-build-output/
 BlazorShadcn/bin-temp/
 **/test-results/
 **/playwright-report/

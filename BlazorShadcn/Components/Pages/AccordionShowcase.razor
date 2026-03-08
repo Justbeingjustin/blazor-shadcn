@@ -1,4 +1,6 @@
 @page "/components/accordion"
+@page "/components/accordian"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Accordion - blazor-shadcn</PageTitle>
 
@@ -46,23 +48,23 @@
             <div class="w-full flex-1">
                 <ComponentExample CodeText="@codeMainDemo">
                     <Preview>
-                        <Accordion Type="AccordionType.Single" Collapsible="true" DefaultValue="item-1" Class="w-full">
-                            <AccordionItem Value="item-1">
-                                <AccordionTrigger>Product Information</AccordionTrigger>
+                        <Accordion Type="@Accordion.AccordionType.Single" Collapsible="true" DefaultValue="shipping" Class="max-w-lg">
+                            <AccordionItem Value="shipping">
+                                <AccordionTrigger>What are your shipping options?</AccordionTrigger>
                                 <AccordionContent>
-                                    Our flagship product combines cutting-edge technology with sleek design and premium materials.
+                                    We offer standard (5-7 days), express (2-3 days), and overnight shipping. Free shipping on international orders.
                                 </AccordionContent>
                             </AccordionItem>
-                            <AccordionItem Value="item-2">
-                                <AccordionTrigger>Shipping Details</AccordionTrigger>
+                            <AccordionItem Value="returns">
+                                <AccordionTrigger>What is your return policy?</AccordionTrigger>
                                 <AccordionContent>
-                                    Standard delivery takes 3-5 business days, while express shipping takes 1-2 business days.
+                                    Returns accepted within 30 days. Items must be unused and in original packaging. Refunds processed within 5-7 business days.
                                 </AccordionContent>
                             </AccordionItem>
-                            <AccordionItem Value="item-3">
-                                <AccordionTrigger>Return Policy</AccordionTrigger>
+                            <AccordionItem Value="support">
+                                <AccordionTrigger>How can I contact customer support?</AccordionTrigger>
                                 <AccordionContent>
-                                    We provide a 30-day return policy with free return shipping.
+                                    Reach us via email, live chat, or phone. We respond within 24 hours during business days.
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
@@ -102,44 +104,33 @@
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following files into your project.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Accordion.razor</p>
+                                <p class="text-muted-foreground mt-2 text-sm">components/accordian/Accordion.razor</p>
                                 <div class="mt-2">
-                                    <CodeBlock RawText="@_sourceAccordionRazor">@_sourceAccordionRazor</CodeBlock>
+                                    <CodeBlock RawText="@_accordionManualSource">@_accordionManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionItem.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">components/accordian/AccordionItem.razor</p>
                                 <div class="mt-2">
-                                    <CodeBlock RawText="@_sourceAccordionItemRazor">@_sourceAccordionItemRazor</CodeBlock>
+                                    <CodeBlock RawText="@_accordionItemManualSource">@_accordionItemManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionTrigger.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">components/accordian/AccordionTrigger.razor</p>
                                 <div class="mt-2">
-                                    <CodeBlock RawText="@_sourceAccordionTriggerRazor">@_sourceAccordionTriggerRazor</CodeBlock>
+                                    <CodeBlock RawText="@_accordionTriggerManualSource">@_accordionTriggerManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionContent.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">components/accordian/AccordionContent.razor</p>
                                 <div class="mt-2">
-                                    <CodeBlock RawText="@_sourceAccordionContentRazor">@_sourceAccordionContentRazor</CodeBlock>
+                                    <CodeBlock RawText="@_accordionContentManualSource">@_accordionContentManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/AccordionContext.cs</p>
+                                <p class="text-muted-foreground mt-4 text-sm">components/accordian/AccordionContext.cs</p>
                                 <div class="mt-2">
-                                    <CodeBlock RawText="@_sourceAccordionContextCs">@_sourceAccordionContextCs</CodeBlock>
+                                    <CodeBlock RawText="@_accordionContextManualSource">@_accordionContextManualSource</CodeBlock>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Enable interactive render mode (required for accordion interactions).</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Replace your existing tags. Do not add a second <code>&lt;Routes /&gt;</code>.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">In <code>Components/App.razor</code>:</p>
-                                <div class="mt-2">
-                                    <CodeBlock RawText="@interactiveAppRazorCode">@interactiveAppRazorCode</CodeBlock>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 }
 
@@ -156,14 +147,18 @@
                 <div class="mt-6">
                     <ComponentExample Title="Multiple" Compact="true" CodeText="@codeMultiple">
                         <Preview>
-                            <Accordion Type="AccordionType.Multiple" DefaultValues="@_multipleDefaults" Class="max-w-lg">
+                            <Accordion Type="@Accordion.AccordionType.Multiple" DefaultValues="@_multipleDefaults" Class="max-w-lg">
                                 <AccordionItem Value="notifications">
                                     <AccordionTrigger>Notification Settings</AccordionTrigger>
-                                    <AccordionContent>Manage how you receive notifications.</AccordionContent>
+                                    <AccordionContent>Manage how you receive notifications. You can enable email alerts for updates or push notifications for mobile devices.</AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem Value="privacy">
-                                    <AccordionTrigger>Privacy and Security</AccordionTrigger>
-                                    <AccordionContent>Control your privacy settings and security preferences.</AccordionContent>
+                                    <AccordionTrigger>Privacy &amp; Security</AccordionTrigger>
+                                    <AccordionContent>Control your privacy settings and security preferences. Enable two-factor authentication, manage connected devices, review active sessions, and configure data sharing preferences. You can also download your data or delete your account.</AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem Value="billing">
+                                    <AccordionTrigger>Billing &amp; Subscription</AccordionTrigger>
+                                    <AccordionContent>View your current plan, payment history, and upcoming invoices. Update your payment method, change your subscription tier, or cancel your subscription.</AccordionContent>
                                 </AccordionItem>
                             </Accordion>
                         </Preview>
@@ -174,18 +169,76 @@
                 <div class="mt-6">
                     <ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled">
                         <Preview>
-                            <Accordion Type="AccordionType.Single" Collapsible="true" Class="w-full">
+                            <Accordion Type="@Accordion.AccordionType.Single" Collapsible="true" Class="w-full">
                                 <AccordionItem Value="item-1">
                                     <AccordionTrigger>Can I access my account history?</AccordionTrigger>
-                                    <AccordionContent>Yes, you can view your complete account history.</AccordionContent>
+                                    <AccordionContent>Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.</AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem Value="item-2" Disabled="true">
                                     <AccordionTrigger>Premium feature information</AccordionTrigger>
-                                    <AccordionContent>This section contains premium feature information.</AccordionContent>
+                                    <AccordionContent>This section contains information about premium features. Upgrade your plan to access this content.</AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem Value="item-3">
+                                    <AccordionTrigger>How do I update my email address?</AccordionTrigger>
+                                    <AccordionContent>You can update your email address in your account settings. You'll receive a verification email at your new address to confirm the change.</AccordionContent>
                                 </AccordionItem>
                             </Accordion>
                         </Preview>
                         <Code>@codeDisabled</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Borders" Compact="true" CodeText="@codeBorders">
+                        <Preview>
+                            <Accordion Type="@Accordion.AccordionType.Single" Collapsible="true" DefaultValue="billing" Class="max-w-lg rounded-lg border">
+                                <AccordionItem Value="billing" Class="border-b px-4 last:border-b-0">
+                                    <AccordionTrigger>How does billing work?</AccordionTrigger>
+                                    <AccordionContent>We offer monthly and annual subscription plans. Billing is charged at the beginning of each cycle, and you can cancel anytime. All plans include automatic backups, 24/7 support, and unlimited team members.</AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem Value="security" Class="border-b px-4 last:border-b-0">
+                                    <AccordionTrigger>Is my data secure?</AccordionTrigger>
+                                    <AccordionContent>Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits. All data is encrypted at rest and in transit using industry-standard protocols.</AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem Value="integration" Class="border-b px-4 last:border-b-0">
+                                    <AccordionTrigger>What integrations do you support?</AccordionTrigger>
+                                    <AccordionContent>We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more. You can also build custom integrations using our REST API and webhooks.</AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        </Preview>
+                        <Code>@codeBorders</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Card" Compact="true" CodeText="@codeCard">
+                        <Preview>
+                            <Card Class="w-full max-w-sm">
+                                <CardHeader>
+                                    <CardTitle>Subscription &amp; Billing</CardTitle>
+                                    <CardDescription>
+                                        Common questions about your account, plans, payments and cancellations.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <Accordion Type="@Accordion.AccordionType.Single" Collapsible="true" DefaultValue="plans">
+                                        <AccordionItem Value="plans">
+                                            <AccordionTrigger>What subscription plans do you offer?</AccordionTrigger>
+                                            <AccordionContent>We offer three subscription tiers: Starter ($9/month), Professional ($29/month), and Enterprise ($99/month). Each plan includes increasing storage limits, API access, priority support, and team collaboration features.</AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem Value="billing">
+                                            <AccordionTrigger>How does billing work?</AccordionTrigger>
+                                            <AccordionContent>Billing occurs automatically at the start of each billing cycle. We accept all major credit cards, PayPal, and ACH transfers for enterprise customers. You'll receive an invoice via email after each payment.</AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem Value="cancel">
+                                            <AccordionTrigger>How do I cancel my subscription?</AccordionTrigger>
+                                            <AccordionContent>You can cancel your subscription anytime from your account settings. There are no cancellation fees or penalties. Your access will continue until the end of your current billing period.</AccordionContent>
+                                        </AccordionItem>
+                                    </Accordion>
+                                </CardContent>
+                            </Card>
+                        </Preview>
+                        <Code>@codeCard</Code>
                     </ComponentExample>
                 </div>
 
@@ -221,6 +274,8 @@
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
                 <a href="#multiple" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Multiple</a>
                 <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Disabled</a>
+                <a href="#borders" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Borders</a>
+                <a href="#card" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Card</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -228,6 +283,22 @@
 </div>
 
 @code {
+    private const string canonicalAccordionDirectory = "components/accordian";
+    private string _accordionManualSource = string.Empty;
+    private string _accordionItemManualSource = string.Empty;
+    private string _accordionTriggerManualSource = string.Empty;
+    private string _accordionContentManualSource = string.Empty;
+    private string _accordionContextManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _accordionManualSource = ReadCanonicalSource("Accordion.razor", _sourceAccordionRazor);
+        _accordionItemManualSource = ReadCanonicalSource("AccordionItem.razor", _sourceAccordionItemRazor);
+        _accordionTriggerManualSource = ReadCanonicalSource("AccordionTrigger.razor", _sourceAccordionTriggerRazor);
+        _accordionContentManualSource = ReadCanonicalSource("AccordionContent.razor", _sourceAccordionContentRazor);
+        _accordionContextManualSource = ReadCanonicalSource("AccordionContext.cs", _sourceAccordionContextCs);
+    }
+
     private InstallationTab _installationTab = InstallationTab.Command;
     private static readonly string[] _multipleDefaults = ["notifications"];
 
@@ -239,13 +310,6 @@
 
     private const string installCommand = "blazor-shadcn add accordion";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/accordion";
-    private const string interactiveAppRazorCode = @"// Components/App.razor
-// In <head>, replace:
-<HeadOutlet @rendermode=""InteractiveServer"" />
-
-// In <body>, replace:
-<Routes @rendermode=""InteractiveServer"" />";
-
     private static readonly string _sourceAccordionRazor = """
 <div data-slot="accordion"
      class="@GetClasses()"
@@ -318,7 +382,7 @@
     private string _triggerId = string.Empty;
     private string _contentId = string.Empty;
 
-    private const string BaseClasses = "border-b last:border-b-0";
+    private const string BaseClasses = "border-border not-last:border-b";
 
     private string StateValue => IsOpen ? "open" : "closed";
     private bool IsOpen => AccordionContext?.IsOpen(Value) == true;
@@ -391,7 +455,7 @@
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private const string BaseClasses =
-        "focus-visible:ring-ring/50 focus-visible:border-ring relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50";
+        "focus-visible:ring-ring/50 focus-visible:border-ring relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50";
 
     private bool IsOpen => ItemContext is not null && ItemContext.Root.IsOpen(ItemContext.Value);
     private string StateValue => IsOpen ? "open" : "closed";
@@ -410,7 +474,7 @@
     private string GetClasses() => Cn(BaseClasses, Class);
     private string GetIconClasses()
         => Cn(
-            "text-muted-foreground pointer-events-none ml-auto size-4 shrink-0",
+            "text-muted-foreground pointer-events-none ml-auto size-4 shrink-0 transition-transform duration-200",
             IsOpen ? "rotate-180" : null);
 
     private Task OnClick() => ItemContext!.Root.ToggleAsync(ItemContext.Value, ItemContext.Disabled);
@@ -443,7 +507,8 @@
     private const string BaseClasses =
         "overflow-hidden text-sm";
 
-    private const string InnerBaseClasses = "pt-0 pb-2.5";
+    private const string OpenInnerClasses = "pt-0 pb-2.5";
+    private const string ClosedInnerClasses = "pt-0 pb-0";
 
     private bool IsOpen => ItemContext is not null && ItemContext.Root.IsOpen(ItemContext.Value);
     private string StateValue => IsOpen ? "open" : "closed";
@@ -465,7 +530,7 @@
             "grid transition-all duration-200 ease-out",
             IsOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0");
 
-    private string GetInnerClasses() => Cn("min-h-0", InnerBaseClasses, Class);
+    private string GetInnerClasses() => Cn("min-h-0", IsOpen ? OpenInnerClasses : ClosedInnerClasses, Class);
 }
 """;
 
@@ -568,9 +633,9 @@ internal sealed class AccordionItemContext
 }
 """;
 
-    private const string usingStatement = "@using MyApp.Components.UI\n@using AccordionType = MyApp.Components.UI.Accordion.AccordionType";
+    private const string usingStatement = "@using MyApp.Components.UI";
 
-    private const string usageCode = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"">
+    private const string usageCode = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"">
     <AccordionItem Value=""item-1"">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
         <AccordionContent>
@@ -579,37 +644,95 @@ internal sealed class AccordionItemContext
     </AccordionItem>
 </Accordion>";
 
-    private const string codeMainDemo = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"" Class=""w-full"">
-    <AccordionItem Value=""item-1"">
-        <AccordionTrigger>Product Information</AccordionTrigger>
-        <AccordionContent>Our flagship product combines cutting-edge technology with sleek design.</AccordionContent>
+    private const string codeMainDemo = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""shipping"" Class=""max-w-lg"">
+    <AccordionItem Value=""shipping"">
+        <AccordionTrigger>What are your shipping options?</AccordionTrigger>
+        <AccordionContent>We offer standard (5-7 days), express (2-3 days), and overnight shipping. Free shipping on international orders.</AccordionContent>
     </AccordionItem>
-    <AccordionItem Value=""item-2"">
-        <AccordionTrigger>Shipping Details</AccordionTrigger>
-        <AccordionContent>Standard delivery takes 3-5 business days.</AccordionContent>
+    <AccordionItem Value=""returns"">
+        <AccordionTrigger>What is your return policy?</AccordionTrigger>
+        <AccordionContent>Returns accepted within 30 days. Items must be unused and in original packaging. Refunds processed within 5-7 business days.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""support"">
+        <AccordionTrigger>How can I contact customer support?</AccordionTrigger>
+        <AccordionContent>Reach us via email, live chat, or phone. We respond within 24 hours during business days.</AccordionContent>
     </AccordionItem>
 </Accordion>";
 
-    private const string codeMultiple = @"<Accordion Type=""AccordionType.Multiple"" DefaultValues=""new[] { ""notifications"" }"" Class=""max-w-lg"">
+    private const string codeMultiple = @"<Accordion Type=""@Accordion.AccordionType.Multiple"" DefaultValues=""new[] { ""notifications"" }"" Class=""max-w-lg"">
     <AccordionItem Value=""notifications"">
         <AccordionTrigger>Notification Settings</AccordionTrigger>
-        <AccordionContent>Manage how you receive notifications.</AccordionContent>
+        <AccordionContent>Manage how you receive notifications. You can enable email alerts for updates or push notifications for mobile devices.</AccordionContent>
     </AccordionItem>
     <AccordionItem Value=""privacy"">
-        <AccordionTrigger>Privacy and Security</AccordionTrigger>
-        <AccordionContent>Control your privacy settings and security preferences.</AccordionContent>
+        <AccordionTrigger>Privacy &amp; Security</AccordionTrigger>
+        <AccordionContent>Control your privacy settings and security preferences. Enable two-factor authentication, manage connected devices, review active sessions, and configure data sharing preferences. You can also download your data or delete your account.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""billing"">
+        <AccordionTrigger>Billing &amp; Subscription</AccordionTrigger>
+        <AccordionContent>View your current plan, payment history, and upcoming invoices. Update your payment method, change your subscription tier, or cancel your subscription.</AccordionContent>
     </AccordionItem>
 </Accordion>";
 
-    private const string codeDisabled = @"<Accordion Type=""AccordionType.Single"" Collapsible=""true"" Class=""w-full"">
+    private const string codeDisabled = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" Class=""w-full"">
     <AccordionItem Value=""item-1"">
         <AccordionTrigger>Can I access my account history?</AccordionTrigger>
-        <AccordionContent>Yes, you can view your complete account history.</AccordionContent>
+        <AccordionContent>Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.</AccordionContent>
     </AccordionItem>
     <AccordionItem Value=""item-2"" Disabled=""true"">
         <AccordionTrigger>Premium feature information</AccordionTrigger>
-        <AccordionContent>This section contains premium feature information.</AccordionContent>
+        <AccordionContent>This section contains information about premium features. Upgrade your plan to access this content.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""item-3"">
+        <AccordionTrigger>How do I update my email address?</AccordionTrigger>
+        <AccordionContent>You can update your email address in your account settings. You'll receive a verification email at your new address to confirm the change.</AccordionContent>
     </AccordionItem>
 </Accordion>";
+
+    private const string codeBorders = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""billing"" Class=""max-w-lg rounded-lg border"">
+    <AccordionItem Value=""billing"" Class=""border-b px-4 last:border-b-0"">
+        <AccordionTrigger>How does billing work?</AccordionTrigger>
+        <AccordionContent>We offer monthly and annual subscription plans. Billing is charged at the beginning of each cycle, and you can cancel anytime. All plans include automatic backups, 24/7 support, and unlimited team members.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""security"" Class=""border-b px-4 last:border-b-0"">
+        <AccordionTrigger>Is my data secure?</AccordionTrigger>
+        <AccordionContent>Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits. All data is encrypted at rest and in transit using industry-standard protocols.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem Value=""integration"" Class=""border-b px-4 last:border-b-0"">
+        <AccordionTrigger>What integrations do you support?</AccordionTrigger>
+        <AccordionContent>We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more. You can also build custom integrations using our REST API and webhooks.</AccordionContent>
+    </AccordionItem>
+</Accordion>";
+
+    private const string codeCard = @"<Card Class=""w-full max-w-sm"">
+    <CardHeader>
+        <CardTitle>Subscription &amp; Billing</CardTitle>
+        <CardDescription>Common questions about your account, plans, payments and cancellations.</CardDescription>
+    </CardHeader>
+    <CardContent>
+        <Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""plans"">
+            <AccordionItem Value=""plans"">
+                <AccordionTrigger>What subscription plans do you offer?</AccordionTrigger>
+                <AccordionContent>We offer three subscription tiers: Starter ($9/month), Professional ($29/month), and Enterprise ($99/month). Each plan includes increasing storage limits, API access, priority support, and team collaboration features.</AccordionContent>
+            </AccordionItem>
+            <AccordionItem Value=""billing"">
+                <AccordionTrigger>How does billing work?</AccordionTrigger>
+                <AccordionContent>Billing occurs automatically at the start of each billing cycle. We accept all major credit cards, PayPal, and ACH transfers for enterprise customers. You'll receive an invoice via email after each payment.</AccordionContent>
+            </AccordionItem>
+            <AccordionItem Value=""cancel"">
+                <AccordionTrigger>How do I cancel my subscription?</AccordionTrigger>
+                <AccordionContent>You can cancel your subscription anytime from your account settings. There are no cancellation fees or penalties. Your access will continue until the end of your current billing period.</AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    </CardContent>
+</Card>";
+
+    private string ReadCanonicalSource(string fileName, string fallback)
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalAccordionDirectory.Replace('/', Path.DirectorySeparatorChar), fileName);
+        return File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : fallback;
+    }
 }
 
