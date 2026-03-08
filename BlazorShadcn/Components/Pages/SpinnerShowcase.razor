@@ -1,4 +1,5 @@
 @page "/components/spinner"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Spinner - blazor-shadcn</PageTitle>
 
@@ -79,9 +80,9 @@
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following code into your project.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Spinner.razor</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalSpinnerSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceSpinnerRazor">@_sourceSpinnerRazor</CodeBlock>
+                                    <CodeBlock RawText="@_spinnerManualSource">@_spinnerManualSource</CodeBlock>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +190,7 @@
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
-                    <ComponentExample Title="Input Group" Compact="true" CodeText="@inputGroupCode">
+                    <ComponentExample Title="Input Group" TitleNote="Coming soon" Compact="true" CodeText="@inputGroupCode">
                         <Preview>
                             <div class="flex w-full max-w-md flex-col gap-4">
                                 <div data-slot="input-group" role="group" class="group/input-group border-input dark:bg-input/30 relative flex h-9 min-w-0 w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none">
@@ -215,7 +216,7 @@
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
-                    <ComponentExample Title="Empty" Compact="true" CodeText="@emptyCode">
+                    <ComponentExample Title="Empty" TitleNote="Coming soon" Compact="true" CodeText="@emptyCode">
                         <Preview>
                             <div data-slot="empty" class="flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center text-balance md:p-12">
                                 <div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2 text-center">
@@ -253,6 +254,17 @@
 </div>
 
 @code {
+    private const string canonicalSpinnerSourcePath = "components/spinner/Spinner.razor";
+    private string _spinnerManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalSpinnerSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _spinnerManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : _sourceSpinnerRazor;
+    }
+
     private InstallationTab _installationTab = InstallationTab.Command;
 
     private enum InstallationTab

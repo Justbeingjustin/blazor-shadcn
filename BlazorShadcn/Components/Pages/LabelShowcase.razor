@@ -1,4 +1,5 @@
 @page "/components/label"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Label - blazor-shadcn</PageTitle>
 
@@ -86,9 +87,9 @@
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following code into your project.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Label.razor</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalLabelSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceLabelRazor">@_sourceLabelRazor</CodeBlock>
+                                    <CodeBlock RawText="@_labelManualSource">@_labelManualSource</CodeBlock>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +113,7 @@
                     <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="label-in-field">Label in Field</h2>
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="label-in-field">Label in Field <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h2>
                 <p class="text-muted-foreground mt-4 text-sm">
                     For full form-field patterns in shadcn, use the Field component family. This fallback uses Label + Input until Field is implemented.
                 </p>
@@ -219,6 +220,17 @@
 </div>
 
 @code {
+    private const string canonicalLabelSourcePath = "components/label/Label.razor";
+    private string _labelManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalLabelSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _labelManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : _sourceLabelRazor;
+    }
+
     private InstallationTab _installationTab = InstallationTab.Command;
 
     private enum InstallationTab

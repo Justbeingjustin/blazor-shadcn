@@ -4,7 +4,13 @@
 <div class="space-y-4">
     @if (!string.IsNullOrEmpty(Title))
     {
-        <h3 class="font-heading scroll-m-20 text-xl font-semibold tracking-tight" id="@Title?.ToLower().Replace(" ", "-")">@Title</h3>
+        <h3 class="font-heading scroll-m-20 text-xl font-semibold tracking-tight" id="@Title?.ToLower().Replace(" ", "-")">
+            @Title
+            @if (!string.IsNullOrEmpty(TitleNote))
+            {
+                <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">@TitleNote</span>
+            }
+        </h3>
     }
     @if (Description != null)
     {
@@ -63,6 +69,7 @@
 
 @code {
     [Parameter] public string? Title { get; set; }
+    [Parameter] public string? TitleNote { get; set; }
     [Parameter] public RenderFragment? Description { get; set; }
     [Parameter] public RenderFragment? Preview { get; set; }
     [Parameter] public RenderFragment? Code { get; set; }
