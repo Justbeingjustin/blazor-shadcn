@@ -667,7 +667,7 @@ internal sealed class AccordionItemContext
     </AccordionItem>
 </Accordion>";
 
-    private const string codeMultiple = @"<Accordion Type=""@Accordion.AccordionType.Multiple"" DefaultValues=""new[] { ""notifications"" }"" Class=""max-w-lg"">
+    private const string codeMultiple = @"<Accordion Type=""@Accordion.AccordionType.Multiple"" DefaultValues=""@new[] { ""notifications"" }"" Class=""max-w-lg"">
     <AccordionItem Value=""notifications"">
         <AccordionTrigger>Notification Settings</AccordionTrigger>
         <AccordionContent>Manage how you receive notifications. You can enable email alerts for updates or push notifications for mobile devices.</AccordionContent>
