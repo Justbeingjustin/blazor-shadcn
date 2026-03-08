@@ -169,7 +169,7 @@
                 <div class="mt-6">
                     <ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled">
                         <Preview>
-                            <Accordion Type="@Accordion.AccordionType.Single" Collapsible="true" Class="w-full">
+                            <Accordion Type="@Accordion.AccordionType.Single" Collapsible="true" Class="max-w-lg">
                                 <AccordionItem Value="item-1">
                                     <AccordionTrigger>Can I access my account history?</AccordionTrigger>
                                     <AccordionContent>Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.</AccordionContent>
@@ -643,7 +643,7 @@ internal sealed class AccordionItemContext
 
     private const string usingStatement = "@using ShadcnBlazor.Components.UI";
 
-    private const string usageCode = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"">
+    private const string usageCode = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" DefaultValue=""item-1"" Class=""max-w-lg"">
     <AccordionItem Value=""item-1"">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
         <AccordionContent>
@@ -682,7 +682,7 @@ internal sealed class AccordionItemContext
     </AccordionItem>
 </Accordion>";
 
-    private const string codeDisabled = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" Class=""w-full"">
+    private const string codeDisabled = @"<Accordion Type=""@Accordion.AccordionType.Single"" Collapsible=""true"" Class=""max-w-lg"">
     <AccordionItem Value=""item-1"">
         <AccordionTrigger>Can I access my account history?</AccordionTrigger>
         <AccordionContent>Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.</AccordionContent>
