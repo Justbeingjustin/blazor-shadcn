@@ -271,7 +271,7 @@
 <svg data-slot="spinner"
      role="status"
      aria-label="Loading"
-     class="@Tw.Merge("size-4 animate-spin", Class)"
+     class="@SpinnerClass"
      viewBox="0 0 24 24"
      fill="none"
      stroke="currentColor"
@@ -287,6 +287,10 @@
     [Parameter] public string? Class { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string SpinnerClass => string.IsNullOrWhiteSpace(Class)
+        ? "size-4 animate-spin"
+        : $"size-4 animate-spin {Class}";
 }
 """;
 
