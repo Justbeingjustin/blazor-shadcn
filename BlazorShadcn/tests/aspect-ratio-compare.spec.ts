@@ -25,7 +25,7 @@ test.describe('Aspect Ratio docs and previews', () => {
     await expect(page.getByRole('heading', { name: 'RTL', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'API Reference', exact: true })).toBeVisible();
 
-    await expect(page.getByText('npx shadcn@latest add aspect-ratio', { exact: true })).toBeVisible();
+    await expect(page.getByText('blazor-shadcn add aspect-ratio', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Square', exact: true }).last()).toHaveAttribute('href', '#square');
     await expect(page.getByRole('link', { name: 'Portrait', exact: true }).last()).toHaveAttribute('href', '#portrait');
   });
