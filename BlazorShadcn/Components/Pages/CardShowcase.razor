@@ -1,4 +1,5 @@
 @page "/components/card"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Card - blazor-shadcn</PageTitle>
 
@@ -54,24 +55,29 @@
                             <CardHeader>
                                 <CardTitle>Login to your account</CardTitle>
                                 <CardDescription>Enter your email below to login to your account.</CardDescription>
+                                <CardAction>
+                                    <Button Variant="ButtonVariant.Link">Sign Up</Button>
+                                </CardAction>
                             </CardHeader>
                             <CardContent>
-                                <div class="grid gap-4">
-                                    <div class="grid gap-2">
-                                        <Label For="email">Email</Label>
-                                        <Input Type="email" id="email" Placeholder="m@example.com" />
-                                    </div>
-                                    <div class="grid gap-2">
-                                        <div class="flex items-center">
-                                            <Label For="password">Password</Label>
-                                            <a href="#" class="ml-auto inline-block text-sm underline">Forgot your password?</a>
+                                <form>
+                                    <div class="flex flex-col gap-6">
+                                        <div class="grid gap-2">
+                                            <Label For="email">Email</Label>
+                                            <Input Type="email" id="email" Placeholder="m@example.com" required />
                                         </div>
-                                        <Input Type="password" id="password" />
+                                        <div class="grid gap-2">
+                                            <div class="flex items-center">
+                                                <Label For="password">Password</Label>
+                                                <a href="#" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">Forgot your password?</a>
+                                            </div>
+                                            <Input Type="password" id="password" required />
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </CardContent>
                             <CardFooter Class="flex-col gap-2">
-                                <Button Class="w-full">Login</Button>
+                                <Button Type="submit" Class="w-full">Login</Button>
                                 <Button Variant="ButtonVariant.Outline" Class="w-full">Login with Google</Button>
                             </CardFooter>
                         </Card>
@@ -113,39 +119,39 @@
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following files into your project.</p>
 
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Card.razor</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalCardSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardRazor">@_sourceCardRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardManualSource">@_cardManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardHeader.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">@canonicalCardHeaderSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardHeaderRazor">@_sourceCardHeaderRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardHeaderManualSource">@_cardHeaderManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardTitle.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">@canonicalCardTitleSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardTitleRazor">@_sourceCardTitleRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardTitleManualSource">@_cardTitleManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardDescription.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">@canonicalCardDescriptionSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardDescriptionRazor">@_sourceCardDescriptionRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardDescriptionManualSource">@_cardDescriptionManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardContent.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">@canonicalCardContentSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardContentRazor">@_sourceCardContentRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardContentManualSource">@_cardContentManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardFooter.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">@canonicalCardFooterSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardFooterRazor">@_sourceCardFooterRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardFooterManualSource">@_cardFooterManualSource</CodeBlock>
                                 </div>
 
-                                <p class="text-muted-foreground mt-4 text-sm">Components/UI/CardAction.razor</p>
+                                <p class="text-muted-foreground mt-4 text-sm">@canonicalCardActionSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceCardActionRazor">@_sourceCardActionRazor</CodeBlock>
+                                    <CodeBlock RawText="@_cardActionManualSource">@_cardActionManualSource</CodeBlock>
                                 </div>
                             </div>
                         </div>
@@ -175,49 +181,52 @@
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
 
                 <div class="mt-6">
-                    <ComponentExample Title="Simple" Compact="true">
+                    <ComponentExample Title="Size" Compact="true">
                         <Preview>
-                            <Card Class="w-full max-w-sm">
+                            <Card Size="sm" Class="mx-auto w-full max-w-sm">
                                 <CardHeader>
-                                    <CardTitle>Notifications</CardTitle>
-                                    <CardDescription>You have 3 unread messages.</CardDescription>
+                                    <CardTitle>Small Card</CardTitle>
+                                    <CardDescription>
+                                        This card uses the small size variant.
+                                    </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p class="text-sm">Your recent notifications will appear here.</p>
+                                    <p>
+                                        The card component supports a size prop that can be set to "sm" for a more compact appearance.
+                                    </p>
                                 </CardContent>
+                                <CardFooter>
+                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm" Class="w-full">Action</Button>
+                                </CardFooter>
                             </Card>
                         </Preview>
-                        <Code>@codeSimple</Code>
+                        <Code>@codeSize</Code>
                     </ComponentExample>
                 </div>
 
                 <div class="mt-6">
-                    <ComponentExample Title="With Form" Compact="true">
+                    <ComponentExample Title="Image" Compact="true">
                         <Preview>
-                            <Card Class="w-full max-w-sm">
+                            <Card Class="relative mx-auto w-full max-w-sm pt-0">
+                                <div class="absolute inset-0 z-30 aspect-video bg-black/35"></div>
+                                <img src="https://avatar.vercel.sh/shadcn1"
+                                     alt="Event cover"
+                                     class="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40" />
                                 <CardHeader>
-                                    <CardTitle>Create project</CardTitle>
-                                    <CardDescription>Deploy your new project in one-click.</CardDescription>
+                                    <CardAction>
+                                        <Badge Variant="BadgeVariant.Secondary">Featured</Badge>
+                                    </CardAction>
+                                    <CardTitle>Design systems meetup</CardTitle>
+                                    <CardDescription>
+                                        A practical talk on component APIs, accessibility, and shipping faster.
+                                    </CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                    <div class="grid gap-4">
-                                        <div class="grid gap-2">
-                                            <Label For="project-name">Name</Label>
-                                            <Input id="project-name" Placeholder="Name of your project" />
-                                        </div>
-                                        <div class="grid gap-2">
-                                            <Label For="project-framework">Framework</Label>
-                                            <Input id="project-framework" Placeholder="Select a framework" />
-                                        </div>
-                                    </div>
-                                </CardContent>
-                                <CardFooter Class="flex justify-between">
-                                    <Button Variant="ButtonVariant.Outline">Cancel</Button>
-                                    <Button>Deploy</Button>
+                                <CardFooter>
+                                    <Button Class="w-full">View Event</Button>
                                 </CardFooter>
                             </Card>
                         </Preview>
-                        <Code>@codeWithForm</Code>
+                        <Code>@codeImage</Code>
                     </ComponentExample>
                 </div>
 
@@ -254,8 +263,8 @@
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
-                <a href="#simple" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Simple</a>
-                <a href="#with-form" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">With Form</a>
+                <a href="#size" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Size</a>
+                <a href="#image" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Image</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -263,6 +272,33 @@
 </div>
 
 @code {
+    private const string canonicalCardSourcePath = "components/cards/Card.razor";
+    private const string canonicalCardHeaderSourcePath = "components/cards/CardHeader.razor";
+    private const string canonicalCardTitleSourcePath = "components/cards/CardTitle.razor";
+    private const string canonicalCardDescriptionSourcePath = "components/cards/CardDescription.razor";
+    private const string canonicalCardContentSourcePath = "components/cards/CardContent.razor";
+    private const string canonicalCardFooterSourcePath = "components/cards/CardFooter.razor";
+    private const string canonicalCardActionSourcePath = "components/cards/CardAction.razor";
+
+    private string _cardManualSource = string.Empty;
+    private string _cardHeaderManualSource = string.Empty;
+    private string _cardTitleManualSource = string.Empty;
+    private string _cardDescriptionManualSource = string.Empty;
+    private string _cardContentManualSource = string.Empty;
+    private string _cardFooterManualSource = string.Empty;
+    private string _cardActionManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _cardManualSource = LoadCanonicalSource(canonicalCardSourcePath, _sourceCardRazor);
+        _cardHeaderManualSource = LoadCanonicalSource(canonicalCardHeaderSourcePath, _sourceCardHeaderRazor);
+        _cardTitleManualSource = LoadCanonicalSource(canonicalCardTitleSourcePath, _sourceCardTitleRazor);
+        _cardDescriptionManualSource = LoadCanonicalSource(canonicalCardDescriptionSourcePath, _sourceCardDescriptionRazor);
+        _cardContentManualSource = LoadCanonicalSource(canonicalCardContentSourcePath, _sourceCardContentRazor);
+        _cardFooterManualSource = LoadCanonicalSource(canonicalCardFooterSourcePath, _sourceCardFooterRazor);
+        _cardActionManualSource = LoadCanonicalSource(canonicalCardActionSourcePath, _sourceCardActionRazor);
+    }
+
     private InstallationTab _installationTab = InstallationTab.Command;
 
     private enum InstallationTab
@@ -277,6 +313,7 @@
 
     private static readonly string _sourceCardRazor = """
 <div data-slot="card"
+     data-size="@Size"
      class="@GetClasses()"
      @attributes="AdditionalAttributes">
     @ChildContent
@@ -284,14 +321,15 @@
 
 @code {
     [Parameter] public string? Class { get; set; }
+    [Parameter] public string Size { get; set; } = "default";
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)
-            ? "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
-            : $"bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm {Class}";
+            ? "ring-foreground/10 bg-card text-card-foreground group/card flex flex-col gap-4 overflow-hidden rounded-xl py-4 text-sm ring-1 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl"
+            : $"ring-foreground/10 bg-card text-card-foreground group/card flex flex-col gap-4 overflow-hidden rounded-xl py-4 text-sm ring-1 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl {Class}";
 }
 """;
 
@@ -310,8 +348,8 @@
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)
-            ? "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6"
-            : $"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 {Class}";
+            ? "group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3"
+            : $"group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3 {Class}";
 }
 """;
 
@@ -330,8 +368,8 @@
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)
-            ? "leading-none font-semibold"
-            : $"leading-none font-semibold {Class}";
+            ? "text-base leading-snug font-medium group-data-[size=sm]/card:text-sm"
+            : $"text-base leading-snug font-medium group-data-[size=sm]/card:text-sm {Class}";
 }
 """;
 
@@ -370,8 +408,8 @@
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)
-            ? "px-6"
-            : $"px-6 {Class}";
+            ? "px-4 group-data-[size=sm]/card:px-3"
+            : $"px-4 group-data-[size=sm]/card:px-3 {Class}";
 }
 """;
 
@@ -390,8 +428,8 @@
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)
-            ? "flex items-center px-6 [.border-t]:pt-6"
-            : $"flex items-center px-6 [.border-t]:pt-6 {Class}";
+            ? "bg-muted/50 flex items-center rounded-b-xl border-t p-4 group-data-[size=sm]/card:p-3"
+            : $"bg-muted/50 flex items-center rounded-b-xl border-t p-4 group-data-[size=sm]/card:p-3 {Class}";
 }
 """;
 
@@ -418,22 +456,30 @@
     private const string codeMainDemo = @"<Card Class=""w-full max-w-sm"">
     <CardHeader>
         <CardTitle>Login to your account</CardTitle>
-        <CardDescription>Enter your email below to login.</CardDescription>
+        <CardDescription>Enter your email below to login to your account.</CardDescription>
+        <CardAction>
+            <Button Variant=""ButtonVariant.Link"">Sign Up</Button>
+        </CardAction>
     </CardHeader>
     <CardContent>
-        <div class=""grid gap-4"">
-            <div class=""grid gap-2"">
-                <Label For=""email"">Email</Label>
-                <Input Type=""email"" id=""email"" Placeholder=""m@example.com"" />
+        <form>
+            <div class=""flex flex-col gap-6"">
+                <div class=""grid gap-2"">
+                    <Label For=""email"">Email</Label>
+                    <Input Type=""email"" id=""email"" Placeholder=""m@example.com"" required />
+                </div>
+                <div class=""grid gap-2"">
+                    <div class=""flex items-center"">
+                        <Label For=""password"">Password</Label>
+                        <a href=""#"" class=""ml-auto inline-block text-sm underline-offset-4 hover:underline"">Forgot your password?</a>
+                    </div>
+                    <Input Type=""password"" id=""password"" required />
+                </div>
             </div>
-            <div class=""grid gap-2"">
-                <Label For=""password"">Password</Label>
-                <Input Type=""password"" id=""password"" />
-            </div>
-        </div>
+        </form>
     </CardContent>
     <CardFooter Class=""flex-col gap-2"">
-        <Button Class=""w-full"">Login</Button>
+        <Button Type=""submit"" Class=""w-full"">Login</Button>
         <Button Variant=""ButtonVariant.Outline"" Class=""w-full"">Login with Google</Button>
     </CardFooter>
 </Card>";
@@ -448,31 +494,46 @@
     <CardFooter>Footer</CardFooter>
 </Card>";
 
-    private const string codeSimple = @"<Card>
+    private const string codeSize = @"<Card Size=""sm"" Class=""mx-auto w-full max-w-sm"">
     <CardHeader>
-        <CardTitle>Notifications</CardTitle>
-        <CardDescription>You have 3 unread messages.</CardDescription>
+        <CardTitle>Small Card</CardTitle>
+        <CardDescription>
+            This card uses the small size variant.
+        </CardDescription>
     </CardHeader>
     <CardContent>
-        <p>Your recent notifications will appear here.</p>
+        <p>
+            The card component supports a size prop that can be set to ""sm"" for a more compact appearance.
+        </p>
     </CardContent>
-</Card>";
-
-    private const string codeWithForm = @"<Card>
-    <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-    </CardHeader>
-    <CardContent>
-        <Label For=""name"">Name</Label>
-        <Input id=""name"" Placeholder=""Name of your project"" />
-        <Label For=""framework"">Framework</Label>
-        <Input id=""framework"" Placeholder=""Select a framework"" />
-    </CardContent>
-    <CardFooter Class=""flex justify-between"">
-        <Button Variant=""ButtonVariant.Outline"">Cancel</Button>
-        <Button>Deploy</Button>
+    <CardFooter>
+        <Button Variant=""ButtonVariant.Outline"" Size=""ButtonSize.Sm"" Class=""w-full"">Action</Button>
     </CardFooter>
 </Card>";
+
+    private const string codeImage = @"<Card Class=""relative mx-auto w-full max-w-sm pt-0"">
+    <div class=""absolute inset-0 z-30 aspect-video bg-black/35""></div>
+    <img src=""https://avatar.vercel.sh/shadcn1""
+         alt=""Event cover""
+         class=""relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"" />
+    <CardHeader>
+        <CardAction>
+            <Badge Variant=""BadgeVariant.Secondary"">Featured</Badge>
+        </CardAction>
+        <CardTitle>Design systems meetup</CardTitle>
+        <CardDescription>
+            A practical talk on component APIs, accessibility, and shipping faster.
+        </CardDescription>
+    </CardHeader>
+    <CardFooter>
+        <Button Class=""w-full"">View Event</Button>
+    </CardFooter>
+</Card>";
+
+    private string LoadCanonicalSource(string relativePath, string fallback)
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        return File.Exists(canonicalPath) ? File.ReadAllText(canonicalPath) : fallback;
+    }
 }
 

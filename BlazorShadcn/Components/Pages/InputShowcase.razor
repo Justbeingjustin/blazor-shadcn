@@ -1,4 +1,5 @@
 @page "/components/input"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Input - blazor-shadcn</PageTitle>
 
@@ -87,9 +88,9 @@
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following code into your project.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Input.razor</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalInputSourcePath</p>
                                 <div class="mt-3">
-                                    <CodeBlock RawText="@_sourceInputRazor">@_sourceInputRazor</CodeBlock>
+                                    <CodeBlock RawText="@_inputManualSource">@_inputManualSource</CodeBlock>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +128,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <ComponentExample Title="Field" Compact="true" CodeText="@codeField">
+                    <ComponentExample Title="Field" TitleNote="Coming soon" Compact="true" CodeText="@codeField">
                         <Preview>
                             <div class="grid w-full max-w-sm items-center gap-3">
                                 <Label For="input-field-username">Username</Label>
@@ -140,7 +141,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <ComponentExample Title="Field Group" Compact="true" CodeText="@codeFieldGroup">
+                    <ComponentExample Title="Field Group" TitleNote="Coming soon" Compact="true" CodeText="@codeFieldGroup">
                         <Preview>
                             <div class="grid w-full max-w-sm gap-4">
                                 <div class="grid gap-2">
@@ -276,7 +277,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <ComponentExample Title="Button Group" Compact="true" CodeText="@codeButtonGroup">
+                    <ComponentExample Title="Button Group" TitleNote="Coming soon" Compact="true" CodeText="@codeButtonGroup">
                         <Description>
                             <p class="text-muted-foreground text-sm">Fallback example until the dedicated <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Button Group</code> component page is implemented.</p>
                         </Description>
@@ -292,7 +293,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <ComponentExample Title="Form" Compact="true" CodeText="@codeForm">
+                    <ComponentExample Title="Form" TitleNote="Coming soon" Compact="true" CodeText="@codeForm">
                         <Description>
                             <p class="text-muted-foreground text-sm">Fallback form example using currently implemented components.</p>
                         </Description>
@@ -367,6 +368,17 @@
 </div>
 
 @code {
+    private const string canonicalInputSourcePath = "components/input/Input.razor";
+    private string _inputManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalInputSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _inputManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : _sourceInputRazor;
+    }
+
     private InstallationTab _installationTab = InstallationTab.Command;
 
     private enum InstallationTab

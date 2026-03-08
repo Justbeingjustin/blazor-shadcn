@@ -1,4 +1,4 @@
-<div data-slot="card-footer"
+<div data-slot="card-action"
      class="@GetClasses()"
      @attributes="AdditionalAttributes">
     @ChildContent
@@ -12,6 +12,6 @@
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)
-            ? "bg-muted/50 flex items-center rounded-b-xl border-t p-4 group-data-[size=sm]/card:p-3"
-            : $"bg-muted/50 flex items-center rounded-b-xl border-t p-4 group-data-[size=sm]/card:p-3 {Class}";
+            ? "col-start-2 row-span-2 row-start-1 self-start justify-self-end"
+            : $"col-start-2 row-span-2 row-start-1 self-start justify-self-end {Class}";
 }
