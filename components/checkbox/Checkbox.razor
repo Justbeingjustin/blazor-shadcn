@@ -1,0 +1,81 @@
+@namespace ShadcnBlazor.Components.UI
+
+<span class="relative inline-flex size-4 shrink-0">
+    <input type="checkbox"
+           id="@Id"
+           name="@Name"
+           checked="@CurrentChecked"
+           disabled="@Disabled"
+           data-slot="checkbox"
+           class="@GetClasses()"
+           @onchange="OnChanged"
+           @attributes="AdditionalAttributes" />
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         data-slot="checkbox-indicator"
+         class="pointer-events-none absolute inset-0 m-auto size-3.5 text-primary-foreground opacity-0 peer-checked:opacity-100 transition-none">
+        <path d="M20 6 9 17l-5-5" />
+    </svg>
+</span>
+
+@code {
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string? Name { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool DefaultChecked { get; set; }
+    [Parameter] public bool? Checked { get; set; }
+    [Parameter] public EventCallback<bool> CheckedChanged { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool _isInitialized;
+    private bool _uncontrolledChecked;
+
+    private bool CurrentChecked => Checked ?? _uncontrolledChecked;
+
+    protected override void OnParametersSet()
+    {
+        if (_isInitialized)
+        {
+            return;
+        }
+
+        _uncontrolledChecked = DefaultChecked;
+        _isInitialized = true;
+    }
+
+    private async Task OnChanged(ChangeEventArgs args)
+    {
+        var isChecked = args.Value is bool b && b;
+
+        if (Checked is null)
+        {
+            _uncontrolledChecked = isChecked;
+        }
+
+        if (CheckedChanged.HasDelegate)
+        {
+            await CheckedChanged.InvokeAsync(isChecked);
+        }
+    }
+
+    private string GetClasses()
+    {
+        const string baseClasses =
+            "peer border-input dark:bg-input/30 checked:bg-primary checked:text-primary-foreground " +
+            "dark:checked:bg-primary checked:border-primary focus-visible:border-ring focus-visible:ring-ring/50 " +
+            "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:ring-[3px] aria-invalid:border-destructive " +
+            "size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] " +
+            "disabled:cursor-not-allowed disabled:opacity-50 appearance-none";
+
+        return string.IsNullOrWhiteSpace(Class)
+            ? baseClasses
+            : $"{baseClasses} {Class}";
+    }
+}

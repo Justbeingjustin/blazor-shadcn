@@ -119,26 +119,68 @@
                 <div class="mt-6">
                     <ComponentExample Compact="true" CodeText="@codeLabelInField">
                         <Preview>
-                            <div class="grid w-full max-w-sm gap-3">
-                                <Label For="label-field-email">Your email address</Label>
-                                <Input id="label-field-email" Type="email" Placeholder="name@example.com" />
-                                <p class="text-muted-foreground text-sm">We will only use this for account notifications.</p>
+                            <div class="w-full max-w-md space-y-6">
+                                <div class="space-y-2">
+                                    <h3 class="text-base font-medium">Payment Method</h3>
+                                    <p class="text-muted-foreground text-sm">All transactions are secure and encrypted</p>
+                                </div>
+                                <div class="grid gap-4">
+                                    <div class="grid gap-2">
+                                        <Label For="label-field-card-name">Name on Card</Label>
+                                        <Input id="label-field-card-name" Placeholder="Evil Rabbit" />
+                                    </div>
+                                    <div class="grid gap-2">
+                                        <Label For="label-field-card-number">Card Number</Label>
+                                        <Input id="label-field-card-number" Placeholder="1234 5678 9012 3456" />
+                                        <p class="text-muted-foreground text-sm">Enter your 16-digit card number</p>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div class="grid gap-2">
+                                            <Label For="label-field-month">Month</Label>
+                                            <Select>
+                                                <SelectTrigger Id="label-field-month" Class="w-full">
+                                                    <SelectValue Placeholder="MM" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem Value="01" Text="01">01</SelectItem>
+                                                    <SelectItem Value="02" Text="02">02</SelectItem>
+                                                    <SelectItem Value="03" Text="03">03</SelectItem>
+                                                    <SelectItem Value="04" Text="04">04</SelectItem>
+                                                    <SelectItem Value="05" Text="05">05</SelectItem>
+                                                    <SelectItem Value="06" Text="06">06</SelectItem>
+                                                    <SelectItem Value="07" Text="07">07</SelectItem>
+                                                    <SelectItem Value="08" Text="08">08</SelectItem>
+                                                    <SelectItem Value="09" Text="09">09</SelectItem>
+                                                    <SelectItem Value="10" Text="10">10</SelectItem>
+                                                    <SelectItem Value="11" Text="11">11</SelectItem>
+                                                    <SelectItem Value="12" Text="12">12</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div class="grid gap-2">
+                                            <Label For="label-field-year">Year</Label>
+                                            <Select>
+                                                <SelectTrigger Id="label-field-year" Class="w-full">
+                                                    <SelectValue Placeholder="YYYY" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem Value="2026" Text="2026">2026</SelectItem>
+                                                    <SelectItem Value="2027" Text="2027">2027</SelectItem>
+                                                    <SelectItem Value="2028" Text="2028">2028</SelectItem>
+                                                    <SelectItem Value="2029" Text="2029">2029</SelectItem>
+                                                    <SelectItem Value="2030" Text="2030">2030</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div class="grid gap-2">
+                                            <Label For="label-field-cvv">CVV</Label>
+                                            <Input id="label-field-cvv" Placeholder="123" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </Preview>
                         <Code>@codeLabelInField</Code>
-                    </ComponentExample>
-                </div>
-
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@codeRtl">
-                        <Preview>
-                            <div class="flex items-center gap-2" dir="rtl">
-                                <Checkbox Id="label-rtl-terms" />
-                                <Label For="label-rtl-terms">Accept terms and conditions</Label>
-                            </div>
-                        </Preview>
-                        <Code>@codeRtl</Code>
                     </ComponentExample>
                 </div>
 
@@ -170,7 +212,6 @@
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#label-in-field" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Label in Field</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -188,7 +229,7 @@
 
     private const string installCommand = "blazor-shadcn add label";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/label";
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
 
     private static readonly string _sourceLabelRazor = """
 <label data-slot="label"
@@ -212,7 +253,7 @@
 }
 """;
 
-    private const string usingStatement = "@using MyApp.Components.UI";
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = @"<Label For=""email"">Your email address</Label>";
 
     private const string codeMainDemo = @"<div class=""flex items-center gap-2"">
@@ -220,15 +261,68 @@
     <Label For=""terms"">Accept terms and conditions</Label>
 </div>";
 
-    private const string codeLabelInField = @"<div class=""grid w-full max-w-sm gap-3"">
-    <Label For=""email"">Your email address</Label>
-    <Input id=""email"" Type=""email"" Placeholder=""name@example.com"" />
-    <p class=""text-muted-foreground text-sm"">We will only use this for account notifications.</p>
-</div>";
+    private const string codeLabelInField = """
+<div class="w-full max-w-md space-y-6">
+    <div class="space-y-2">
+        <h3 class="text-base font-medium">Payment Method</h3>
+        <p class="text-muted-foreground text-sm">All transactions are secure and encrypted</p>
+    </div>
+    <div class="grid gap-4">
+        <div class="grid gap-2">
+            <Label For="card-name">Name on Card</Label>
+            <Input id="card-name" Placeholder="Evil Rabbit" />
+        </div>
+        <div class="grid gap-2">
+            <Label For="card-number">Card Number</Label>
+            <Input id="card-number" Placeholder="1234 5678 9012 3456" />
+            <p class="text-muted-foreground text-sm">Enter your 16-digit card number</p>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="grid gap-2">
+                <Label For="exp-month">Month</Label>
+                <Select>
+                    <SelectTrigger Id="exp-month" Class="w-full">
+                        <SelectValue Placeholder="MM" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem Value="01" Text="01">01</SelectItem>
+                        <SelectItem Value="02" Text="02">02</SelectItem>
+                        <SelectItem Value="03" Text="03">03</SelectItem>
+                        <SelectItem Value="04" Text="04">04</SelectItem>
+                        <SelectItem Value="05" Text="05">05</SelectItem>
+                        <SelectItem Value="06" Text="06">06</SelectItem>
+                        <SelectItem Value="07" Text="07">07</SelectItem>
+                        <SelectItem Value="08" Text="08">08</SelectItem>
+                        <SelectItem Value="09" Text="09">09</SelectItem>
+                        <SelectItem Value="10" Text="10">10</SelectItem>
+                        <SelectItem Value="11" Text="11">11</SelectItem>
+                        <SelectItem Value="12" Text="12">12</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+            <div class="grid gap-2">
+                <Label For="exp-year">Year</Label>
+                <Select>
+                    <SelectTrigger Id="exp-year" Class="w-full">
+                        <SelectValue Placeholder="YYYY" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem Value="2026" Text="2026">2026</SelectItem>
+                        <SelectItem Value="2027" Text="2027">2027</SelectItem>
+                        <SelectItem Value="2028" Text="2028">2028</SelectItem>
+                        <SelectItem Value="2029" Text="2029">2029</SelectItem>
+                        <SelectItem Value="2030" Text="2030">2030</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+            <div class="grid gap-2">
+                <Label For="cvv">CVV</Label>
+                <Input id="cvv" Placeholder="123" />
+            </div>
+        </div>
+    </div>
+</div>
+""";
 
-    private const string codeRtl = @"<div class=""flex items-center gap-2"" dir=""rtl"">
-    <Checkbox Id=""terms-rtl"" />
-    <Label For=""terms-rtl"">Accept terms and conditions</Label>
-</div>";
 }
 

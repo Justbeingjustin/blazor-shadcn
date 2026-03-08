@@ -259,31 +259,6 @@
                     </ComponentExample>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <p class="text-muted-foreground mt-2 text-sm">To enable RTL support, render the example inside an RTL container.</p>
-                <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@rtlCode">
-                        <Preview>
-                            <div dir="rtl" class="flex justify-center">
-                                <Select>
-                                    <SelectTrigger Class="w-[180px]">
-                                        <SelectValue Placeholder="Select a fruit" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Fruits</SelectLabel>
-                                            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
-                                            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
-                                            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </Preview>
-                        <Code>@rtlCode</Code>
-                    </ComponentExample>
-                </div>
-
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
                 <p class="text-muted-foreground mt-2 text-sm">
                     See the <a class="underline underline-offset-4" href="https://www.radix-ui.com/docs/primitives/components/select#api-reference" target="_blank" rel="noreferrer">Radix UI Select</a> documentation for the source API reference.
@@ -305,7 +280,6 @@
                 <a href="#scrollable" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Scrollable</a>
                 <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Disabled</a>
                 <a href="#invalid" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Invalid</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -433,24 +407,6 @@
     </SelectContent>
 </Select>
 """;
-    private const string rtlCode = """
-<div dir="rtl">
-    <Select>
-        <SelectTrigger Class="w-[180px]">
-            <SelectValue Placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent>
-            <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
-                <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
-                <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-            </SelectGroup>
-        </SelectContent>
-    </Select>
-</div>
-""";
-
     private readonly List<ManualSource> _manualSources = [];
 
     protected override void OnInitialized()

@@ -377,7 +377,7 @@
 
     private const string installCommand = "blazor-shadcn add input";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/input";
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
 
     private static readonly string _sourceInputRazor = """
 <input type="@Type"
@@ -412,7 +412,7 @@
 }
 """;
 
-    private const string usingStatement = "@using MyApp.Components.UI";
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = "<Input />";
 
     private const string codeMainDemo = @"<div class=""grid w-full max-w-sm items-center gap-3"">

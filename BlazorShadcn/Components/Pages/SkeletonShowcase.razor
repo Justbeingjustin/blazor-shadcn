@@ -78,17 +78,6 @@
                         <Code>@textCode</Code>
                     </ComponentExample>
                 </div>
-                <div class="mt-6">
-                    <ComponentExample Title="RTL" Compact="true">
-                        <Preview>
-                            <div dir="rtl" class="space-y-2">
-                                <Skeleton Class="mr-auto h-4 w-[220px]" />
-                                <Skeleton Class="mr-auto h-4 w-[180px]" />
-                            </div>
-                        </Preview>
-                        <Code>@rtlCode</Code>
-                    </ComponentExample>
-                </div>
             </div>
         </div>
     </div>
@@ -111,6 +100,5 @@
     private const string usageCode = """<Skeleton Class="h-[20px] w-[100px] rounded-full" />""";
     private const string cardCode = """<div class="space-y-4"><Skeleton Class="h-4 w-[180px]" /><Skeleton Class="h-32 w-full" /></div>""";
     private const string textCode = """<Skeleton Class="h-4 w-full" /><Skeleton Class="h-4 w-[92%]" />""";
-    private const string rtlCode = """<div dir="rtl"><Skeleton Class="mr-auto h-4 w-[220px]" /></div>""";
     private static readonly string[] _manualSourcePaths = ["Components/UI/Skeleton.razor"];
 }

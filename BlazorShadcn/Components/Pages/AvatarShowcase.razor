@@ -203,30 +203,6 @@
                     </ComponentExample>
                 </div>
 
-                <div class="mt-6">
-                    <ComponentExample Title="RTL" Compact="true" CodeText="@rtlCode">
-                        <Preview>
-                            <div dir="rtl" class="flex flex-row flex-wrap items-center gap-6 md:gap-12">
-                                <Avatar>
-                                    <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" Class="grayscale" />
-                                    <AvatarFallback>CN</AvatarFallback>
-                                </Avatar>
-                                <Avatar>
-                                    <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
-                                    <AvatarFallback>ER</AvatarFallback>
-                                    <AvatarBadge Class="bg-green-600 dark:bg-green-800" />
-                                </Avatar>
-                                <AvatarGroup Class="grayscale">
-                                    <Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" /><AvatarFallback>CN</AvatarFallback></Avatar>
-                                    <Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" /><AvatarFallback>LR</AvatarFallback></Avatar>
-                                    <Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" /><AvatarFallback>ER</AvatarFallback></Avatar>
-                                    <AvatarGroupCount>+3</AvatarGroupCount>
-                                </AvatarGroup>
-                            </div>
-                        </Preview>
-                        <Code>@rtlCode</Code>
-                    </ComponentExample>
-                </div>
             </div>
         </div>
     </div>
@@ -388,7 +364,7 @@
 """;
 
     private static readonly string _sourceAvatarContextCs = """
-namespace MyApp.Components.UI;
+namespace BlazorShadcn.Components.UI;
 
 internal sealed class AvatarContext
 {
@@ -415,7 +391,7 @@ internal sealed class AvatarContext
 """;
 
     private const string installCommand = "blazor-shadcn add avatar";
-    private const string manualImportsCode = "@using MyApp.Components.UI";
+    private const string manualImportsCode = "@using BlazorShadcn.Components.UI";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = """
 <Avatar>
@@ -429,8 +405,6 @@ internal sealed class AvatarContext
     private const string groupCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar></AvatarGroup>""";
     private const string sizesCode = """<div class="flex flex-wrap items-center gap-2 grayscale"><Avatar Size="sm"><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar Size="lg"><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar></div>""";
     private const string dropdownCode = """<div class="relative"><Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Class="rounded-full"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar></Button><!-- Render a popover-style menu panel with Profile, Billing, Settings, and Log out actions when open --></div>""";
-    private const string rtlCode = """<div dir="rtl" class="flex flex-row flex-wrap items-center gap-6 md:gap-12"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" Class="grayscale" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback><AvatarBadge Class="bg-green-600 dark:bg-green-800" /></Avatar><AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount>+3</AvatarGroupCount></AvatarGroup></div>""";
-
     private void ToggleAvatarMenu()
     {
         _avatarMenuOpen = !_avatarMenuOpen;

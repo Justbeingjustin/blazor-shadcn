@@ -73,7 +73,7 @@
                             <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium">Copy and paste the following code into your project.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Checkbox.razor</p>
+                                <p class="text-muted-foreground mt-2 text-sm">components/checkbox/Checkbox.razor</p>
                                 <div class="mt-3">
                                     <CodeBlock RawText="@_sourceCheckboxRazor">@_sourceCheckboxRazor</CodeBlock>
                                 </div>
@@ -179,14 +179,6 @@
                     </ComponentExample>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <div class="mt-6">
-                    <ComponentExample Compact="true">
-                        <Preview><div class="flex items-center gap-3" dir="rtl"><Checkbox Id="rtl-a" /><Label For="rtl-a">Accept terms and conditions</Label></div></Preview>
-                        <Code>@("<div dir=\"rtl\"><Checkbox /></div>")</Code>
-                    </ComponentExample>
-                </div>
-
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Checkbox</h3>
                 <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
@@ -219,7 +211,6 @@
                 <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Disabled</a>
                 <a href="#group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Group</a>
                 <a href="#table" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Table</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -237,9 +228,11 @@
 
     private const string installCommand = "blazor-shadcn add checkbox";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/checkbox";
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
 
     private static readonly string _sourceCheckboxRazor = """
+@namespace ShadcnBlazor.Components.UI
+
 <span class="relative inline-flex size-4 shrink-0">
     <input type="checkbox"
            id="@Id"
@@ -264,7 +257,7 @@
 </span>
 """;
 
-    private const string usingStatement = "@using MyApp.Components.UI";
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = "<Checkbox />";
 
     private const string codeMainDemo = @"<div class=""flex flex-col gap-6"">

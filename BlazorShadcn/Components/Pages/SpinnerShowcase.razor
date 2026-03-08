@@ -234,27 +234,6 @@
                     </ComponentExample>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@rtlCode">
-                        <Preview>
-                            <div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]" dir="rtl">
-                                <div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm outline-none transition-colors duration-100" dir="rtl">
-                                    <div data-slot="item-media" data-variant="default" class="flex shrink-0 items-center justify-center gap-2">
-                                        <Spinner />
-                                    </div>
-                                    <div data-slot="item-content" class="flex flex-1 flex-col gap-1">
-                                        <div data-slot="item-title" class="line-clamp-1 flex w-fit items-center gap-2 text-sm leading-snug font-medium">جاري معالجة الدفع...</div>
-                                    </div>
-                                    <div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1">
-                                        <span class="text-sm tabular-nums">١٠٠.٠٠ دولار</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </Preview>
-                        <Code>@rtlCode</Code>
-                    </ComponentExample>
-                </div>
             </div>
         </div>
     </div>
@@ -268,7 +247,6 @@
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#customization" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Customization</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
             </div>
         </div>
     </div>
@@ -285,7 +263,7 @@
 
     private const string installCommand = "blazor-shadcn add spinner";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/spinner";
-    private const string manualImportStep = "Add @using MyApp.Components.UI to Components/_Imports.razor";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = "<Spinner />";
 
@@ -355,6 +333,5 @@
     private const string badgeCode = """<Badge><Spinner />Syncing</Badge>""";
     private const string inputGroupCode = """<div class="flex w-full max-w-md flex-col gap-4"><div data-slot="input-group" class="group/input-group border-input dark:bg-input/30 relative flex h-9 min-w-0 w-full items-center rounded-md border shadow-xs"><Input Placeholder="Send a message..." Disabled="true" Class="flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent pr-2" /><div data-slot="input-group-addon" data-align="inline-end" class="text-muted-foreground order-last flex items-center gap-2 py-1.5 pr-3 text-sm font-medium"><Spinner /></div></div></div>""";
     private const string emptyCode = """<div data-slot="empty" class="flex w-full flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center md:p-12"><div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2"><div data-slot="empty-icon" data-variant="icon" class="bg-muted text-foreground mb-2 flex size-10 items-center justify-center rounded-lg"><Spinner /></div><div data-slot="empty-title" class="text-lg font-medium tracking-tight">Processing your request</div><div data-slot="empty-description" class="text-muted-foreground text-sm/relaxed">Please wait while we process your request. Do not refresh the page.</div></div></div>""";
-    private const string rtlCode = """<div dir="rtl" class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]"><div data-slot="item" data-variant="muted" data-size="default" class="group/item flex flex-wrap items-center gap-4 rounded-md border border-transparent bg-muted/50 p-4 text-sm"><div data-slot="item-media" class="flex shrink-0 items-center justify-center gap-2"><Spinner /></div><div data-slot="item-content" class="flex flex-1 flex-col gap-1"><div data-slot="item-title" class="line-clamp-1 text-sm leading-snug font-medium">جاري معالجة الدفع...</div></div><div data-slot="item-content" class="flex flex-none flex-col justify-end gap-1"><span class="text-sm tabular-nums">١٠٠.٠٠ دولار</span></div></div></div>""";
 }
 

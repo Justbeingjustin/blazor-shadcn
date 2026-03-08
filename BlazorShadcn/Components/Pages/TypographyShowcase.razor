@@ -279,25 +279,6 @@
                     </ComponentExample>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <p class="text-muted-foreground mt-4 text-sm">
-                    To enable RTL support in shadcn/ui, see the RTL configuration guide.
-                </p>
-                <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@codeRtl">
-                        <Preview>
-                            <div dir="rtl">
-                                <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
-                                    Taxing Laughter: The Joke Tax Chronicles
-                                </h1>
-                                <p class="text-muted-foreground text-xl leading-7 [&amp;:not(:first-child)]:mt-6">
-                                    Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne.
-                                </p>
-                            </div>
-                        </Preview>
-                        <Code>@codeRtl</Code>
-                    </ComponentExample>
-                </div>
             </div>
         </div>
     </div>
@@ -320,7 +301,6 @@
                 <a href="#large" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Large</a>
                 <a href="#small" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Small</a>
                 <a href="#muted" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Muted</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
             </div>
         </div>
     </div>
@@ -397,12 +377,4 @@
 
     private const string codeMuted = @"<p class=""text-muted-foreground text-sm"">Enter your email address.</p>";
 
-    private const string codeRtl = @"<div dir=""rtl"">
-  <h1 class=""scroll-m-20 text-4xl font-extrabold tracking-tight text-balance"">
-    Taxing Laughter: The Joke Tax Chronicles
-  </h1>
-  <p class=""text-muted-foreground text-xl leading-7 [&:not(:first-child)]:mt-6"">
-    Once upon a time, in a far-off land, there was a very lazy king...
-  </p>
-</div>";
 }

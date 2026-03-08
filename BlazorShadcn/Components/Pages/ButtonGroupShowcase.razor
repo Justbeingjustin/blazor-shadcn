@@ -326,23 +326,6 @@
                     </ComponentExample>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <p class="text-muted-foreground mt-2 text-sm">To enable RTL support in shadcn/ui, see the RTL configuration guide.</p>
-                <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@RtlCode">
-                        <Preview>
-                            <div dir="rtl" class="flex justify-center">
-                                <ButtonGroup aria-label="RTL email actions">
-                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Archive</Button>
-                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Report</Button>
-                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Snooze</Button>
-                                </ButtonGroup>
-                            </div>
-                        </Preview>
-                        <Code>@RtlCode</Code>
-                    </ComponentExample>
-                </div>
-
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
 
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">ButtonGroup</h3>
@@ -414,7 +397,6 @@
                 <a href="#dropdown-menu" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Dropdown Menu</a>
                 <a href="#select" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Select</a>
                 <a href="#popover" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Popover</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -610,15 +592,6 @@ import {
         </PopoverContent>
     </Popover>
 </ButtonGroup>
-""";
-    private const string RtlCode = """
-<div dir="rtl">
-    <ButtonGroup aria-label="RTL email actions">
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Archive</Button>
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Report</Button>
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Snooze</Button>
-    </ButtonGroup>
-</div>
 """;
     private const string ApiButtonGroupCode = """
 <ButtonGroup>
