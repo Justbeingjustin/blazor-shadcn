@@ -117,7 +117,7 @@
                                 <Label For="invalid-a">Accept terms and conditions</Label>
                             </div>
                         </Preview>
-                        <Code>@("<div class=\"flex items-center gap-3 text-destructive\" data-invalid=\"true\"><Checkbox Id=\"invalid-a\" aria-invalid=\"true\" /><Label For=\"invalid-a\">Accept terms and conditions</Label></div>")</Code>
+                        <Code>@invalidStateCode</Code>
                     </ComponentExample>
                 </div>
 
@@ -125,7 +125,7 @@
                 <div class="mt-6">
                     <ComponentExample Title="Basic" Compact="true">
                         <Preview><div class="flex items-center gap-3"><Checkbox Id="basic-a" /><Label For="basic-a">Accept terms and conditions</Label></div></Preview>
-                        <Code>@("<Checkbox Id=\"basic-a\" />")</Code>
+                        <Code>@basicExampleCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
@@ -139,13 +139,13 @@
                                 </div>
                             </div>
                         </Preview>
-                        <Code>@("<Checkbox Id=\"desc-a\" DefaultChecked=\"true\" />")</Code>
+                        <Code>@descriptionExampleCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
                     <ComponentExample Title="Disabled" Compact="true">
                         <Preview><div class="flex items-center gap-3" data-disabled="true"><Checkbox Id="disabled-a" Disabled="true" /><Label For="disabled-a">Accept terms and conditions</Label></div></Preview>
-                        <Code>@("<Checkbox Id=\"disabled-a\" Disabled=\"true\" />")</Code>
+                        <Code>@disabledExampleCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
@@ -159,7 +159,7 @@
                                 <div class="flex items-center gap-3"><Checkbox Id="group-servers" /><Label For="group-servers" Class="font-normal">Connected servers</Label></div>
                             </div>
                         </Preview>
-                        <Code>@("<Checkbox Id=\"group-hard\" DefaultChecked=\"true\" />")</Code>
+                        <Code>@groupExampleCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
@@ -275,6 +275,49 @@
     <div class=""flex items-start gap-3"">
         <Checkbox Id=""toggle"" Disabled=""true"" />
         <Label For=""toggle"">Enable notifications</Label>
+    </div>
+</div>";
+
+    private const string invalidStateCode = @"<div class=""flex items-center gap-3 text-destructive"" data-invalid=""true"">
+    <Checkbox Id=""invalid-a"" aria-invalid=""true"" />
+    <Label For=""invalid-a"">Accept terms and conditions</Label>
+</div>";
+
+    private const string basicExampleCode = @"<div class=""flex items-center gap-3"">
+    <Checkbox Id=""basic-a"" />
+    <Label For=""basic-a"">Accept terms and conditions</Label>
+</div>";
+
+    private const string descriptionExampleCode = @"<div class=""flex items-start gap-3"">
+    <Checkbox Id=""desc-a"" DefaultChecked=""true"" />
+    <div class=""grid gap-2"">
+        <Label For=""desc-a"">Accept terms and conditions</Label>
+        <p class=""text-muted-foreground text-sm"">By clicking this checkbox, you agree to the terms and conditions.</p>
+    </div>
+</div>";
+
+    private const string disabledExampleCode = @"<div class=""flex items-center gap-3"" data-disabled=""true"">
+    <Checkbox Id=""disabled-a"" Disabled=""true"" />
+    <Label For=""disabled-a"">Accept terms and conditions</Label>
+</div>";
+
+    private const string groupExampleCode = @"<div class=""grid gap-3"">
+    <p class=""text-sm font-medium"">Show these items on the desktop:</p>
+    <div class=""flex items-center gap-3"">
+        <Checkbox Id=""group-hard"" DefaultChecked=""true"" />
+        <Label For=""group-hard"" Class=""font-normal"">Hard disks</Label>
+    </div>
+    <div class=""flex items-center gap-3"">
+        <Checkbox Id=""group-external"" DefaultChecked=""true"" />
+        <Label For=""group-external"" Class=""font-normal"">External disks</Label>
+    </div>
+    <div class=""flex items-center gap-3"">
+        <Checkbox Id=""group-cds"" />
+        <Label For=""group-cds"" Class=""font-normal"">CDs, DVDs, and iPods</Label>
+    </div>
+    <div class=""flex items-center gap-3"">
+        <Checkbox Id=""group-servers"" />
+        <Label For=""group-servers"" Class=""font-normal"">Connected servers</Label>
     </div>
 </div>";
 }
