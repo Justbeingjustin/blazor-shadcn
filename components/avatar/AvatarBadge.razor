@@ -12,8 +12,94 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private string GetClasses()
-        => string.IsNullOrWhiteSpace(Class)
-            ? "bg-primary text-primary-foreground ring-background absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2"
-            : $"bg-primary text-primary-foreground ring-background absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2 {Class}";
+    private const string BaseClasses =
+        "bg-primary text-primary-foreground ring-background absolute right-0 bottom-0 z-10 " +
+        "inline-flex items-center justify-center rounded-full ring-2 select-none " +
+        "group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden " +
+        "group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 " +
+        "group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2";
+
+    private string GetClasses() => MergeClasses(BaseClasses, Class);
+
+    private static string MergeClasses(params string?[] classes)
+    {
+        var tokens = new List<string>();
+        var lastIndexByKey = new Dictionary<string, int>(StringComparer.Ordinal);
+
+        foreach (var chunk in classes)
+        {
+            if (string.IsNullOrWhiteSpace(chunk))
+            {
+                continue;
+            }
+
+            foreach (var token in chunk.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var key = GetMergeKey(token);
+                if (key is null)
+                {
+                    tokens.Add(token);
+                    continue;
+                }
+
+                if (lastIndexByKey.TryGetValue(key, out var prevIndex))
+                {
+                    tokens[prevIndex] = "";
+                }
+
+                lastIndexByKey[key] = tokens.Count;
+                tokens.Add(token);
+            }
+        }
+
+        return tokens.Count == 0 ? string.Empty : string.Join(" ", tokens.Where(static t => !string.IsNullOrEmpty(t)));
+    }
+
+    private static string? GetMergeKey(string token)
+    {
+        var (variants, utility) = SplitVariants(token);
+        var utilityForKey = utility.Length > 0 && utility[0] == '!' ? utility[1..] : utility;
+
+        if (utilityForKey.StartsWith("bg-", StringComparison.Ordinal))
+        {
+            return variants + "bg";
+        }
+
+        if (utilityForKey.StartsWith("text-", StringComparison.Ordinal))
+        {
+            return variants + "text-color";
+        }
+
+        if (utilityForKey == "rounded" || utilityForKey.StartsWith("rounded-", StringComparison.Ordinal))
+        {
+            return variants + "rounded";
+        }
+
+        return null;
+    }
+
+    private static (string variants, string utility) SplitVariants(string token)
+    {
+        var bracketDepth = 0;
+        var lastColon = -1;
+
+        for (var i = 0; i < token.Length; i++)
+        {
+            var c = token[i];
+            switch (c)
+            {
+                case '[':
+                    bracketDepth++;
+                    break;
+                case ']':
+                    if (bracketDepth > 0) bracketDepth--;
+                    break;
+                case ':':
+                    if (bracketDepth == 0) lastColon = i;
+                    break;
+            }
+        }
+
+        return lastColon < 0 ? ("", token) : (token[..(lastColon + 1)], token[(lastColon + 1)..]);
+    }
 }
