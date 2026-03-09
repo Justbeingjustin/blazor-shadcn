@@ -1,6 +1,8 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="avatar"
      data-size="@Size"
-     class="@Tw.Merge("group/avatar relative flex size-8 shrink-0 select-none overflow-visible rounded-full data-[size=sm]:size-6 data-[size=lg]:size-10", Class)"
+     class="@GetClasses()"
      @attributes="AdditionalAttributes">
     <div class="size-full overflow-hidden rounded-full">
         <CascadingValue Value="_context" IsFixed="true">
@@ -22,4 +24,9 @@
     {
         _context.Configure(() => InvokeAsync(StateHasChanged));
     }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "group/avatar relative flex size-8 shrink-0 select-none overflow-visible rounded-full data-[size=sm]:size-6 data-[size=lg]:size-10"
+            : $"group/avatar relative flex size-8 shrink-0 select-none overflow-visible rounded-full data-[size=sm]:size-6 data-[size=lg]:size-10 {Class}";
 }

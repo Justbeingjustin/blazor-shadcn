@@ -30,10 +30,32 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@mainDemoCode">
                     <Preview>
-                        <Avatar>
-                            <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" Class="grayscale" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        <div class="flex flex-row flex-wrap items-center gap-6 md:gap-12">
+                            <Avatar>
+                                <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" Class="grayscale" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                            <Avatar>
+                                <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+                                <AvatarFallback>ER</AvatarFallback>
+                                <AvatarBadge Class="bg-green-600 dark:bg-green-800" />
+                            </Avatar>
+                            <AvatarGroup Class="grayscale">
+                                <Avatar>
+                                    <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
+                                <Avatar>
+                                    <AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" />
+                                    <AvatarFallback>LR</AvatarFallback>
+                                </Avatar>
+                                <Avatar>
+                                    <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+                                    <AvatarFallback>ER</AvatarFallback>
+                                </Avatar>
+                                <AvatarGroupCount>+3</AvatarGroupCount>
+                            </AvatarGroup>
+                        </div>
                     </Preview>
                     <Code>@mainDemoCode</Code>
                 </ComponentExample>
@@ -118,8 +140,9 @@
                 <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="basic">Basic</h3>
                 <div class="mt-6">
-                    <ComponentExample Title="Basic" Compact="true" CodeText="@basicCode">
+                    <ComponentExample Compact="true" CodeText="@basicCode">
                         <Preview>
                             <Avatar>
                                 <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
@@ -130,8 +153,9 @@
                     </ComponentExample>
                 </div>
 
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="badge">Badge</h3>
                 <div class="mt-6">
-                    <ComponentExample Title="Badge" Compact="true" CodeText="@badgeCode">
+                    <ComponentExample Compact="true" CodeText="@badgeCode">
                         <Preview>
                             <Avatar>
                                 <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
@@ -143,21 +167,76 @@
                     </ComponentExample>
                 </div>
 
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="badge-with-icon">Badge with Icon</h3>
                 <div class="mt-6">
-                    <ComponentExample Title="Avatar Group" Compact="true" CodeText="@groupCode">
+                    <ComponentExample Compact="true" CodeText="@badgeWithIconCode">
+                        <Preview>
+                            <Avatar>
+                                <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+                                <AvatarFallback>ER</AvatarFallback>
+                                <AvatarBadge Class="bg-green-600 dark:bg-green-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M9 12.75 11.25 15 15 9.75l1.5 1.5-5.25 5.25-3.75-3.75z" />
+                                    </svg>
+                                </AvatarBadge>
+                            </Avatar>
+                        </Preview>
+                        <Code>@badgeWithIconCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="avatar-group">Avatar Group</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@groupCode">
                         <Preview>
                             <AvatarGroup Class="grayscale">
                                 <Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" /><AvatarFallback>CN</AvatarFallback></Avatar>
                                 <Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" /><AvatarFallback>LR</AvatarFallback></Avatar>
                                 <Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" /><AvatarFallback>ER</AvatarFallback></Avatar>
+                                <AvatarGroupCount>+3</AvatarGroupCount>
                             </AvatarGroup>
                         </Preview>
                         <Code>@groupCode</Code>
                     </ComponentExample>
                 </div>
 
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="avatar-group-count">Avatar Group Count</h3>
                 <div class="mt-6">
-                    <ComponentExample Title="Sizes" Compact="true" CodeText="@sizesCode">
+                    <ComponentExample Compact="true" CodeText="@groupCountCode">
+                        <Preview>
+                            <AvatarGroup Class="grayscale">
+                                <Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" /><AvatarFallback>CN</AvatarFallback></Avatar>
+                                <Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" /><AvatarFallback>LR</AvatarFallback></Avatar>
+                                <Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" /><AvatarFallback>ER</AvatarFallback></Avatar>
+                                <AvatarGroupCount>+3</AvatarGroupCount>
+                            </AvatarGroup>
+                        </Preview>
+                        <Code>@groupCountCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="avatar-group-with-icon">Avatar Group with Icon</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@groupWithIconCode">
+                        <Preview>
+                            <AvatarGroup Class="grayscale">
+                                <Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" /><AvatarFallback>CN</AvatarFallback></Avatar>
+                                <Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" /><AvatarFallback>LR</AvatarFallback></Avatar>
+                                <Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" /><AvatarFallback>ER</AvatarFallback></Avatar>
+                                <AvatarGroupCount>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M11.25 4.5a.75.75 0 0 1 1.5 0v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5z" />
+                                    </svg>
+                                </AvatarGroupCount>
+                            </AvatarGroup>
+                        </Preview>
+                        <Code>@groupWithIconCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="sizes">Sizes</h3>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@sizesCode">
                         <Preview>
                             <div class="flex flex-wrap items-center gap-2 grayscale">
                                 <Avatar Size="sm"><AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" /><AvatarFallback>CN</AvatarFallback></Avatar>
@@ -169,8 +248,9 @@
                     </ComponentExample>
                 </div>
 
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="dropdown">Dropdown</h3>
                 <div class="mt-6">
-                    <ComponentExample Title="Dropdown" Compact="true" CodeText="@dropdownCode">
+                    <ComponentExample Compact="true" CodeText="@dropdownCode">
                         <Preview>
                             <div class="grid w-full place-items-center">
                                 <div class="relative">
@@ -203,6 +283,79 @@
                     </ComponentExample>
                 </div>
 
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Avatar</h3>
+                <p class="leading-relaxed mt-4">The <code>Avatar</code> component is the root component that wraps the avatar image and fallback.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Size</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"default" | "sm" | "lg"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"default"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Class</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AvatarImage</h3>
+                <p class="leading-relaxed mt-4">The <code>AvatarImage</code> component displays the avatar image.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Src</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Alt</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Class</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AvatarFallback</h3>
+                <p class="leading-relaxed mt-4">The <code>AvatarFallback</code> component displays fallback content when the image fails to load.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Class</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AvatarBadge</h3>
+                <p class="leading-relaxed mt-4">The <code>AvatarBadge</code> component displays a badge indicator on the avatar.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Class</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AvatarGroup</h3>
+                <p class="leading-relaxed mt-4">The <code>AvatarGroup</code> component displays a group of overlapping avatars.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Class</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">AvatarGroupCount</h3>
+                <p class="leading-relaxed mt-4">The <code>AvatarGroupCount</code> component displays the count of additional avatars in a group.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Class</code></td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="leading-relaxed">For more information, see the <a href="https://www.radix-ui.com/primitives/docs/components/avatar#api-reference" class="underline underline-offset-4">Radix UI documentation</a>.</p>
+
             </div>
         </div>
     </div>
@@ -215,8 +368,15 @@
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#basic" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Basic</a>
+                <a href="#badge" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Badge</a>
+                <a href="#badge-with-icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Badge with Icon</a>
+                <a href="#avatar-group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Avatar Group</a>
+                <a href="#avatar-group-count" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Avatar Group Count</a>
+                <a href="#avatar-group-with-icon" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Avatar Group with Icon</a>
+                <a href="#sizes" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Sizes</a>
                 <a href="#dropdown" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Dropdown</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
     </div>
@@ -235,11 +395,13 @@
     private static readonly string _sourceAvatarRazor = """
 <div data-slot="avatar"
      data-size="@Size"
-     class="@Tw.Merge("group/avatar relative flex size-8 shrink-0 select-none overflow-hidden rounded-full data-[size=sm]:size-6 data-[size=lg]:size-10", Class)"
+     class="@Tw.Merge("group/avatar relative flex size-8 shrink-0 select-none overflow-visible rounded-full data-[size=sm]:size-6 data-[size=lg]:size-10", Class)"
      @attributes="AdditionalAttributes">
-    <CascadingValue Value="_context" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
+    <div class="size-full overflow-hidden rounded-full">
+        <CascadingValue Value="_context" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </div>
 </div>
 
 @code {
@@ -399,10 +561,40 @@ internal sealed class AvatarContext
     <AvatarFallback>CN</AvatarFallback>
 </Avatar>
 """;
-    private const string mainDemoCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" Class="grayscale" /><AvatarFallback>CN</AvatarFallback></Avatar>""";
+    private const string mainDemoCode = """
+<div class="flex flex-row flex-wrap items-center gap-6 md:gap-12">
+    <Avatar>
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" Class="grayscale" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" />
+        <AvatarFallback>ER</AvatarFallback>
+        <AvatarBadge Class="bg-green-600 dark:bg-green-800" />
+    </Avatar>
+    <AvatarGroup Class="grayscale">
+        <Avatar>
+            <AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <Avatar>
+            <AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" />
+            <AvatarFallback>LR</AvatarFallback>
+        </Avatar>
+        <Avatar>
+            <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" />
+            <AvatarFallback>ER</AvatarFallback>
+        </Avatar>
+        <AvatarGroupCount>+3</AvatarGroupCount>
+    </AvatarGroup>
+</div>
+""";
     private const string basicCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar>""";
     private const string badgeCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback><AvatarBadge Class="bg-green-600 dark:bg-green-800" /></Avatar>""";
-    private const string groupCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar></AvatarGroup>""";
+    private const string badgeWithIconCode = """<Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback><AvatarBadge Class="bg-green-600 dark:bg-green-800"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75l1.5 1.5-5.25 5.25-3.75-3.75z" /></svg></AvatarBadge></Avatar>""";
+    private const string groupCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount>+3</AvatarGroupCount></AvatarGroup>""";
+    private const string groupCountCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount>+3</AvatarGroupCount></AvatarGroup>""";
+    private const string groupWithIconCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.25 4.5a.75.75 0 0 1 1.5 0v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5z" /></svg></AvatarGroupCount></AvatarGroup>""";
     private const string sizesCode = """<div class="flex flex-wrap items-center gap-2 grayscale"><Avatar Size="sm"><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar Size="lg"><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar></div>""";
     private const string dropdownCode = """<div class="relative"><Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Class="rounded-full"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar></Button><!-- Render a popover-style menu panel with Profile, Billing, Settings, and Log out actions when open --></div>""";
     private void ToggleAvatarMenu()

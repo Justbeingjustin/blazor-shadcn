@@ -1,0 +1,26 @@
+@namespace ShadcnBlazor.Components.UI
+
+@if (IsVisible)
+{
+    <div data-slot="avatar-fallback"
+         class="@GetClasses()"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [CascadingParameter] private AvatarContext? AvatarContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool IsVisible => AvatarContext?.IsImageLoaded != true;
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? "bg-muted text-muted-foreground flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs"
+            : $"bg-muted text-muted-foreground flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs {Class}";
+}
