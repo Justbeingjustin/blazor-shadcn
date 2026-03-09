@@ -424,9 +424,7 @@
 <img data-slot="avatar-image"
      src="@Src"
      alt="@Alt"
-     class="@Tw.Merge("aspect-square size-full", !IsVisible ? "hidden" : null, Class)"
-     @onload="OnLoaded"
-     @onerror="OnError"
+     class="@Tw.Merge("aspect-square size-full", Class)"
      @attributes="AdditionalAttributes" />
 
 @code {
@@ -438,23 +436,10 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private bool IsVisible => AvatarContext?.IsImageLoaded == true;
-
     protected override Task OnParametersSetAsync()
     {
-        if (AvatarContext is not null && string.IsNullOrWhiteSpace(Src))
-        {
-            return AvatarContext.SetImageLoadedAsync(false);
-        }
-
-        return Task.CompletedTask;
+        return AvatarContext?.SetHasImageSourceAsync(!string.IsNullOrWhiteSpace(Src)) ?? Task.CompletedTask;
     }
-
-    private Task OnLoaded(EventArgs _)
-        => AvatarContext?.SetImageLoadedAsync(true) ?? Task.CompletedTask;
-
-    private Task OnError(EventArgs _)
-        => AvatarContext?.SetImageLoadedAsync(false) ?? Task.CompletedTask;
 }
 """;
 
@@ -532,21 +517,21 @@ internal sealed class AvatarContext
 {
     private Func<Task>? _stateChanged;
 
-    public bool IsImageLoaded { get; private set; }
+    public bool HasImageSource { get; private set; }
 
     public void Configure(Func<Task> stateChanged)
     {
         _stateChanged = stateChanged;
     }
 
-    public Task SetImageLoadedAsync(bool loaded)
+    public Task SetHasImageSourceAsync(bool hasImageSource)
     {
-        if (IsImageLoaded == loaded)
+        if (HasImageSource == hasImageSource)
         {
             return Task.CompletedTask;
         }
 
-        IsImageLoaded = loaded;
+        HasImageSource = hasImageSource;
         return _stateChanged is null ? Task.CompletedTask : _stateChanged();
     }
 }
@@ -557,46 +542,144 @@ internal sealed class AvatarContext
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = """
 <Avatar>
-    <AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" />
+    <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
     <AvatarFallback>CN</AvatarFallback>
 </Avatar>
 """;
     private const string mainDemoCode = """
 <div class="flex flex-row flex-wrap items-center gap-6 md:gap-12">
     <Avatar>
-        <AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" Class="grayscale" />
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" Class="grayscale" />
         <AvatarFallback>CN</AvatarFallback>
     </Avatar>
     <Avatar>
-        <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" />
+        <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
         <AvatarFallback>ER</AvatarFallback>
         <AvatarBadge Class="bg-green-600 dark:bg-green-800" />
     </Avatar>
     <AvatarGroup Class="grayscale">
         <Avatar>
-            <AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" />
+            <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
             <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <Avatar>
-            <AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" />
+            <AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" />
             <AvatarFallback>LR</AvatarFallback>
         </Avatar>
         <Avatar>
-            <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" />
+            <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
             <AvatarFallback>ER</AvatarFallback>
         </Avatar>
         <AvatarGroupCount>+3</AvatarGroupCount>
     </AvatarGroup>
 </div>
 """;
-    private const string basicCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar>""";
-    private const string badgeCode = """<Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback><AvatarBadge Class="bg-green-600 dark:bg-green-800" /></Avatar>""";
-    private const string badgeWithIconCode = """<Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback><AvatarBadge Class="bg-green-600 dark:bg-green-800"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75l1.5 1.5-5.25 5.25-3.75-3.75z" /></svg></AvatarBadge></Avatar>""";
-    private const string groupCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount>+3</AvatarGroupCount></AvatarGroup>""";
-    private const string groupCountCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount>+3</AvatarGroupCount></AvatarGroup>""";
-    private const string groupWithIconCode = """<AvatarGroup Class="grayscale"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/maxleiter.png" Alt="@maxleiter" /><AvatarFallback>LR</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/evilrabbit.png" Alt="@evilrabbit" /><AvatarFallback>ER</AvatarFallback></Avatar><AvatarGroupCount><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.25 4.5a.75.75 0 0 1 1.5 0v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5z" /></svg></AvatarGroupCount></AvatarGroup>""";
-    private const string sizesCode = """<div class="flex flex-wrap items-center gap-2 grayscale"><Avatar Size="sm"><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar><Avatar Size="lg"><AvatarImage Src="https://github.com/shadcn.png" Alt="@shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar></div>""";
-    private const string dropdownCode = """<div class="relative"><Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Class="rounded-full"><Avatar><AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" /><AvatarFallback>CN</AvatarFallback></Avatar></Button><!-- Render a popover-style menu panel with Profile, Billing, Settings, and Log out actions when open --></div>""";
+    private const string basicCode = """
+<Avatar>
+    <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+    <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+""";
+    private const string badgeCode = """
+<Avatar>
+    <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+    <AvatarFallback>CN</AvatarFallback>
+    <AvatarBadge Class="bg-green-600 dark:bg-green-800" />
+</Avatar>
+""";
+    private const string badgeWithIconCode = """
+<Avatar>
+    <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+    <AvatarFallback>ER</AvatarFallback>
+    <AvatarBadge Class="bg-green-600 dark:bg-green-800">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M9 12.75 11.25 15 15 9.75l1.5 1.5-5.25 5.25-3.75-3.75z" />
+        </svg>
+    </AvatarBadge>
+</Avatar>
+""";
+    private const string groupCode = """
+<AvatarGroup Class="grayscale">
+    <Avatar>
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" />
+        <AvatarFallback>LR</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+        <AvatarFallback>ER</AvatarFallback>
+    </Avatar>
+    <AvatarGroupCount>+3</AvatarGroupCount>
+</AvatarGroup>
+""";
+    private const string groupCountCode = """
+<AvatarGroup Class="grayscale">
+    <Avatar>
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" />
+        <AvatarFallback>LR</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+        <AvatarFallback>ER</AvatarFallback>
+    </Avatar>
+    <AvatarGroupCount>+3</AvatarGroupCount>
+</AvatarGroup>
+""";
+    private const string groupWithIconCode = """
+<AvatarGroup Class="grayscale">
+    <Avatar>
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/maxleiter.png" Alt="@("@maxleiter")" />
+        <AvatarFallback>LR</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/evilrabbit.png" Alt="@("@evilrabbit")" />
+        <AvatarFallback>ER</AvatarFallback>
+    </Avatar>
+    <AvatarGroupCount>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M11.25 4.5a.75.75 0 0 1 1.5 0v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5z" />
+        </svg>
+    </AvatarGroupCount>
+</AvatarGroup>
+""";
+    private const string sizesCode = """
+<div class="flex flex-wrap items-center gap-2 grayscale">
+    <Avatar Size="sm">
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+    <Avatar Size="lg">
+        <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+        <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+</div>
+""";
+    private const string dropdownCode = """
+<div class="relative">
+    <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Class="rounded-full">
+        <Avatar>
+            <AvatarImage Src="https://github.com/shadcn.png" Alt="@("@shadcn")" />
+            <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+    </Button>
+    <!-- Render a popover-style menu panel with Profile, Billing, Settings, and Log out actions when open -->
+</div>
+""";
     private void ToggleAvatarMenu()
     {
         _avatarMenuOpen = !_avatarMenuOpen;

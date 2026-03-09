@@ -17,7 +17,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private bool IsVisible => AvatarContext?.IsImageLoaded != true;
+    private bool IsVisible => AvatarContext?.HasImageSource != true;
 
     private string GetClasses()
         => string.IsNullOrWhiteSpace(Class)

@@ -4,21 +4,21 @@ internal sealed class AvatarContext
 {
     private Func<Task>? _stateChanged;
 
-    public bool IsImageLoaded { get; private set; }
+    public bool HasImageSource { get; private set; }
 
     public void Configure(Func<Task> stateChanged)
     {
         _stateChanged = stateChanged;
     }
 
-    public Task SetImageLoadedAsync(bool loaded)
+    public Task SetHasImageSourceAsync(bool hasImageSource)
     {
-        if (IsImageLoaded == loaded)
+        if (HasImageSource == hasImageSource)
         {
             return Task.CompletedTask;
         }
 
-        IsImageLoaded = loaded;
+        HasImageSource = hasImageSource;
         return _stateChanged is null ? Task.CompletedTask : _stateChanged();
     }
 }

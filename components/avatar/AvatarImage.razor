@@ -4,8 +4,6 @@
      src="@Src"
      alt="@Alt"
      class="@GetClasses()"
-     @onload="OnLoaded"
-     @onerror="OnError"
      @attributes="AdditionalAttributes" />
 
 @code {
@@ -17,29 +15,15 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private bool IsVisible => AvatarContext?.IsImageLoaded == true;
-
     protected override Task OnParametersSetAsync()
     {
-        if (AvatarContext is not null && string.IsNullOrWhiteSpace(Src))
-        {
-            return AvatarContext.SetImageLoadedAsync(false);
-        }
-
-        return Task.CompletedTask;
+        return AvatarContext?.SetHasImageSourceAsync(!string.IsNullOrWhiteSpace(Src)) ?? Task.CompletedTask;
     }
 
     private string GetClasses()
     {
         var baseClasses = "aspect-square size-full";
-        var hiddenClass = !IsVisible ? " hidden" : "";
         var customClass = string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}";
-        return $"{baseClasses}{hiddenClass}{customClass}";
+        return $"{baseClasses}{customClass}";
     }
-
-    private Task OnLoaded(EventArgs _)
-        => AvatarContext?.SetImageLoadedAsync(true) ?? Task.CompletedTask;
-
-    private Task OnError(EventArgs _)
-        => AvatarContext?.SetImageLoadedAsync(false) ?? Task.CompletedTask;
 }
