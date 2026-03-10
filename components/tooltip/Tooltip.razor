@@ -1,15 +1,20 @@
+@namespace ShadcnBlazor.Components.UI
+
 <CascadingValue Name="TooltipContext" Value="@_context">
-    <div data-slot="tooltip" class="@Tw.Merge("relative inline-block", Class)" @attributes="AdditionalAttributes">
+    <div data-slot="tooltip" class="@Merge("relative inline-block", Class)" @attributes="AdditionalAttributes">
         @ChildContent
     </div>
 </CascadingValue>
 
 @code {
+    [CascadingParameter(Name = "TooltipProvider")] private TooltipProviderContext? Provider { get; set; }
+
     [Parameter] public bool Open { get; set; }
     [Parameter] public EventCallback<bool> OpenChanged { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private bool _open;
     private TooltipContext _context = default!;
@@ -29,12 +34,22 @@
     {
         _open = value;
         _context.Open = value;
+
         if (OpenChanged.HasDelegate)
         {
             await OpenChanged.InvokeAsync(value);
         }
+
         StateHasChanged();
     }
 
-    [CascadingParameter(Name = "TooltipProvider")] private TooltipProvider.TooltipProviderContext? Provider { get; set; }
+    public sealed class TooltipContext
+    {
+        public required bool Open { get; set; }
+        public required int DelayDuration { get; init; }
+        public required Func<bool, Task> SetOpenAsync { get; init; }
+    }
+
+    private static string Merge(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

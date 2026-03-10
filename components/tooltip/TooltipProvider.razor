@@ -1,0 +1,25 @@
+@namespace ShadcnBlazor.Components.UI
+
+<CascadingValue Name="TooltipProvider" Value="@_context" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter] public int DelayDuration { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private TooltipProviderContext _context = default!;
+
+    protected override void OnParametersSet()
+    {
+        _context = new TooltipProviderContext
+        {
+            DelayDuration = DelayDuration
+        };
+    }
+
+    public sealed class TooltipProviderContext
+    {
+        public required int DelayDuration { get; init; }
+    }
+}

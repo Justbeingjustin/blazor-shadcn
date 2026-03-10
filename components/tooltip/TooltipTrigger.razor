@@ -1,5 +1,7 @@
+@namespace ShadcnBlazor.Components.UI
+
 <span data-slot="tooltip-trigger"
-      class="@Tw.Merge("inline-flex", Class)"
+      class="@Merge("inline-flex", Class)"
       tabindex="0"
       role="button"
       @onmouseenter="HandleMouseEnterAsync"
@@ -11,11 +13,12 @@
 </span>
 
 @code {
-    [CascadingParameter(Name = "TooltipContext")] private TooltipContext? Context { get; set; }
+    [CascadingParameter(Name = "TooltipContext")] private Tooltip.TooltipContext? Context { get; set; }
+
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
-    private Task SetOpenAsync(bool value) => Context?.SetOpenAsync(value) ?? Task.CompletedTask;
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private async Task HandleMouseEnterAsync()
     {
@@ -34,4 +37,10 @@
 
     private Task HandleFocusAsync(FocusEventArgs _)
         => SetOpenAsync(true);
+
+    private Task SetOpenAsync(bool value)
+        => Context?.SetOpenAsync(value) ?? Task.CompletedTask;
+
+    private static string Merge(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

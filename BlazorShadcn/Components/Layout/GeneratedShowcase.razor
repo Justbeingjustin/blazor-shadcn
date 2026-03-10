@@ -120,6 +120,62 @@
                             </table>
                         </div>
                     }
+                    else if (Slug == "tooltip")
+                    {
+                        <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">TooltipProvider</h3>
+                        <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                            <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                                <thead>
+                                    <tr class="m-0 border-b">
+                                        <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                        <th class="px-4 py-2 text-left font-bold">Type</th>
+                                        <th class="px-4 py-2 text-left font-bold">Default</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="[&_tr:last-child]:border-b-0">
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DelayDuration</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">int</code></td><td class="px-4 py-2 text-left whitespace-nowrap">0</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Tooltip</h3>
+                        <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                            <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                                <thead>
+                                    <tr class="m-0 border-b">
+                                        <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                        <th class="px-4 py-2 text-left font-bold">Type</th>
+                                        <th class="px-4 py-2 text-left font-bold">Default</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="[&_tr:last-child]:border-b-0">
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Open</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">OpenChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">TooltipContent</h3>
+                        <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                            <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                                <thead>
+                                    <tr class="m-0 border-b">
+                                        <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                        <th class="px-4 py-2 text-left font-bold">Type</th>
+                                        <th class="px-4 py-2 text-left font-bold">Default</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="[&_tr:last-child]:border-b-0">
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Side</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"top" | "right" | "bottom" | "left"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"top"</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                     else if (ApiReferenceUrl is not null)
                     {
                         <p class="text-muted-foreground mt-2 text-sm">See the <a class="underline underline-offset-4" href="@ApiReferenceUrl" target="_blank" rel="noreferrer">@($"{Title} API reference")</a>.</p>
@@ -223,21 +279,30 @@
         "textarea" => """<Textarea Placeholder="Type your message here." Class="max-w-sm" />""",
         "toggle" => """<Toggle Variant="outline">Bold</Toggle>""",
         "toggle-group" => """<ToggleGroup Type="single" Value="bold"><ToggleGroupItem Value="bold">Bold</ToggleGroupItem><ToggleGroupItem Value="italic">Italic</ToggleGroupItem></ToggleGroup>""",
-        "tooltip" => """<Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Hover</Button></TooltipTrigger><TooltipContent>Add to library</TooltipContent></Tooltip>""",
+        "tooltip" => """
+<Tooltip>
+    <TooltipTrigger>
+        <Button Variant="ButtonVariant.Outline">Hover</Button>
+    </TooltipTrigger>
+    <TooltipContent>
+        <p>Add to library</p>
+    </TooltipContent>
+</Tooltip>
+""",
         _ => $"""<{Pascal(Slug)} Class="w-full"><div class="text-sm text-muted-foreground">{Title} content</div></{Pascal(Slug)}>"""
     };
     private string DataTableCode => """<DataTable Class="w-full"><div class="text-sm">Invoices</div></DataTable>""";
     private string RtlCode => $"""<div dir="rtl">{UsageCode}</div>""";
     private string? PreviousHref => PrevNext(-1);
     private string? NextHref => PrevNext(1);
-    private bool HasRtl => Sections.Contains("RTL");
+    private bool HasRtl => Slug != "tooltip" && Sections.Contains("RTL");
     private bool HasApiReference => Sections.Contains("API Reference");
     private bool HasDataTable => Sections.Contains("Data Table");
     private List<string> Sections => ParseSection("Keep the docs page section order identical to the reference:");
     private List<string> ExampleHeadings => ParseSection("Implement these example headings in this exact order:");
     private IReadOnlyList<string> ManualSourcePaths => LoadSourcePaths();
     private IReadOnlyList<string> DependencyCommands => ParseSection("Manual tab dependency steps called out in the docs:");
-    private string? ExampleTitle(string heading) => Slug == "switch" ? heading : null;
+    private string? ExampleTitle(string heading) => Slug is "switch" or "tooltip" ? heading : null;
     private string? ExampleTitleNote(string heading) => Slug == "switch" && heading != "Demo" ? "Coming soon" : null;
 
     private string? PrevNext(int offset)
@@ -376,7 +441,44 @@
         "textarea" => $"""<Textarea Placeholder="{heading}..." Class="min-h-28 max-w-sm" />""",
         "toggle" => $"""<Toggle Variant="outline" Pressed="{(heading.Length % 2 == 0 ? "true" : "false")}">{heading}</Toggle>""",
         "toggle-group" => $"""<ToggleGroup Type="single" Value="left"><ToggleGroupItem Value="left">{heading}</ToggleGroupItem><ToggleGroupItem Value="center">Center</ToggleGroupItem></ToggleGroup>""",
-        "tooltip" => $"""<Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></TooltipTrigger><TooltipContent>{heading}</TooltipContent></Tooltip>""",
+        "tooltip" => heading switch
+        {
+            "Side" => """
+<div class="flex flex-wrap gap-2">
+    <Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Top</Button></TooltipTrigger><TooltipContent Side="top"><p>Add to library</p></TooltipContent></Tooltip>
+    <Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Right</Button></TooltipTrigger><TooltipContent Side="right"><p>Add to library</p></TooltipContent></Tooltip>
+    <Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Bottom</Button></TooltipTrigger><TooltipContent Side="bottom"><p>Add to library</p></TooltipContent></Tooltip>
+    <Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Left</Button></TooltipTrigger><TooltipContent Side="left"><p>Add to library</p></TooltipContent></Tooltip>
+</div>
+""",
+            "With Keyboard Shortcut" => """
+<Tooltip>
+    <TooltipTrigger>
+        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Save changes">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" /><polyline points="17 21 17 13 7 13 7 21" /><polyline points="7 3 7 8 15 8" /></svg>
+        </Button>
+    </TooltipTrigger>
+    <TooltipContent Class="pr-1.5">
+        <div class="flex items-center gap-2">
+            Save Changes <Kbd>S</Kbd>
+        </div>
+    </TooltipContent>
+</Tooltip>
+""",
+            "Disabled Button" => """
+<Tooltip>
+    <TooltipTrigger>
+        <span class="inline-block w-fit">
+            <Button Variant="ButtonVariant.Outline" Disabled="true">Disabled</Button>
+        </span>
+    </TooltipTrigger>
+    <TooltipContent>
+        <p>This feature is currently unavailable</p>
+    </TooltipContent>
+</Tooltip>
+""",
+            _ => """<Tooltip><TooltipTrigger><Button Variant="ButtonVariant.Outline">Hover</Button></TooltipTrigger><TooltipContent><p>Add to library</p></TooltipContent></Tooltip>"""
+        },
         _ => $"""<{Pascal(Slug)} Class="w-full"><div class="space-y-1"><p class="font-medium">{heading}</p><p class="text-sm text-muted-foreground">BlazorShadcn composition.</p></div></{Pascal(Slug)}>"""
     };
 
@@ -598,12 +700,63 @@
             <ToggleGroupItem Value="underline">Underline</ToggleGroupItem>
         </ToggleGroup>,
         "table" => @<Table Class="w-full"><div class="space-y-2"><p class="font-medium">@heading</p><div class="border rounded-md p-4 text-sm text-muted-foreground">Structured rows and cells preview.</div></div></Table>,
-        "tooltip" => @<Tooltip>
-            <TooltipTrigger>
-                <Button Variant="ButtonVariant.Outline">@heading</Button>
-            </TooltipTrigger>
-            <TooltipContent>Add to library</TooltipContent>
-        </Tooltip>,
+        "tooltip" => heading switch
+        {
+            "Side" => @<div class="flex flex-wrap gap-2">
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button Variant="ButtonVariant.Outline">Top</Button>
+                    </TooltipTrigger>
+                    <TooltipContent Side="top"><p>Add to library</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button Variant="ButtonVariant.Outline">Right</Button>
+                    </TooltipTrigger>
+                    <TooltipContent Side="right"><p>Add to library</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button Variant="ButtonVariant.Outline">Bottom</Button>
+                    </TooltipTrigger>
+                    <TooltipContent Side="bottom"><p>Add to library</p></TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button Variant="ButtonVariant.Outline">Left</Button>
+                    </TooltipTrigger>
+                    <TooltipContent Side="left"><p>Add to library</p></TooltipContent>
+                </Tooltip>
+            </div>,
+            "With Keyboard Shortcut" => @<Tooltip>
+                <TooltipTrigger>
+                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Save changes">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" /><polyline points="17 21 17 13 7 13 7 21" /><polyline points="7 3 7 8 15 8" /></svg>
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent Class="pr-1.5">
+                    <div class="flex items-center gap-2">
+                        Save Changes <Kbd>S</Kbd>
+                    </div>
+                </TooltipContent>
+            </Tooltip>,
+            "Disabled Button" => @<Tooltip>
+                <TooltipTrigger>
+                    <span class="inline-block w-fit">
+                        <Button Variant="ButtonVariant.Outline" Disabled="true">Disabled</Button>
+                    </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>This feature is currently unavailable</p>
+                </TooltipContent>
+            </Tooltip>,
+            _ => @<Tooltip>
+                <TooltipTrigger>
+                    <Button Variant="ButtonVariant.Outline">Hover</Button>
+                </TooltipTrigger>
+                <TooltipContent><p>Add to library</p></TooltipContent>
+            </Tooltip>
+        },
         _ => @<div class="border-border bg-card text-card-foreground rounded-lg border p-4">
             <div class="space-y-1">
                 <p class="font-medium">@heading</p>

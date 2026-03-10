@@ -1,23 +1,26 @@
+@namespace ShadcnBlazor.Components.UI
+
 @if (Context?.Open == true)
 {
     <div data-slot="tooltip-content"
          data-side="@Side"
-         class="@Tw.Merge("bg-foreground text-background absolute z-50 w-fit whitespace-nowrap rounded-md px-3 py-1.5 text-xs shadow-md", GetPositionClasses(), Class)"
+         class="@Merge("bg-foreground text-background absolute z-50 w-fit whitespace-nowrap rounded-md px-3 py-1.5 text-xs shadow-md", GetPositionClasses(), Class)"
          @onmouseenter="@(() => SetOpenAsync(true))"
          @onmouseleave="@(() => SetOpenAsync(false))"
          @attributes="AdditionalAttributes">
         @ChildContent
-        <span aria-hidden="true" class="@Tw.Merge("bg-foreground absolute size-2.5 rotate-45 rounded-[2px]", GetArrowClasses())"></span>
+        <span aria-hidden="true" class="@Merge("bg-foreground absolute size-2.5 rotate-45 rounded-[2px]", GetArrowClasses())"></span>
     </div>
 }
 
 @code {
-    [CascadingParameter(Name = "TooltipContext")] private TooltipContext? Context { get; set; }
+    [CascadingParameter(Name = "TooltipContext")] private Tooltip.TooltipContext? Context { get; set; }
+
     [Parameter] public string Side { get; set; } = "top";
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
-    private Task SetOpenAsync(bool value) => Context?.SetOpenAsync(value) ?? Task.CompletedTask;
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private string GetPositionClasses() => Side.ToLowerInvariant() switch
     {
@@ -34,4 +37,10 @@
         "left" => "-right-1 top-1/2 -translate-y-1/2",
         _ => "bottom-[-0.3rem] left-1/2 -translate-x-1/2"
     };
+
+    private Task SetOpenAsync(bool value)
+        => Context?.SetOpenAsync(value) ?? Task.CompletedTask;
+
+    private static string Merge(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
