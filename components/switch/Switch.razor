@@ -1,0 +1,52 @@
+<button type="button"
+        role="switch"
+        aria-checked="@Checked"
+        data-slot="switch"
+        data-state="@(Checked ? "checked" : "unchecked")"
+        data-size="@Size"
+        class="@Tw.Merge(GetRootClasses(), Class)"
+        disabled="@Disabled"
+        @onclick="ToggleAsync"
+        @attributes="AdditionalAttributes">
+    <span data-slot="switch-thumb"
+          data-state="@(Checked ? "checked" : "unchecked")"
+          class="@GetThumbClasses()"></span>
+</button>
+
+@code {
+    [Parameter] public bool Checked { get; set; }
+    [Parameter] public EventCallback<bool> CheckedChanged { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Size { get; set; } = "default";
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetRootClasses()
+    {
+        var sizeClasses = Size == "sm" ? "h-3.5 w-6" : "h-[1.15rem] w-8";
+        var stateClasses = Checked ? "bg-primary" : "bg-input dark:bg-input/80";
+        return $"peer inline-flex shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 {sizeClasses} {stateClasses}";
+    }
+
+    private string GetThumbClasses()
+    {
+        var sizeClasses = Size == "sm" ? "size-3" : "size-4";
+        var translateClasses = Checked ? "translate-x-[calc(100%-2px)]" : "translate-x-0";
+        return $"bg-background pointer-events-none block rounded-full ring-0 transition-transform {sizeClasses} {translateClasses}";
+    }
+
+    private async Task ToggleAsync()
+    {
+        if (Disabled)
+        {
+            return;
+        }
+
+        Checked = !Checked;
+        if (CheckedChanged.HasDelegate)
+        {
+            await CheckedChanged.InvokeAsync(Checked);
+        }
+    }
+}

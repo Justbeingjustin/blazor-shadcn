@@ -54,7 +54,7 @@
                 {
                     <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="@Anchor(heading)">@heading</h3>
                     <div class="mt-6">
-                        <ComponentExample Compact="true" CodeText="@ExampleCode(heading)">
+                        <ComponentExample Compact="true" CodeText="@ExampleCode(heading)" TitleNote="@ExampleTitleNote(heading)">
                             <Preview>@RenderDemo(heading)</Preview>
                             <Code>@ExampleCode(heading)</Code>
                         </ComponentExample>
@@ -96,7 +96,36 @@
                 @if (HasApiReference)
                 {
                     <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
-                    <p class="text-muted-foreground mt-2 text-sm">See the <a class="underline underline-offset-4" href="@ReferenceUrl" target="_blank" rel="noreferrer">reference documentation</a> for the original shadcn API surface.</p>
+                    @if (Slug == "switch")
+                    {
+                        <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Switch</h3>
+                        <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                            <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                                <thead>
+                                    <tr class="m-0 border-b">
+                                        <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                        <th class="px-4 py-2 text-left font-bold">Type</th>
+                                        <th class="px-4 py-2 text-left font-bold">Default</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="[&_tr:last-child]:border-b-0">
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Checked</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">CheckedChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Size</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">default | sm</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default</td></tr>
+                                    <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else if (ApiReferenceUrl is not null)
+                    {
+                        <p class="text-muted-foreground mt-2 text-sm">See the <a class="underline underline-offset-4" href="@ApiReferenceUrl" target="_blank" rel="noreferrer">@($"{Title} API reference")</a>.</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted-foreground mt-2 text-sm">See the <a class="underline underline-offset-4" href="@ReferenceUrl" target="_blank" rel="noreferrer">reference documentation</a> for the original shadcn API surface.</p>
+                    }
                 }
             </div>
         </div>
@@ -152,8 +181,17 @@
         _ => string.Join(" ", Slug.Split('-').Select(static part => char.ToUpperInvariant(part[0]) + part[1..]))
     };
 
-    private string Description => $"{Title} examples and installation guidance for BlazorShadcn.";
+    private string Description => Slug switch
+    {
+        "switch" => "A control that allows the user to toggle between checked and not checked.",
+        _ => $"{Title} examples and installation guidance for BlazorShadcn."
+    };
     private string ReferenceUrl => $"https://ui.shadcn.com/docs/components/{Slug}";
+    private string? ApiReferenceUrl => Slug switch
+    {
+        "switch" => "https://www.radix-ui.com/docs/primitives/components/switch#api-reference",
+        _ => null
+    };
     private string InstallCommand => $"blazor-shadcn add {Slug}";
     private string UsingStatement => "@using BlazorShadcn.Components.UI";
     private string UsageCode => Slug switch
@@ -173,7 +211,12 @@
         "sheet" => """<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">Open sheet</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>Edit profile</SheetTitle><SheetDescription>Make changes to your profile here.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
         "sidebar" => """<Sidebar />""",
         "slider" => """<Slider Value="50" />""",
-        "switch" => """<Switch Checked="true" />""",
+        "switch" => """
+<div class="flex items-center space-x-2">
+    <Switch id="airplane-mode" />
+    <Label For="airplane-mode">Airplane Mode</Label>
+</div>
+""",
         "tabs" => """<Tabs DefaultValue="account"><TabsList><TabsTrigger Value="account">Account</TabsTrigger><TabsTrigger Value="password">Password</TabsTrigger></TabsList><TabsContent Value="account">Account content</TabsContent><TabsContent Value="password">Password content</TabsContent></Tabs>""",
         "textarea" => """<Textarea Placeholder="Type your message here." Class="max-w-sm" />""",
         "toggle" => """<Toggle Variant="outline">Bold</Toggle>""",
@@ -192,6 +235,7 @@
     private List<string> ExampleHeadings => ParseSection("Implement these example headings in this exact order:");
     private IReadOnlyList<string> ManualSourcePaths => LoadSourcePaths();
     private IReadOnlyList<string> DependencyCommands => ParseSection("Manual tab dependency steps called out in the docs:");
+    private string? ExampleTitleNote(string heading) => Slug == "switch" && heading != "Demo" ? "Coming soon" : null;
 
     private string? PrevNext(int offset)
     {
@@ -261,7 +305,7 @@
         "sheet" => $"""<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>{heading}</SheetTitle><SheetDescription>Composable sheet content.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
         "sidebar" => """<Sidebar />""",
         "slider" => $"""<Slider Value="{Math.Min(90, Math.Max(10, heading.Length * 5))}" />""",
-        "switch" => $"""<Switch Checked="{(heading.Length % 2 == 0 ? "true" : "false")}" />""",
+        "switch" => string.Empty,
         "tabs" => $"""<Tabs DefaultValue="first"><TabsList><TabsTrigger Value="first">{heading}</TabsTrigger><TabsTrigger Value="second">Details</TabsTrigger></TabsList><TabsContent Value="first">Primary panel</TabsContent><TabsContent Value="second">Secondary panel</TabsContent></Tabs>""",
         "textarea" => $"""<Textarea Placeholder="{heading}..." Class="min-h-28 max-w-sm" />""",
         "toggle" => $"""<Toggle Variant="outline" Pressed="{(heading.Length % 2 == 0 ? "true" : "false")}">{heading}</Toggle>""",
@@ -410,7 +454,14 @@
                                Header="@SidebarHeader"
                                Footer="@SidebarFooter" />,
         "slider" => @<Slider Value="@Math.Min(90, Math.Max(10, heading.Length * 5))" />,
-        "switch" => @<div class="flex items-center gap-3"><Switch Checked="@(heading.Length % 2 == 0)" /><span class="text-sm text-muted-foreground">@heading</span></div>,
+        "switch" => heading switch
+        {
+            "Demo" => @<div class="flex items-center space-x-2">
+                <Switch id="airplane-mode" />
+                <Label For="airplane-mode">Airplane Mode</Label>
+            </div>,
+            _ => @<div></div>
+        },
         "tabs" => @<Tabs DefaultValue="account" Class="w-full max-w-md">
             <TabsList>
                 <TabsTrigger Value="account">Account</TabsTrigger>
