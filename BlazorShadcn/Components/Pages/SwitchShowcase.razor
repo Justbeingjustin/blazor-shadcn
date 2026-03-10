@@ -1,2 +1,407 @@
 @page "/components/switch"
-<GeneratedShowcase Slug="switch" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Switch - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Switch</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/spinner"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/table"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    A control that allows the user to toggle between checked and not checked.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex items-center space-x-2">
+                            <Switch id="airplane-mode" />
+                            <Label For="airplane-mode">Airplane Mode</Label>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the switch component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Install the required dependencies.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@dependencyCommand">@dependencyCommand</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalSwitchSourcePath</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_switchManualSource">@_switchManualSource</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">3</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Description" TitleNote="Coming soon" Compact="true" CodeText="@codeDescription">
+                        <Preview>
+                            <div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4">
+                                <div class="space-y-1">
+                                    <p class="text-sm font-medium">Share across devices</p>
+                                    <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+                                </div>
+                                <Switch id="switch-focus-mode" />
+                            </div>
+                        </Preview>
+                        <Code>@codeDescription</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Choice Card" TitleNote="Coming soon" Compact="true" CodeText="@codeChoiceCard">
+                        <Preview>
+                            <div class="grid w-full max-w-sm gap-3">
+                                <div class="flex items-center justify-between rounded-lg border p-4">
+                                    <div class="space-y-1">
+                                        <p class="text-sm font-medium">Share across devices</p>
+                                        <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+                                    </div>
+                                    <Switch id="switch-share" />
+                                </div>
+                                <div class="flex items-center justify-between rounded-lg border p-4">
+                                    <div class="space-y-1">
+                                        <p class="text-sm font-medium">Enable notifications</p>
+                                        <p class="text-muted-foreground text-sm">Receive notifications when focus mode is enabled or disabled.</p>
+                                    </div>
+                                    <Switch id="switch-notifications" Checked="true" />
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeChoiceCard</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" TitleNote="Coming soon" Compact="true" CodeText="@codeDisabled">
+                        <Preview>
+                            <div class="flex flex-col gap-6">
+                                <div class="flex items-center space-x-2">
+                                    <Switch id="switch-disabled-unchecked" Disabled="true" />
+                                    <Label For="switch-disabled-unchecked">Disabled (Unchecked)</Label>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <Switch id="switch-disabled-checked" Checked="true" Disabled="true" />
+                                    <Label For="switch-disabled-checked">Disabled (Checked)</Label>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeDisabled</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Invalid" TitleNote="Coming soon" Compact="true" CodeText="@codeInvalid">
+                        <Preview>
+                            <div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4" data-invalid="true">
+                                <div class="space-y-1">
+                                    <p class="text-sm font-medium">Security alerts</p>
+                                    <p class="text-muted-foreground text-sm">This setting needs attention before it can be enabled.</p>
+                                </div>
+                                <Switch id="switch-invalid" aria-invalid="true" />
+                            </div>
+                        </Preview>
+                        <Code>@codeInvalid</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Size" TitleNote="Coming soon" Compact="true" CodeText="@codeSize">
+                        <Preview>
+                            <div class="flex flex-col gap-6">
+                                <div class="flex items-center space-x-2">
+                                    <Switch id="switch-size-sm" Size="sm" />
+                                    <Label For="switch-size-sm">Small</Label>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <Switch id="switch-size-default" />
+                                    <Label For="switch-size-default">Default</Label>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeSize</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Switch</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Checked</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">CheckedChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Size</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">default | sm</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#description" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Description</a>
+                <a href="#choice-card" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Choice Card</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Disabled</a>
+                <a href="#invalid" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Invalid</a>
+                <a href="#size" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Size</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string canonicalSwitchSourcePath = "components/switch/Switch.razor";
+    private string _switchManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalSwitchSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _switchManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : fallbackSwitchSource;
+    }
+
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "blazor-shadcn add switch";
+    private const string dependencyCommand = "npm install radix-ui";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/switch";
+
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = "<Switch />";
+    private const string codeMainDemo = """
+<div class="flex items-center space-x-2">
+    <Switch id="airplane-mode" />
+    <Label For="airplane-mode">Airplane Mode</Label>
+</div>
+""";
+    private const string codeDescription = """
+<div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4">
+    <div class="space-y-1">
+        <p class="text-sm font-medium">Share across devices</p>
+        <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+    </div>
+    <Switch id="switch-focus-mode" />
+</div>
+""";
+    private const string codeChoiceCard = """
+<div class="grid w-full max-w-sm gap-3">
+    <div class="flex items-center justify-between rounded-lg border p-4">
+        <div class="space-y-1">
+            <p class="text-sm font-medium">Share across devices</p>
+            <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+        </div>
+        <Switch id="switch-share" />
+    </div>
+    <div class="flex items-center justify-between rounded-lg border p-4">
+        <div class="space-y-1">
+            <p class="text-sm font-medium">Enable notifications</p>
+            <p class="text-muted-foreground text-sm">Receive notifications when focus mode is enabled or disabled.</p>
+        </div>
+        <Switch id="switch-notifications" Checked="true" />
+    </div>
+</div>
+""";
+    private const string codeDisabled = """
+<div class="flex flex-col gap-6">
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-disabled-unchecked" Disabled="true" />
+        <Label For="switch-disabled-unchecked">Disabled (Unchecked)</Label>
+    </div>
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-disabled-checked" Checked="true" Disabled="true" />
+        <Label For="switch-disabled-checked">Disabled (Checked)</Label>
+    </div>
+</div>
+""";
+    private const string codeInvalid = """
+<div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4" data-invalid="true">
+    <div class="space-y-1">
+        <p class="text-sm font-medium">Security alerts</p>
+        <p class="text-muted-foreground text-sm">This setting needs attention before it can be enabled.</p>
+    </div>
+    <Switch id="switch-invalid" aria-invalid="true" />
+</div>
+""";
+    private const string codeSize = """
+<div class="flex flex-col gap-6">
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-size-sm" Size="sm" />
+        <Label For="switch-size-sm">Small</Label>
+    </div>
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-size-default" />
+        <Label For="switch-size-default">Default</Label>
+    </div>
+</div>
+""";
+
+    private const string fallbackSwitchSource = """
+@namespace ShadcnBlazor.Components.UI
+
+<button type="button"
+        role="switch"
+        aria-checked="@Checked"
+        data-slot="switch"
+        data-state="@(Checked ? "checked" : "unchecked")"
+        data-size="@Size"
+        class="@Tw.Merge(GetRootClasses(), Class)"
+        disabled="@Disabled"
+        @onclick="ToggleAsync"
+        @attributes="AdditionalAttributes">
+    <span data-slot="switch-thumb"
+          data-state="@(Checked ? "checked" : "unchecked")"
+          class="@GetThumbClasses()"></span>
+</button>
+
+@code {
+    [Parameter] public bool Checked { get; set; }
+    [Parameter] public EventCallback<bool> CheckedChanged { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Size { get; set; } = "default";
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetRootClasses()
+    {
+        var sizeClasses = Size == "sm" ? "h-3.5 w-6" : "h-[1.15rem] w-8";
+        var stateClasses = Checked ? "bg-primary" : "bg-input dark:bg-input/80";
+        return $"peer inline-flex shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 {sizeClasses} {stateClasses}";
+    }
+
+    private string GetThumbClasses()
+    {
+        var sizeClasses = Size == "sm" ? "size-3" : "size-4";
+        var translateClasses = Checked ? "translate-x-[calc(100%-2px)]" : "translate-x-0";
+        return $"bg-background pointer-events-none block rounded-full ring-0 transition-transform {sizeClasses} {translateClasses}";
+    }
+
+    private async Task ToggleAsync()
+    {
+        if (Disabled)
+        {
+            return;
+        }
+
+        Checked = !Checked;
+        if (CheckedChanged.HasDelegate)
+        {
+            await CheckedChanged.InvokeAsync(Checked);
+        }
+    }
+}
+""";
+}
