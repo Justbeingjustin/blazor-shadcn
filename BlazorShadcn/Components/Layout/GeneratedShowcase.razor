@@ -277,7 +277,11 @@
 """,
         "tabs" => """<Tabs DefaultValue="account"><TabsList><TabsTrigger Value="account">Account</TabsTrigger><TabsTrigger Value="password">Password</TabsTrigger></TabsList><TabsContent Value="account">Account content</TabsContent><TabsContent Value="password">Password content</TabsContent></Tabs>""",
         "textarea" => """<Textarea Placeholder="Type your message here." Class="max-w-sm" />""",
-        "toggle" => """<Toggle Variant="outline">Bold</Toggle>""",
+        "toggle" => """
+<div class="flex flex-col items-center py-6">
+    <Toggle Variant="outline">Bold</Toggle>
+</div>
+""",
         "toggle-group" => """<ToggleGroup Type="single" Value="bold"><ToggleGroupItem Value="bold">Bold</ToggleGroupItem><ToggleGroupItem Value="italic">Italic</ToggleGroupItem></ToggleGroup>""",
         "tooltip" => """
 <div class="flex flex-col items-center py-6">
@@ -441,7 +445,39 @@
         },
         "tabs" => $"""<Tabs DefaultValue="first"><TabsList><TabsTrigger Value="first">{heading}</TabsTrigger><TabsTrigger Value="second">Details</TabsTrigger></TabsList><TabsContent Value="first">Primary panel</TabsContent><TabsContent Value="second">Secondary panel</TabsContent></Tabs>""",
         "textarea" => $"""<Textarea Placeholder="{heading}..." Class="min-h-28 max-w-sm" />""",
-        "toggle" => $"""<Toggle Variant="outline" Pressed="{(heading.Length % 2 == 0 ? "true" : "false")}">{heading}</Toggle>""",
+        "toggle" => heading switch
+        {
+            "Outline" => """
+<div class="flex flex-col items-center py-6">
+    <Toggle Variant="outline">Outline</Toggle>
+</div>
+""",
+            "With Text" => """
+<div class="flex flex-col items-center py-6">
+    <Toggle Variant="outline">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3" /><path d="M9 20h6" /><path d="M12 4v16" /></svg>
+        Bold
+    </Toggle>
+</div>
+""",
+            "Size" => """
+<div class="flex flex-wrap justify-center gap-2 py-6">
+    <Toggle Size="sm" Variant="outline">Small</Toggle>
+    <Toggle Variant="outline">Default</Toggle>
+    <Toggle Size="lg" Variant="outline">Large</Toggle>
+</div>
+""",
+            "Disabled" => """
+<div class="flex flex-col items-center py-6">
+    <Toggle Variant="outline" Disabled="true">Disabled</Toggle>
+</div>
+""",
+            _ => """
+<div class="flex flex-col items-center py-6">
+    <Toggle Variant="outline">Bold</Toggle>
+</div>
+"""
+        },
         "toggle-group" => $"""<ToggleGroup Type="single" Value="left"><ToggleGroupItem Value="left">{heading}</ToggleGroupItem><ToggleGroupItem Value="center">Center</ToggleGroupItem></ToggleGroup>""",
         "tooltip" => heading switch
         {
@@ -708,7 +744,29 @@
             </TabsContent>
         </Tabs>,
         "textarea" => @<Textarea Placeholder="@($"{heading}...")" Class="min-h-28 max-w-sm" />,
-        "toggle" => @<Toggle Variant="outline" Pressed="@(heading.Length % 2 == 0)">@heading</Toggle>,
+        "toggle" => heading switch
+        {
+            "Outline" => @<div class="flex flex-col items-center py-6">
+                <Toggle Variant="outline">Outline</Toggle>
+            </div>,
+            "With Text" => @<div class="flex flex-col items-center py-6">
+                <Toggle Variant="outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3" /><path d="M9 20h6" /><path d="M12 4v16" /></svg>
+                    Bold
+                </Toggle>
+            </div>,
+            "Size" => @<div class="flex flex-wrap justify-center gap-2 py-6">
+                <Toggle Size="sm" Variant="outline">Small</Toggle>
+                <Toggle Variant="outline">Default</Toggle>
+                <Toggle Size="lg" Variant="outline">Large</Toggle>
+            </div>,
+            "Disabled" => @<div class="flex flex-col items-center py-6">
+                <Toggle Variant="outline" Disabled="true">Disabled</Toggle>
+            </div>,
+            _ => @<div class="flex flex-col items-center py-6">
+                <Toggle Variant="outline">Bold</Toggle>
+            </div>
+        },
         "toggle-group" => @<ToggleGroup Type="single" Value="bold">
             <ToggleGroupItem Value="bold">Bold</ToggleGroupItem>
             <ToggleGroupItem Value="italic">Italic</ToggleGroupItem>

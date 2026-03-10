@@ -1,2 +1,380 @@
 @page "/components/toggle"
-<GeneratedShowcase Slug="toggle" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Toggle - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Toggle</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/toast"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/toggle-group"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    A two-state button that can be either on or off.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex flex-col items-center py-6">
+                            <Toggle aria-label="Toggle bookmark"
+                                    Size="sm"
+                                    Variant="outline"
+                                    Class="[&[data-state=on]_svg]:fill-black [&[data-state=on]_svg]:stroke-black"
+                                    Pressed="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                                </svg>
+                                Bookmark
+                            </Toggle>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the toggle component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Install the dependency.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@dependencyCommand">@dependencyCommand</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">components/toggle/Toggle.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_toggleManualSource">@_toggleManualSource</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Outline" Compact="true" CodeText="@codeOutline">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Variant="outline"</code> for an outline style.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex flex-col items-center py-6">
+                                <Toggle Variant="outline" aria-label="Toggle italic">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+                                        <line x1="19" x2="10" y1="4" y2="4" />
+                                        <line x1="14" x2="5" y1="20" y2="20" />
+                                        <line x1="15" x2="9" y1="4" y2="20" />
+                                    </svg>
+                                </Toggle>
+                            </div>
+                        </Preview>
+                        <Code>@codeOutline</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="With Text" Compact="true" CodeText="@codeWithText">
+                        <Preview>
+                            <div class="flex flex-col items-center py-6">
+                                <Toggle aria-label="Toggle italic">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" x2="10" y1="4" y2="4" />
+                                        <line x1="14" x2="5" y1="20" y2="20" />
+                                        <line x1="15" x2="9" y1="4" y2="20" />
+                                    </svg>
+                                    Italic
+                                </Toggle>
+                            </div>
+                        </Preview>
+                        <Code>@codeWithText</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Size" Compact="true" CodeText="@codeSize">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Size</code> parameter to change the size of the toggle.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex flex-wrap items-center justify-center gap-2 py-6">
+                                <Toggle Variant="outline" Size="sm">Small</Toggle>
+                                <Toggle Variant="outline">Default</Toggle>
+                                <Toggle Variant="outline" Size="lg">Large</Toggle>
+                            </div>
+                        </Preview>
+                        <Code>@codeSize</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled">
+                        <Preview>
+                            <div class="flex flex-wrap items-center justify-center gap-2 py-6">
+                                <Toggle aria-label="Toggle disabled" Disabled="true">
+                                    Disabled
+                                </Toggle>
+                                <Toggle Variant="outline" aria-label="Toggle disabled outline" Disabled="true">
+                                    Disabled
+                                </Toggle>
+                            </div>
+                        </Preview>
+                        <Code>@codeDisabled</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Toggle</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Pressed</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">PressedChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">default | outline</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Size</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">default | sm | lg</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#outline" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Outline</a>
+                <a href="#with-text" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">With Text</a>
+                <a href="#size" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Size</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Disabled</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string canonicalToggleSourcePath = "components/toggle/Toggle.razor";
+    private string _toggleManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, "..", canonicalToggleSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _toggleManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : sourceToggleRazor;
+    }
+
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add toggle";
+    private const string dependencyCommand = "npm install radix-ui";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/toggle";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
+    private const string usageCode = "<Toggle>Toggle</Toggle>";
+
+    private const string codeMainDemo = """
+<div class="flex flex-col items-center py-6">
+    <Toggle aria-label="Toggle bookmark"
+            Size="sm"
+            Variant="outline"
+            Class="[&[data-state=on]_svg]:fill-black [&[data-state=on]_svg]:stroke-black"
+            Pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+        </svg>
+        Bookmark
+    </Toggle>
+</div>
+""";
+
+    private const string codeOutline = """
+<div class="flex flex-col items-center py-6">
+    <Toggle Variant="outline" aria-label="Toggle italic">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+        </svg>
+    </Toggle>
+</div>
+""";
+
+    private const string codeWithText = """
+<div class="flex flex-col items-center py-6">
+    <Toggle aria-label="Toggle italic">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+        </svg>
+        Italic
+    </Toggle>
+</div>
+""";
+
+    private const string codeSize = """
+<div class="flex flex-wrap items-center justify-center gap-2 py-6">
+    <Toggle Variant="outline" Size="sm">Small</Toggle>
+    <Toggle Variant="outline">Default</Toggle>
+    <Toggle Variant="outline" Size="lg">Large</Toggle>
+</div>
+""";
+
+    private const string codeDisabled = """
+<div class="flex flex-wrap items-center justify-center gap-2 py-6">
+    <Toggle aria-label="Toggle disabled" Disabled="true">
+        Disabled
+    </Toggle>
+    <Toggle Variant="outline" aria-label="Toggle disabled outline" Disabled="true">
+        Disabled
+    </Toggle>
+</div>
+""";
+
+    private const string sourceToggleRazor = """
+@namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
+
+<button type="button"
+        data-slot="toggle"
+        data-state="@(Pressed ? "on" : "off")"
+        class="@Tw.Merge(GetClasses(), Class)"
+        disabled="@Disabled"
+        aria-pressed="@Pressed"
+        @onclick="ToggleAsync"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter] public bool Pressed { get; set; }
+    [Parameter] public EventCallback<bool> PressedChanged { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Variant { get; set; } = "default";
+    [Parameter] public string Size { get; set; } = "default";
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+    {
+        var variantClasses = Variant == "outline"
+            ? "border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground"
+            : "bg-transparent";
+        var sizeClasses = Size switch
+        {
+            "sm" => "h-8 px-1.5 min-w-8",
+            "lg" => "h-10 px-2.5 min-w-10",
+            _ => "h-9 px-2 min-w-9"
+        };
+        var activeClasses = Pressed ? "bg-accent text-accent-foreground" : "hover:bg-muted hover:text-muted-foreground";
+        return $"inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[color,box-shadow] whitespace-nowrap {variantClasses} {sizeClasses} {activeClasses}";
+    }
+
+    private async Task ToggleAsync()
+    {
+        if (Disabled)
+        {
+            return;
+        }
+
+        Pressed = !Pressed;
+        if (PressedChanged.HasDelegate)
+        {
+            await PressedChanged.InvokeAsync(Pressed);
+        }
+    }
+}
+""";
+}
