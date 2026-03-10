@@ -1,6 +1,9 @@
+@namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Components.UI
+
 <CascadingValue Name="ToggleGroupContext" Value="@_context">
     <div data-slot="toggle-group"
-         class="@Tw.Merge("inline-flex items-center justify-center", GetSpacingClass(), Orientation == "vertical" ? "flex-col" : "flex-row", Class)"
+         class="@Merge("inline-flex items-center justify-center", GetSpacingClass(), Orientation == "vertical" ? "flex-col" : "flex-row", Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
@@ -19,7 +22,8 @@
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private HashSet<string> _values = [];
     private ToggleGroupContext _context = default!;
@@ -81,4 +85,7 @@
         4 => "gap-4",
         _ => "gap-1"
     };
+
+    private static string Merge(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

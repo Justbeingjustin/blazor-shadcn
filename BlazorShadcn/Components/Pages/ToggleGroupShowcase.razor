@@ -1,2 +1,187 @@
 @page "/components/toggle-group"
-<GeneratedShowcase Slug="toggle-group" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Toggle Group - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Toggle Group</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/toggle" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">@ArrowLeft</Button>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/tooltip" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">@ArrowRight</Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">A set of two-state buttons that can be toggled on or off.</p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample CodeText="@codeMainDemo">
+                    <Preview><div class="flex flex-col items-center py-6">@OutlineGroup</div></Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the toggle group component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground">Command</button>
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground">Manual</button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4"><CodeBlock RawText="@installCommand">@installCommand</CodeBlock></div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Install the dependency.</p>
+                                <div class="mt-3"><CodeBlock RawText="@dependencyCommand">@dependencyCommand</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy the following files into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">components/toggle-group/ToggleGroup.razor</p>
+                                <div class="mt-3"><CodeBlock RawText="@_toggleGroupSource">@_toggleGroupSource</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/toggle-group/ToggleGroupItem.razor</p>
+                                <div class="mt-3"><CodeBlock RawText="@_toggleGroupItemSource">@_toggleGroupItemSource</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/toggle-group/ToggleGroupContext.cs</p>
+                                <div class="mt-3"><CodeBlock RawText="@_toggleGroupContextSource">@_toggleGroupContextSource</CodeBlock></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6"><ComponentExample Title="Outline" Compact="true" CodeText="@codeOutline"><Description><p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Variant="outline"</code> for an outline style.</p></Description><Preview><div class="flex flex-col items-center py-6">@OutlineGroup</div></Preview><Code>@codeOutline</Code></ComponentExample></div>
+                <div class="mt-6"><ComponentExample Title="Size" Compact="true" CodeText="@codeSize"><Description><p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Size</code> parameter to change the size of the toggle group.</p></Description><Preview><div class="flex flex-col items-center gap-4 py-6">@SmallTextGroup @DefaultTextGroup @LargeIconGroup</div></Preview><Code>@codeSize</Code></ComponentExample></div>
+                <div class="mt-6"><ComponentExample Title="Spacing" Compact="true" CodeText="@codeSpacing"><Description><p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Spacing</code> to add spacing between toggle group items.</p></Description><Preview><div class="flex flex-col items-center py-6">@SpacingGroup</div></Preview><Code>@codeSpacing</Code></ComponentExample></div>
+                <div class="mt-6"><ComponentExample Title="Vertical" Compact="true" CodeText="@codeVertical"><Description><p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Orientation="vertical"</code> for vertical toggle groups.</p></Description><Preview><div class="flex flex-col items-center py-6">@VerticalGroup</div></Preview><Code>@codeVertical</Code></ComponentExample></div>
+                <div class="mt-6"><ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled"><Preview><div class="flex flex-col items-center py-6">@DisabledGroup</div></Preview><Code>@codeDisabled</Code></ComponentExample></div>
+                <div class="mt-6"><ComponentExample Title="Custom" Compact="true" CodeText="@codeCustom"><Description><p class="text-muted-foreground text-sm">A custom toggle group example.</p></Description><Preview><div class="w-full max-w-xs py-6"><div class="space-y-3 rounded-lg border p-4"><div class="space-y-1"><p class="text-sm font-medium">Font Weight</p><p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">font-@_fontWeight</code> to set the font weight.</p></div><ToggleGroup Type="single" Value="@_fontWeight" ValueChanged="OnFontWeightChanged" Variant="outline" Spacing="2" Size="lg"><ToggleGroupItem Value="light" aria-label="Light" Class="flex size-16 flex-col items-center justify-center rounded-xl"><span class="text-2xl leading-none font-light">Aa</span><span class="text-muted-foreground text-xs">Light</span></ToggleGroupItem><ToggleGroupItem Value="normal" aria-label="Normal" Class="flex size-16 flex-col items-center justify-center rounded-xl"><span class="text-2xl leading-none font-normal">Aa</span><span class="text-muted-foreground text-xs">Normal</span></ToggleGroupItem><ToggleGroupItem Value="medium" aria-label="Medium" Class="flex size-16 flex-col items-center justify-center rounded-xl"><span class="text-2xl leading-none font-medium">Aa</span><span class="text-muted-foreground text-xs">Medium</span></ToggleGroupItem><ToggleGroupItem Value="bold" aria-label="Bold" Class="flex size-16 flex-col items-center justify-center rounded-xl"><span class="text-2xl leading-none font-bold">Aa</span><span class="text-muted-foreground text-xs">Bold</span></ToggleGroupItem></ToggleGroup></div></div></Preview><Code>@codeCustom</Code></ComponentExample></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">ToggleGroup</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Type</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">single | multiple</code></td><td class="px-4 py-2 text-left whitespace-nowrap">single</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Value</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Values</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">IEnumerable&lt;string&gt;?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">default | outline</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Size</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">default | sm | lg</code></td><td class="px-4 py-2 text-left whitespace-nowrap">default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Orientation</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">horizontal | vertical</code></td><td class="px-4 py-2 text-left whitespace-nowrap">horizontal</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Spacing</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">int</code></td><td class="px-4 py-2 text-left whitespace-nowrap">1</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">ToggleGroupItem</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Value</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">required</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#outline" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Outline</a>
+                <a href="#size" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Size</a>
+                <a href="#spacing" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Spacing</a>
+                <a href="#vertical" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Vertical</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Disabled</a>
+                <a href="#custom" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Custom</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _toggleGroupSource = string.Empty;
+    private string _toggleGroupItemSource = string.Empty;
+    private string _toggleGroupContextSource = string.Empty;
+    private string _fontWeight = "normal";
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    protected override void OnInitialized()
+    {
+        _toggleGroupSource = LoadSource("components/toggle-group/ToggleGroup.razor");
+        _toggleGroupItemSource = LoadSource("components/toggle-group/ToggleGroupItem.razor");
+        _toggleGroupContextSource = LoadSource("components/toggle-group/ToggleGroupContext.cs");
+    }
+
+    private string LoadSource(string relativePath)
+    {
+        var fullPath = Path.Combine(Environment.ContentRootPath, "..", relativePath.Replace('/', Path.DirectorySeparatorChar));
+        return File.Exists(fullPath) ? File.ReadAllText(fullPath) : string.Empty;
+    }
+
+    private Task OnFontWeightChanged(string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            _fontWeight = value;
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private enum InstallationTab { Command, Manual }
+
+    private const string installCommand = "blazor-shadcn add toggle-group";
+    private const string dependencyCommand = "npm install radix-ui";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/toggle-group";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
+    private const string usageCode = "<ToggleGroup Type=\"single\"><ToggleGroupItem Value=\"a\">A</ToggleGroupItem><ToggleGroupItem Value=\"b\">B</ToggleGroupItem><ToggleGroupItem Value=\"c\">C</ToggleGroupItem></ToggleGroup>";
+    private const string codeMainDemo = "<ToggleGroup Type=\"multiple\" Variant=\"outline\">...</ToggleGroup>";
+    private const string codeOutline = codeMainDemo;
+    private const string codeSize = "<div class=\"flex flex-col items-center gap-4 py-6\"><ToggleGroup Type=\"single\" Size=\"sm\" Variant=\"outline\">...</ToggleGroup><ToggleGroup Type=\"single\" Variant=\"outline\">...</ToggleGroup><ToggleGroup Type=\"multiple\" Size=\"lg\">...</ToggleGroup></div>";
+    private const string codeSpacing = "<ToggleGroup Type=\"single\" Size=\"sm\" Variant=\"outline\" Value=\"top\" Spacing=\"2\">...</ToggleGroup>";
+    private const string codeVertical = "<ToggleGroup Type=\"multiple\" Orientation=\"vertical\" Values=\"@(new[] { \"bold\", \"italic\" })\">...</ToggleGroup>";
+    private const string codeDisabled = "<ToggleGroup Type=\"multiple\" Disabled=\"true\">...</ToggleGroup>";
+    private const string codeCustom = "<ToggleGroup Type=\"single\" Variant=\"outline\" Spacing=\"2\" Size=\"lg\" Value=\"normal\">...</ToggleGroup>";
+
+    private RenderFragment OutlineGroup => @<ToggleGroup Type="multiple" Variant="outline"><ToggleGroupItem Value="bold" aria-label="Toggle bold">@BoldIcon</ToggleGroupItem><ToggleGroupItem Value="italic" aria-label="Toggle italic">@ItalicIcon</ToggleGroupItem><ToggleGroupItem Value="strikethrough" aria-label="Toggle strikethrough">@UnderlineIcon</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment SmallTextGroup => @<ToggleGroup Type="single" Size="sm" Variant="outline" Value="top"><ToggleGroupItem Value="top" aria-label="Toggle top">Top</ToggleGroupItem><ToggleGroupItem Value="bottom" aria-label="Toggle bottom">Bottom</ToggleGroupItem><ToggleGroupItem Value="left" aria-label="Toggle left">Left</ToggleGroupItem><ToggleGroupItem Value="right" aria-label="Toggle right">Right</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment DefaultTextGroup => @<ToggleGroup Type="single" Variant="outline" Value="top"><ToggleGroupItem Value="top" aria-label="Toggle top">Top</ToggleGroupItem><ToggleGroupItem Value="bottom" aria-label="Toggle bottom">Bottom</ToggleGroupItem><ToggleGroupItem Value="left" aria-label="Toggle left">Left</ToggleGroupItem><ToggleGroupItem Value="right" aria-label="Toggle right">Right</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment LargeIconGroup => @<ToggleGroup Type="multiple" Size="lg"><ToggleGroupItem Value="bold" aria-label="Toggle bold">@BoldIcon</ToggleGroupItem><ToggleGroupItem Value="italic" aria-label="Toggle italic">@ItalicIcon</ToggleGroupItem><ToggleGroupItem Value="strikethrough" aria-label="Toggle strikethrough">@UnderlineIcon</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment SpacingGroup => @<ToggleGroup Type="single" Size="sm" Variant="outline" Value="top" Spacing="2"><ToggleGroupItem Value="top" aria-label="Toggle top">Top</ToggleGroupItem><ToggleGroupItem Value="bottom" aria-label="Toggle bottom">Bottom</ToggleGroupItem><ToggleGroupItem Value="left" aria-label="Toggle left">Left</ToggleGroupItem><ToggleGroupItem Value="right" aria-label="Toggle right">Right</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment VerticalGroup => @<ToggleGroup Type="multiple" Orientation="vertical" Values="@(new[] { "bold", "italic" })"><ToggleGroupItem Value="bold" aria-label="Toggle bold">@BoldIcon</ToggleGroupItem><ToggleGroupItem Value="italic" aria-label="Toggle italic">@ItalicIcon</ToggleGroupItem><ToggleGroupItem Value="underline" aria-label="Toggle underline">@UnderlineIcon</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment DisabledGroup => @<ToggleGroup Type="multiple" Disabled="true"><ToggleGroupItem Value="bold" aria-label="Toggle bold">@BoldIcon</ToggleGroupItem><ToggleGroupItem Value="italic" aria-label="Toggle italic">@ItalicIcon</ToggleGroupItem><ToggleGroupItem Value="strikethrough" aria-label="Toggle strikethrough">@UnderlineIcon</ToggleGroupItem></ToggleGroup>;
+    private RenderFragment ArrowLeft => @<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>;
+    private RenderFragment ArrowRight => @<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>;
+    private RenderFragment BoldIcon => @<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M6 4h8a4 4 0 0 1 0 8H6z" /><path d="M6 12h9a4 4 0 0 1 0 8H6z" /></svg>;
+    private RenderFragment ItalicIcon => @<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><line x1="19" x2="10" y1="4" y2="4" /><line x1="14" x2="5" y1="20" y2="20" /><line x1="15" x2="9" y1="4" y2="20" /></svg>;
+    private RenderFragment UnderlineIcon => @<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M6 4v6a6 6 0 0 0 12 0V4" /><line x1="4" x2="20" y1="20" y2="20" /></svg>;
+}

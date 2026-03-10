@@ -1,3 +1,6 @@
+@namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Components.UI
+
 <Toggle Variant="@ResolvedVariant"
         Size="@ResolvedSize"
         Pressed="@Pressed"
@@ -14,7 +17,8 @@
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private bool Pressed => Context?.Values.Contains(Value) ?? false;
     private string ResolvedVariant => Context?.Variant ?? "default";
