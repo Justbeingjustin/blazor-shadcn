@@ -125,14 +125,14 @@
                 <div class="mt-6">
                     <ComponentExample Title="Vertical" Compact="true" CodeText="@codeVertical">
                         <Description>
-                            <p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Orientation="SeparatorOrientation.Vertical"</code> for vertical separators.</p>
+                            <p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Orientation="@Separator.SeparatorOrientation.Vertical"</code> for vertical separators.</p>
                         </Description>
                         <Preview>
                             <div class="flex h-5 items-center space-x-4 text-sm">
                                 <span>Blog</span>
-                                <Separator Orientation="SeparatorOrientation.Vertical" />
+                                <Separator Orientation="@Separator.SeparatorOrientation.Vertical" />
                                 <span>Docs</span>
-                                <Separator Orientation="SeparatorOrientation.Vertical" />
+                                <Separator Orientation="@Separator.SeparatorOrientation.Vertical" />
                                 <span>Source</span>
                             </div>
                         </Preview>
@@ -152,14 +152,14 @@
                                     <span class="text-muted-foreground text-xs">Manage preferences</span>
                                 </div>
                                 <div class="mx-1 flex h-10 items-center">
-                                    <Separator Orientation="SeparatorOrientation.Vertical" Class="shrink-0 bg-foreground/20" />
+                                    <Separator Orientation="@Separator.SeparatorOrientation.Vertical" Class="shrink-0 bg-foreground/20" />
                                 </div>
                                 <div class="flex flex-col gap-1">
                                     <span class="font-medium">Account</span>
                                     <span class="text-muted-foreground text-xs">Profile &amp; security</span>
                                 </div>
                                 <div class="mx-1 hidden h-10 items-center md:flex">
-                                    <Separator Orientation="SeparatorOrientation.Vertical" Class="shrink-0 bg-foreground/20" />
+                                    <Separator Orientation="@Separator.SeparatorOrientation.Vertical" Class="shrink-0 bg-foreground/20" />
                                 </div>
                                 <div class="hidden flex-col gap-1 md:flex">
                                     <span class="font-medium">Help</span>
@@ -325,9 +325,9 @@
 
     private const string codeVertical = @"<div class=""flex h-5 items-center space-x-4 text-sm"">
     <span>Blog</span>
-    <Separator Orientation=""SeparatorOrientation.Vertical"" />
+    <Separator Orientation=""@Separator.SeparatorOrientation.Vertical"" />
     <span>Docs</span>
-    <Separator Orientation=""SeparatorOrientation.Vertical"" />
+    <Separator Orientation=""@Separator.SeparatorOrientation.Vertical"" />
     <span>Source</span>
 </div>";
 
@@ -337,14 +337,14 @@
         <span class=""text-muted-foreground text-xs"">Manage preferences</span>
     </div>
     <div class=""mx-1 flex h-10 items-center"">
-        <Separator Orientation=""SeparatorOrientation.Vertical"" Class=""shrink-0 bg-foreground/20"" />
+        <Separator Orientation=""@Separator.SeparatorOrientation.Vertical"" Class=""shrink-0 bg-foreground/20"" />
     </div>
     <div class=""flex flex-col gap-1"">
         <span class=""font-medium"">Account</span>
         <span class=""text-muted-foreground text-xs"">Profile &amp; security</span>
     </div>
     <div class=""mx-1 hidden h-10 items-center md:flex"">
-        <Separator Orientation=""SeparatorOrientation.Vertical"" Class=""shrink-0 bg-foreground/20"" />
+        <Separator Orientation=""@Separator.SeparatorOrientation.Vertical"" Class=""shrink-0 bg-foreground/20"" />
     </div>
     <div class=""hidden flex-col gap-1 md:flex"">
         <span class=""font-medium"">Help</span>
