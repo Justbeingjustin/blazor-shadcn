@@ -201,13 +201,23 @@
     private const string codeMainDemo = """
 <ToggleGroup Type="multiple" Variant="outline">
     <ToggleGroupItem Value="bold" aria-label="Toggle bold">
-        @BoldIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M6 4h8a4 4 0 0 1 0 8H6z" />
+            <path d="M6 12h9a4 4 0 0 1 0 8H6z" />
+        </svg>
     </ToggleGroupItem>
     <ToggleGroupItem Value="italic" aria-label="Toggle italic">
-        @ItalicIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+        </svg>
     </ToggleGroupItem>
     <ToggleGroupItem Value="strikethrough" aria-label="Toggle strikethrough">
-        @UnderlineIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" x2="20" y1="20" y2="20" />
+        </svg>
     </ToggleGroupItem>
 </ToggleGroup>
 """;
@@ -248,26 +258,46 @@
     private const string codeVertical = """
 <ToggleGroup Type="multiple" Orientation="vertical" Spacing="1" Values="@(new[] { "bold", "italic" })">
     <ToggleGroupItem Value="bold" aria-label="Toggle bold">
-        @BoldIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M6 4h8a4 4 0 0 1 0 8H6z" />
+            <path d="M6 12h9a4 4 0 0 1 0 8H6z" />
+        </svg>
     </ToggleGroupItem>
     <ToggleGroupItem Value="italic" aria-label="Toggle italic">
-        @ItalicIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+        </svg>
     </ToggleGroupItem>
     <ToggleGroupItem Value="underline" aria-label="Toggle underline">
-        @UnderlineIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" x2="20" y1="20" y2="20" />
+        </svg>
     </ToggleGroupItem>
 </ToggleGroup>
 """;
     private const string codeDisabled = """
 <ToggleGroup Type="multiple" Disabled="true">
     <ToggleGroupItem Value="bold" aria-label="Toggle bold">
-        @BoldIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M6 4h8a4 4 0 0 1 0 8H6z" />
+            <path d="M6 12h9a4 4 0 0 1 0 8H6z" />
+        </svg>
     </ToggleGroupItem>
     <ToggleGroupItem Value="italic" aria-label="Toggle italic">
-        @ItalicIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+        </svg>
     </ToggleGroupItem>
     <ToggleGroupItem Value="strikethrough" aria-label="Toggle strikethrough">
-        @UnderlineIcon
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" x2="20" y1="20" y2="20" />
+        </svg>
     </ToggleGroupItem>
 </ToggleGroup>
 """;
