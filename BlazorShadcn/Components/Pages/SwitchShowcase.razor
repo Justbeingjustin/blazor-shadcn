@@ -357,7 +357,7 @@
         data-slot="switch"
         data-state="@(Checked ? "checked" : "unchecked")"
         data-size="@Size"
-        class="@Tw.Merge(GetRootClasses(), Class)"
+        class="@GetClasses()"
         disabled="@Disabled"
         @onclick="ToggleAsync"
         @attributes="AdditionalAttributes">
@@ -374,6 +374,11 @@
     [Parameter] public string? Class { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? GetRootClasses()
+            : $"{GetRootClasses()} {Class}";
 
     private string GetRootClasses()
     {
