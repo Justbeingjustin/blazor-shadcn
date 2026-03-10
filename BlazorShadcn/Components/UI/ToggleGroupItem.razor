@@ -3,7 +3,7 @@
         Pressed="@Pressed"
         PressedChanged="OnPressedChanged"
         Disabled="@ResolvedDisabled"
-        Class="@Tw.Merge(GetGroupItemClasses(), Class)"
+        Class="@Tw.Merge("w-auto min-w-0 shrink-0 px-3 focus:z-10 focus-visible:z-10", GetGroupItemClasses(), Class)"
         @attributes="AdditionalAttributes">
     @ChildContent
 </Toggle>
@@ -37,6 +37,6 @@
             return "rounded-none first:rounded-l-md last:rounded-r-md";
         }
 
-        return "rounded-none shadow-none border-l-0 first:rounded-l-md last:rounded-r-md first:border-l focus:z-10 focus-visible:z-10";
+        return "rounded-none shadow-none border-l-0 first:rounded-l-md last:rounded-r-md first:border-l";
     }
 }

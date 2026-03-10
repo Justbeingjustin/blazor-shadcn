@@ -3,7 +3,7 @@
 
 <CascadingValue Name="ToggleGroupContext" Value="@_context">
     <div data-slot="toggle-group"
-         class="@Merge("group/toggle-group inline-flex items-center justify-center", GetSpacingClass(), GetConnectedGroupClasses(), Orientation == "vertical" ? "flex-col" : "flex-row", Class)"
+         class="@Merge("group/toggle-group inline-flex w-fit items-center justify-center", GetSpacingClass(), GetConnectedGroupClasses(), Orientation == "vertical" ? "flex-col" : "flex-row", Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
