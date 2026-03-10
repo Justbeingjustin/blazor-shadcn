@@ -6,7 +6,7 @@
         Pressed="@Pressed"
         PressedChanged="OnPressedChanged"
         Disabled="@ResolvedDisabled"
-        Class="@Class"
+        Class="@Merge(GetGroupItemClasses(), Class)"
         @attributes="AdditionalAttributes">
     @ChildContent
 </Toggle>
@@ -23,8 +23,27 @@
     private bool Pressed => Context?.Values.Contains(Value) ?? false;
     private string ResolvedVariant => Context?.Variant ?? "default";
     private string ResolvedSize => Context?.Size ?? "default";
+    private int ResolvedSpacing => Context?.Spacing ?? 0;
     private bool ResolvedDisabled => Disabled || (Context?.Disabled ?? false);
 
     private Task OnPressedChanged(bool _)
         => Context?.ToggleAsync.Invoke(Value) ?? Task.CompletedTask;
+
+    private string? GetGroupItemClasses()
+    {
+        if (ResolvedSpacing != 0)
+        {
+            return null;
+        }
+
+        if (ResolvedVariant != "outline")
+        {
+            return "rounded-none first:rounded-l-md last:rounded-r-md";
+        }
+
+        return "rounded-none shadow-none border-l-0 first:rounded-l-md last:rounded-r-md first:border-l focus:z-10 focus-visible:z-10";
+    }
+
+    private static string Merge(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

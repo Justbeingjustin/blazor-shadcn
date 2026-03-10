@@ -7,5 +7,6 @@ public sealed class ToggleGroupContext
     public required Func<string, Task> ToggleAsync { get; init; }
     public required string Variant { get; init; }
     public required string Size { get; init; }
+    public required int Spacing { get; init; }
     public required bool Disabled { get; init; }
 }
