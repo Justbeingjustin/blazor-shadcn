@@ -1,0 +1,59 @@
+@namespace ShadcnBlazor.Components.UI
+
+<div
+    data-slot="separator"
+    data-orientation="@OrientationValue"
+    class="@GetClasses()"
+    @attributes="GetAttributes()">
+</div>
+
+@code {
+    [Parameter] public SeparatorOrientation Orientation { get; set; } = SeparatorOrientation.Horizontal;
+    [Parameter] public bool Decorative { get; set; } = true;
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full " +
+        "data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px";
+
+    private string OrientationValue => Orientation.ToString().ToLowerInvariant();
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, Class);
+
+    private IReadOnlyDictionary<string, object> GetAttributes()
+    {
+        var attributes = AdditionalAttributes is null
+            ? new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+            : new Dictionary<string, object>(AdditionalAttributes, StringComparer.OrdinalIgnoreCase);
+
+        if (Decorative)
+        {
+            attributes["aria-hidden"] = "true";
+        }
+        else
+        {
+            if (!attributes.ContainsKey("role"))
+            {
+                attributes["role"] = "separator";
+            }
+
+            if (Orientation == SeparatorOrientation.Vertical && !attributes.ContainsKey("aria-orientation"))
+            {
+                attributes["aria-orientation"] = "vertical";
+            }
+        }
+
+        return attributes;
+    }
+
+    public enum SeparatorOrientation
+    {
+        Horizontal,
+        Vertical
+    }
+}

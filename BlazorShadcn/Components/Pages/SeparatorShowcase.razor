@@ -46,20 +46,16 @@
             <div class="w-full flex-1">
                 <ComponentExample CodeText="@codeMainDemo">
                     <Preview>
-                        <div>
-                            <div class="space-y-1">
-                                <h4 class="text-sm leading-none font-medium">Radix Primitives</h4>
-                                <p class="text-muted-foreground text-sm">
-                                    An open-source UI component library.
-                                </p>
+                        <div class="flex max-w-sm flex-col gap-4 text-sm">
+                            <div class="flex flex-col gap-1.5">
+                                <div class="leading-none font-medium">shadcn/ui</div>
+                                <div class="text-muted-foreground">
+                                    The Foundation for your Design System
+                                </div>
                             </div>
-                            <Separator Class="my-4" />
-                            <div class="flex h-5 items-center space-x-4 text-sm">
-                                <div>Blog</div>
-                                <Separator Orientation="SeparatorOrientation.Vertical" />
-                                <div>Docs</div>
-                                <Separator Orientation="SeparatorOrientation.Vertical" />
-                                <div>Source</div>
+                            <Separator />
+                            <div>
+                                A set of beautifully designed components that you can customize, extend, and build on.
                             </div>
                         </div>
                     </Preview>
@@ -145,19 +141,57 @@
                 </div>
 
                 <div class="mt-6">
-                    <ComponentExample Title="List" Compact="true" CodeText="@codeList">
+                    <ComponentExample Title="Menu" Compact="true" CodeText="@codeMenu">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Vertical separators between menu items with descriptions.</p>
+                        </Description>
                         <Preview>
-                            <div class="w-full max-w-sm rounded-lg border">
-                                <div class="p-4">
-                                    <p class="text-sm font-medium leading-none">Settings</p>
-                                    <p class="text-muted-foreground mt-1 text-sm">Manage your account preferences.</p>
+                            <div class="flex items-center gap-2 text-sm md:gap-4">
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-medium">Settings</span>
+                                    <span class="text-muted-foreground text-xs">Manage preferences</span>
                                 </div>
+                                <div class="mx-1 flex h-10 items-center">
+                                    <Separator Orientation="SeparatorOrientation.Vertical" Class="shrink-0 bg-foreground/20" />
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-medium">Account</span>
+                                    <span class="text-muted-foreground text-xs">Profile &amp; security</span>
+                                </div>
+                                <div class="mx-1 hidden h-10 items-center md:flex">
+                                    <Separator Orientation="SeparatorOrientation.Vertical" Class="shrink-0 bg-foreground/20" />
+                                </div>
+                                <div class="hidden flex-col gap-1 md:flex">
+                                    <span class="font-medium">Help</span>
+                                    <span class="text-muted-foreground text-xs">Support &amp; docs</span>
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@codeMenu</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="List" Compact="true" CodeText="@codeList">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Horizontal separators between list items.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex w-full max-w-sm flex-col gap-2 text-sm">
+                                <dl class="flex items-center justify-between">
+                                    <dt>Item 1</dt>
+                                    <dd class="text-muted-foreground">Value 1</dd>
+                                </dl>
                                 <Separator />
-                                <div class="p-4 text-sm">Profile</div>
+                                <dl class="flex items-center justify-between">
+                                    <dt>Item 2</dt>
+                                    <dd class="text-muted-foreground">Value 2</dd>
+                                </dl>
                                 <Separator />
-                                <div class="p-4 text-sm">Billing</div>
-                                <Separator />
-                                <div class="p-4 text-sm">Notifications</div>
+                                <dl class="flex items-center justify-between">
+                                    <dt>Item 3</dt>
+                                    <dd class="text-muted-foreground">Value 3</dd>
+                                </dl>
                             </div>
                         </Preview>
                         <Code>@codeList</Code>
@@ -194,6 +228,7 @@
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
                 <a href="#vertical" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Vertical</a>
+                <a href="#menu" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Menu</a>
                 <a href="#list" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">List</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
@@ -277,18 +312,14 @@
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = "<Separator />";
 
-    private const string codeMainDemo = @"<div>
-    <div class=""space-y-1"">
-        <h4 class=""text-sm leading-none font-medium"">Radix Primitives</h4>
-        <p class=""text-muted-foreground text-sm"">An open-source UI component library.</p>
+    private const string codeMainDemo = @"<div class=""flex max-w-sm flex-col gap-4 text-sm"">
+    <div class=""flex flex-col gap-1.5"">
+        <div class=""leading-none font-medium"">shadcn/ui</div>
+        <div class=""text-muted-foreground"">The Foundation for your Design System</div>
     </div>
-    <Separator Class=""my-4"" />
-    <div class=""flex h-5 items-center space-x-4 text-sm"">
-        <div>Blog</div>
-        <Separator Orientation=""SeparatorOrientation.Vertical"" />
-        <div>Docs</div>
-        <Separator Orientation=""SeparatorOrientation.Vertical"" />
-        <div>Source</div>
+    <Separator />
+    <div>
+        A set of beautifully designed components that you can customize, extend, and build on.
     </div>
 </div>";
 
@@ -300,17 +331,43 @@
     <span>Source</span>
 </div>";
 
-    private const string codeList = @"<div class=""w-full max-w-sm rounded-lg border"">
-    <div class=""p-4"">
-        <p class=""text-sm font-medium leading-none"">Settings</p>
-        <p class=""text-muted-foreground mt-1 text-sm"">Manage your account preferences.</p>
+    private const string codeMenu = @"<div class=""flex items-center gap-2 text-sm md:gap-4"">
+    <div class=""flex flex-col gap-1"">
+        <span class=""font-medium"">Settings</span>
+        <span class=""text-muted-foreground text-xs"">Manage preferences</span>
     </div>
-    <Separator />
-    <div class=""p-4 text-sm"">Profile</div>
-    <Separator />
-    <div class=""p-4 text-sm"">Billing</div>
-    <Separator />
-    <div class=""p-4 text-sm"">Notifications</div>
+    <div class=""mx-1 flex h-10 items-center"">
+        <Separator Orientation=""SeparatorOrientation.Vertical"" Class=""shrink-0 bg-foreground/20"" />
+    </div>
+    <div class=""flex flex-col gap-1"">
+        <span class=""font-medium"">Account</span>
+        <span class=""text-muted-foreground text-xs"">Profile &amp; security</span>
+    </div>
+    <div class=""mx-1 hidden h-10 items-center md:flex"">
+        <Separator Orientation=""SeparatorOrientation.Vertical"" Class=""shrink-0 bg-foreground/20"" />
+    </div>
+    <div class=""hidden flex-col gap-1 md:flex"">
+        <span class=""font-medium"">Help</span>
+        <span class=""text-muted-foreground text-xs"">Support &amp; docs</span>
+    </div>
 </div>";
+
+    private const string codeList = @"<div class=""flex w-full max-w-sm flex-col gap-2 text-sm"">
+    <dl class=""flex items-center justify-between"">
+        <dt>Item 1</dt>
+        <dd class=""text-muted-foreground"">Value 1</dd>
+    </dl>
+    <Separator />
+    <dl class=""flex items-center justify-between"">
+        <dt>Item 2</dt>
+        <dd class=""text-muted-foreground"">Value 2</dd>
+    </dl>
+    <Separator />
+    <dl class=""flex items-center justify-between"">
+        <dt>Item 3</dt>
+        <dd class=""text-muted-foreground"">Value 3</dd>
+    </dl>
+</div>";
+
 }
 
