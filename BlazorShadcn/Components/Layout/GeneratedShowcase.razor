@@ -52,9 +52,11 @@
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
                 @foreach (var heading in ExampleHeadings)
                 {
-                    <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="@Anchor(heading)">@heading</h3>
                     <div class="mt-6">
-                        <ComponentExample Compact="true" CodeText="@ExampleCode(heading)" TitleNote="@ExampleTitleNote(heading)">
+                        <ComponentExample Compact="true"
+                                          Title="@ExampleTitle(heading)"
+                                          CodeText="@ExampleCode(heading)"
+                                          TitleNote="@ExampleTitleNote(heading)">
                             <Preview>@RenderDemo(heading)</Preview>
                             <Code>@ExampleCode(heading)</Code>
                         </ComponentExample>
@@ -235,6 +237,7 @@
     private List<string> ExampleHeadings => ParseSection("Implement these example headings in this exact order:");
     private IReadOnlyList<string> ManualSourcePaths => LoadSourcePaths();
     private IReadOnlyList<string> DependencyCommands => ParseSection("Manual tab dependency steps called out in the docs:");
+    private string? ExampleTitle(string heading) => Slug == "switch" ? heading : null;
     private string? ExampleTitleNote(string heading) => Slug == "switch" && heading != "Demo" ? "Coming soon" : null;
 
     private string? PrevNext(int offset)
@@ -305,7 +308,70 @@
         "sheet" => $"""<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>{heading}</SheetTitle><SheetDescription>Composable sheet content.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
         "sidebar" => """<Sidebar />""",
         "slider" => $"""<Slider Value="{Math.Min(90, Math.Max(10, heading.Length * 5))}" />""",
-        "switch" => string.Empty,
+        "switch" => heading switch
+        {
+            "Description" => """
+<div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4">
+    <div class="space-y-1">
+        <p class="text-sm font-medium">Share across devices</p>
+        <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+    </div>
+    <Switch id="switch-focus-mode" />
+</div>
+""",
+            "Choice Card" => """
+<div class="grid w-full max-w-sm gap-3">
+    <div class="flex items-center justify-between rounded-lg border p-4">
+        <div class="space-y-1">
+            <p class="text-sm font-medium">Share across devices</p>
+            <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+        </div>
+        <Switch id="switch-share" />
+    </div>
+    <div class="flex items-center justify-between rounded-lg border p-4">
+        <div class="space-y-1">
+            <p class="text-sm font-medium">Enable notifications</p>
+            <p class="text-muted-foreground text-sm">Receive notifications when focus mode is enabled or disabled.</p>
+        </div>
+        <Switch id="switch-notifications" Checked="true" />
+    </div>
+</div>
+""",
+            "Disabled" => """
+<div class="flex flex-col gap-6">
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-disabled-unchecked" Disabled="true" />
+        <Label For="switch-disabled-unchecked">Disabled (Unchecked)</Label>
+    </div>
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-disabled-checked" Checked="true" Disabled="true" />
+        <Label For="switch-disabled-checked">Disabled (Checked)</Label>
+    </div>
+</div>
+""",
+            "Invalid" => """
+<div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4" data-invalid="true">
+    <div class="space-y-1">
+        <p class="text-sm font-medium">Security alerts</p>
+        <p class="text-muted-foreground text-sm">This setting needs attention before it can be enabled.</p>
+    </div>
+    <Switch id="switch-invalid" aria-invalid="true" />
+</div>
+""",
+            "Size" => """
+<div class="flex flex-col gap-6">
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-size-sm" Size="sm" />
+        <Label For="switch-size-sm">Small</Label>
+    </div>
+    <div class="flex items-center space-x-2">
+        <Switch id="switch-size-default" />
+        <Label For="switch-size-default">Default</Label>
+    </div>
+</div>
+""",
+            _ => """<div class="text-sm text-muted-foreground">Coming soon.</div>"""
+        },
         "tabs" => $"""<Tabs DefaultValue="first"><TabsList><TabsTrigger Value="first">{heading}</TabsTrigger><TabsTrigger Value="second">Details</TabsTrigger></TabsList><TabsContent Value="first">Primary panel</TabsContent><TabsContent Value="second">Secondary panel</TabsContent></Tabs>""",
         "textarea" => $"""<Textarea Placeholder="{heading}..." Class="min-h-28 max-w-sm" />""",
         "toggle" => $"""<Toggle Variant="outline" Pressed="{(heading.Length % 2 == 0 ? "true" : "false")}">{heading}</Toggle>""",
@@ -460,7 +526,57 @@
                 <Switch id="airplane-mode" />
                 <Label For="airplane-mode">Airplane Mode</Label>
             </div>,
-            _ => @<div></div>
+            "Description" => @<div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium">Share across devices</p>
+                    <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+                </div>
+                <Switch id="switch-focus-mode" />
+            </div>,
+            "Choice Card" => @<div class="grid w-full max-w-sm gap-3">
+                <div class="flex items-center justify-between rounded-lg border p-4">
+                    <div class="space-y-1">
+                        <p class="text-sm font-medium">Share across devices</p>
+                        <p class="text-muted-foreground text-sm">Focus is shared across devices, and turns off when you leave the app.</p>
+                    </div>
+                    <Switch id="switch-share" />
+                </div>
+                <div class="flex items-center justify-between rounded-lg border p-4">
+                    <div class="space-y-1">
+                        <p class="text-sm font-medium">Enable notifications</p>
+                        <p class="text-muted-foreground text-sm">Receive notifications when focus mode is enabled or disabled.</p>
+                    </div>
+                    <Switch id="switch-notifications" Checked="true" />
+                </div>
+            </div>,
+            "Disabled" => @<div class="flex flex-col gap-6">
+                <div class="flex items-center space-x-2">
+                    <Switch id="switch-disabled-unchecked" Disabled="true" />
+                    <Label For="switch-disabled-unchecked">Disabled (Unchecked)</Label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <Switch id="switch-disabled-checked" Checked="true" Disabled="true" />
+                    <Label For="switch-disabled-checked">Disabled (Checked)</Label>
+                </div>
+            </div>,
+            "Invalid" => @<div class="flex w-full max-w-sm items-center justify-between rounded-lg border p-4" data-invalid="true">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium">Security alerts</p>
+                    <p class="text-muted-foreground text-sm">This setting needs attention before it can be enabled.</p>
+                </div>
+                <Switch id="switch-invalid" aria-invalid="true" />
+            </div>,
+            "Size" => @<div class="flex flex-col gap-6">
+                <div class="flex items-center space-x-2">
+                    <Switch id="switch-size-sm" Size="sm" />
+                    <Label For="switch-size-sm">Small</Label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <Switch id="switch-size-default" />
+                    <Label For="switch-size-default">Default</Label>
+                </div>
+            </div>,
+            _ => @<div class="text-sm text-muted-foreground">Coming soon.</div>
         },
         "tabs" => @<Tabs DefaultValue="account" Class="w-full max-w-md">
             <TabsList>
