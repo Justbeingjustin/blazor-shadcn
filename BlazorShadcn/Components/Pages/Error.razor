@@ -1,5 +1,6 @@
 ﻿@page "/Error"
 @using System.Diagnostics
+@using Microsoft.AspNetCore.Diagnostics
 
 <PageTitle>Error</PageTitle>
 
@@ -11,6 +12,32 @@
     <p>
         <strong>Request ID:</strong> <code>@RequestId</code>
     </p>
+}
+
+@if (!string.IsNullOrWhiteSpace(FailedPath))
+{
+    <p>
+        <strong>Path:</strong> <code>@FailedPath</code>
+    </p>
+}
+
+@if (!string.IsNullOrWhiteSpace(ExceptionType) || !string.IsNullOrWhiteSpace(ExceptionMessage))
+{
+    <div class="mt-4 rounded-lg border p-4">
+        <p><strong>Error details</strong></p>
+        @if (!string.IsNullOrWhiteSpace(ExceptionType))
+        {
+            <p class="mt-2">
+                <strong>Type:</strong> <code>@ExceptionType</code>
+            </p>
+        }
+        @if (!string.IsNullOrWhiteSpace(ExceptionMessage))
+        {
+            <p class="mt-2">
+                <strong>Message:</strong> <code>@ExceptionMessage</code>
+            </p>
+        }
+    </div>
 }
 
 <h3>Development Mode</h3>
@@ -29,8 +56,17 @@
     private HttpContext? HttpContext { get; set; }
 
     private string? RequestId { get; set; }
+    private string? FailedPath { get; set; }
+    private string? ExceptionType { get; set; }
+    private string? ExceptionMessage { get; set; }
     private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-    protected override void OnInitialized() =>
+    protected override void OnInitialized()
+    {
         RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+        var exceptionFeature = HttpContext?.Features.Get<IExceptionHandlerPathFeature>();
+        FailedPath = exceptionFeature?.Path;
+        ExceptionType = exceptionFeature?.Error.GetType().FullName;
+        ExceptionMessage = exceptionFeature?.Error.Message;
+    }
 }
