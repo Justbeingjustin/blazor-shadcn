@@ -1,2 +1,266 @@
 @page "/components/textarea"
-<GeneratedShowcase Slug="textarea" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Textarea - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Textarea</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/tabs"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/toast"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Displays a form textarea or a component that looks like a textarea.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="w-full max-w-xs">
+                            <Textarea Placeholder="Type your message here." />
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalTextareaSourcePath</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_textareaManualSource">@_textareaManualSource</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Field" Compact="true" CodeText="@codeField">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code>, <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldLabel</code>, and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldDescription</code> to create a textarea with a label and description.</p>
+                        </Description>
+                        <Preview>
+                            <div class="grid w-full max-w-xs gap-2">
+                                <Label For="textarea-message">Message</Label>
+                                <p class="text-muted-foreground text-sm">Enter your message below.</p>
+                                <Textarea id="textarea-message" Placeholder="Type your message here." />
+                            </div>
+                        </Preview>
+                        <Code>@codeField</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true" CodeText="@codeDisabled">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">disabled</code> prop to disable the textarea. To style the disabled state, add the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">data-disabled</code> attribute to the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> component.</p>
+                        </Description>
+                        <Preview>
+                            <div class="grid w-full max-w-xs gap-2" data-disabled="true">
+                                <Label For="textarea-disabled">Message</Label>
+                                <Textarea id="textarea-disabled" Placeholder="Type your message here." Disabled="true" />
+                            </div>
+                        </Preview>
+                        <Code>@codeDisabled</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Invalid" Compact="true" CodeText="@codeInvalid">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">aria-invalid</code> prop to mark the textarea as invalid. To style the invalid state, add the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">data-invalid</code> attribute to the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> component.</p>
+                        </Description>
+                        <Preview>
+                            <div class="grid w-full max-w-xs gap-2" data-invalid="true">
+                                <Label For="textarea-invalid" Class="text-destructive">Message</Label>
+                                <Textarea id="textarea-invalid" Placeholder="Type your message here." aria-invalid="true" />
+                                <p class="text-destructive text-sm">Please enter a valid message.</p>
+                            </div>
+                        </Preview>
+                        <Code>@codeInvalid</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Button" Compact="true" CodeText="@codeButton">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Pair with <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Button</code> to create a textarea with a submit button.</p>
+                        </Description>
+                        <Preview>
+                            <div class="grid w-full max-w-xs gap-2">
+                                <Textarea Placeholder="Type your message here." />
+                                <Button>Send message</Button>
+                            </div>
+                        </Preview>
+                        <Code>@codeButton</Code>
+                    </ComponentExample>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#field" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Field</a>
+                <a href="#disabled" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Disabled</a>
+                <a href="#invalid" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Invalid</a>
+                <a href="#button" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Button</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string canonicalTextareaSourcePath = "components/textarea/Textarea.razor";
+    private string _textareaManualSource = string.Empty;
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalTextareaSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _textareaManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : fallbackTextareaSource;
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "npx shadcn@latest add textarea";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/textarea";
+    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = "<Textarea Placeholder=\"Type your message here.\" />";
+    private const string codeMainDemo = @"<Textarea Placeholder=""Type your message here."" />";
+    private const string codeField = @"<div class=""grid w-full max-w-xs gap-2"">
+    <Label For=""textarea-message"">Message</Label>
+    <p class=""text-muted-foreground text-sm"">Enter your message below.</p>
+    <Textarea id=""textarea-message"" Placeholder=""Type your message here."" />
+</div>";
+    private const string codeDisabled = @"<div class=""grid w-full max-w-xs gap-2"" data-disabled=""true"">
+    <Label For=""textarea-disabled"">Message</Label>
+    <Textarea id=""textarea-disabled"" Placeholder=""Type your message here."" Disabled=""true"" />
+</div>";
+    private const string codeInvalid = @"<div class=""grid w-full max-w-xs gap-2"" data-invalid=""true"">
+    <Label For=""textarea-invalid"" Class=""text-destructive"">Message</Label>
+    <Textarea id=""textarea-invalid"" Placeholder=""Type your message here."" aria-invalid=""true"" />
+    <p class=""text-destructive text-sm"">Please enter a valid message.</p>
+</div>";
+    private const string codeButton = @"<div class=""grid w-full max-w-xs gap-2"">
+    <Textarea Placeholder=""Type your message here."" />
+    <Button>Send message</Button>
+</div>";
+
+    private const string fallbackTextareaSource = """
+<textarea data-slot="textarea"
+          class="@GetClasses()"
+          placeholder="@Placeholder"
+          value="@Value"
+          disabled="@Disabled"
+          @attributes="AdditionalAttributes"></textarea>
+
+@code {
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private const string BaseClasses =
+        "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 " +
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive aria-invalid:text-destructive " +
+        "dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 " +
+        "text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] " +
+        "disabled:cursor-not-allowed disabled:bg-muted/50 disabled:text-muted-foreground disabled:opacity-100 md:text-sm";
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? BaseClasses
+            : $"{BaseClasses} {Class}";
+}
+""";
+}
