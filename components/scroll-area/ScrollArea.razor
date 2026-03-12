@@ -1,11 +1,11 @@
 @namespace ShadcnBlazor.Components.UI
 
 <div data-slot="scroll-area"
-     class="@Tw.Merge("relative", Class)"
+     class="@GetClasses()"
      @attributes="AdditionalAttributes">
     <div data-slot="scroll-area-viewport"
          tabindex="0"
-         class="@Tw.Merge("focus-visible:ring-ring/50 size-full overflow-auto rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1", ViewportClass)">
+         class="@GetViewportClasses()">
         @ChildContent
     </div>
 
@@ -22,5 +22,12 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
 
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn("relative", Class);
+
+    private string GetViewportClasses()
+        => Cn("focus-visible:ring-ring/50 size-full overflow-auto rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1", ViewportClass);
+}

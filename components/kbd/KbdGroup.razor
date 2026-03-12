@@ -1,7 +1,7 @@
 @namespace ShadcnBlazor.Components.UI
 
 <kbd data-slot="kbd-group"
-     class="@Tw.Merge("inline-flex items-center gap-1", Class)"
+     class="@GetClasses()"
      @attributes="AdditionalAttributes">@ChildContent</kbd>
 
 @code {
@@ -9,5 +9,11 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
 
+    private const string BaseClasses = "inline-flex items-center gap-1";
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static c => !string.IsNullOrWhiteSpace(c)));
+
+    private string GetClasses() => Cn(BaseClasses, Class);
+}
