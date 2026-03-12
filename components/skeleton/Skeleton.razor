@@ -1,0 +1,10 @@
+@namespace ShadcnBlazor.Components.UI
+
+<div data-slot="skeleton" class="@Tw.Merge("bg-accent animate-pulse rounded-md", Class)" @attributes="AdditionalAttributes"></div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+

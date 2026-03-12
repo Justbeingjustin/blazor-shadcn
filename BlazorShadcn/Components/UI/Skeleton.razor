@@ -1,8 +1,20 @@
-﻿<div data-slot="skeleton" class="@Tw.Merge("bg-accent animate-pulse rounded-md", Class)" @attributes="AdditionalAttributes"></div>
+<div data-slot="skeleton" class="@GetClasses()" @attributes="AdditionalAttributes"></div>
 
 @code {
     [Parameter] public string? Class { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-}
 
+    private string GetClasses()
+    {
+        const string baseClasses = "bg-accent animate-pulse";
+        var radiusClass = HasRoundedClass(Class) ? string.Empty : " rounded-md";
+
+        return string.IsNullOrWhiteSpace(Class)
+            ? $"{baseClasses}{radiusClass}"
+            : $"{baseClasses}{radiusClass} {Class}";
+    }
+
+    private static bool HasRoundedClass(string? value)
+        => !string.IsNullOrWhiteSpace(value) && value.Contains("rounded", StringComparison.Ordinal);
+}

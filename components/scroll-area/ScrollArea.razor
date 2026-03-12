@@ -1,3 +1,5 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="scroll-area"
      class="@Tw.Merge("relative", Class)"
      @attributes="AdditionalAttributes">
@@ -21,3 +23,4 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 }
+

@@ -1,2 +1,376 @@
 @page "/components/kbd"
-<GeneratedShowcase Slug="kbd" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Kbd - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Kbd</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/input"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/label"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Used to display textual user input from keyboard.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex flex-col items-center gap-4">
+                            <KbdGroup>
+                                <Kbd>&#8984;</Kbd>
+                                <Kbd>&#8679;</Kbd>
+                                <Kbd>&#8997;</Kbd>
+                                <Kbd>&#8963;</Kbd>
+                            </KbdGroup>
+                            <KbdGroup>
+                                <Kbd>Ctrl</Kbd>
+                                <span>+</span>
+                                <Kbd>B</Kbd>
+                            </KbdGroup>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Kbd.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_kbdManualSource">@_kbdManualSource</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div id="group" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Group" Compact="true" CodeText="@codeGroup">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">KbdGroup</code> component to group keyboard keys together.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex flex-col items-center gap-4">
+                                <p class="text-muted-foreground text-sm">
+                                    Use
+                                    <span class="mx-1 inline-flex align-middle">
+                                        <KbdGroup>
+                                            <Kbd>Ctrl + B</Kbd>
+                                            <Kbd>Ctrl + K</Kbd>
+                                        </KbdGroup>
+                                    </span>
+                                    to open the command palette
+                                </p>
+                            </div>
+                        </Preview>
+                        <Code>@codeGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <div id="button" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Button" Compact="true" CodeText="@codeButton">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Kbd</code> component inside a button.</p>
+                        </Description>
+                        <Preview>
+                            <div class="flex flex-wrap items-center gap-4">
+                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm" Class="pr-2">
+                                    Accept <Kbd>&#9166;</Kbd>
+                                </Button>
+                            </div>
+                        </Preview>
+                        <Code>@codeButton</Code>
+                    </ComponentExample>
+                </div>
+
+                <div id="tooltip" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Tooltip" TitleNote="Coming soon" Compact="true" CodeText="@codeTooltip">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use keyboard hints inside tooltip content.</p>
+                        </Description>
+                        <Preview>
+                            <TooltipProvider>
+                                <div class="flex flex-wrap gap-4">
+                                    <ButtonGroup>
+                                        <Tooltip>
+                                            <TooltipTrigger>
+                                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Save</Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <div class="flex items-center gap-2">
+                                                    Save Changes <Kbd>S</Kbd>
+                                                </div>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                        <Tooltip>
+                                            <TooltipTrigger>
+                                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Print</Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <div class="flex items-center gap-2">
+                                                    Print Document
+                                                    <KbdGroup>
+                                                        <Kbd>Ctrl</Kbd>
+                                                        <Kbd>P</Kbd>
+                                                    </KbdGroup>
+                                                </div>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </ButtonGroup>
+                                </div>
+                            </TooltipProvider>
+                        </Preview>
+                        <Code>@codeTooltip</Code>
+                    </ComponentExample>
+                </div>
+
+                <div id="input-group" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Input Group" TitleNote="Coming soon" Compact="true" CodeText="@codeInputGroup">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">This example depends on the full input-group composition API and is not ported yet.</p>
+                        </Description>
+                        <Preview>
+                            <div class="text-muted-foreground flex min-h-24 w-full items-center justify-center rounded-md border border-dashed text-sm">
+                                Input Group example coming soon
+                            </div>
+                        </Preview>
+                        <Code>@codeInputGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Kbd</h3>
+                <p class="text-muted-foreground mt-2 text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Kbd</code> component to display a keyboard key.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">KbdGroup</h3>
+                <p class="text-muted-foreground mt-2 text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">KbdGroup</code> component to group <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Kbd</code> components together.</p>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Group</a>
+                <a href="#button" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Button</a>
+                <a href="#tooltip" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Tooltip</a>
+                <a href="#input-group" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Input Group</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/kbd";
+    private const string installCommand = "blazor-shadcn add kbd";
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string usageCode = """
+<Kbd>Ctrl</Kbd>
+""";
+
+
+    private const string codeMainDemo = """
+<div class="flex flex-col items-center gap-4">
+    <KbdGroup>
+        <Kbd>&#8984;</Kbd>
+        <Kbd>&#8679;</Kbd>
+        <Kbd>&#8997;</Kbd>
+        <Kbd>&#8963;</Kbd>
+    </KbdGroup>
+    <KbdGroup>
+        <Kbd>Ctrl</Kbd>
+        <span>+</span>
+        <Kbd>B</Kbd>
+    </KbdGroup>
+</div>
+""";
+    private const string codeGroup = """
+<p class="text-muted-foreground text-sm">
+    Use
+    <KbdGroup>
+        <Kbd>Ctrl + B</Kbd>
+        <Kbd>Ctrl + K</Kbd>
+    </KbdGroup>
+    to open the command palette
+</p>
+""";
+    private const string codeButton = """
+<div class="flex flex-wrap items-center gap-4">
+    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm" Class="pr-2">
+        Accept <Kbd>&#9166;</Kbd>
+    </Button>
+</div>
+""";
+    private const string codeTooltip = """
+<TooltipProvider>
+    <ButtonGroup>
+        <Tooltip>
+            <TooltipTrigger>
+                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Save</Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <div class="flex items-center gap-2">
+                    Save Changes <Kbd>S</Kbd>
+                </div>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger>
+                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Print</Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <div class="flex items-center gap-2">
+                    Print Document
+                    <KbdGroup>
+                        <Kbd>Ctrl</Kbd>
+                        <Kbd>P</Kbd>
+                    </KbdGroup>
+                </div>
+            </TooltipContent>
+        </Tooltip>
+    </ButtonGroup>
+</TooltipProvider>
+""";
+    private const string codeInputGroup = """
+<div class="text-muted-foreground flex min-h-24 w-full items-center justify-center rounded-md border border-dashed text-sm">
+    Input Group example coming soon
+</div>
+""";
+    private const string canonicalKbdSourcePath = "components/kbd/Kbd.razor";
+    private static readonly string fallbackKbdSource = """
+<kbd data-slot="kbd"
+     class="@Tw.Merge("bg-muted text-muted-foreground pointer-events-none inline-flex h-5 w-fit min-w-5 select-none items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3 [[data-slot=tooltip-content]_&]:bg-background/20 [[data-slot=tooltip-content]_&]:text-background dark:[[data-slot=tooltip-content]_&]:bg-background/10", Class)"
+     @attributes="AdditionalAttributes">@ChildContent</kbd>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
+""";
+    private InstallationTab _installationTab = InstallationTab.Command;
+    private string _kbdManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalKbdSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _kbdManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : fallbackKbdSource;
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+}

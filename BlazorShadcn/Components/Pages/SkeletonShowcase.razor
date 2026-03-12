@@ -1,4 +1,5 @@
 @page "/components/skeleton"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Skeleton - blazor-shadcn</PageTitle>
 
@@ -9,7 +10,7 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Skeleton</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
+                        <DocsCopyPage PageUrl="@referenceUrl" />
                         <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/sidebar" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
@@ -29,54 +30,166 @@
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample Compact="true" CodeText="@usageCode">
+                <ComponentExample Compact="true" CodeText="@demoCode">
                     <Preview>
-                        <div class="flex items-center gap-4">
-                            <Skeleton Class="size-12 rounded-full" />
-                            <div class="space-y-2">
-                                <Skeleton Class="h-4 w-[220px]" />
-                                <Skeleton Class="h-4 w-[160px]" />
-                            </div>
-                        </div>
+                        <Skeleton Class="h-12 w-12 rounded-full" />
                     </Preview>
-                    <Code>@usageCode</Code>
+                    <Code>@demoCode</Code>
                 </ComponentExample>
 
-                <DocsInstallationSection ComponentLabel="skeleton"
-                                         InstallCommand="blazor-shadcn add skeleton"
-                                         SourcePaths="@_manualSourcePaths" />
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the skeleton component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
-                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
-                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
-
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
-                <div class="mt-6">
-                    <ComponentExample Title="Card" Compact="true">
-                        <Preview>
-                            <div class="w-full max-w-sm space-y-4 rounded-xl border p-4">
-                                <Skeleton Class="h-4 w-[180px]" />
-                                <Skeleton Class="h-32 w-full rounded-lg" />
-                                <div class="space-y-2">
-                                    <Skeleton Class="h-4 w-full" />
-                                    <Skeleton Class="h-4 w-[85%]" />
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">@canonicalSkeletonSourcePath</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_skeletonManualSource">@_skeletonManualSource</CodeBlock>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div id="avatar" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Avatar" Compact="true" CodeText="@avatarCode">
+                        <Preview>
+                            <div class="flex w-fit items-center gap-4">
+                                <Skeleton Class="size-10 shrink-0 rounded-full" />
+                                <div class="grid gap-2">
+                                    <Skeleton Class="h-4 w-[150px]" />
+                                    <Skeleton Class="h-4 w-[100px]" />
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@avatarCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div id="card" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Card" Compact="true" CodeText="@cardCode">
+                        <Preview>
+                            <Card Class="w-full max-w-xs">
+                                <CardHeader>
+                                    <Skeleton Class="h-4 w-2/3" />
+                                    <Skeleton Class="h-4 w-1/2" />
+                                </CardHeader>
+                                <CardContent>
+                                    <Skeleton Class="aspect-video w-full" />
+                                </CardContent>
+                            </Card>
                         </Preview>
                         <Code>@cardCode</Code>
                     </ComponentExample>
                 </div>
+
+                <div id="text" class="scroll-m-28"></div>
                 <div class="mt-6">
-                    <ComponentExample Title="Text" Compact="true">
+                    <ComponentExample Title="Text" Compact="true" CodeText="@textCode">
                         <Preview>
-                            <div class="w-full space-y-2">
+                            <div class="flex w-full max-w-xs flex-col gap-2">
                                 <Skeleton Class="h-4 w-full" />
-                                <Skeleton Class="h-4 w-[92%]" />
-                                <Skeleton Class="h-4 w-[80%]" />
+                                <Skeleton Class="h-4 w-full" />
+                                <Skeleton Class="h-4 w-3/4" />
                             </div>
                         </Preview>
                         <Code>@textCode</Code>
                     </ComponentExample>
+                </div>
+
+                <div id="form" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Form" Compact="true" CodeText="@formCode">
+                        <Preview>
+                            <div class="flex w-full max-w-xs flex-col gap-7">
+                                <div class="flex flex-col gap-3">
+                                    <Skeleton Class="h-4 w-20" />
+                                    <Skeleton Class="h-8 w-full" />
+                                </div>
+                                <div class="flex flex-col gap-3">
+                                    <Skeleton Class="h-4 w-24" />
+                                    <Skeleton Class="h-8 w-full" />
+                                </div>
+                                <Skeleton Class="h-8 w-24" />
+                            </div>
+                        </Preview>
+                        <Code>@formCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div id="table" class="scroll-m-28"></div>
+                <div class="mt-6">
+                    <ComponentExample Title="Table" Compact="true" CodeText="@tableCode">
+                        <Preview>
+                            <div class="flex w-full max-w-sm flex-col gap-2">
+                                @for (var index = 0; index < 5; index++)
+                                {
+                                    <div class="flex gap-4">
+                                        <Skeleton Class="h-4 flex-1" />
+                                        <Skeleton Class="h-4 w-24" />
+                                        <Skeleton Class="h-4 w-20" />
+                                    </div>
+                                }
+                            </div>
+                        </Preview>
+                        <Code>@tableCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Skeleton</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -90,15 +203,114 @@
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#avatar" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors" data-depth="3">Avatar</a>
+                <a href="#card" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors" data-depth="3">Card</a>
+                <a href="#text" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors" data-depth="3">Text</a>
+                <a href="#form" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors" data-depth="3">Form</a>
+                <a href="#table" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors" data-depth="3">Table</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    private const string canonicalSkeletonSourcePath = "Components/UI/Skeleton.razor";
+    private string _skeletonManualSource = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.Combine(Environment.ContentRootPath, canonicalSkeletonSourcePath.Replace('/', Path.DirectorySeparatorChar));
+        _skeletonManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : _sourceSkeletonRazor;
+    }
+
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/skeleton";
+    private const string installCommand = "blazor-shadcn add skeleton";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = """<Skeleton Class="h-[20px] w-[100px] rounded-full" />""";
-    private const string cardCode = """<div class="space-y-4"><Skeleton Class="h-4 w-[180px]" /><Skeleton Class="h-32 w-full" /></div>""";
-    private const string textCode = """<Skeleton Class="h-4 w-full" /><Skeleton Class="h-4 w-[92%]" />""";
-    private static readonly string[] _manualSourcePaths = ["Components/UI/Skeleton.razor"];
+    private const string demoCode = """<Skeleton Class="h-12 w-12 rounded-full" />""";
+    private const string avatarCode = """
+<div class="flex w-fit items-center gap-4">
+    <Skeleton Class="h-10 w-10 shrink-0 rounded-full" />
+    <div class="grid gap-2">
+        <Skeleton Class="h-4 w-[150px]" />
+        <Skeleton Class="h-4 w-[100px]" />
+    </div>
+</div>
+""";
+    private const string cardCode = """
+<Card Class="w-full max-w-xs">
+    <CardHeader>
+        <Skeleton Class="h-4 w-2/3" />
+        <Skeleton Class="h-4 w-1/2" />
+    </CardHeader>
+    <CardContent>
+        <Skeleton Class="aspect-video w-full" />
+    </CardContent>
+</Card>
+""";
+    private const string textCode = """
+<div class="flex w-full max-w-xs flex-col gap-2">
+    <Skeleton Class="h-4 w-full" />
+    <Skeleton Class="h-4 w-full" />
+    <Skeleton Class="h-4 w-3/4" />
+</div>
+""";
+    private const string formCode = """
+<div class="flex w-full max-w-xs flex-col gap-7">
+    <div class="flex flex-col gap-3">
+        <Skeleton Class="h-4 w-20" />
+        <Skeleton Class="h-8 w-full" />
+    </div>
+    <div class="flex flex-col gap-3">
+        <Skeleton Class="h-4 w-24" />
+        <Skeleton Class="h-8 w-full" />
+    </div>
+    <Skeleton Class="h-8 w-24" />
+</div>
+""";
+    private const string tableCode = """
+<div class="flex w-full max-w-sm flex-col gap-2">
+    @for (var index = 0; index < 5; index++)
+    {
+        <div class="flex gap-4">
+            <Skeleton Class="h-4 flex-1" />
+            <Skeleton Class="h-4 w-24" />
+            <Skeleton Class="h-4 w-20" />
+        </div>
+    }
+</div>
+""";
+    private static readonly string _sourceSkeletonRazor = """
+<div data-slot="skeleton" class="@GetClasses()" @attributes="AdditionalAttributes"></div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+    {
+        const string baseClasses = "bg-accent animate-pulse";
+        var radiusClass = HasRoundedClass(Class) ? string.Empty : " rounded-md";
+
+        return string.IsNullOrWhiteSpace(Class)
+            ? $"{baseClasses}{radiusClass}"
+            : $"{baseClasses}{radiusClass} {Class}";
+    }
+
+    private static bool HasRoundedClass(string? value)
+        => !string.IsNullOrWhiteSpace(value) && value.Contains("rounded", StringComparison.Ordinal);
+}
+""";
 }

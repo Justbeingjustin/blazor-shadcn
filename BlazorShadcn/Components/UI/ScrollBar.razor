@@ -1,0 +1,28 @@
+<div data-slot="scroll-area-scrollbar"
+     data-orientation="@OrientationValue"
+     aria-hidden="true"
+     class="@Tw.Merge(
+         "pointer-events-none absolute select-none p-px transition-colors",
+         Orientation == ScrollBarOrientation.Vertical
+             ? "top-0 right-0 h-full w-2.5 border-l border-l-transparent"
+             : "right-0 bottom-0 left-0 h-2.5 flex-col border-t border-t-transparent",
+         Class)"
+     @attributes="AdditionalAttributes">
+    <div data-slot="scroll-area-thumb"
+         class="bg-border relative flex-1 rounded-full"></div>
+</div>
+
+@code {
+    [Parameter] public ScrollBarOrientation Orientation { get; set; } = ScrollBarOrientation.Vertical;
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string OrientationValue => Orientation.ToString().ToLowerInvariant();
+
+    public enum ScrollBarOrientation
+    {
+        Vertical,
+        Horizontal
+    }
+}
