@@ -228,6 +228,17 @@
         }
     </div>
 </ScrollArea>
+
+@code {
+    private static readonly string[] Tags =
+    [
+        "v1.2.0-beta.50",
+        "v1.2.0-beta.49",
+        "v1.2.0-beta.48",
+        "v1.2.0-beta.47",
+        "v1.2.0-beta.46"
+    ];
+}
 """;
     private const string codeHorizontal = """
 <ScrollArea Class="w-96 rounded-md border whitespace-nowrap" ShowDefaultScrollbar="false">
@@ -247,6 +258,17 @@
     </div>
     <ScrollBar Orientation="ScrollBar.ScrollBarOrientation.Horizontal" />
 </ScrollArea>
+
+@code {
+    private static readonly Artwork[] Works =
+    [
+        new("Ornella Binni", "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80"),
+        new("Tom Byrom", "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80"),
+        new("Vladimir Malyavko", "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80")
+    ];
+
+    private sealed record Artwork(string Artist, string Art);
+}
 """;
     private const string apiScrollAreaCode = """
 <ScrollArea Class="h-72 w-48 rounded-md border">
