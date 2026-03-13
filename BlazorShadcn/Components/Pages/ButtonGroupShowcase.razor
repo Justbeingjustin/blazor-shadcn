@@ -151,7 +151,7 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="nested">Nested</h3>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="nested">Nested <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h3>
                 <div class="mt-6">
                     <ComponentExample Compact="true" CodeText="@NestedCode">
                         <Preview>
@@ -160,15 +160,13 @@
                                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">1</Button>
                                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">2</Button>
                                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">3</Button>
-                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">4</Button>
-                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">5</Button>
                                 </ButtonGroup>
                                 <ButtonGroup>
                                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Previous">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m5 12 6 6" /><path d="m5 12 6-6" /></svg>
                                     </Button>
                                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Next">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m13 18 6-6" /><path d="m13 6 6 6" /></svg>
                                     </Button>
                                 </ButtonGroup>
                             </ButtonGroup>
@@ -213,8 +211,8 @@
                     <ComponentExample Compact="true" CodeText="@InputCode">
                         <Preview>
                             <ButtonGroup Class="w-full max-w-sm" aria-label="Search">
-                                <Input Placeholder="Search..." Class="rounded-r-none border-r-0" />
-                                <Button Variant="ButtonVariant.Outline" Class="rounded-l-none" aria-label="Search">
+                                <Input Placeholder="Search..." Class="rounded-r-full border-r-0" />
+                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Search">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
                                 </Button>
                             </ButtonGroup>
@@ -223,27 +221,31 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="input-group">Input Group</h3>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="input-group">Input Group <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h3>
                 <div class="mt-6">
                     <ComponentExample Compact="true" CodeText="@InputGroupCode">
                         <Preview>
-                            <ButtonGroup Class="w-full max-w-md rounded-full [&>*:first-child]:rounded-l-full [&>*:last-child]:rounded-r-full" aria-label="Message composer">
-                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Add attachment">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
-                                </Button>
-                                <InputGroup Class="flex-1 rounded-none border-x-0 px-0 py-0 shadow-none">
-                                    <Input Placeholder="Ask me anything..." Class="h-8 border-0 shadow-none focus-visible:ring-0" />
-                                </InputGroup>
-                                <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Class="rounded-full bg-orange-500 text-white hover:bg-orange-500/90" aria-label="Voice mode">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 1 1-6 0V6a3 3 0 0 1 3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><path d="M12 19v2" /></svg>
-                                </Button>
+                            <ButtonGroup Class="w-full max-w-md" aria-label="Message composer">
+                                <ButtonGroup>
+                                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Add">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
+                                    </Button>
+                                </ButtonGroup>
+                                <ButtonGroup Class="flex-1">
+                                    <div class="border-input bg-background flex h-8 w-full items-center rounded-full border px-1 pl-3 shadow-xs">
+                                        <Input Placeholder="Send a message..." Class="h-full rounded-full border-0 bg-transparent px-0 shadow-none focus-visible:ring-0" />
+                                        <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.IconXs" Class="rounded-full data-[active=true]:bg-primary data-[active=true]:text-primary-foreground" aria-label="Voice mode">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 1 1-6 0V6a3 3 0 0 1 3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><path d="M12 19v2" /></svg>
+                                        </Button>
+                                    </div>
+                                </ButtonGroup>
                             </ButtonGroup>
                         </Preview>
                         <Code>@InputGroupCode</Code>
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="dropdown-menu">Dropdown Menu</h3>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="dropdown-menu">Dropdown Menu <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h3>
                 <div class="mt-6">
                     <ComponentExample Compact="true" CodeText="@DropdownCode">
                         <Preview>
@@ -268,9 +270,12 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="select">Select</h3>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="select">Select <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h3>
                 <div class="mt-6">
                     <ComponentExample Compact="true" CodeText="@SelectCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Fallback example until the dedicated <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Select</code> button group composition is finalized.</p>
+                        </Description>
                         <Preview>
                             <ButtonGroup Class="w-full max-w-sm" aria-label="Send money">
                                 <Select>
@@ -293,9 +298,12 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="popover">Popover</h3>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="popover">Popover <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h3>
                 <div class="mt-6">
                     <ComponentExample Compact="true" CodeText="@PopoverCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Fallback example until the dedicated <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Popover</code> button group composition is finalized.</p>
+                        </Description>
                         <Preview>
                             <ButtonGroup aria-label="Copilot actions">
                                 <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Sm">
@@ -496,8 +504,6 @@ import {
         <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">1</Button>
         <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">2</Button>
         <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">3</Button>
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">4</Button>
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">5</Button>
     </ButtonGroup>
     <ButtonGroup>
         <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Previous">...</Button>
@@ -521,19 +527,23 @@ import {
 """;
     private const string InputCode = """
 <ButtonGroup Class="w-full max-w-sm" aria-label="Search">
-    <Input Placeholder="Search..." Class="rounded-r-none border-r-0" />
-    <Button Variant="ButtonVariant.Outline" Class="rounded-l-none" aria-label="Search">
+    <Input Placeholder="Search..." Class="rounded-r-full border-r-0" />
+    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Search">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
     </Button>
 </ButtonGroup>
 """;
     private const string InputGroupCode = """
-<ButtonGroup Class="w-full max-w-md rounded-full [&>*:first-child]:rounded-l-full [&>*:last-child]:rounded-r-full" aria-label="Message composer">
-    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Add attachment">+</Button>
-    <InputGroup Class="flex-1 rounded-none border-x-0 px-0 py-0 shadow-none">
-        <Input Placeholder="Ask me anything..." Class="h-8 border-0 shadow-none focus-visible:ring-0" />
-    </InputGroup>
-    <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Class="rounded-full bg-orange-500 text-white hover:bg-orange-500/90" aria-label="Voice mode">Mic</Button>
+<ButtonGroup Class="w-full max-w-md" aria-label="Message composer">
+    <ButtonGroup>
+        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Add">+</Button>
+    </ButtonGroup>
+    <ButtonGroup Class="flex-1">
+        <div class="border-input bg-background flex h-8 w-full items-center rounded-full border px-1 pl-3 shadow-xs">
+            <Input Placeholder="Send a message..." Class="h-full rounded-full border-0 bg-transparent px-0 shadow-none focus-visible:ring-0" />
+            <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.IconXs" Class="rounded-full" aria-label="Voice mode">Mic</Button>
+        </div>
+    </ButtonGroup>
 </ButtonGroup>
 """;
     private const string DropdownCode = """
