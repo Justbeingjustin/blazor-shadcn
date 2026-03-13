@@ -10,10 +10,10 @@
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Button Group</h1>
                     <div class="ml-auto flex items-center gap-2">
                         <DocsCopyPage PageUrl="@ReferenceUrl" />
-                        <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/button" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/button" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                         </Button>
-                        <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/calendar" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/calendar" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
                         </Button>
                     </div>
@@ -31,7 +31,7 @@
                     <Preview>
                         <ButtonGroup aria-label="Email actions">
                             <ButtonGroup Class="hidden sm:flex" aria-label="Back navigation">
-                                <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="Go back">
+                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="Go back">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                                 </Button>
                             </ButtonGroup>
@@ -43,7 +43,7 @@
                                 <Button Variant="@Button.ButtonVariant.Outline">Snooze</Button>
                                 <DropdownMenu Class="[&>[data-slot=dropdown-menu-trigger]]:inline-flex [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:rounded-l-none [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:border-l-0">
                                     <DropdownMenuTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="More actions">
+                                        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="More actions">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.75" /><circle cx="12" cy="12" r="1.75" /><circle cx="12" cy="19" r="1.75" /></svg>
                                         </Button>
                                     </DropdownMenuTrigger>
@@ -104,10 +104,10 @@
                     <ComponentExample Compact="true" CodeText="@OrientationCode">
                         <Preview>
                             <ButtonGroup Orientation="ButtonGroup.GroupOrientation.Vertical" aria-label="Zoom controls">
-                                <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Zoom in">
+                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Zoom in">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
                                 </Button>
-                                <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Zoom out">
+                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Zoom out">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14" /></svg>
                                 </Button>
                             </ButtonGroup>
@@ -122,10 +122,10 @@
                         <Preview>
                             <div class="flex flex-col items-start gap-4">
                                 <ButtonGroup>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">Small</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">Button</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">Group</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Add">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Small</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Button</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Group</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Add">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
                                     </Button>
                                 </ButtonGroup>
@@ -133,15 +133,15 @@
                                     <Button Variant="@Button.ButtonVariant.Outline">Default</Button>
                                     <Button Variant="@Button.ButtonVariant.Outline">Button</Button>
                                     <Button Variant="@Button.ButtonVariant.Outline">Group</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="Add">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="Add">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
                                     </Button>
                                 </ButtonGroup>
                                 <ButtonGroup>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Lg">Large</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Lg">Button</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Lg">Group</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconLg" aria-label="Add">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Lg">Large</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Lg">Button</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Lg">Group</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconLg" aria-label="Add">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
                                     </Button>
                                 </ButtonGroup>
@@ -157,15 +157,15 @@
                         <Preview>
                             <ButtonGroup>
                                 <ButtonGroup>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">1</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">2</Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">3</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">1</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">2</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">3</Button>
                                 </ButtonGroup>
                                 <ButtonGroup>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Previous">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Previous">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m5 12 6 6" /><path d="m5 12 6-6" /></svg>
                                     </Button>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Next">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Next">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m13 18 6-6" /><path d="m13 6 6 6" /></svg>
                                     </Button>
                                 </ButtonGroup>
@@ -181,9 +181,9 @@
                     <ComponentExample Compact="true" CodeText="@SeparatorCode">
                         <Preview>
                             <ButtonGroup aria-label="Clipboard actions">
-                                <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Copy</Button>
+                                <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Copy</Button>
                                 <ButtonGroupSeparator />
-                                <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Paste</Button>
+                                <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Paste</Button>
                             </ButtonGroup>
                         </Preview>
                         <Code>@SeparatorCode</Code>
@@ -195,9 +195,9 @@
                     <ComponentExample Compact="true" CodeText="@SplitCode">
                         <Preview>
                             <ButtonGroup aria-label="Split button">
-                                <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Button</Button>
+                                <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Button</Button>
                                 <ButtonGroupSeparator />
-                                <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.IconSm" aria-label="Add">
+                                <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.IconSm" aria-label="Add">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
                                 </Button>
                             </ButtonGroup>
@@ -212,7 +212,7 @@
                         <Preview>
                             <ButtonGroup Class="w-full max-w-sm" aria-label="Search">
                                 <Input Placeholder="Search..." Class="rounded-r-full border-r-0" />
-                                <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Search">
+                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" Class="rounded-full" aria-label="Search">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
                                 </Button>
                             </ButtonGroup>
@@ -227,14 +227,14 @@
                         <Preview>
                             <ButtonGroup Class="w-full max-w-md" aria-label="Message composer">
                                 <ButtonGroup>
-                                    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Add">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" Class="rounded-full" aria-label="Add">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
                                     </Button>
                                 </ButtonGroup>
                                 <ButtonGroup Class="flex-1">
                                     <div class="border-input bg-background flex h-8 w-full items-center rounded-full border px-1 pl-3 shadow-xs">
                                         <Input Placeholder="Send a message..." Class="h-full rounded-full border-0 bg-transparent px-0 shadow-none focus-visible:ring-0" />
-                                        <Button Variant="@Button.ButtonVariant.Ghost" Size="ButtonSize.IconXs" Class="rounded-full data-[active=true]:bg-primary data-[active=true]:text-primary-foreground" aria-label="Voice mode">
+                                        <Button Variant="@Button.ButtonVariant.Ghost" Size="@Button.ButtonSize.IconXs" Class="rounded-full data-[active=true]:bg-primary data-[active=true]:text-primary-foreground" aria-label="Voice mode">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 1 1-6 0V6a3 3 0 0 1 3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><path d="M12 19v2" /></svg>
                                         </Button>
                                     </div>
@@ -250,11 +250,11 @@
                     <ComponentExample Compact="true" CodeText="@DropdownCode">
                         <Preview>
                             <ButtonGroup aria-label="Follow options">
-                                <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Follow</Button>
+                                <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Follow</Button>
                                 <ButtonGroupSeparator />
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.IconSm" aria-label="More follow options">
+                                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.IconSm" aria-label="More follow options">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                                         </Button>
                                     </DropdownMenuTrigger>
@@ -289,7 +289,7 @@
                                     </SelectContent>
                                 </Select>
                                 <Input Placeholder="Amount" Class="rounded-none border-x-0" />
-                                <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-l-none" aria-label="Send">
+                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" Class="rounded-l-none" aria-label="Send">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
                                 </Button>
                             </ButtonGroup>
@@ -306,14 +306,14 @@
                         </Description>
                         <Preview>
                             <ButtonGroup aria-label="Copilot actions">
-                                <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">
+                                <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v2.1A6 6 0 0 0 6 13v5h12v-5a6 6 0 0 0-2-4.9V6a4 4 0 0 0-4-4Z" /><path d="M9 18v2" /><path d="M15 18v2" /></svg>
                                     <span>Copilot</span>
                                 </Button>
                                 <ButtonGroupSeparator />
                                 <Popover>
                                     <PopoverTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.IconSm" aria-label="Open copilot menu">
+                                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.IconSm" aria-label="Open copilot menu">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                                         </Button>
                                     </PopoverTrigger>
@@ -423,7 +423,7 @@ import {
     private const string DemoCode = """
 <ButtonGroup aria-label="Email actions">
     <ButtonGroup Class="hidden sm:flex" aria-label="Back navigation">
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="Go back">
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="Go back">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" /></svg>
         </Button>
     </ButtonGroup>
@@ -435,7 +435,7 @@ import {
         <Button Variant="@Button.ButtonVariant.Outline">Snooze</Button>
         <DropdownMenu Class="[&>[data-slot=dropdown-menu-trigger]]:inline-flex [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:rounded-l-none [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:border-l-0">
             <DropdownMenuTrigger>
-                <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="More actions">...</Button>
+                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="More actions">...</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent Class="top-auto bottom-full left-auto right-0 mt-0 mb-2 w-52">
                 <DropdownMenuItem>Mark as Read</DropdownMenuItem>
@@ -468,10 +468,10 @@ import {
 """;
     private const string OrientationCode = """
 <ButtonGroup Orientation="ButtonGroup.GroupOrientation.Vertical" aria-label="Zoom controls">
-    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Zoom in">
+    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Zoom in">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
     </Button>
-    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Zoom out">
+    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Zoom out">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" /></svg>
     </Button>
 </ButtonGroup>
@@ -479,56 +479,56 @@ import {
     private const string SizeCode = """
 <div class="flex flex-col items-start gap-4">
     <ButtonGroup>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">Small</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">Button</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">Group</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Add">+</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Small</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Button</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Group</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Add">+</Button>
     </ButtonGroup>
     <ButtonGroup>
         <Button Variant="@Button.ButtonVariant.Outline">Default</Button>
         <Button Variant="@Button.ButtonVariant.Outline">Button</Button>
         <Button Variant="@Button.ButtonVariant.Outline">Group</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="Add">+</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="Add">+</Button>
     </ButtonGroup>
     <ButtonGroup>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Lg">Large</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Lg">Button</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Lg">Group</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconLg" aria-label="Add">+</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Lg">Large</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Lg">Button</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Lg">Group</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconLg" aria-label="Add">+</Button>
     </ButtonGroup>
 </div>
 """;
     private const string NestedCode = """
 <ButtonGroup>
     <ButtonGroup>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">1</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">2</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Sm">3</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">1</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">2</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">3</Button>
     </ButtonGroup>
     <ButtonGroup>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Previous">...</Button>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.IconSm" aria-label="Next">...</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Previous">...</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.IconSm" aria-label="Next">...</Button>
     </ButtonGroup>
 </ButtonGroup>
 """;
     private const string SeparatorCode = """
 <ButtonGroup aria-label="Clipboard actions">
-    <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Copy</Button>
+    <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Copy</Button>
     <ButtonGroupSeparator />
-    <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Paste</Button>
+    <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Paste</Button>
 </ButtonGroup>
 """;
     private const string SplitCode = """
 <ButtonGroup aria-label="Split button">
-    <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Button</Button>
+    <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Button</Button>
     <ButtonGroupSeparator />
-    <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.IconSm" aria-label="Add">+</Button>
+    <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.IconSm" aria-label="Add">+</Button>
 </ButtonGroup>
 """;
     private const string InputCode = """
 <ButtonGroup Class="w-full max-w-sm" aria-label="Search">
     <Input Placeholder="Search..." Class="rounded-r-full border-r-0" />
-    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Search">
+    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" Class="rounded-full" aria-label="Search">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
     </Button>
 </ButtonGroup>
@@ -536,23 +536,23 @@ import {
     private const string InputGroupCode = """
 <ButtonGroup Class="w-full max-w-md" aria-label="Message composer">
     <ButtonGroup>
-        <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-full" aria-label="Add">+</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" Class="rounded-full" aria-label="Add">+</Button>
     </ButtonGroup>
     <ButtonGroup Class="flex-1">
         <div class="border-input bg-background flex h-8 w-full items-center rounded-full border px-1 pl-3 shadow-xs">
             <Input Placeholder="Send a message..." Class="h-full rounded-full border-0 bg-transparent px-0 shadow-none focus-visible:ring-0" />
-            <Button Variant="@Button.ButtonVariant.Ghost" Size="ButtonSize.IconXs" Class="rounded-full" aria-label="Voice mode">Mic</Button>
+            <Button Variant="@Button.ButtonVariant.Ghost" Size="@Button.ButtonSize.IconXs" Class="rounded-full" aria-label="Voice mode">Mic</Button>
         </div>
     </ButtonGroup>
 </ButtonGroup>
 """;
     private const string DropdownCode = """
 <ButtonGroup aria-label="Follow options">
-    <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Follow</Button>
+    <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Follow</Button>
     <ButtonGroupSeparator />
     <DropdownMenu>
         <DropdownMenuTrigger>
-            <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.IconSm" aria-label="More follow options">
+            <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.IconSm" aria-label="More follow options">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
             </Button>
         </DropdownMenuTrigger>
@@ -577,16 +577,16 @@ import {
         </SelectContent>
     </Select>
     <Input Placeholder="Amount" Class="rounded-none border-x-0" />
-    <Button Variant="@Button.ButtonVariant.Outline" Size="ButtonSize.Icon" Class="rounded-l-none" aria-label="Send">...</Button>
+    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" Class="rounded-l-none" aria-label="Send">...</Button>
 </ButtonGroup>
 """;
     private const string PopoverCode = """
 <ButtonGroup aria-label="Copilot actions">
-    <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.Sm">Copilot</Button>
+    <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Sm">Copilot</Button>
     <ButtonGroupSeparator />
     <Popover>
         <PopoverTrigger>
-            <Button Variant="@Button.ButtonVariant.Secondary" Size="ButtonSize.IconSm" aria-label="Open copilot menu">
+            <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.IconSm" aria-label="Open copilot menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
             </Button>
         </PopoverTrigger>
@@ -638,4 +638,5 @@ import {
 
     private static readonly string[] DependencyCommands = ["npm install radix-ui"];
 }
+
 
