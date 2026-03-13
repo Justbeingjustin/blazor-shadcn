@@ -1,7 +1,7 @@
 @namespace ShadcnBlazor.Components.UI
 
 <div data-slot="button-group-text"
-     class="@Cn("bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4", Class)"
+     class="@GetClasses()"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -12,7 +12,10 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private const string BaseClasses = "bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4";
+
+    private string GetClasses() => Cn(BaseClasses, Class);
+
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
-
