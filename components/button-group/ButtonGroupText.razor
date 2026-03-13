@@ -1,7 +1,7 @@
 @namespace ShadcnBlazor.Components.UI
 
 <div data-slot="button-group-text"
-     class="@Cn(""bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"", Class)"
+     class="@Cn("bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4", Class)"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -15,3 +15,4 @@
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
+

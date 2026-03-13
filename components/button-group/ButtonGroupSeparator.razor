@@ -2,7 +2,7 @@
 
 <Separator data-slot="button-group-separator"
            Orientation="@Orientation"
-           Class="@Cn(""bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto"", Class)"
+           Class="@Cn("bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto", Class)"
            @attributes="AdditionalAttributes" />
 
 @code {
@@ -14,3 +14,4 @@
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
+
