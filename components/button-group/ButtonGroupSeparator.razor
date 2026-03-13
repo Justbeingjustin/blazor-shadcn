@@ -1,9 +1,8 @@
 @namespace ShadcnBlazor.Components.UI
-@using BlazorShadcn.Utilities
 
 <Separator data-slot="button-group-separator"
            Orientation="@Orientation"
-           Class="@Tw.Merge("bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto", Class)"
+           Class="@Cn(""bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto"", Class)"
            @attributes="AdditionalAttributes" />
 
 @code {
@@ -11,4 +10,7 @@
     [Parameter] public string? Class { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
