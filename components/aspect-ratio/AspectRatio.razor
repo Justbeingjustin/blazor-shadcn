@@ -1,3 +1,5 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="aspect-ratio"
      class="@GetClasses()"
      style="@GetContainerStyle()"
@@ -13,7 +15,7 @@
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private string GetClasses()
-        => Tw.Merge("relative w-full", Class);
+        => string.IsNullOrWhiteSpace(Class) ? "relative w-full" : $"relative w-full {Class}";
 
     private IReadOnlyDictionary<string, object>? GetAdditionalAttributes()
     {
@@ -43,3 +45,4 @@
         return $"aspect-ratio: {aspectRatio};";
     }
 }
+

@@ -9,12 +9,12 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Aspect Ratio</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
-                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/alert-dialog" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/alert-dialog" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
                         </Button>
-                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/avatar" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/avatar" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
                             <span class="sr-only">Next</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
                         </Button>
@@ -178,7 +178,8 @@
 
     private const string installCommand = "blazor-shadcn add aspect-ratio";
     private const string manualDependencyCommand = "npm install radix-ui";
-    private const string usingStatement = "import { AspectRatio } from \"@/components/ui/aspect-ratio\"";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/aspect-ratio";
+    private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = """
 <AspectRatio Ratio="(16d / 9d)">
     <img src="..." alt="Image" class="rounded-md object-cover" />
@@ -213,7 +214,7 @@
 """;
     private const string sourceAspectRatioRazor = """
 <div data-slot="aspect-ratio"
-     class="@Tw.Merge(Class)"
+     class="@GetClasses()"
      style="@GetContainerStyle()"
      @attributes="GetAdditionalAttributes()">
     @ChildContent
@@ -225,6 +226,9 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => Tw.Merge("relative w-full", Class);
 
     private IReadOnlyDictionary<string, object>? GetAdditionalAttributes()
     {
@@ -256,4 +260,6 @@
 }
 """;
 }
+
+
 
