@@ -14,6 +14,7 @@ internal sealed class SelectContext
     private string? _controlledValue;
     private string? _uncontrolledValue;
 
+    public ElementReference TriggerElement { get; set; }
     public bool Disabled => _disabled;
     public bool IsOpen => _isOpen;
     public string ContentId => _contentId;
@@ -126,6 +127,3 @@ internal sealed class SelectContext
     private Task NotifyStateChangedAsync()
         => _stateChanged is null ? Task.CompletedTask : _stateChanged.Invoke();
 }
-
-
-

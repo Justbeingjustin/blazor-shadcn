@@ -189,6 +189,24 @@
             };
         })();
 
+        window.blazorShadcnSelect = (function () {
+            function position(trigger, content, positionMode) {
+                if (!trigger || !content) return;
+
+                const rect = trigger.getBoundingClientRect();
+                const isPopper = positionMode === 'popper';
+                const minWidth = isPopper ? rect.width : Math.max(rect.width, 128);
+                const top = rect.bottom + (isPopper ? 4 : 2);
+                const left = rect.left;
+
+                content.style.top = `${top}px`;
+                content.style.left = `${left}px`;
+                content.style.minWidth = `${minWidth}px`;
+            }
+
+            return { position };
+        })();
+
         (function () {
             function getTargetFromHash(hash) {
                 if (!hash || hash[0] !== '#') return null;
