@@ -1,0 +1,62 @@
+@namespace ShadcnBlazor.Components.UI
+
+<label data-slot="radio-group-item"
+       data-disabled="@Disabled"
+       for="@_resolvedId"
+       class="@Cn("group flex items-start gap-3 text-sm", Disabled ? "opacity-50" : null, Class)"
+       @attributes="AdditionalAttributes">
+    <span class="relative mt-0.5 flex size-4 shrink-0 items-center justify-center">
+        <input type="radio"
+               id="@_resolvedId"
+               name="@_groupName"
+               checked="@IsChecked"
+               disabled="@IsDisabled"
+               value="@Value"
+               class="peer border-input dark:bg-input/30 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive aria-invalid:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50 size-4 shrink-0 rounded-full border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+               @onchange="OnChanged" />
+        <span class="pointer-events-none absolute inset-0 m-auto size-2 rounded-full bg-primary opacity-0 transition-none peer-checked:opacity-100"></span>
+    </span>
+    @if (ChildContent is not null)
+    {
+        <span class="leading-none font-medium select-none">@ChildContent</span>
+    }
+</label>
+
+@code {
+    [CascadingParameter] private RadioGroupContext? GroupContext { get; set; }
+
+    [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string _resolvedId = string.Empty;
+    private string _groupName = string.Empty;
+
+    private bool IsChecked => GroupContext?.IsSelected(Value) == true;
+    private bool IsDisabled => Disabled || (GroupContext?.Disabled ?? false);
+
+    protected override void OnInitialized()
+    {
+        _resolvedId = Id ?? $"radio-item-{Guid.NewGuid().ToString("N", System.Globalization.CultureInfo.InvariantCulture)}";
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (GroupContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(RadioGroupItem)} must be used inside {nameof(RadioGroup)}.");
+        }
+
+        _groupName = GroupContext.Name;
+    }
+
+    private Task OnChanged(ChangeEventArgs _)
+        => GroupContext?.SelectAsync(Value, Disabled) ?? Task.CompletedTask;
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

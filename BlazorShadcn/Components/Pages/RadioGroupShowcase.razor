@@ -31,21 +31,28 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@codeMainDemo">
                     <Preview>
-                        <div class="grid gap-4">
-                            <Label Class="text-sm font-medium">Plan</Label>
-                            <RadioGroup DefaultValue="starter" Class="gap-3">
-                                <RadioGroupItem Value="starter" Id="plan-starter">Starter</RadioGroupItem>
-                                <RadioGroupItem Value="pro" Id="plan-pro">Pro</RadioGroupItem>
-                                <RadioGroupItem Value="enterprise" Id="plan-enterprise">Enterprise</RadioGroupItem>
-                            </RadioGroup>
-                        </div>
+                        <RadioGroup DefaultValue="comfortable" Class="w-fit">
+                            <div class="flex items-center gap-3">
+                                <RadioGroupItem Value="default" Id="radio-default" />
+                                <Label for="radio-default">Default</Label>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <RadioGroupItem Value="comfortable" Id="radio-comfortable" />
+                                <Label for="radio-comfortable">Comfortable</Label>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <RadioGroupItem Value="compact" Id="radio-compact" />
+                                <Label for="radio-compact">Compact</Label>
+                            </div>
+                        </RadioGroup>
                     </Preview>
                     <Code>@codeMainDemo</Code>
                 </ComponentExample>
 
                 <DocsInstallationSection ComponentLabel="radio group"
                                          InstallCommand="blazor-shadcn add radio-group"
-                                         SourcePaths="@_manualSourcePaths" />
+                                         SourcePaths="@_manualSourcePaths"
+                                         ImportStep="@manualImportStep" />
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -57,30 +64,111 @@
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
                 <div class="mt-6">
-                    <ComponentExample Title="Controlled" Compact="true">
+                    <ComponentExample Title="Description" Compact="true">
                         <Preview>
-                            <div class="grid gap-3">
-                                <RadioGroup Value="@_selectedPlan" ValueChanged="OnPlanChanged">
-                                    <RadioGroupItem Value="starter" Id="controlled-starter">Starter</RadioGroupItem>
-                                    <RadioGroupItem Value="pro" Id="controlled-pro">Pro</RadioGroupItem>
-                                    <RadioGroupItem Value="enterprise" Id="controlled-enterprise">Enterprise</RadioGroupItem>
-                                </RadioGroup>
-                                <p class="text-muted-foreground text-sm">Selected: @_selectedPlan</p>
-                            </div>
+                            <RadioGroup DefaultValue="comfortable" Class="w-fit">
+                                <div class="flex items-start gap-3">
+                                    <RadioGroupItem Value="default" Id="desc-r1" />
+                                    <div class="grid gap-1">
+                                        <Label for="desc-r1" Class="font-medium">Default</Label>
+                                        <p class="text-muted-foreground text-sm">Standard spacing for most use cases.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <RadioGroupItem Value="comfortable" Id="desc-r2" />
+                                    <div class="grid gap-1">
+                                        <Label for="desc-r2" Class="font-medium">Comfortable</Label>
+                                        <p class="text-muted-foreground text-sm">More space between elements.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <RadioGroupItem Value="compact" Id="desc-r3" />
+                                    <div class="grid gap-1">
+                                        <Label for="desc-r3" Class="font-medium">Compact</Label>
+                                        <p class="text-muted-foreground text-sm">Minimal spacing for dense layouts.</p>
+                                    </div>
+                                </div>
+                            </RadioGroup>
                         </Preview>
-                        <Code>@controlledCode</Code>
+                        <Code>@descriptionCode</Code>
                     </ComponentExample>
                 </div>
                 <div class="mt-6">
-                    <ComponentExample Title="Disabled Option" Compact="true">
+                    <ComponentExample Title="Choice Card" Compact="true">
                         <Preview>
-                            <RadioGroup DefaultValue="compact">
-                                <RadioGroupItem Value="compact" Id="size-compact">Compact</RadioGroupItem>
-                                <RadioGroupItem Value="comfortable" Id="size-comfortable">Comfortable</RadioGroupItem>
-                                <RadioGroupItem Value="spacious" Id="size-spacious" Disabled="true">Spacious (Coming soon)</RadioGroupItem>
+                            <RadioGroup DefaultValue="plus" Class="max-w-sm">
+                                <label for="plus-plan" class="flex rounded-lg border p-4">
+                                    <div class="flex-1 space-y-1">
+                                        <p class="text-sm font-medium leading-none">Plus</p>
+                                        <p class="text-muted-foreground text-sm">For individuals and small teams.</p>
+                                    </div>
+                                    <RadioGroupItem Value="plus" Id="plus-plan" />
+                                </label>
+                                <label for="pro-plan" class="flex rounded-lg border p-4">
+                                    <div class="flex-1 space-y-1">
+                                        <p class="text-sm font-medium leading-none">Pro</p>
+                                        <p class="text-muted-foreground text-sm">For growing businesses.</p>
+                                    </div>
+                                    <RadioGroupItem Value="pro" Id="pro-plan" />
+                                </label>
+                                <label for="enterprise-plan" class="flex rounded-lg border p-4">
+                                    <div class="flex-1 space-y-1">
+                                        <p class="text-sm font-medium leading-none">Enterprise</p>
+                                        <p class="text-muted-foreground text-sm">For large teams and enterprises.</p>
+                                    </div>
+                                    <RadioGroupItem Value="enterprise" Id="enterprise-plan" />
+                                </label>
                             </RadioGroup>
                         </Preview>
-                        <Code>@disabledOptionCode</Code>
+                        <Code>@choiceCardCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true">
+                        <Preview>
+                            <RadioGroup DefaultValue="option2" Class="w-fit">
+                                <div class="flex items-center gap-3 opacity-50" data-disabled>
+                                    <RadioGroupItem Value="option1" Id="disabled-1" Disabled="true" />
+                                    <Label for="disabled-1" Class="font-normal">Disabled</Label>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <RadioGroupItem Value="option2" Id="disabled-2" />
+                                    <Label for="disabled-2" Class="font-normal">Option 2</Label>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <RadioGroupItem Value="option3" Id="disabled-3" />
+                                    <Label for="disabled-3" Class="font-normal">Option 3</Label>
+                                </div>
+                            </RadioGroup>
+                        </Preview>
+                        <Code>@disabledCode</Code>
+                    </ComponentExample>
+                </div>
+                <div class="mt-6">
+                    <ComponentExample Title="Invalid" Compact="true">
+                        <Preview>
+                            <div class="w-full max-w-xs space-y-3">
+                                <div class="space-y-1">
+                                    <p class="text-sm font-medium leading-none">Notification Preferences</p>
+                                    <p class="text-muted-foreground text-sm">Choose how you want to receive notifications.</p>
+                                </div>
+                                <RadioGroup DefaultValue="email">
+                                    <div class="flex items-center gap-3" data-invalid>
+                                        <RadioGroupItem Value="email" Id="invalid-email" aria-invalid="true" />
+                                        <Label for="invalid-email" Class="font-normal text-destructive">Email only</Label>
+                                    </div>
+                                    <div class="flex items-center gap-3" data-invalid>
+                                        <RadioGroupItem Value="sms" Id="invalid-sms" aria-invalid="true" />
+                                        <Label for="invalid-sms" Class="font-normal text-destructive">SMS only</Label>
+                                    </div>
+                                    <div class="flex items-center gap-3" data-invalid>
+                                        <RadioGroupItem Value="both" Id="invalid-both" aria-invalid="true" />
+                                        <Label for="invalid-both" Class="font-normal text-destructive">Both Email &amp; SMS</Label>
+                                    </div>
+                                </RadioGroup>
+                            </div>
+                        </Preview>
+                        <Code>@invalidCode</Code>
                     </ComponentExample>
                 </div>
 
@@ -128,50 +216,137 @@
 </div>
 
 @code {
-    private string _selectedPlan = "pro";
-
-    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
     private const string usageCode = """
-<RadioGroup DefaultValue="starter">
-    <RadioGroupItem Value="starter">Starter</RadioGroupItem>
-    <RadioGroupItem Value="pro">Pro</RadioGroupItem>
-    <RadioGroupItem Value="enterprise">Enterprise</RadioGroupItem>
+<RadioGroup DefaultValue="comfortable">
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="default" Id="r1" />
+        <Label for="r1">Default</Label>
+    </div>
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="comfortable" Id="r2" />
+        <Label for="r2">Comfortable</Label>
+    </div>
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="compact" Id="r3" />
+        <Label for="r3">Compact</Label>
+    </div>
 </RadioGroup>
 """;
 
     private const string codeMainDemo = """
-<RadioGroup DefaultValue="starter" Class="gap-3">
-    <RadioGroupItem Value="starter" Id="plan-starter">Starter</RadioGroupItem>
-    <RadioGroupItem Value="pro" Id="plan-pro">Pro</RadioGroupItem>
-    <RadioGroupItem Value="enterprise" Id="plan-enterprise">Enterprise</RadioGroupItem>
+<RadioGroup DefaultValue="comfortable" Class="w-fit">
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="default" Id="r1" />
+        <Label for="r1">Default</Label>
+    </div>
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="comfortable" Id="r2" />
+        <Label for="r2">Comfortable</Label>
+    </div>
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="compact" Id="r3" />
+        <Label for="r3">Compact</Label>
+    </div>
 </RadioGroup>
 """;
 
-    private const string controlledCode = """
-<RadioGroup Value="@SelectedPlan" ValueChanged="OnPlanChanged">
-    <RadioGroupItem Value="starter">Starter</RadioGroupItem>
-    <RadioGroupItem Value="pro">Pro</RadioGroupItem>
-    <RadioGroupItem Value="enterprise">Enterprise</RadioGroupItem>
+    private const string descriptionCode = """
+<RadioGroup DefaultValue="comfortable" Class="w-fit">
+    <div class="flex items-start gap-3">
+        <RadioGroupItem Value="default" Id="desc-r1" />
+        <div class="grid gap-1">
+            <Label for="desc-r1" Class="font-medium">Default</Label>
+            <p class="text-muted-foreground text-sm">Standard spacing for most use cases.</p>
+        </div>
+    </div>
+    <div class="flex items-start gap-3">
+        <RadioGroupItem Value="comfortable" Id="desc-r2" />
+        <div class="grid gap-1">
+            <Label for="desc-r2" Class="font-medium">Comfortable</Label>
+            <p class="text-muted-foreground text-sm">More space between elements.</p>
+        </div>
+    </div>
+    <div class="flex items-start gap-3">
+        <RadioGroupItem Value="compact" Id="desc-r3" />
+        <div class="grid gap-1">
+            <Label for="desc-r3" Class="font-medium">Compact</Label>
+            <p class="text-muted-foreground text-sm">Minimal spacing for dense layouts.</p>
+        </div>
+    </div>
 </RadioGroup>
 """;
 
-    private const string disabledOptionCode = """
-<RadioGroup DefaultValue="compact">
-    <RadioGroupItem Value="compact">Compact</RadioGroupItem>
-    <RadioGroupItem Value="comfortable">Comfortable</RadioGroupItem>
-    <RadioGroupItem Value="spacious" Disabled="true">Spacious (Coming soon)</RadioGroupItem>
+    private const string choiceCardCode = """
+<RadioGroup DefaultValue="plus" Class="max-w-sm">
+    <label for="plus-plan" class="flex rounded-lg border p-4">
+        <div class="flex-1 space-y-1">
+            <p class="text-sm font-medium leading-none">Plus</p>
+            <p class="text-muted-foreground text-sm">For individuals and small teams.</p>
+        </div>
+        <RadioGroupItem Value="plus" Id="plus-plan" />
+    </label>
+    <label for="pro-plan" class="flex rounded-lg border p-4">
+        <div class="flex-1 space-y-1">
+            <p class="text-sm font-medium leading-none">Pro</p>
+            <p class="text-muted-foreground text-sm">For growing businesses.</p>
+        </div>
+        <RadioGroupItem Value="pro" Id="pro-plan" />
+    </label>
+    <label for="enterprise-plan" class="flex rounded-lg border p-4">
+        <div class="flex-1 space-y-1">
+            <p class="text-sm font-medium leading-none">Enterprise</p>
+            <p class="text-muted-foreground text-sm">For large teams and enterprises.</p>
+        </div>
+        <RadioGroupItem Value="enterprise" Id="enterprise-plan" />
+    </label>
 </RadioGroup>
+""";
+
+    private const string disabledCode = """
+<RadioGroup DefaultValue="option2" Class="w-fit">
+    <div class="flex items-center gap-3 opacity-50" data-disabled>
+        <RadioGroupItem Value="option1" Id="disabled-1" Disabled="true" />
+        <Label for="disabled-1" Class="font-normal">Disabled</Label>
+    </div>
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="option2" Id="disabled-2" />
+        <Label for="disabled-2" Class="font-normal">Option 2</Label>
+    </div>
+    <div class="flex items-center gap-3">
+        <RadioGroupItem Value="option3" Id="disabled-3" />
+        <Label for="disabled-3" Class="font-normal">Option 3</Label>
+    </div>
+</RadioGroup>
+""";
+
+    private const string invalidCode = """
+<div class="w-full max-w-xs space-y-3">
+    <div class="space-y-1">
+        <p class="text-sm font-medium leading-none">Notification Preferences</p>
+        <p class="text-muted-foreground text-sm">Choose how you want to receive notifications.</p>
+    </div>
+    <RadioGroup DefaultValue="email">
+        <div class="flex items-center gap-3" data-invalid>
+            <RadioGroupItem Value="email" Id="invalid-email" aria-invalid="true" />
+            <Label for="invalid-email" Class="font-normal text-destructive">Email only</Label>
+        </div>
+        <div class="flex items-center gap-3" data-invalid>
+            <RadioGroupItem Value="sms" Id="invalid-sms" aria-invalid="true" />
+            <Label for="invalid-sms" Class="font-normal text-destructive">SMS only</Label>
+        </div>
+        <div class="flex items-center gap-3" data-invalid>
+            <RadioGroupItem Value="both" Id="invalid-both" aria-invalid="true" />
+            <Label for="invalid-both" Class="font-normal text-destructive">Both Email &amp; SMS</Label>
+        </div>
+    </RadioGroup>
+</div>
 """;
     private static readonly string[] _manualSourcePaths =
     [
-        "Components/UI/RadioGroup.razor",
-        "Components/UI/RadioGroupItem.razor",
-        "Components/UI/RadioGroupContext.cs"
+        "components/radio-group/RadioGroup.razor",
+        "components/radio-group/RadioGroupItem.razor",
+        "components/radio-group/RadioGroupContext.cs"
     ];
-
-    private Task OnPlanChanged(string? value)
-    {
-        _selectedPlan = value ?? string.Empty;
-        return Task.CompletedTask;
-    }
 }
