@@ -1,5 +1,6 @@
 <div data-slot="select"
-     class="@Tw.Merge("relative inline-flex w-fit flex-col", Class)"
+     data-state="@(_context.IsOpen ? "open" : "closed")"
+     class="@Tw.Merge("relative inline-flex w-fit flex-col data-[state=open]:z-50", Class)"
      @attributes="AdditionalAttributes">
     <CascadingValue Value="_context">
         @ChildContent

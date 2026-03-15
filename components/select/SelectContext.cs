@@ -97,6 +97,7 @@ internal sealed class SelectContext
         }
 
         RegisterItem(value, text);
+        _controlledValue = value;
 
         if (_isControlled)
         {
@@ -125,4 +126,6 @@ internal sealed class SelectContext
     private Task NotifyStateChangedAsync()
         => _stateChanged is null ? Task.CompletedTask : _stateChanged.Invoke();
 }
+
+
 
