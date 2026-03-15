@@ -1,3 +1,4 @@
+@namespace ShadcnBlazor.Components.UI
 <CascadingValue Name="DropdownMenuContext" Value="@_context">
     <div data-slot="dropdown-menu" class="@Cn("relative inline-block", Class)" @attributes="AdditionalAttributes">
         @ChildContent
@@ -45,3 +46,4 @@
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
+

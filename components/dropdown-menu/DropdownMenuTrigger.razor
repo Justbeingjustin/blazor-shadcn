@@ -1,3 +1,4 @@
+@namespace ShadcnBlazor.Components.UI
 <span data-slot="dropdown-menu-trigger"
       class="@Cn("inline-flex", Class)"
       tabindex="0"
@@ -19,3 +20,4 @@
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
+

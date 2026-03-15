@@ -1,2 +1,774 @@
 @page "/components/dropdown-menu"
-<GeneratedShowcase Slug="dropdown-menu" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Dropdown Menu - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Dropdown Menu</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/dialog" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/input" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Displays a menu to the user such as a set of actions or functions, triggered by a button.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@demoCode">
+                    <Preview>
+                        <div class="grid w-full place-items-center">
+                            <DropdownMenu>
+                                <DropdownMenuTrigger>
+                                    <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent Class="w-40">
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                        <DropdownMenuItem>
+                                            Profile
+                                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            Billing
+                                            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            Settings
+                                            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuItem>Team</DropdownMenuItem>
+                                        <DropdownMenuSub>
+                                            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                                            <DropdownMenuPortal>
+                                                <DropdownMenuSubContent>
+                                                    <DropdownMenuItem>Email</DropdownMenuItem>
+                                                    <DropdownMenuItem>Message</DropdownMenuItem>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem>More...</DropdownMenuItem>
+                                                </DropdownMenuSubContent>
+                                            </DropdownMenuPortal>
+                                        </DropdownMenuSub>
+                                        <DropdownMenuItem>
+                                            New Team
+                                            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuItem>GitHub</DropdownMenuItem>
+                                        <DropdownMenuItem>Support</DropdownMenuItem>
+                                        <DropdownMenuItem Disabled="true">API</DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">
+                                        Log out
+                                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
+                    </Preview>
+                    <Code>@demoCode</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the dropdown-menu component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Command</button>
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Manual</button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4"><CodeBlock RawText="@installCommand">@installCommand</CodeBlock></div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following files into your project.</p>
+                                @foreach (var source in _manualSources)
+                                {
+                                    <p class="text-muted-foreground mt-4 text-sm">@source.Path</p>
+                                    <div class="mt-2"><CodeBlock RawText="@source.Content">@source.Content</CodeBlock></div>
+                                }
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-2"><CodeBlock RawText="@manualImportsCode">@manualImportsCode</CodeBlock></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Basic" Compact="true" CodeText="@basicCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                                            <DropdownMenuItem>Billing</DropdownMenuItem>
+                                            <DropdownMenuItem>Settings</DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>GitHub</DropdownMenuItem>
+                                        <DropdownMenuItem>Support</DropdownMenuItem>
+                                        <DropdownMenuItem Disabled="true">API</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        </Preview>
+                        <Code>@basicCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Shortcuts" Compact="true" CodeText="@shortcutsCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                            <DropdownMenuItem>
+                                                Profile
+                                                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                Billing
+                                                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                Settings
+                                                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>
+                                            Log out
+                                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        </Preview>
+                        <Code>@shortcutsCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Icons" Compact="true" CodeText="@iconsCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                                            Profile
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /></svg>
+                                            Billing
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.5a3.5 3.5 0 1 0 0 -7a3.5 3.5 0 0 0 0 7z" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06 .06a2 2 0 1 1 -2.83 2.83l-.06 -.06a1.65 1.65 0 0 0 -1.82 -.33a1.65 1.65 0 0 0 -1 1.51V21a2 2 0 1 1 -4 0v-.09a1.65 1.65 0 0 0 -1 -1.51a1.65 1.65 0 0 0 -1.82 .33l-.06 .06a2 2 0 1 1 -2.83 -2.83l.06 -.06a1.65 1.65 0 0 0 .33 -1.82a1.65 1.65 0 0 0 -1.51 -1H3a2 2 0 1 1 0 -4h.09a1.65 1.65 0 0 0 1.51 -1a1.65 1.65 0 0 0 -.33 -1.82l-.06 -.06a2 2 0 1 1 2.83 -2.83l.06 .06a1.65 1.65 0 0 0 1.82 .33h.08a1.65 1.65 0 0 0 1 -1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82 -.33l.06 -.06a2 2 0 1 1 2.83 2.83l-.06 .06a1.65 1.65 0 0 0 -.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0 -1.51 1z" /></svg>
+                                            Settings
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" /><path d="M12 10v4" /><path d="M15 21H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h10" /><path d="M19 16l4 -4l-4 -4" /><path d="M23 12h-13" /></svg>
+                                            Log out
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        </Preview>
+                        <Code>@iconsCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Avatar" Compact="true" CodeText="@avatarCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Button Variant="@Button.ButtonVariant.Ghost" Size="@Button.ButtonSize.Icon" Class="rounded-full p-0">
+                                            <Avatar>
+                                                <AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" />
+                                                <AvatarFallback>LR</AvatarFallback>
+                                            </Avatar>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent Class="w-48">
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuItem>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                                                Account
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /></svg>
+                                                Billing
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 17h5l-1.405 -1.405A2.032 2.032 0 0 1 18 14.158V11a6.002 6.002 0 0 0 -4 -5.659V5a2 2 0 1 0 -4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" /><path d="M9 17a3 3 0 0 0 6 0" /></svg>
+                                                Notifications
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" /><path d="M12 10v4" /><path d="M15 21H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h10" /><path d="M19 16l4 -4l-4 -4" /><path d="M23 12h-13" /></svg>
+                                            Sign Out
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        </Preview>
+                        <Code>@avatarCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Complex" Compact="true" CodeText="@complexCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Button Variant="@Button.ButtonVariant.Outline">Complex Menu</Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent Class="w-52">
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuLabel>File</DropdownMenuLabel>
+                                            <DropdownMenuItem>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /></svg>
+                                                New File
+                                                <DropdownMenuShortcut>?N</DropdownMenuShortcut>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-1 2h-3a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-7l-2 -4z" /></svg>
+                                                New Folder
+                                                <DropdownMenuShortcut>??N</DropdownMenuShortcut>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuSub>
+                                                <DropdownMenuSubTrigger>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l14 0" /><path d="M5 5l14 0" /><path d="M5 12l14 0" /></svg>
+                                                    Open Recent
+                                                </DropdownMenuSubTrigger>
+                                                <DropdownMenuPortal>
+                                                    <DropdownMenuSubContent>
+                                                        <DropdownMenuGroup>
+                                                            <DropdownMenuLabel>Recent Projects</DropdownMenuLabel>
+                                                            <DropdownMenuItem>Project Alpha</DropdownMenuItem>
+                                                            <DropdownMenuItem>Project Beta</DropdownMenuItem>
+                                                            <DropdownMenuSub>
+                                                                <DropdownMenuSubTrigger>More Projects</DropdownMenuSubTrigger>
+                                                                <DropdownMenuPortal>
+                                                                    <DropdownMenuSubContent>
+                                                                        <DropdownMenuItem>Project Gamma</DropdownMenuItem>
+                                                                        <DropdownMenuItem>Project Delta</DropdownMenuItem>
+                                                                    </DropdownMenuSubContent>
+                                                                </DropdownMenuPortal>
+                                                            </DropdownMenuSub>
+                                                        </DropdownMenuGroup>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem>Browse...</DropdownMenuItem>
+                                                    </DropdownMenuSubContent>
+                                                </DropdownMenuPortal>
+                                            </DropdownMenuSub>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuLabel>Account</DropdownMenuLabel>
+                                            <DropdownMenuItem>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                                                Profile
+                                                <DropdownMenuShortcut>??P</DropdownMenuShortcut>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuSub>
+                                                <DropdownMenuSubTrigger>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.5a3.5 3.5 0 1 0 0 -7a3.5 3.5 0 0 0 0 7z" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06 .06a2 2 0 1 1 -2.83 2.83l-.06 -.06a1.65 1.65 0 0 0 -1.82 -.33a1.65 1.65 0 0 0 -1 1.51V21a2 2 0 1 1 -4 0v-.09a1.65 1.65 0 0 0 -1 -1.51a1.65 1.65 0 0 0 -1.82 .33l-.06 .06a2 2 0 1 1 -2.83 -2.83l.06 -.06a1.65 1.65 0 0 0 .33 -1.82a1.65 1.65 0 0 0 -1.51 -1H3a2 2 0 1 1 0 -4h.09a1.65 1.65 0 0 0 1.51 -1a1.65 1.65 0 0 0 -.33 -1.82l-.06 -.06a2 2 0 1 1 2.83 -2.83l.06 .06a1.65 1.65 0 0 0 1.82 .33h.08a1.65 1.65 0 0 0 1 -1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82 -.33l.06 -.06a2 2 0 1 1 2.83 2.83l-.06 .06a1.65 1.65 0 0 0 -.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0 -1.51 1z" /></svg>
+                                                    Settings
+                                                </DropdownMenuSubTrigger>
+                                                <DropdownMenuPortal>
+                                                    <DropdownMenuSubContent>
+                                                        <DropdownMenuGroup>
+                                                            <DropdownMenuLabel>Preferences</DropdownMenuLabel>
+                                                            <DropdownMenuItem>Keyboard Shortcuts</DropdownMenuItem>
+                                                            <DropdownMenuItem>Language</DropdownMenuItem>
+                                                            <DropdownMenuSub>
+                                                                <DropdownMenuSubTrigger>Notifications</DropdownMenuSubTrigger>
+                                                                <DropdownMenuPortal>
+                                                                    <DropdownMenuSubContent>
+                                                                        <DropdownMenuItem>Push Notifications</DropdownMenuItem>
+                                                                        <DropdownMenuItem>Email Notifications</DropdownMenuItem>
+                                                                    </DropdownMenuSubContent>
+                                                                </DropdownMenuPortal>
+                                                            </DropdownMenuSub>
+                                                        </DropdownMenuGroup>
+                                                    </DropdownMenuSubContent>
+                                                </DropdownMenuPortal>
+                                            </DropdownMenuSub>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuItem>Help &amp; Support</DropdownMenuItem>
+                                            <DropdownMenuItem>Documentation</DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" /><path d="M12 10v4" /><path d="M15 21H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h10" /><path d="M19 16l4 -4l-4 -4" /><path d="M23 12h-13" /></svg>
+                                            Sign Out
+                                            <DropdownMenuShortcut>??Q</DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        </Preview>
+                        <Code>@complexCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Destructive" Compact="true" CodeText="@destructiveCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Button Variant="@Button.ButtonVariant.Outline">Project</Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent Class="w-44">
+                                        <DropdownMenuItem>Rename</DropdownMenuItem>
+                                        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">Delete project</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        </Preview>
+                        <Code>@destructiveCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">DropdownMenu</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Open</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">OpenChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultOpen</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">DropdownMenuItem</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Default | Destructive</code></td><td class="px-4 py-2 text-left whitespace-nowrap">Default</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">OnSelect</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string canonicalDropdownMenuDirectory = "components/dropdown-menu";
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private IReadOnlyList<ManualSource> _manualSources = [];
+
+    protected override void OnInitialized()
+    {
+        _manualSources =
+        [
+            LoadSource("DropdownMenuContext.cs"),
+            LoadSource("DropdownMenuSubContext.cs"),
+            LoadSource("DropdownMenuSubGroupContext.cs"),
+            LoadSource("DropdownMenu.razor"),
+            LoadSource("DropdownMenuPortal.razor"),
+            LoadSource("DropdownMenuTrigger.razor"),
+            LoadSource("DropdownMenuContent.razor"),
+            LoadSource("DropdownMenuItem.razor"),
+            LoadSource("DropdownMenuLabel.razor"),
+            LoadSource("DropdownMenuSeparator.razor"),
+            LoadSource("DropdownMenuGroup.razor"),
+            LoadSource("DropdownMenuShortcut.razor"),
+            LoadSource("DropdownMenuSub.razor"),
+            LoadSource("DropdownMenuSubTrigger.razor"),
+            LoadSource("DropdownMenuSubContent.razor")
+        ];
+    }
+
+    private ManualSource LoadSource(string fileName)
+    {
+        var canonicalPath = Path.GetFullPath(Path.Combine(Environment.ContentRootPath, "..", canonicalDropdownMenuDirectory.Replace('/', Path.DirectorySeparatorChar), fileName));
+        var content = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : $"Missing source: {canonicalDropdownMenuDirectory}/{fileName}";
+        return new ManualSource($"{canonicalDropdownMenuDirectory}/{fileName}", content);
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private sealed record ManualSource(string Path, string Content);
+
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/dropdown-menu";
+    private const string installCommand = "blazor-shadcn add dropdown-menu";
+    private const string manualImportsCode = "@using ShadcnBlazor.Components.UI";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
+
+    private const string usageCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string demoCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent Class="w-40">
+        <DropdownMenuGroup>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuItem>
+                Profile
+                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                Billing
+                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                Settings
+                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuSub>
+                <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                        <DropdownMenuItem>Email</DropdownMenuItem>
+                        <DropdownMenuItem>Message</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>More...</DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+            </DropdownMenuSub>
+            <DropdownMenuItem>
+                New Team
+                <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+            </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+            <DropdownMenuItem>GitHub</DropdownMenuItem>
+            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuItem Disabled="true">API</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">
+            Log out
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string basicCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+        <DropdownMenuGroup>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>GitHub</DropdownMenuItem>
+        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem Disabled="true">API</DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string shortcutsCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+        <DropdownMenuGroup>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuItem>
+                Profile
+                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                Billing
+                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                Settings
+                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+            Log out
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string iconsCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+        <DropdownMenuItem>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+            Profile
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /></svg>
+            Billing
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.5a3.5 3.5 0 1 0 0 -7a3.5 3.5 0 0 0 0 7z" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06 .06a2 2 0 1 1 -2.83 2.83l-.06 -.06a1.65 1.65 0 0 0 -1.82 -.33a1.65 1.65 0 0 0 -1 1.51V21a2 2 0 1 1 -4 0v-.09a1.65 1.65 0 0 0 -1 -1.51a1.65 1.65 0 0 0 -1.82 .33l-.06 .06a2 2 0 1 1 -2.83 -2.83l.06 -.06a1.65 1.65 0 0 0 .33 -1.82a1.65 1.65 0 0 0 -1.51 -1H3a2 2 0 1 1 0 -4h.09a1.65 1.65 0 0 0 1.51 -1a1.65 1.65 0 0 0 -.33 -1.82l-.06 -.06a2 2 0 1 1 2.83 -2.83l.06 .06a1.65 1.65 0 0 0 1.82 .33h.08a1.65 1.65 0 0 0 1 -1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82 -.33l.06 -.06a2 2 0 1 1 2.83 2.83l-.06 .06a1.65 1.65 0 0 0 -.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0 -1.51 1z" /></svg>
+            Settings
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" /><path d="M12 10v4" /><path d="M15 21H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h10" /><path d="M19 16l4 -4l-4 -4" /><path d="M23 12h-13" /></svg>
+            Log out
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string avatarCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Ghost" Size="@Button.ButtonSize.Icon" Class="rounded-full p-0">
+            <Avatar>
+                <AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" />
+                <AvatarFallback>LR</AvatarFallback>
+            </Avatar>
+        </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent Class="w-48">
+        <DropdownMenuGroup>
+            <DropdownMenuItem>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                Account
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /></svg>
+                Billing
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 17h5l-1.405 -1.405A2.032 2.032 0 0 1 18 14.158V11a6.002 6.002 0 0 0 -4 -5.659V5a2 2 0 1 0 -4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" /><path d="M9 17a3 3 0 0 0 6 0" /></svg>
+                Notifications
+            </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" /><path d="M12 10v4" /><path d="M15 21H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h10" /><path d="M19 16l4 -4l-4 -4" /><path d="M23 12h-13" /></svg>
+            Sign Out
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string complexCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Complex Menu</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent Class="w-52">
+        <DropdownMenuGroup>
+            <DropdownMenuLabel>File</DropdownMenuLabel>
+            <DropdownMenuItem>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /></svg>
+                New File
+                <DropdownMenuShortcut>?N</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-1 2h-3a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-7l-2 -4z" /></svg>
+                New Folder
+                <DropdownMenuShortcut>??N</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l14 0" /><path d="M5 5l14 0" /><path d="M5 12l14 0" /></svg>
+                    Open Recent
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                        <DropdownMenuGroup>
+                            <DropdownMenuLabel>Recent Projects</DropdownMenuLabel>
+                            <DropdownMenuItem>Project Alpha</DropdownMenuItem>
+                            <DropdownMenuItem>Project Beta</DropdownMenuItem>
+                            <DropdownMenuSub>
+                                <DropdownMenuSubTrigger>More Projects</DropdownMenuSubTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuSubContent>
+                                        <DropdownMenuItem>Project Gamma</DropdownMenuItem>
+                                        <DropdownMenuItem>Project Delta</DropdownMenuItem>
+                                    </DropdownMenuSubContent>
+                                </DropdownMenuPortal>
+                            </DropdownMenuSub>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Browse...</DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+            </DropdownMenuSub>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+            <DropdownMenuLabel>Account</DropdownMenuLabel>
+            <DropdownMenuItem>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                Profile
+                <DropdownMenuShortcut>??P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.5a3.5 3.5 0 1 0 0 -7a3.5 3.5 0 0 0 0 7z" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06 .06a2 2 0 1 1 -2.83 2.83l-.06 -.06a1.65 1.65 0 0 0 -1.82 -.33a1.65 1.65 0 0 0 -1 1.51V21a2 2 0 1 1 -4 0v-.09a1.65 1.65 0 0 0 -1 -1.51a1.65 1.65 0 0 0 -1.82 .33l-.06 .06a2 2 0 1 1 -2.83 -2.83l.06 -.06a1.65 1.65 0 0 0 .33 -1.82a1.65 1.65 0 0 0 -1.51 -1H3a2 2 0 1 1 0 -4h.09a1.65 1.65 0 0 0 1.51 -1a1.65 1.65 0 0 0 -.33 -1.82l-.06 -.06a2 2 0 1 1 2.83 -2.83l.06 .06a1.65 1.65 0 0 0 1.82 .33h.08a1.65 1.65 0 0 0 1 -1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82 -.33l.06 -.06a2 2 0 1 1 2.83 2.83l-.06 .06a1.65 1.65 0 0 0 -.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0 -1.51 1z" /></svg>
+                    Settings
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                        <DropdownMenuGroup>
+                            <DropdownMenuLabel>Preferences</DropdownMenuLabel>
+                            <DropdownMenuItem>Keyboard Shortcuts</DropdownMenuItem>
+                            <DropdownMenuItem>Language</DropdownMenuItem>
+                            <DropdownMenuSub>
+                                <DropdownMenuSubTrigger>Notifications</DropdownMenuSubTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuSubContent>
+                                        <DropdownMenuItem>Push Notifications</DropdownMenuItem>
+                                        <DropdownMenuItem>Email Notifications</DropdownMenuItem>
+                                    </DropdownMenuSubContent>
+                                </DropdownMenuPortal>
+                            </DropdownMenuSub>
+                        </DropdownMenuGroup>
+                    </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+            </DropdownMenuSub>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+            <DropdownMenuItem>Help &amp; Support</DropdownMenuItem>
+            <DropdownMenuItem>Documentation</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" /><path d="M12 10v4" /><path d="M15 21H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h10" /><path d="M19 16l4 -4l-4 -4" /><path d="M23 12h-13" /></svg>
+            Sign Out
+            <DropdownMenuShortcut>??Q</DropdownMenuShortcut>
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+
+    private const string destructiveCode = """
+<DropdownMenu>
+    <DropdownMenuTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Project</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent Class="w-44">
+        <DropdownMenuItem>Rename</DropdownMenuItem>
+        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem Variant="@DropdownMenuItem.DropdownMenuItemVariant.Destructive">Delete project</DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+""";
+}
+
+
+
+

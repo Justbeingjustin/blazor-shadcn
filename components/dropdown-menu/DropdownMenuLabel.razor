@@ -1,9 +1,12 @@
-<div data-slot="dropdown-menu-separator" class="@Cn("bg-border -mx-1 my-1 h-px", Class)" @attributes="AdditionalAttributes"></div>
+@namespace ShadcnBlazor.Components.UI
+<div data-slot="dropdown-menu-label" class="@Cn("text-muted-foreground px-1.5 py-1 text-xs font-medium", Class)" @attributes="AdditionalAttributes">@ChildContent</div>
 
 @code {
     [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
+

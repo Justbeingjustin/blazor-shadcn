@@ -1,14 +1,10 @@
+@namespace ShadcnBlazor.Components.UI
 @if (Context?.Open == true)
 {
-    <button type="button"
-            data-slot="dropdown-menu-dismiss"
-            class="fixed inset-0 z-40 cursor-default bg-transparent"
-            aria-label="Close menu"
-            @onclick="CloseAsync"></button>
-
     <CascadingValue Name="DropdownMenuSubGroupContext" Value="_subGroupContext" IsFixed="true">
-        <div data-slot="dropdown-menu-content"
-             class="@Cn("bg-popover text-popover-foreground absolute top-full left-0 z-50 mt-2 min-w-32 overflow-visible rounded-lg border p-1 shadow-md outline-none", Class)"
+        <div data-slot="dropdown-menu-sub-content"
+             class="@Cn("bg-popover text-popover-foreground absolute top-0 left-full z-[60] ml-1 min-w-32 overflow-visible rounded-lg border p-1 shadow-md outline-none", Class)"
+             @onmouseleave="CloseAsync"
              @attributes="AdditionalAttributes">
             @ChildContent
         </div>
@@ -16,7 +12,7 @@
 }
 
 @code {
-    [CascadingParameter(Name = "DropdownMenuContext")] private DropdownMenuContext? Context { get; set; }
+    [CascadingParameter(Name = "DropdownMenuSubContext")] private DropdownMenuSubContext? Context { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }

@@ -1,0 +1,98 @@
+@namespace ShadcnBlazor.Components.UI
+@implements IDisposable
+<CascadingValue Name="DropdownMenuSubContext" Value="@_context">
+    <div data-slot="dropdown-menu-sub"
+         class="@Cn("relative", Class)"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    [CascadingParameter(Name = "DropdownMenuSubGroupContext")] private DropdownMenuSubGroupContext? SubGroupContext { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private readonly Guid _subId = Guid.NewGuid();
+    private bool _open;
+    private DropdownMenuSubContext _context = default!;
+    private DropdownMenuSubGroupContext? _subscribedContext;
+
+    protected override void OnInitialized()
+    {
+        _context = new DropdownMenuSubContext
+        {
+            Open = _open,
+            SetOpenAsync = SetOpenAsync
+        };
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (!ReferenceEquals(_subscribedContext, SubGroupContext))
+        {
+            _subscribedContext?.Unsubscribe(HandleActiveSubChanged);
+            _subscribedContext = SubGroupContext;
+            _subscribedContext?.Subscribe(HandleActiveSubChanged);
+        }
+
+        _context = new DropdownMenuSubContext
+        {
+            Open = _open,
+            SetOpenAsync = SetOpenAsync
+        };
+    }
+
+    private async Task SetOpenAsync(bool value)
+    {
+        if (value)
+        {
+            if (SubGroupContext is not null)
+            {
+                await SubGroupContext.SetActiveSubAsync(_subId);
+            }
+
+            _open = true;
+        }
+        else
+        {
+            _open = false;
+            if (SubGroupContext?.ActiveSubId == _subId)
+            {
+                await SubGroupContext.SetActiveSubAsync(null);
+            }
+        }
+
+        _context = new DropdownMenuSubContext
+        {
+            Open = _open,
+            SetOpenAsync = SetOpenAsync
+        };
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleActiveSubChanged(Guid? activeSubId)
+    {
+        if (activeSubId == _subId || !_open)
+        {
+            return;
+        }
+
+        _open = false;
+        _context = new DropdownMenuSubContext
+        {
+            Open = _open,
+            SetOpenAsync = SetOpenAsync
+        };
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        _subscribedContext?.Unsubscribe(HandleActiveSubChanged);
+    }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}
