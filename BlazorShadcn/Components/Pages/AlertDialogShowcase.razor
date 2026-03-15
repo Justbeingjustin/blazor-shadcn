@@ -641,151 +641,207 @@
     private const string usageCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Outline">Show Dialog</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = true">Show Dialog</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent>
-        <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account from our servers.
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your account from our servers.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel @onclick="() => _showDialog = false">Cancel</AlertDialogCancel>
+                <AlertDialogAction @onclick="() => _showDialog = false">Continue</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
 
     private const string demoCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Outline">Show Dialog</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = true">Show Dialog</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent>
-        <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account from our servers.
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your account from our servers.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel @onclick="() => _showDialog = false">Cancel</AlertDialogCancel>
+                <AlertDialogAction @onclick="() => _showDialog = false">Continue</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
     private const string basicCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Outline">Show Dialog</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = true">Show Dialog</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent>
-        <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account and remove your data from our servers.
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel @onclick="() => _showDialog = false">Cancel</AlertDialogCancel>
+                <AlertDialogAction @onclick="() => _showDialog = false">Continue</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
     private const string smallCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Outline">Show Dialog</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = true">Show Dialog</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm">
-        <AlertDialogHeader>
-            <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
-            <AlertDialogDescription>
-                Do you want to allow the USB accessory to connect to this device?
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel>Don't allow</AlertDialogCancel>
-            <AlertDialogAction>Allow</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent Size="@AlertDialogContent.AlertDialogContentSize.Sm" OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Do you want to allow the USB accessory to connect to this device?
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel @onclick="() => _showDialog = false">Don't allow</AlertDialogCancel>
+                <AlertDialogAction @onclick="() => _showDialog = false">Allow</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
     private const string mediaCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Outline">Share Project</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = true">Share Project</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent>
-        <AlertDialogHeader>
-            <AlertDialogMedia>
-                <img src="https://files.svgcdn.io/lucide/circle-fading-plus.svg" alt="" class="size-6" />
-            </AlertDialogMedia>
-            <AlertDialogTitle>Share this project?</AlertDialogTitle>
-            <AlertDialogDescription>
-                Anyone with the link will be able to view and edit this project.
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Share</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogMedia>
+                    <img src="https://files.svgcdn.io/lucide/circle-fading-plus.svg" alt="" class="size-6" />
+                </AlertDialogMedia>
+                <AlertDialogTitle>Share this project?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Anyone with the link will be able to view and edit this project.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel @onclick="() => _showDialog = false">Cancel</AlertDialogCancel>
+                <AlertDialogAction @onclick="() => _showDialog = false">Share</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
     private const string smallWithMediaCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Outline">Show Dialog</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = true">Show Dialog</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm">
-        <AlertDialogHeader>
-            <AlertDialogMedia>
-                <img src="https://files.svgcdn.io/lucide/bluetooth.svg" alt="" class="size-6" />
-            </AlertDialogMedia>
-            <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
-            <AlertDialogDescription>
-                Do you want to allow the USB accessory to connect to this device?
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel>Don't allow</AlertDialogCancel>
-            <AlertDialogAction>Allow</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent Size="@AlertDialogContent.AlertDialogContentSize.Sm" OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogMedia>
+                    <img src="https://files.svgcdn.io/lucide/bluetooth.svg" alt="" class="size-6" />
+                </AlertDialogMedia>
+                <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Do you want to allow the USB accessory to connect to this device?
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel @onclick="() => _showDialog = false">Don't allow</AlertDialogCancel>
+                <AlertDialogAction @onclick="() => _showDialog = false">Allow</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
     private const string destructiveCode = """
 <AlertDialog>
     <AlertDialogTrigger>
-        <Button Variant="ButtonVariant.Destructive">Delete Chat</Button>
+        <Button Variant="@Button.ButtonVariant.Destructive" @onclick="() => _showDialog = true">Delete Chat</Button>
     </AlertDialogTrigger>
-    <AlertDialogContent Size="AlertDialogContent.AlertDialogContentSize.Sm">
-        <AlertDialogHeader>
-            <AlertDialogMedia Class="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 6h18" />
-                    <path d="M8 6V4h8v2" />
-                    <path d="M19 6l-1 14H6L5 6" />
-                    <path d="M10 11v6" />
-                    <path d="M14 11v6" />
-                </svg>
-            </AlertDialogMedia>
-            <AlertDialogTitle>Delete chat?</AlertDialogTitle>
-            <AlertDialogDescription>
-                This will permanently delete this chat conversation. View <a href="#">Settings</a> delete any memories saved during this chat.
-            </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-            <AlertDialogCancel Variant="ButtonVariant.Outline">Cancel</AlertDialogCancel>
-            <AlertDialogAction Variant="ButtonVariant.Destructive">Delete</AlertDialogAction>
-        </AlertDialogFooter>
-    </AlertDialogContent>
+
+    @if (_showDialog)
+    {
+        <AlertDialogContent Size="@AlertDialogContent.AlertDialogContentSize.Sm" OnCancel="() => _showDialog = false">
+            <AlertDialogHeader>
+                <AlertDialogMedia Class="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18" />
+                        <path d="M8 6V4h8v2" />
+                        <path d="M19 6l-1 14H6L5 6" />
+                        <path d="M10 11v6" />
+                        <path d="M14 11v6" />
+                    </svg>
+                </AlertDialogMedia>
+                <AlertDialogTitle>Delete chat?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This will permanently delete this chat conversation. View <a href="#">Settings</a> delete any memories saved during this chat.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel Variant="@Button.ButtonVariant.Outline" @onclick="() => _showDialog = false">Cancel</AlertDialogCancel>
+                <AlertDialogAction Variant="@Button.ButtonVariant.Destructive" @onclick="() => _showDialog = false">Delete</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    }
 </AlertDialog>
+
+@code {
+    private bool _showDialog;
+}
 """;
 
     private string LoadSource(string fileName, string fallback)
