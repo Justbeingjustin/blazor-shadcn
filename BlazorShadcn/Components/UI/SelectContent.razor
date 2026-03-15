@@ -1,9 +1,6 @@
-@inject IJSRuntime JS
-
 @if (Context.IsOpen)
 {
     <div data-slot="select-content"
-         @ref="_contentRef"
          id="@Context.ContentId"
          role="listbox"
          tabindex="-1"
@@ -23,27 +20,8 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private ElementReference _contentRef;
-    private bool _positioned;
-
     private string ContentClass => Tw.Merge(
-        "bg-popover text-popover-foreground fixed top-0 left-0 z-[60] max-h-96 min-w-[8rem] overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
+        "bg-popover text-popover-foreground absolute top-full left-0 z-50 mt-1 max-h-96 min-w-[8rem] overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
+        string.Equals(Position, "popper", StringComparison.Ordinal) ? "translate-y-1 w-full min-w-full" : null,
         Class);
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!Context.IsOpen)
-        {
-            _positioned = false;
-            return;
-        }
-
-        await JS.InvokeVoidAsync("window.blazorShadcnSelect.position", Context.TriggerElement, _contentRef, Position);
-
-        if (!_positioned)
-        {
-            _positioned = true;
-            StateHasChanged();
-        }
-    }
 }

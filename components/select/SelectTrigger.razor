@@ -1,7 +1,6 @@
 @namespace ShadcnBlazor.Components.UI
 
 <button type="button"
-        @ref="_triggerRef"
         id="@Id"
         data-slot="select-trigger"
         data-size="@SizeValue"
@@ -46,7 +45,6 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private ElementReference _triggerRef;
     private string SizeValue => Size == SelectTriggerSize.Sm ? "sm" : "default";
 
     private string TriggerClass => Cn(
@@ -58,12 +56,6 @@
 
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
-
-    protected override Task OnAfterRenderAsync(bool firstRender)
-    {
-        Context.TriggerElement = _triggerRef;
-        return Task.CompletedTask;
-    }
 
     public enum SelectTriggerSize
     {
