@@ -1,7 +1,8 @@
 @namespace ShadcnBlazor.Components.UI
 
 <div data-slot="select"
-     class="@Cn("relative inline-flex w-fit flex-col", Class)"
+     data-state="@(_context.IsOpen ? "open" : "closed")"
+     class="@Cn("relative inline-flex w-fit flex-col data-[state=open]:z-50", Class)"
      @attributes="AdditionalAttributes">
     <CascadingValue Value="_context">
         @ChildContent
