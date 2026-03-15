@@ -14,6 +14,7 @@ internal sealed class SelectContext
     private string? _controlledValue;
     private string? _uncontrolledValue;
 
+    public ElementReference TriggerElement { get; set; }
     public bool Disabled => _disabled;
     public bool IsOpen => _isOpen;
     public string ContentId => _contentId;

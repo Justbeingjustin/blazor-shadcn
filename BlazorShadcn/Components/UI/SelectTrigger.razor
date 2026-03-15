@@ -1,4 +1,5 @@
 <button type="button"
+        @ref="_triggerRef"
         id="@Id"
         data-slot="select-trigger"
         data-size="@SizeValue"
@@ -43,6 +44,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private ElementReference _triggerRef;
     private string SizeValue => Size == SelectTriggerSize.Sm ? "sm" : "default";
 
     private string TriggerClass => Tw.Merge(
@@ -51,6 +53,12 @@
             ? "h-8 px-2.5 text-[0.8rem]"
             : "h-9",
         Class);
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        Context.TriggerElement = _triggerRef;
+        return Task.CompletedTask;
+    }
 
     public enum SelectTriggerSize
     {
