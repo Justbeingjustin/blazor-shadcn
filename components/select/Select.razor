@@ -3,7 +3,7 @@
 <div data-slot="select"
      class="@Cn("relative inline-flex w-fit flex-col", Class)"
      @attributes="AdditionalAttributes">
-    <CascadingValue Value="_context" IsFixed="true">
+    <CascadingValue Value="_context">
         @ChildContent
     </CascadingValue>
 </div>
@@ -39,3 +39,4 @@
     private static string Cn(params string?[] classes)
         => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
+

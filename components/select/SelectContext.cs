@@ -125,3 +125,4 @@ internal sealed class SelectContext
     private Task NotifyStateChangedAsync()
         => _stateChanged is null ? Task.CompletedTask : _stateChanged.Invoke();
 }
+
