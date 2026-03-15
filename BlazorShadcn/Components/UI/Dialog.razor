@@ -1,5 +1,5 @@
 <CascadingValue Name="DialogContext" Value="@_context">
-    <div data-slot="dialog" class="@Tw.Merge("inline-block", Class)" @attributes="AdditionalAttributes">
+    <div data-slot="dialog" class="@Cn("inline-block", Class)" @attributes="AdditionalAttributes">
         @ChildContent
     </div>
 </CascadingValue>
@@ -52,4 +52,7 @@
 
         StateHasChanged();
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
