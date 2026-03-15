@@ -1,2 +1,498 @@
 @page "/components/dialog"
-<GeneratedShowcase Slug="dialog" />
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Dialog - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Dialog</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/checkbox" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/input" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@demoCode">
+                    <Preview>
+                        <div class="grid w-full place-items-center">
+                            <Dialog>
+                                <DialogTrigger>
+                                    <Button Variant="@Button.ButtonVariant.Outline">Open Dialog</Button>
+                                </DialogTrigger>
+                                <DialogContent Class="sm:max-w-sm">
+                                    <DialogHeader>
+                                        <DialogTitle>Edit profile</DialogTitle>
+                                        <DialogDescription>
+                                            Make changes to your profile here. Click save when you're done.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div class="grid gap-4">
+                                        <div class="grid gap-2">
+                                            <Label For="dialog-demo-name">Name</Label>
+                                            <Input id="dialog-demo-name" Value="Pedro Duarte" />
+                                        </div>
+                                        <div class="grid gap-2">
+                                            <Label For="dialog-demo-username">Username</Label>
+                                            <Input id="dialog-demo-username" Value="@("@peduarte")" />
+                                        </div>
+                                    </div>
+                                    <DialogFooter>
+                                        <DialogClose>
+                                            <Button Variant="@Button.ButtonVariant.Outline">Cancel</Button>
+                                        </DialogClose>
+                                        <Button>Save changes</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                        </div>
+                    </Preview>
+                    <Code>@demoCode</Code>
+                </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the dialog component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Command</button>
+                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Manual</button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4"><CodeBlock RawText="@installCommand">@installCommand</CodeBlock></div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following files into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">components/dialog/DialogContext.cs</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogContextCs">@_sourceDialogContextCs</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/Dialog.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogRazor">@_sourceDialogRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogTrigger.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogTriggerRazor">@_sourceDialogTriggerRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogContent.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogContentRazor">@_sourceDialogContentRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogClose.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogCloseRazor">@_sourceDialogCloseRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogHeader.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogHeaderRazor">@_sourceDialogHeaderRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogFooter.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogFooterRazor">@_sourceDialogFooterRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogTitle.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogTitleRazor">@_sourceDialogTitleRazor</CodeBlock></div>
+                                <p class="text-muted-foreground mt-4 text-sm">components/dialog/DialogDescription.razor</p>
+                                <div class="mt-2"><CodeBlock RawText="@_sourceDialogDescriptionRazor">@_sourceDialogDescriptionRazor</CodeBlock></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-2"><CodeBlock RawText="@manualImportsCode">@manualImportsCode</CodeBlock></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6"><CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock></div>
+                <div class="mt-4"><CodeBlock RawText="@usageCode">@usageCode</CodeBlock></div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Close Button" Compact="true" CodeText="@closeButtonCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <Dialog>
+                                    <DialogTrigger><Button Variant="@Button.ButtonVariant.Outline">Share</Button></DialogTrigger>
+                                    <DialogContent Class="sm:max-w-md">
+                                        <DialogHeader>
+                                            <DialogTitle>Share link</DialogTitle>
+                                            <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
+                                        </DialogHeader>
+                                        <div class="flex items-center gap-2">
+                                            <div class="grid flex-1 gap-2">
+                                                <Label For="dialog-share-link" Class="sr-only">Link</Label>
+                                                <Input id="dialog-share-link" Value="https://ui.shadcn.com/docs/installation" />
+                                            </div>
+                                        </div>
+                                        <DialogFooter Class="sm:justify-start">
+                                            <DialogClose>
+                                                <Button Type="button">Close</Button>
+                                            </DialogClose>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
+                        </Preview>
+                        <Code>@closeButtonCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="No Close Button" Compact="true" CodeText="@noCloseButtonCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <Dialog>
+                                    <DialogTrigger><Button Variant="@Button.ButtonVariant.Outline">No Close Button</Button></DialogTrigger>
+                                    <DialogContent ShowCloseButton="false">
+                                        <DialogHeader>
+                                            <DialogTitle>No Close Button</DialogTitle>
+                                            <DialogDescription>This dialog doesn't have a close button in the top-right corner.</DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
+                        </Preview>
+                        <Code>@noCloseButtonCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Scrollable Content" Compact="true" CodeText="@scrollableContentCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <Dialog>
+                                    <DialogTrigger><Button Variant="@Button.ButtonVariant.Outline">Scrollable Content</Button></DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Scrollable Content</DialogTitle>
+                                            <DialogDescription>This is a dialog with scrollable content.</DialogDescription>
+                                        </DialogHeader>
+                                        <div class="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
+                                            @foreach (var paragraph in _scrollableParagraphs)
+                                            {
+                                                <p class="mb-4 leading-normal">@paragraph</p>
+                                            }
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
+                        </Preview>
+                        <Code>@scrollableContentCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Sticky Footer" Compact="true" CodeText="@stickyFooterCode">
+                        <Preview>
+                            <div class="grid w-full place-items-center">
+                                <Dialog>
+                                    <DialogTrigger><Button Variant="@Button.ButtonVariant.Outline">Sticky Footer</Button></DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Sticky Footer</DialogTitle>
+                                            <DialogDescription>This dialog has a sticky footer that stays visible while the content scrolls.</DialogDescription>
+                                        </DialogHeader>
+                                        <div class="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
+                                            @foreach (var paragraph in _scrollableParagraphs)
+                                            {
+                                                <p class="mb-4 leading-normal">@paragraph</p>
+                                            }
+                                        </div>
+                                        <DialogFooter>
+                                            <DialogClose>
+                                                <Button Variant="@Button.ButtonVariant.Outline">Close</Button>
+                                            </DialogClose>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
+                        </Preview>
+                        <Code>@stickyFooterCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Dialog</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Open</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">OpenChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultOpen</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">DialogContent</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ShowCloseButton</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">true</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string canonicalDialogDirectory = "components/dialog";
+    private string _sourceDialogContextCs = string.Empty;
+    private string _sourceDialogRazor = string.Empty;
+    private string _sourceDialogTriggerRazor = string.Empty;
+    private string _sourceDialogContentRazor = string.Empty;
+    private string _sourceDialogCloseRazor = string.Empty;
+    private string _sourceDialogHeaderRazor = string.Empty;
+    private string _sourceDialogFooterRazor = string.Empty;
+    private string _sourceDialogTitleRazor = string.Empty;
+    private string _sourceDialogDescriptionRazor = string.Empty;
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    private readonly string[] _scrollableParagraphs =
+    [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+        "Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+        "Maecenas faucibus mollis interdum. Nulla vitae elit libero, a pharetra augue.",
+        "Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, egestas eget quam.",
+        "Donec sed odio dui. Sed posuere consectetur est at lobortis.",
+        "Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+        "Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam quis risus eget urna mollis ornare vel eu leo.",
+        "Etiam porta sem malesuada magna mollis euismod. Sed posuere consectetur est at lobortis.",
+        "Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.",
+        "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui.",
+        "Cras mattis consectetur purus sit amet fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ];
+
+    protected override void OnInitialized()
+    {
+        _sourceDialogContextCs = LoadSource("DialogContext.cs");
+        _sourceDialogRazor = LoadSource("Dialog.razor");
+        _sourceDialogTriggerRazor = LoadSource("DialogTrigger.razor");
+        _sourceDialogContentRazor = LoadSource("DialogContent.razor");
+        _sourceDialogCloseRazor = LoadSource("DialogClose.razor");
+        _sourceDialogHeaderRazor = LoadSource("DialogHeader.razor");
+        _sourceDialogFooterRazor = LoadSource("DialogFooter.razor");
+        _sourceDialogTitleRazor = LoadSource("DialogTitle.razor");
+        _sourceDialogDescriptionRazor = LoadSource("DialogDescription.razor");
+    }
+
+    private string LoadSource(string fileName)
+    {
+        var canonicalPath = Path.GetFullPath(Path.Combine(Environment.ContentRootPath, "..", canonicalDialogDirectory.Replace('/', Path.DirectorySeparatorChar), fileName));
+        return File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : $"Missing source: {canonicalDialogDirectory}/{fileName}";
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/dialog";
+    private const string installCommand = "blazor-shadcn add dialog";
+    private const string manualImportsCode = "@using ShadcnBlazor.Components.UI";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
+    private const string usageCode = """
+<Dialog>
+    <DialogTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+        <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+                Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+        </DialogHeader>
+    </DialogContent>
+</Dialog>
+""";
+    private const string demoCode = """
+<Dialog>
+    <DialogTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent Class="sm:max-w-sm">
+        <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+                Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+        </DialogHeader>
+        <div class="grid gap-4">
+            <div class="grid gap-2">
+                <Label For="dialog-demo-name">Name</Label>
+                <Input id="dialog-demo-name" Value="Pedro Duarte" />
+            </div>
+            <div class="grid gap-2">
+                <Label For="dialog-demo-username">Username</Label>
+                <Input id="dialog-demo-username" Value="@peduarte" />
+            </div>
+        </div>
+        <DialogFooter>
+            <DialogClose>
+                <Button Variant="@Button.ButtonVariant.Outline">Cancel</Button>
+            </DialogClose>
+            <Button>Save changes</Button>
+        </DialogFooter>
+    </DialogContent>
+</Dialog>
+""";
+    private const string closeButtonCode = """
+<Dialog>
+    <DialogTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Share</Button>
+    </DialogTrigger>
+    <DialogContent Class="sm:max-w-md">
+        <DialogHeader>
+            <DialogTitle>Share link</DialogTitle>
+            <DialogDescription>
+                Anyone who has this link will be able to view this.
+            </DialogDescription>
+        </DialogHeader>
+        <div class="flex items-center gap-2">
+            <div class="grid flex-1 gap-2">
+                <Label For="dialog-share-link" Class="sr-only">Link</Label>
+                <Input id="dialog-share-link" Value="https://ui.shadcn.com/docs/installation" />
+            </div>
+        </div>
+        <DialogFooter Class="sm:justify-start">
+            <DialogClose>
+                <Button Type="button">Close</Button>
+            </DialogClose>
+        </DialogFooter>
+    </DialogContent>
+</Dialog>
+""";
+    private const string noCloseButtonCode = """
+<Dialog>
+    <DialogTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">No Close Button</Button>
+    </DialogTrigger>
+    <DialogContent ShowCloseButton="false">
+        <DialogHeader>
+            <DialogTitle>No Close Button</DialogTitle>
+            <DialogDescription>
+                This dialog doesn't have a close button in the top-right corner.
+            </DialogDescription>
+        </DialogHeader>
+    </DialogContent>
+</Dialog>
+""";
+    private const string scrollableContentCode = """
+<Dialog>
+    <DialogTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Scrollable Content</Button>
+    </DialogTrigger>
+    <DialogContent>
+        <DialogHeader>
+            <DialogTitle>Scrollable Content</DialogTitle>
+            <DialogDescription>
+                This is a dialog with scrollable content.
+            </DialogDescription>
+        </DialogHeader>
+        <div class="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
+            @foreach (var paragraph in _paragraphs)
+            {
+                <p class="mb-4 leading-normal">@paragraph</p>
+            }
+        </div>
+    </DialogContent>
+</Dialog>
+
+@code {
+    private readonly string[] _paragraphs =
+    [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+        "Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus.",
+        "Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna.",
+        "Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in.",
+        "Donec sed odio dui. Sed posuere consectetur est at lobortis.",
+        "Morbi leo risus, porta ac consectetur ac, vestibulum at eros."
+    ];
+}
+""";
+    private const string stickyFooterCode = """
+<Dialog>
+    <DialogTrigger>
+        <Button Variant="@Button.ButtonVariant.Outline">Sticky Footer</Button>
+    </DialogTrigger>
+    <DialogContent>
+        <DialogHeader>
+            <DialogTitle>Sticky Footer</DialogTitle>
+            <DialogDescription>
+                This dialog has a sticky footer that stays visible while the content scrolls.
+            </DialogDescription>
+        </DialogHeader>
+        <div class="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
+            @foreach (var paragraph in _paragraphs)
+            {
+                <p class="mb-4 leading-normal">@paragraph</p>
+            }
+        </div>
+        <DialogFooter>
+            <DialogClose>
+                <Button Variant="@Button.ButtonVariant.Outline">Close</Button>
+            </DialogClose>
+        </DialogFooter>
+    </DialogContent>
+</Dialog>
+
+@code {
+    private readonly string[] _paragraphs =
+    [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+        "Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus.",
+        "Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna.",
+        "Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in.",
+        "Donec sed odio dui. Sed posuere consectetur est at lobortis.",
+        "Morbi leo risus, porta ac consectetur ac, vestibulum at eros."
+    ];
+}
+""";
+}

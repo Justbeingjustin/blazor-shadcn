@@ -1,0 +1,33 @@
+@namespace ShadcnBlazor.Components.UI
+
+@if (Context?.Open == true)
+{
+    <button type="button"
+            data-slot="dialog-overlay"
+            class="fixed inset-0 isolate z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs"
+            aria-label="Close dialog"
+            @onclick="CloseAsync"></button>
+
+    <div data-slot="dialog-content"
+         class="@Cn("bg-background ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 outline-none sm:max-w-sm", Class)"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+        @if (ShowCloseButton)
+        {
+            <DialogClose />
+        }
+    </div>
+}
+
+@code {
+    [CascadingParameter(Name = "DialogContext")] private DialogContext? Context { get; set; }
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task CloseAsync() => Context?.SetOpenAsync(false) ?? Task.CompletedTask;
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

@@ -14,23 +14,16 @@
 
     @for (var i = 0; i < _values.Count; i++)
     {
-        var thumbIndex = i;
         var inputIndex = i;
-        <div class="group">
-            <div data-slot="slider-thumb"
-                 aria-hidden="true"
-                 class="@GetThumbClass()"
-                 style="@GetThumbStyle(thumbIndex)"></div>
-            <input type="range"
-                   min="@Min.ToString(CultureInfo.InvariantCulture)"
-                   max="@Max.ToString(CultureInfo.InvariantCulture)"
-                   step="@Step.ToString(CultureInfo.InvariantCulture)"
-                   value="@_values[inputIndex].ToString(CultureInfo.InvariantCulture)"
-                   class="@GetInputClass()"
-                   style="@GetInputStyle(inputIndex)"
-                   disabled="@Disabled"
-                   @oninput="args => OnInputAsync(inputIndex, args)" />
-        </div>
+        <input type="range"
+               min="@Min.ToString(CultureInfo.InvariantCulture)"
+               max="@Max.ToString(CultureInfo.InvariantCulture)"
+               step="@Step.ToString(CultureInfo.InvariantCulture)"
+               value="@_values[inputIndex].ToString(CultureInfo.InvariantCulture)"
+               class="@GetInputClass()"
+               style="@GetInputStyle(inputIndex)"
+               disabled="@Disabled"
+               @oninput="args => OnInputAsync(inputIndex, args)" />
     }
 </div>
 
@@ -110,25 +103,13 @@
 
     private string GetInputClass()
         => Orientation == "vertical"
-            ? "pointer-events-none absolute inset-0 h-full w-6 -translate-x-1/2 left-1/2 appearance-none bg-transparent outline-none [&::-webkit-slider-runnable-track]:w-full [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-0 [&::-webkit-slider-thumb]:bg-transparent [&::-webkit-slider-thumb]:shadow-none [&::-webkit-slider-thumb:hover]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-webkit-slider-thumb:focus]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-moz-range-track]:bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-transparent [&::-moz-range-thumb]:shadow-none"
-            : "pointer-events-none absolute inset-0 h-6 w-full -translate-y-1/2 top-1/2 appearance-none bg-transparent outline-none [&::-webkit-slider-runnable-track]:h-full [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:-mt-1 [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-0 [&::-webkit-slider-thumb]:bg-transparent [&::-webkit-slider-thumb]:shadow-none [&::-webkit-slider-thumb:hover]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-webkit-slider-thumb:focus]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-moz-range-track]:h-full [&::-moz-range-track]:bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-transparent [&::-moz-range-thumb]:shadow-none";
+            ? "absolute inset-0 h-full w-6 -translate-x-1/2 left-1/2 appearance-none bg-transparent outline-none [&::-webkit-slider-runnable-track]:w-full [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-[box-shadow] [&::-webkit-slider-thumb:hover]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-webkit-slider-thumb:active]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-moz-range-track]:bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:size-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-primary [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-sm"
+            : "absolute inset-0 h-6 w-full -translate-y-1/2 top-1/2 appearance-none bg-transparent outline-none [&::-webkit-slider-runnable-track]:h-full [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:-mt-0.75 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-[box-shadow] [&::-webkit-slider-thumb:hover]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-webkit-slider-thumb:active]:shadow-[0_0_0_4px_hsl(var(--ring)/0.5)] [&::-moz-range-track]:h-full [&::-moz-range-track]:bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:size-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-primary [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-sm";
 
     private string GetInputStyle(int index)
         => Orientation == "vertical"
             ? $"z-index:{_values.Count + index + 1};writing-mode:vertical-lr;direction:rtl;"
             : $"z-index:{index + 1};";
-
-    private string GetThumbClass()
-        => "border-primary pointer-events-none absolute block size-3 shrink-0 rounded-full border bg-white shadow-sm";
-
-    private string GetThumbStyle(int index)
-    {
-        var percent = ToPercent(_values[index]).ToString("0.###", CultureInfo.InvariantCulture);
-
-        return Orientation == "vertical"
-            ? $"left:50%;bottom:{percent}%;transform:translate(-50%, 50%);z-index:{index + 1};"
-            : $"left:{percent}%;top:50%;transform:translate(-50%, -50%);z-index:{index + 1};";
-    }
 
     private double ClampValue(double value)
         => Math.Min(Max, Math.Max(Min, value));

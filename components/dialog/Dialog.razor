@@ -1,3 +1,4 @@
+@namespace ShadcnBlazor.Components.UI
 <CascadingValue Name="DialogContext" Value="@_context">
     <div data-slot="dialog" class="@Tw.Merge("inline-block", Class)" @attributes="AdditionalAttributes">
         @ChildContent
@@ -53,3 +54,4 @@
         StateHasChanged();
     }
 }
+
