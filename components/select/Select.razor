@@ -1,7 +1,9 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="select"
-     class="@Tw.Merge("relative inline-flex w-fit flex-col", Class)"
+     class="@Cn("relative inline-flex w-fit flex-col", Class)"
      @attributes="AdditionalAttributes">
-    <CascadingValue Value="_context">
+    <CascadingValue Value="_context" IsFixed="true">
         @ChildContent
     </CascadingValue>
 </div>
@@ -33,4 +35,7 @@
             _defaultsInitialized = true;
         }
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

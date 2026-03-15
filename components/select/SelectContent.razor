@@ -1,0 +1,32 @@
+@namespace ShadcnBlazor.Components.UI
+
+@if (Context.IsOpen)
+{
+    <div data-slot="select-content"
+         id="@Context.ContentId"
+         role="listbox"
+         tabindex="-1"
+         class="@ContentClass"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [CascadingParameter] internal SelectContext Context { get; set; } = default!;
+
+    [Parameter] public string Position { get; set; } = "item-aligned";
+    [Parameter] public string Align { get; set; } = "center";
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string ContentClass => Cn(
+        "bg-popover text-popover-foreground absolute top-full left-0 z-50 mt-1 max-h-96 min-w-[8rem] overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
+        string.Equals(Position, "popper", StringComparison.Ordinal) ? "translate-y-1 w-full min-w-full" : null,
+        Class);
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorShadcn.Components.UI;
+namespace ShadcnBlazor.Components.UI;
 
 internal sealed class SelectContext
 {
@@ -97,7 +97,6 @@ internal sealed class SelectContext
         }
 
         RegisterItem(value, text);
-        _controlledValue = value;
 
         if (_isControlled)
         {

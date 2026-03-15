@@ -1,5 +1,4 @@
 @page "/components/select"
-@inject IWebHostEnvironment Environment
 
 <PageTitle>Select - blazor-shadcn</PageTitle>
 
@@ -11,11 +10,11 @@
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Select</h1>
                     <div class="ml-auto flex items-center gap-2">
                         <DocsCopyPage PageUrl="@referenceUrl" />
-                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/scroll-area" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/scroll-area" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
                         </Button>
-                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/separator" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/separator" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
                             <span class="sr-only">Next</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
                         </Button>
@@ -33,7 +32,7 @@
                 <ComponentExample Compact="true" CodeText="@mainDemoCode">
                     <Preview>
                         <Select>
-                            <SelectTrigger Class="w-[180px]">
+                            <SelectTrigger Class="w-full max-w-48">
                                 <SelectValue Placeholder="Select a fruit" />
                             </SelectTrigger>
                             <SelectContent>
@@ -51,57 +50,11 @@
                     <Code>@mainDemoCode</Code>
                 </ComponentExample>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
-                <p class="leading-relaxed mt-6">Install the select component using the command or manual steps.</p>
-                <div class="mt-4">
-                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
-                        <button type="button" @onclick="() => _installationTab = InstallationTab.Command" data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Command</button>
-                        <button type="button" @onclick="() => _installationTab = InstallationTab.Manual" data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")" class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">Manual</button>
-                    </div>
-                </div>
-
-                @if (_installationTab == InstallationTab.Command)
-                {
-                    <div class="mt-4">
-                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
-                    </div>
-                }
-                else
-                {
-                    <div class="mt-6 space-y-6">
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Install the required dependencies.</p>
-                                <div class="mt-3">
-                                    <CodeBlock RawText="@manualDependencyStep">@manualDependencyStep</CodeBlock>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Copy and paste the following code into your project.</p>
-                                @foreach (var source in _manualSources)
-                                {
-                                    <p class="text-muted-foreground mt-3 text-sm">@source.Path</p>
-                                    <div class="mt-2">
-                                        <CodeBlock RawText="@source.Content">@source.Content</CodeBlock>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">3</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Update the import paths to match your project setup.</p>
-                                <div class="mt-3">
-                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                <DocsInstallationSection ComponentLabel="select"
+                                         InstallCommand="blazor-shadcn add select"
+                                         SourcePaths="@_manualSourcePaths"
+                                         DependencyCommands="@_dependencyCommands"
+                                         ImportStep="@manualImportStep" />
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -113,36 +66,48 @@
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="align-item-with-trigger">Align Item With Trigger</h3>
-                <p class="text-muted-foreground mt-2 text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Position</code> parameter on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectContent</code> to control alignment.</p>
                 <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@alignItemCode">
+                    <ComponentExample Title="Align Item With Trigger" Compact="true" CodeText="@alignItemCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Position</code> parameter on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectContent</code> to control alignment.</p>
+                        </Description>
                         <Preview>
-                            <Select>
-                                <SelectTrigger Class="w-[180px]">
-                                    <SelectValue Placeholder="Select a fruit" />
-                                </SelectTrigger>
-                                <SelectContent Position="popper">
-                                    <SelectGroup>
-                                        <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
-                                        <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
-                                        <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-                                        <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
-                                        <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
+                            <div class="grid w-full max-w-xs gap-4">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="grid gap-1">
+                                        <Label for="select-align-item" Class="font-medium">Align Item</Label>
+                                        <p class="text-muted-foreground text-sm">Toggle to align the item with the trigger.</p>
+                                    </div>
+                                    <Switch id="select-align-item" Checked="@_alignItemWithTrigger" CheckedChanged="(value) => _alignItemWithTrigger = value" />
+                                </div>
+                                <Select DefaultValue="banana">
+                                    <SelectTrigger Class="w-full">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent Position="@(_alignItemWithTrigger ? "item-aligned" : "popper")">
+                                        <SelectGroup>
+                                            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                                            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                                            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                                            <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                                            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
                         </Preview>
                         <Code>@alignItemCode</Code>
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="groups">Groups</h3>
                 <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@groupsCode">
+                    <ComponentExample Title="Groups" Compact="true" CodeText="@groupsCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectGroup</code>, <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectLabel</code>, and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectSeparator</code> to organize items.</p>
+                        </Description>
                         <Preview>
                             <Select>
-                                <SelectTrigger Class="w-[180px]">
+                                <SelectTrigger Class="w-full max-w-48">
                                     <SelectValue Placeholder="Select a fruit" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -166,41 +131,58 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="scrollable">Scrollable</h3>
                 <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@scrollableCode">
+                    <ComponentExample Title="Scrollable" Compact="true" CodeText="@scrollableCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">A select with many items that scrolls.</p>
+                        </Description>
                         <Preview>
                             <Select>
-                                <SelectTrigger Class="w-[280px]">
+                                <SelectTrigger Class="w-full max-w-64">
                                     <SelectValue Placeholder="Select a timezone" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>North America</SelectLabel>
-                                        <SelectItem Value="est" Text="Eastern Standard Time (EST)">Eastern Standard Time (EST)</SelectItem>
-                                        <SelectItem Value="cst" Text="Central Standard Time (CST)">Central Standard Time (CST)</SelectItem>
-                                        <SelectItem Value="mst" Text="Mountain Standard Time (MST)">Mountain Standard Time (MST)</SelectItem>
-                                        <SelectItem Value="pst" Text="Pacific Standard Time (PST)">Pacific Standard Time (PST)</SelectItem>
-                                        <SelectItem Value="akst" Text="Alaska Standard Time (AKST)">Alaska Standard Time (AKST)</SelectItem>
-                                        <SelectItem Value="hst" Text="Hawaii Standard Time (HST)">Hawaii Standard Time (HST)</SelectItem>
+                                        <SelectItem Value="est" Text="Eastern Standard Time">Eastern Standard Time</SelectItem>
+                                        <SelectItem Value="cst" Text="Central Standard Time">Central Standard Time</SelectItem>
+                                        <SelectItem Value="mst" Text="Mountain Standard Time">Mountain Standard Time</SelectItem>
+                                        <SelectItem Value="pst" Text="Pacific Standard Time">Pacific Standard Time</SelectItem>
+                                        <SelectItem Value="akst" Text="Alaska Standard Time">Alaska Standard Time</SelectItem>
+                                        <SelectItem Value="hst" Text="Hawaii Standard Time">Hawaii Standard Time</SelectItem>
                                     </SelectGroup>
                                     <SelectGroup>
-                                        <SelectLabel>Europe & Africa</SelectLabel>
-                                        <SelectItem Value="gmt" Text="Greenwich Mean Time (GMT)">Greenwich Mean Time (GMT)</SelectItem>
-                                        <SelectItem Value="cet" Text="Central European Time (CET)">Central European Time (CET)</SelectItem>
-                                        <SelectItem Value="eet" Text="Eastern European Time (EET)">Eastern European Time (EET)</SelectItem>
-                                        <SelectItem Value="west" Text="Western European Summer Time (WEST)">Western European Summer Time (WEST)</SelectItem>
-                                        <SelectItem Value="cat" Text="Central Africa Time (CAT)">Central Africa Time (CAT)</SelectItem>
-                                        <SelectItem Value="eat" Text="East Africa Time (EAT)">East Africa Time (EAT)</SelectItem>
+                                        <SelectLabel>Europe &amp; Africa</SelectLabel>
+                                        <SelectItem Value="gmt" Text="Greenwich Mean Time">Greenwich Mean Time</SelectItem>
+                                        <SelectItem Value="cet" Text="Central European Time">Central European Time</SelectItem>
+                                        <SelectItem Value="eet" Text="Eastern European Time">Eastern European Time</SelectItem>
+                                        <SelectItem Value="west" Text="Western European Summer Time">Western European Summer Time</SelectItem>
+                                        <SelectItem Value="cat" Text="Central Africa Time">Central Africa Time</SelectItem>
+                                        <SelectItem Value="eat" Text="East Africa Time">East Africa Time</SelectItem>
                                     </SelectGroup>
                                     <SelectGroup>
                                         <SelectLabel>Asia</SelectLabel>
-                                        <SelectItem Value="msk" Text="Moscow Time (MSK)">Moscow Time (MSK)</SelectItem>
-                                        <SelectItem Value="ist" Text="India Standard Time (IST)">India Standard Time (IST)</SelectItem>
-                                        <SelectItem Value="cst-china" Text="China Standard Time (CST)">China Standard Time (CST)</SelectItem>
-                                        <SelectItem Value="jst" Text="Japan Standard Time (JST)">Japan Standard Time (JST)</SelectItem>
-                                        <SelectItem Value="kst" Text="Korea Standard Time (KST)">Korea Standard Time (KST)</SelectItem>
-                                        <SelectItem Value="wita" Text="Indonesia Central Standard Time (WITA)">Indonesia Central Standard Time (WITA)</SelectItem>
+                                        <SelectItem Value="msk" Text="Moscow Time">Moscow Time</SelectItem>
+                                        <SelectItem Value="ist" Text="India Standard Time">India Standard Time</SelectItem>
+                                        <SelectItem Value="cst_china" Text="China Standard Time">China Standard Time</SelectItem>
+                                        <SelectItem Value="jst" Text="Japan Standard Time">Japan Standard Time</SelectItem>
+                                        <SelectItem Value="kst" Text="Korea Standard Time">Korea Standard Time</SelectItem>
+                                        <SelectItem Value="ist_indonesia" Text="Indonesia Central Standard Time">Indonesia Central Standard Time</SelectItem>
+                                    </SelectGroup>
+                                    <SelectGroup>
+                                        <SelectLabel>Australia &amp; Pacific</SelectLabel>
+                                        <SelectItem Value="awst" Text="Australian Western Standard Time">Australian Western Standard Time</SelectItem>
+                                        <SelectItem Value="acst" Text="Australian Central Standard Time">Australian Central Standard Time</SelectItem>
+                                        <SelectItem Value="aest" Text="Australian Eastern Standard Time">Australian Eastern Standard Time</SelectItem>
+                                        <SelectItem Value="nzst" Text="New Zealand Standard Time">New Zealand Standard Time</SelectItem>
+                                        <SelectItem Value="fjt" Text="Fiji Time">Fiji Time</SelectItem>
+                                    </SelectGroup>
+                                    <SelectGroup>
+                                        <SelectLabel>South America</SelectLabel>
+                                        <SelectItem Value="art" Text="Argentina Time">Argentina Time</SelectItem>
+                                        <SelectItem Value="bot" Text="Bolivia Time">Bolivia Time</SelectItem>
+                                        <SelectItem Value="brt" Text="Brasilia Time">Brasilia Time</SelectItem>
+                                        <SelectItem Value="clt" Text="Chile Standard Time">Chile Standard Time</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
@@ -209,12 +191,11 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="disabled">Disabled</h3>
                 <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@disabledCode">
+                    <ComponentExample Title="Disabled" Compact="true" CodeText="@disabledCode">
                         <Preview>
                             <Select Disabled="true">
-                                <SelectTrigger Class="w-[180px]">
+                                <SelectTrigger Class="w-full max-w-48">
                                     <SelectValue Placeholder="Select a fruit" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -222,7 +203,7 @@
                                         <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
                                         <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
                                         <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-                                        <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                                        <SelectItem Value="grapes" Text="Grapes" Disabled="true">Grapes</SelectItem>
                                         <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
@@ -232,14 +213,16 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="invalid">Invalid</h3>
                 <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@invalidCode">
+                    <ComponentExample Title="Invalid" Compact="true" CodeText="@invalidCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Add <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">data-invalid</code> to the field wrapper and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">aria-invalid="true"</code> to <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectTrigger</code> to show an error state.</p>
+                        </Description>
                         <Preview>
-                            <div class="grid gap-2">
-                                <Label For="invalid-select">Fruit</Label>
+                            <div class="grid w-full max-w-48 gap-2" data-invalid>
+                                <Label for="invalid-select" Class="text-destructive">Fruit</Label>
                                 <Select>
-                                    <SelectTrigger Id="invalid-select" Class="w-[180px]" aria-invalid="true">
+                                    <SelectTrigger Id="invalid-select" Class="w-full" aria-invalid="true">
                                         <SelectValue Placeholder="Select a fruit" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -247,12 +230,10 @@
                                             <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
                                             <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
                                             <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-                                            <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
-                                            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                                <p class="text-destructive text-sm">Please select a valid fruit.</p>
+                                <p class="text-destructive text-sm">Please select a fruit.</p>
                             </div>
                         </Preview>
                         <Code>@invalidCode</Code>
@@ -260,9 +241,67 @@
                 </div>
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
-                <p class="text-muted-foreground mt-2 text-sm">
-                    See the <a class="underline underline-offset-4" href="https://www.radix-ui.com/docs/primitives/components/select#api-reference" target="_blank" rel="noreferrer">Radix UI Select</a> documentation for the source API reference.
-                </p>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Select</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Value</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ValueChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;string?&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultValue</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">SelectTrigger</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Id</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Placeholder</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Size</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">Default | Sm</code></td><td class="px-4 py-2 text-left whitespace-nowrap">Default</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">SelectValue</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Placeholder</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">SelectContent</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Position</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">item-aligned</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Align</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string</code></td><td class="px-4 py-2 text-left whitespace-nowrap">center</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">SelectItem</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Value</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Text</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">SelectGroup, SelectLabel, SelectSeparator</h3>
+                <p class="text-muted-foreground mt-2 text-sm">These are structural helpers for organizing content inside <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectContent</code>. They do not expose additional public parameters beyond standard <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Class</code> and unmatched attributes.</p>
             </div>
         </div>
     </div>
@@ -275,11 +314,6 @@
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
-                <a href="#align-item-with-trigger" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Align Item With Trigger</a>
-                <a href="#groups" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Groups</a>
-                <a href="#scrollable" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Scrollable</a>
-                <a href="#disabled" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Disabled</a>
-                <a href="#invalid" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Invalid</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -287,13 +321,30 @@
 </div>
 
 @code {
-    private InstallationTab _installationTab = InstallationTab.Command;
+    private bool _alignItemWithTrigger = true;
 
-    private const string installCommand = "blazor-shadcn add select";
-    private const string manualDependencyStep = "npm install radix-ui";
-    private const string referenceUrl = "https://ui.shadcn.com/docs/components/select";
-    private const string manualImportStep = "Add @using BlazorShadcn.Components.UI to Components/_Imports.razor";
-    private const string usingStatement = "@using BlazorShadcn.Components.UI";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/select";
+    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
+
+    private static readonly string[] _dependencyCommands =
+    [
+        "npm install radix-ui"
+    ];
+
+    private static readonly string[] _manualSourcePaths =
+    [
+        "components/select/Select.razor",
+        "components/select/SelectContext.cs",
+        "components/select/SelectTrigger.razor",
+        "components/select/SelectValue.razor",
+        "components/select/SelectContent.razor",
+        "components/select/SelectGroup.razor",
+        "components/select/SelectLabel.razor",
+        "components/select/SelectItem.razor",
+        "components/select/SelectSeparator.razor"
+    ];
+
     private const string usageCode = """
 <Select>
     <SelectTrigger Class="w-[180px]">
@@ -308,9 +359,10 @@
     </SelectContent>
 </Select>
 """;
+
     private const string mainDemoCode = """
 <Select>
-    <SelectTrigger Class="w-[180px]">
+    <SelectTrigger Class="w-full max-w-48">
         <SelectValue Placeholder="Select a fruit" />
     </SelectTrigger>
     <SelectContent>
@@ -325,25 +377,40 @@
     </SelectContent>
 </Select>
 """;
+
     private const string alignItemCode = """
-<Select>
-    <SelectTrigger Class="w-[180px]">
-        <SelectValue Placeholder="Select a fruit" />
-    </SelectTrigger>
-    <SelectContent Position="popper">
-        <SelectGroup>
-            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
-            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
-            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-            <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
-            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-    </SelectContent>
-</Select>
+<div class="grid w-full max-w-xs gap-4">
+    <div class="flex items-start justify-between gap-4">
+        <div class="grid gap-1">
+            <Label for="select-align-item" Class="font-medium">Align Item</Label>
+            <p class="text-muted-foreground text-sm">Toggle to align the item with the trigger.</p>
+        </div>
+        <Switch id="select-align-item" Checked="@_alignItemWithTrigger" CheckedChanged="(value) => _alignItemWithTrigger = value" />
+    </div>
+    <Select DefaultValue="banana">
+        <SelectTrigger Class="w-full">
+            <SelectValue />
+        </SelectTrigger>
+        <SelectContent Position="@(_alignItemWithTrigger ? "item-aligned" : "popper")">
+            <SelectGroup>
+                <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+                <SelectItem Value="grapes" Text="Grapes">Grapes</SelectItem>
+                <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
+            </SelectGroup>
+        </SelectContent>
+    </Select>
+</div>
+
+@code {
+    private bool _alignItemWithTrigger = true;
+}
 """;
+
     private const string groupsCode = """
 <Select>
-    <SelectTrigger Class="w-[180px]">
+    <SelectTrigger Class="w-full max-w-48">
         <SelectValue Placeholder="Select a fruit" />
     </SelectTrigger>
     <SelectContent>
@@ -363,25 +430,62 @@
     </SelectContent>
 </Select>
 """;
+
     private const string scrollableCode = """
 <Select>
-    <SelectTrigger Class="w-[280px]">
+    <SelectTrigger Class="w-full max-w-64">
         <SelectValue Placeholder="Select a timezone" />
     </SelectTrigger>
     <SelectContent>
         <SelectGroup>
             <SelectLabel>North America</SelectLabel>
-            <SelectItem Value="est" Text="Eastern Standard Time (EST)">Eastern Standard Time (EST)</SelectItem>
-            <SelectItem Value="cst" Text="Central Standard Time (CST)">Central Standard Time (CST)</SelectItem>
-            <SelectItem Value="mst" Text="Mountain Standard Time (MST)">Mountain Standard Time (MST)</SelectItem>
-            <SelectItem Value="pst" Text="Pacific Standard Time (PST)">Pacific Standard Time (PST)</SelectItem>
+            <SelectItem Value="est" Text="Eastern Standard Time">Eastern Standard Time</SelectItem>
+            <SelectItem Value="cst" Text="Central Standard Time">Central Standard Time</SelectItem>
+            <SelectItem Value="mst" Text="Mountain Standard Time">Mountain Standard Time</SelectItem>
+            <SelectItem Value="pst" Text="Pacific Standard Time">Pacific Standard Time</SelectItem>
+            <SelectItem Value="akst" Text="Alaska Standard Time">Alaska Standard Time</SelectItem>
+            <SelectItem Value="hst" Text="Hawaii Standard Time">Hawaii Standard Time</SelectItem>
+        </SelectGroup>
+        <SelectGroup>
+            <SelectLabel>Europe &amp; Africa</SelectLabel>
+            <SelectItem Value="gmt" Text="Greenwich Mean Time">Greenwich Mean Time</SelectItem>
+            <SelectItem Value="cet" Text="Central European Time">Central European Time</SelectItem>
+            <SelectItem Value="eet" Text="Eastern European Time">Eastern European Time</SelectItem>
+            <SelectItem Value="west" Text="Western European Summer Time">Western European Summer Time</SelectItem>
+            <SelectItem Value="cat" Text="Central Africa Time">Central Africa Time</SelectItem>
+            <SelectItem Value="eat" Text="East Africa Time">East Africa Time</SelectItem>
+        </SelectGroup>
+        <SelectGroup>
+            <SelectLabel>Asia</SelectLabel>
+            <SelectItem Value="msk" Text="Moscow Time">Moscow Time</SelectItem>
+            <SelectItem Value="ist" Text="India Standard Time">India Standard Time</SelectItem>
+            <SelectItem Value="cst_china" Text="China Standard Time">China Standard Time</SelectItem>
+            <SelectItem Value="jst" Text="Japan Standard Time">Japan Standard Time</SelectItem>
+            <SelectItem Value="kst" Text="Korea Standard Time">Korea Standard Time</SelectItem>
+            <SelectItem Value="ist_indonesia" Text="Indonesia Central Standard Time">Indonesia Central Standard Time</SelectItem>
+        </SelectGroup>
+        <SelectGroup>
+            <SelectLabel>Australia &amp; Pacific</SelectLabel>
+            <SelectItem Value="awst" Text="Australian Western Standard Time">Australian Western Standard Time</SelectItem>
+            <SelectItem Value="acst" Text="Australian Central Standard Time">Australian Central Standard Time</SelectItem>
+            <SelectItem Value="aest" Text="Australian Eastern Standard Time">Australian Eastern Standard Time</SelectItem>
+            <SelectItem Value="nzst" Text="New Zealand Standard Time">New Zealand Standard Time</SelectItem>
+            <SelectItem Value="fjt" Text="Fiji Time">Fiji Time</SelectItem>
+        </SelectGroup>
+        <SelectGroup>
+            <SelectLabel>South America</SelectLabel>
+            <SelectItem Value="art" Text="Argentina Time">Argentina Time</SelectItem>
+            <SelectItem Value="bot" Text="Bolivia Time">Bolivia Time</SelectItem>
+            <SelectItem Value="brt" Text="Brasilia Time">Brasilia Time</SelectItem>
+            <SelectItem Value="clt" Text="Chile Standard Time">Chile Standard Time</SelectItem>
         </SelectGroup>
     </SelectContent>
 </Select>
 """;
+
     private const string disabledCode = """
 <Select Disabled="true">
-    <SelectTrigger Class="w-[180px]">
+    <SelectTrigger Class="w-full max-w-48">
         <SelectValue Placeholder="Select a fruit" />
     </SelectTrigger>
     <SelectContent>
@@ -389,57 +493,29 @@
             <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
             <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
             <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+            <SelectItem Value="grapes" Text="Grapes" Disabled="true">Grapes</SelectItem>
+            <SelectItem Value="pineapple" Text="Pineapple">Pineapple</SelectItem>
         </SelectGroup>
     </SelectContent>
 </Select>
 """;
+
     private const string invalidCode = """
-<Select>
-    <SelectTrigger Class="w-[180px]" aria-invalid="true">
-        <SelectValue Placeholder="Select a fruit" />
-    </SelectTrigger>
-    <SelectContent>
-        <SelectGroup>
-            <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
-            <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
-            <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
-        </SelectGroup>
-    </SelectContent>
-</Select>
+<div class="grid w-full max-w-48 gap-2" data-invalid>
+    <Label for="invalid-select" Class="text-destructive">Fruit</Label>
+    <Select>
+        <SelectTrigger Id="invalid-select" Class="w-full" aria-invalid="true">
+            <SelectValue Placeholder="Select a fruit" />
+        </SelectTrigger>
+        <SelectContent>
+            <SelectGroup>
+                <SelectItem Value="apple" Text="Apple">Apple</SelectItem>
+                <SelectItem Value="banana" Text="Banana">Banana</SelectItem>
+                <SelectItem Value="blueberry" Text="Blueberry">Blueberry</SelectItem>
+            </SelectGroup>
+        </SelectContent>
+    </Select>
+    <p class="text-destructive text-sm">Please select a fruit.</p>
+</div>
 """;
-    private readonly List<ManualSource> _manualSources = [];
-
-    protected override void OnInitialized()
-    {
-        foreach (var path in new[]
-        {
-            "Components/UI/Select.razor",
-            "Components/UI/SelectContext.cs",
-            "Components/UI/SelectTrigger.razor",
-            "Components/UI/SelectValue.razor",
-            "Components/UI/SelectContent.razor",
-            "Components/UI/SelectGroup.razor",
-            "Components/UI/SelectLabel.razor",
-            "Components/UI/SelectItem.razor",
-            "Components/UI/SelectSeparator.razor"
-        })
-        {
-            _manualSources.Add(new ManualSource(path, ReadSource(path)));
-        }
-    }
-
-    private string ReadSource(string relativePath)
-    {
-        var path = Path.Combine(Environment.ContentRootPath, relativePath.Replace('/', Path.DirectorySeparatorChar));
-        return File.Exists(path) ? File.ReadAllText(path) : $"Missing source: {relativePath}";
-    }
-
-    private enum InstallationTab
-    {
-        Command,
-        Manual
-    }
-
-    private sealed record ManualSource(string Path, string Content);
 }
-
