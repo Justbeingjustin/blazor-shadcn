@@ -268,7 +268,7 @@
         "resizable" => """<Resizable />""",
         "sheet" => """<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">Open sheet</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>Edit profile</SheetTitle><SheetDescription>Make changes to your profile here.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
         "sidebar" => """<Sidebar />""",
-        "slider" => """<Slider Value="50" />""",
+        "slider" => """<Slider DefaultValue="@([50d])" />""",
         "switch" => """
 <div class="flex items-center space-x-2">
     <Switch id="airplane-mode" />
@@ -378,7 +378,7 @@
         "resizable" => """<Resizable />""",
         "sheet" => $"""<Sheet><SheetTrigger><Button Variant="ButtonVariant.Outline">{heading}</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>{heading}</SheetTitle><SheetDescription>Composable sheet content.</SheetDescription></SheetHeader></SheetContent></Sheet>""",
         "sidebar" => """<Sidebar />""",
-        "slider" => $"""<Slider Value="{Math.Min(90, Math.Max(10, heading.Length * 5))}" />""",
+        "slider" => $"""<Slider DefaultValue="@([{Math.Min(90, Math.Max(10, heading.Length * 5))}d])" />""",
         "switch" => heading switch
         {
             "Description" => """
@@ -672,7 +672,7 @@
         "sidebar" => @<Sidebar Items="SidebarItems"
                                Header="@SidebarHeader"
                                Footer="@SidebarFooter" />,
-        "slider" => @<Slider Value="@Math.Min(90, Math.Max(10, heading.Length * 5))" />,
+        "slider" => @<Slider DefaultValue="@([Convert.ToDouble(Math.Min(90, Math.Max(10, heading.Length * 5)))])" />,
         "switch" => heading switch
         {
             "Demo" => @<div class="flex items-center space-x-2">

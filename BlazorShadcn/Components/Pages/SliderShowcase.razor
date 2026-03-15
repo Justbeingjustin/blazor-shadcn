@@ -1,4 +1,5 @@
 @page "/components/slider"
+@inject IWebHostEnvironment Environment
 
 <PageTitle>Slider - blazor-shadcn</PageTitle>
 
@@ -9,12 +10,12 @@
                 <div class="flex items-center justify-between md:items-start">
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Slider</h1>
                     <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage />
-                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/skeleton" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/skeleton" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             <span class="sr-only">Previous</span>
                         </Button>
-                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/sonner" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                        <Button Variant="@Button.ButtonVariant.Secondary" Size="@Button.ButtonSize.Icon" Href="/components/switch" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
                             <span class="sr-only">Next</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
                         </Button>
@@ -24,17 +25,68 @@
                     <DocsPageLinks Padded="false" />
                 </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
-                    Displays the Slider component.
+                    An input where the user selects a value from within a given range.
                 </p>
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample Compact="true" CodeText="@usageCode">
+                <ComponentExample Compact="true" CodeText="@mainDemoCode">
                     <Preview>
-                        <Slider><span class="text-sm text-muted-foreground">Example</span></Slider>
+                        <Slider DefaultValue="@([75d])" Max="100" Step="1" Class="mx-auto w-full max-w-xs" />
                     </Preview>
-                    <Code>@usageCode</Code>
+                    <Code>@mainDemoCode</Code>
                 </ComponentExample>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="installation">Installation</h2>
+                <p class="leading-relaxed mt-6">Install the slider component using the command or manual steps.</p>
+                <div class="mt-4">
+                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Command"
+                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Command
+                        </button>
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.Manual"
+                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            Manual
+                        </button>
+                    </div>
+                </div>
+
+                @if (_installationTab == InstallationTab.Command)
+                {
+                    <div class="mt-4">
+                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-6 space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Copy and paste the following code into your project.</p>
+                                <p class="text-muted-foreground mt-2 text-sm">components/slider/Slider.razor</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@_sliderManualSource">@_sliderManualSource</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">2</div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium">Update the import paths to match your project setup.</p>
+                                <div class="mt-3">
+                                    <CodeBlock RawText="@manualImportStep">@manualImportStep</CodeBlock>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -42,6 +94,88 @@
                 </div>
                 <div class="mt-4">
                     <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Range" Compact="true" CodeText="@rangeCode">
+                        <Preview>
+                            <Slider DefaultValue="@([25d, 50d])" Max="100" Step="5" Class="mx-auto w-full max-w-xs" />
+                        </Preview>
+                        <Code>@rangeCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Multiple Thumbs" Compact="true" CodeText="@multipleCode">
+                        <Preview>
+                            <Slider DefaultValue="@([10d, 20d, 70d])" Max="100" Step="10" Class="mx-auto w-full max-w-xs" />
+                        </Preview>
+                        <Code>@multipleCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Vertical" Compact="true" CodeText="@verticalCode">
+                        <Preview>
+                            <div class="mx-auto flex w-full max-w-xs items-center justify-center gap-3">
+                                <Slider DefaultValue="@([50d])" Max="100" Step="1" Orientation="vertical" Class="h-40" />
+                                <Slider DefaultValue="@([25d])" Max="100" Step="1" Orientation="vertical" Class="h-40" />
+                            </div>
+                        </Preview>
+                        <Code>@verticalCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Controlled" Compact="true" CodeText="@controlledCode">
+                        <Preview>
+                            <div class="mx-auto grid w-full max-w-xs gap-3">
+                                <div class="flex items-center justify-between gap-2">
+                                    <Label for="slider-demo-temperature">Temperature</Label>
+                                    <span class="text-muted-foreground text-sm">@string.Join(", ", _controlledValues.Select(static value => value.ToString("0.0")))</span>
+                                </div>
+                                <Slider Id="slider-demo-temperature"
+                                        Value="@_controlledValues"
+                                        ValueChanged="OnControlledValueChanged"
+                                        Min="0"
+                                        Max="1"
+                                        Step="0.1" />
+                            </div>
+                        </Preview>
+                        <Code>@controlledCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Disabled" Compact="true" CodeText="@disabledCode">
+                        <Description>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Disabled</code> parameter to disable the slider.</p>
+                        </Description>
+                        <Preview>
+                            <Slider DefaultValue="@([50d])" Max="100" Step="1" Disabled="true" Class="mx-auto w-full max-w-xs" />
+                        </Preview>
+                        <Code>@disabledCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Slider</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead><tr class="m-0 border-b"><th class="px-4 py-2 text-left font-bold">Prop</th><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Default</th></tr></thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Value</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double[]?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ValueChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;double[]&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultValue</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double[]?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">[Min]</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Min</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double</code></td><td class="px-4 py-2 text-left whitespace-nowrap">0</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Max</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double</code></td><td class="px-4 py-2 text-left whitespace-nowrap">100</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Step</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">double</code></td><td class="px-4 py-2 text-left whitespace-nowrap">1</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Orientation</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">horizontal | vertical</code></td><td class="px-4 py-2 text-left whitespace-nowrap">horizontal</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Disabled</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -52,15 +186,95 @@
             <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
     </div>
 </div>
 
 @code {
-    private const string usingStatement = "@using BlazorShadcn.Components.UI";
-    private const string usageCode = @"<Slider><span class=""text-sm text-muted-foreground"">Example</span></Slider>";
+    private double[] _controlledValues = [0.3, 0.7];
+    private const string canonicalSliderSourcePath = "components/slider/Slider.razor";
+    private string _sliderManualSource = string.Empty;
+    private InstallationTab _installationTab = InstallationTab.Command;
+
+    protected override void OnInitialized()
+    {
+        var canonicalPath = Path.GetFullPath(Path.Combine(Environment.ContentRootPath, "..", canonicalSliderSourcePath.Replace('/', Path.DirectorySeparatorChar)));
+        _sliderManualSource = File.Exists(canonicalPath)
+            ? File.ReadAllText(canonicalPath)
+            : "Missing source: components/slider/Slider.razor";
+    }
+
+    private enum InstallationTab
+    {
+        Command,
+        Manual
+    }
+
+    private const string installCommand = "blazor-shadcn add slider";
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/radix/slider";
+    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
+    private const string usingStatement = "@using ShadcnBlazor.Components.UI";
+
+    private Task OnControlledValueChanged(double[] values)
+    {
+        _controlledValues = values;
+        return Task.CompletedTask;
+    }
+
+    private const string usageCode = """
+<Slider DefaultValue="@([33d])" Max="100" Step="1" />
+""";
+
+    private const string mainDemoCode = """
+<Slider DefaultValue="@([75d])" Max="100" Step="1" Class="mx-auto w-full max-w-xs" />
+""";
+
+    private const string rangeCode = """
+<Slider DefaultValue="@([25d, 50d])" Max="100" Step="5" Class="mx-auto w-full max-w-xs" />
+""";
+
+    private const string multipleCode = """
+<Slider DefaultValue="@([10d, 20d, 70d])" Max="100" Step="10" Class="mx-auto w-full max-w-xs" />
+""";
+
+    private const string verticalCode = """
+<div class="mx-auto flex w-full max-w-xs items-center justify-center gap-3">
+    <Slider DefaultValue="@([50d])" Max="100" Step="1" Orientation="vertical" Class="h-40" />
+    <Slider DefaultValue="@([25d])" Max="100" Step="1" Orientation="vertical" Class="h-40" />
+</div>
+""";
+
+    private const string controlledCode = """
+<div class="mx-auto grid w-full max-w-xs gap-3">
+    <div class="flex items-center justify-between gap-2">
+        <Label for="slider-demo-temperature">Temperature</Label>
+        <span class="text-muted-foreground text-sm">@string.Join(", ", _values.Select(static value => value.ToString("0.0")))</span>
+    </div>
+    <Slider Id="slider-demo-temperature"
+            Value="@_values"
+            ValueChanged="OnValueChanged"
+            Min="0"
+            Max="1"
+            Step="0.1" />
+</div>
+
+@code {
+    private double[] _values = [0.3, 0.7];
+
+    private Task OnValueChanged(double[] values)
+    {
+        _values = values;
+        return Task.CompletedTask;
+    }
 }
+""";
 
-
+    private const string disabledCode = """
+<Slider DefaultValue="@([50d])" Max="100" Step="1" Disabled="true" Class="mx-auto w-full max-w-xs" />
+""";
+}
