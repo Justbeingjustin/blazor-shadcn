@@ -19,9 +19,15 @@
 
             <div class="w-full flex-1">
                 <h2 class="font-heading mt-2 scroll-m-28 text-xl font-medium tracking-tight" id="quick-start">Quick Start</h2>
-                <p class="leading-relaxed mt-6">Install with the CLI or follow the manual setup steps.</p>
+                <p class="leading-relaxed mt-6">Choose the setup path that fits how you want to start: AI-assisted, CLI, or manual.</p>
                 <div class="mt-4">
                     <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
+                        <button type="button"
+                                @onclick="() => _installationTab = InstallationTab.AI"
+                                data-state="@(_installationTab == InstallationTab.AI ? "active" : "inactive")"
+                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
+                            AI
+                        </button>
                         <button type="button"
                                 @onclick="() => _installationTab = InstallationTab.Command"
                                 data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
@@ -49,7 +55,7 @@
                         <CodeBlock RawText="@createProjectCommand">@createProjectCommand</CodeBlock>
                     </div>
                 }
-                else
+                else if (_installationTab == InstallationTab.Manual)
                 {
                     <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="create-app">Create app and install Tailwind CLI</h2>
                     <div class="mt-4">
@@ -78,6 +84,18 @@
                     </div>
                     <p class="text-muted-foreground mt-4 text-sm">Important: remove Bootstrap CSS link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">lib/bootstrap/dist/css/bootstrap.min.css</code>) and remove the default app stylesheet link (<code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">@Assets["app.css"]</code>). The template <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">app.css</code> is unlayered CSS and can override Tailwind v4 layered utilities (for example font family).</p>
                 }
+                else
+                {
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="ai-assisted-start">Create a folder</h2>
+                    <p class="leading-relaxed mt-4">
+                        Create a new empty folder, open it in Cursor, Claude Code, Codex, OpenCode, or a similar coding agent, and let the agent scaffold the app for you.
+                    </p>
+
+                    <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight" id="ai-prompt">Feed it this prompt</h2>
+                    <div class="mt-4">
+                        <CodeBlock RawText="@aiStarterPrompt">@aiStarterPrompt</CodeBlock>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -92,13 +110,18 @@
                     <a href="#install-cli" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Install</a>
                     <a href="#create-project" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Create a project</a>
                 }
-                else
+                else if (_installationTab == InstallationTab.Manual)
                 {
                     <a href="#create-app" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Create app</a>
                     <a href="#package-json" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">package.json</a>
                     <a href="#globals-css" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">globals.css</a>
                     <a href="#csproj" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">csproj target</a>
                     <a href="#app-razor" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">App.razor</a>
+                }
+                else
+                {
+                    <a href="#ai-assisted-start" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Create a folder</a>
+                    <a href="#ai-prompt" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Feed it this prompt</a>
                 }
             </div>
         </div>
@@ -108,12 +131,13 @@
 @code {
     private const string referenceUrl = "https://ui.shadcn.com/docs/installation";
 
-    private InstallationTab _installationTab = InstallationTab.Command;
+    private InstallationTab _installationTab = InstallationTab.AI;
 
     private enum InstallationTab
     {
         Command,
-        Manual
+        Manual,
+        AI
     }
 
     private const string installCliCommand = """
@@ -123,6 +147,16 @@ dotnet tool install -g blazor-shadcn
     private const string createProjectCommand = """
 blazor-shadcn new MyApp
 cd MyApp
+""";
+
+    private const string aiStarterPrompt = """
+Write a Blazor app.
+
+Create a dashboard.
+
+Use blazor-shadcn from https://www.nuget.org/packages/blazor-shadcn.
+
+Use several components from the library.
 """;
 
     private const string createCommands = """
