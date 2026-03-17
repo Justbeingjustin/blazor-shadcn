@@ -186,11 +186,6 @@
 .header-layout-toggle {
   flex-shrink: 0;
 }
-/* GitHub stars count: match reference (slightly lighter than body muted so it doesn’t read darker) */
-.header-github-stars {
-  color: var(--muted-foreground);
-  opacity: 0.88;
-}
 /* Logo/icon button: pixel-perfect vertical center in header row */
 .header-logo-btn,
 .header-logo-btn[data-slot="button"] {

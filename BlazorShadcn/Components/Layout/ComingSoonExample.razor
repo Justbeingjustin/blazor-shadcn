@@ -1,0 +1,33 @@
+<div class="space-y-4">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h3 class="font-heading scroll-m-20 text-xl font-semibold tracking-tight" id="@Title?.ToLower().Replace(" ", "-")">
+            @Title
+            @if (!string.IsNullOrEmpty(TitleNote))
+            {
+                <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">@TitleNote</span>
+            }
+        </h3>
+    }
+    @if (Description != null)
+    {
+        @Description
+    }
+    <div data-slot="coming-soon-preview"
+         class="group relative mt-4 mb-12 flex flex-col overflow-hidden rounded-xl border">
+        <div class="from-background via-background to-muted/40 relative flex min-h-40 w-full items-center justify-center overflow-hidden bg-linear-to-br p-6 sm:p-10">
+            <div class="bg-primary/12 absolute left-6 top-6 size-28 rounded-full blur-3xl"></div>
+            <div class="bg-sky-500/12 absolute bottom-4 right-10 size-32 rounded-full blur-3xl"></div>
+            <div class="bg-background/90 relative flex min-h-56 w-full max-w-3xl items-center justify-center rounded-[1.5rem] border p-8 text-center shadow-2xl backdrop-blur sm:min-h-64 sm:p-10">
+                <p class="text-foreground text-3xl font-semibold tracking-tight sm:text-4xl">@Headline</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? TitleNote { get; set; }
+    [Parameter] public RenderFragment? Description { get; set; }
+    [Parameter] public string Headline { get; set; } = "Coming Soon";
+}
