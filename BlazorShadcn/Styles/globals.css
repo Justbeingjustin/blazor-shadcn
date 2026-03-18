@@ -186,6 +186,16 @@
 .header-layout-toggle {
   flex-shrink: 0;
 }
+.header-new-project,
+.header-new-project[data-slot="button"] {
+  display: none !important;
+}
+@media (min-width: 1024px) {
+  .header-new-project,
+  .header-new-project[data-slot="button"] {
+    display: inline-flex !important;
+  }
+}
 .header-mobile-menu {
   flex-shrink: 0;
 }
