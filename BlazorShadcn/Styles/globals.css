@@ -186,10 +186,38 @@
 .header-layout-toggle {
   flex-shrink: 0;
 }
+.header-mobile-menu {
+  flex-shrink: 0;
+}
+.header-mobile-menu-line {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 1rem;
+  height: 0.125rem;
+  background: currentColor;
+  transition: all 100ms ease;
+}
+.header-mobile-menu-line-top {
+  top: 0.25rem;
+}
+.header-mobile-menu-line-bottom {
+  top: 0.625rem;
+}
+.header-mobile-menu-line-top-open,
+.header-mobile-menu-line-bottom-open {
+  top: 0.4rem;
+}
+.header-mobile-menu-line-top-open {
+  transform: rotate(-45deg);
+}
+.header-mobile-menu-line-bottom-open {
+  transform: rotate(45deg);
+}
 /* Logo/icon button: pixel-perfect vertical center in header row */
 .header-logo-btn,
 .header-logo-btn[data-slot="button"] {
-  display: inline-flex !important;
+  display: none !important;
   align-items: center !important;
   justify-content: center !important;
   padding: 0 !important;
@@ -199,6 +227,12 @@
   min-width: 2rem !important;
   line-height: 0 !important;
   flex-shrink: 0;
+}
+@media (min-width: 1024px) {
+  .header-logo-btn,
+  .header-logo-btn[data-slot="button"] {
+    display: inline-flex !important;
+  }
 }
 .header-logo-btn svg,
 .header-logo-btn [aria-hidden="true"] {
@@ -461,6 +495,77 @@
     transparent 88%,
     transparent 100%
   );
+}
+
+.mobile-nav-panel {
+  --sidebar-menu-width: 100%;
+}
+
+.mobile-nav-primary-links .sidebar-nav-link {
+  display: flex;
+  width: 100%;
+  min-height: 2rem;
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.mobile-nav-primary-links .sidebar-nav-link-hit {
+  width: 100%;
+}
+
+.mobile-nav-primary-links .sidebar-nav-link-active,
+.mobile-nav-primary-links .sidebar-nav-link:hover,
+.mobile-nav-primary-links .sidebar-nav-link:active {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+
+.mobile-sidebar-nav {
+  gap: 0.75rem;
+}
+
+.mobile-sidebar-nav .sidebar-nav-group {
+  padding: 0;
+}
+
+.mobile-sidebar-nav .sidebar-nav-group:first-child {
+  padding-top: 0;
+}
+
+.mobile-sidebar-nav .sidebar-nav-heading {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.mobile-sidebar-nav .sidebar-nav-link {
+  display: flex;
+  width: 100%;
+  min-height: 2rem;
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.mobile-sidebar-nav .sidebar-nav-link-hit {
+  width: 100%;
+}
+
+.mobile-sidebar-nav .sidebar-nav-link-active,
+.mobile-sidebar-nav .sidebar-nav-link:hover,
+.mobile-sidebar-nav .sidebar-nav-link:active {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
 }
 
 @media (max-width: 1023px) {
