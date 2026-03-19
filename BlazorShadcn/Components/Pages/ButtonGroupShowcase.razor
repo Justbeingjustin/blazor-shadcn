@@ -29,40 +29,42 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@DemoCode">
                     <Preview>
-                        <ButtonGroup aria-label="Email actions">
-                            <ButtonGroup Class="hidden sm:flex" aria-label="Back navigation">
-                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="Go back">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-                                </Button>
+                        <div class="flex min-h-56 w-full items-start justify-center pt-10 pb-36">
+                            <ButtonGroup aria-label="Email actions">
+                                <ButtonGroup Class="hidden sm:flex" aria-label="Back navigation">
+                                    <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="Go back">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                                    </Button>
+                                </ButtonGroup>
+                                <ButtonGroup aria-label="Primary email actions">
+                                    <Button Variant="@Button.ButtonVariant.Outline">Archive</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline">Report</Button>
+                                </ButtonGroup>
+                                <ButtonGroup aria-label="Snooze actions">
+                                    <Button Variant="@Button.ButtonVariant.Outline">Snooze</Button>
+                                    <DropdownMenu Class="inline-flex rounded-l-none border-l-0 [&>[data-slot=dropdown-menu-trigger]]:inline-flex [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:rounded-l-none [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:border-l-0 [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:bg-background [&>[data-slot=dropdown-menu-trigger][aria-expanded=true]>[data-slot=button]]:bg-accent [&>[data-slot=dropdown-menu-trigger][aria-expanded=true]>[data-slot=button]]:text-accent-foreground">
+                                        <DropdownMenuTrigger>
+                                            <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="More actions">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.75" /><circle cx="12" cy="12" r="1.75" /><circle cx="12" cy="19" r="1.75" /></svg>
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent Class="left-auto right-0 mt-2 w-52">
+                                            <DropdownMenuItem>Mark as Read</DropdownMenuItem>
+                                            <DropdownMenuItem>Archive</DropdownMenuItem>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem>Snooze</DropdownMenuItem>
+                                            <DropdownMenuItem>Add to Calendar</DropdownMenuItem>
+                                            <DropdownMenuItem>Add to List</DropdownMenuItem>
+                                            <DropdownMenuItem>Label as Personal</DropdownMenuItem>
+                                            <DropdownMenuItem>Label as Work</DropdownMenuItem>
+                                            <DropdownMenuItem>Label as Other</DropdownMenuItem>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem Class="text-destructive">Trash</DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </ButtonGroup>
                             </ButtonGroup>
-                            <ButtonGroup aria-label="Primary email actions">
-                                <Button Variant="@Button.ButtonVariant.Outline">Archive</Button>
-                                <Button Variant="@Button.ButtonVariant.Outline">Report</Button>
-                            </ButtonGroup>
-                            <ButtonGroup aria-label="Snooze actions">
-                                <Button Variant="@Button.ButtonVariant.Outline">Snooze</Button>
-                                <DropdownMenu Class="[&>[data-slot=dropdown-menu-trigger]]:inline-flex [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:rounded-l-none [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:border-l-0">
-                                    <DropdownMenuTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="More actions">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.75" /><circle cx="12" cy="12" r="1.75" /><circle cx="12" cy="19" r="1.75" /></svg>
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent Class="top-auto bottom-full left-auto right-0 mt-0 mb-2 w-52">
-                                        <DropdownMenuItem>Mark as Read</DropdownMenuItem>
-                                        <DropdownMenuItem>Archive</DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem>Snooze</DropdownMenuItem>
-                                        <DropdownMenuItem>Add to Calendar</DropdownMenuItem>
-                                        <DropdownMenuItem>Add to List</DropdownMenuItem>
-                                        <DropdownMenuItem>Label as Personal</DropdownMenuItem>
-                                        <DropdownMenuItem>Label as Work</DropdownMenuItem>
-                                        <DropdownMenuItem>Label as Other</DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem Class="text-destructive">Trash</DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </ButtonGroup>
-                        </ButtonGroup>
+                        </div>
                     </Preview>
                     <Code>@DemoCode</Code>
                 </ComponentExample>
@@ -321,11 +323,11 @@ import {
     </ButtonGroup>
     <ButtonGroup aria-label="Snooze actions">
         <Button Variant="@Button.ButtonVariant.Outline">Snooze</Button>
-        <DropdownMenu Class="[&>[data-slot=dropdown-menu-trigger]]:inline-flex [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:rounded-l-none [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:border-l-0">
+        <DropdownMenu Class="inline-flex rounded-l-none border-l-0 [&>[data-slot=dropdown-menu-trigger]]:inline-flex [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:rounded-l-none [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:border-l-0 [&>[data-slot=dropdown-menu-trigger]>[data-slot=button]]:bg-background [&>[data-slot=dropdown-menu-trigger][aria-expanded=true]>[data-slot=button]]:bg-accent [&>[data-slot=dropdown-menu-trigger][aria-expanded=true]>[data-slot=button]]:text-accent-foreground">
             <DropdownMenuTrigger>
                 <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Icon" aria-label="More actions">...</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent Class="top-auto bottom-full left-auto right-0 mt-0 mb-2 w-52">
+            <DropdownMenuContent Class="left-auto right-0 mt-2 w-52">
                 <DropdownMenuItem>Mark as Read</DropdownMenuItem>
                 <DropdownMenuItem>Archive</DropdownMenuItem>
                 <DropdownMenuSeparator />
