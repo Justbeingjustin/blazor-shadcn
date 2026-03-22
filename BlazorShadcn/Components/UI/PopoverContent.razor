@@ -1,7 +1,8 @@
 @if (Context?.Open == true)
 {
     <div data-slot="popover-content"
-         class="@Tw.Merge("bg-popover text-popover-foreground absolute top-full left-0 z-50 mt-2 w-72 rounded-md border p-4 shadow-md outline-hidden", Class)"
+         data-align="@Align"
+         class="@Tw.Merge("bg-popover text-popover-foreground absolute top-full z-50 mt-1 flex w-72 flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 ring-foreground/10 outline-hidden", GetAlignmentClasses(), Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
@@ -9,8 +10,16 @@
 
 @code {
     [CascadingParameter(Name = "PopoverContext")] private PopoverContext? Context { get; set; }
+    [Parameter] public string Align { get; set; } = "center";
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetAlignmentClasses() => Align.ToLowerInvariant() switch
+    {
+        "start" => "left-0",
+        "end" => "right-0",
+        _ => "left-1/2 -translate-x-1/2"
+    };
 }

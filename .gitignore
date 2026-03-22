@@ -307,8 +307,13 @@ node_modules/
 # Local artifacts (generated during build/test)
 .codex-build-output/
 BlazorShadcn/bin-temp/
+BlazorShadcn/Reference/
 **/test-results/
 **/playwright-report/
+
+# macOS clutter
+.DS_Store
+**/.DS_Store
 
 # Visual Studio 6 build log
 *.plg

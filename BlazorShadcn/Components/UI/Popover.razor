@@ -14,11 +14,21 @@
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private bool _open;
+    private bool _initialized;
     private PopoverContext _context = default!;
 
     protected override void OnParametersSet()
     {
-        _open = Open || (!OpenChanged.HasDelegate && DefaultOpen);
+        if (OpenChanged.HasDelegate)
+        {
+            _open = Open;
+        }
+        else if (!_initialized)
+        {
+            _open = DefaultOpen;
+            _initialized = true;
+        }
+
         _context = new PopoverContext
         {
             Open = _open,
@@ -28,7 +38,11 @@
 
     private async Task SetOpenAsync(bool value)
     {
-        _open = value;
+        if (!OpenChanged.HasDelegate)
+        {
+            _open = value;
+        }
+
         if (OpenChanged.HasDelegate)
         {
             await OpenChanged.InvokeAsync(value);
