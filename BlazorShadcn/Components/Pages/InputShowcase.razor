@@ -128,11 +128,43 @@
                 </div>
 
                 <div class="mt-6">
-                    <ComingSoonExample Title="Field" TitleNote="Coming soon" />
+                    <ComponentExample Title="Field" Compact="true" CodeText="@codeField">
+                        <Preview>
+                            <div class="w-full max-w-sm">
+                                <Field>
+                                    <FieldLabel For="input-field-username">Username</FieldLabel>
+                                    <Input id="input-field-username" Type="text" Placeholder="Enter your username" />
+                                    <FieldDescription>Choose a unique username for your account.</FieldDescription>
+                                </Field>
+                            </div>
+                        </Preview>
+                        <Code>@codeField</Code>
+                    </ComponentExample>
                 </div>
 
                 <div class="mt-6">
-                    <ComingSoonExample Title="Field Group" TitleNote="Coming soon" />
+                    <ComponentExample Title="Field Group" Compact="true" CodeText="@codeFieldGroup">
+                        <Preview>
+                            <div class="w-full max-w-sm">
+                                <FieldGroup>
+                                    <Field>
+                                        <FieldLabel For="input-field-name">Name</FieldLabel>
+                                        <Input id="input-field-name" Placeholder="Evil Rabbit" />
+                                    </Field>
+                                    <Field>
+                                        <FieldLabel For="input-field-email">Email</FieldLabel>
+                                        <Input id="input-field-email" Type="email" Placeholder="Email" />
+                                        <FieldDescription>We will send updates to this address.</FieldDescription>
+                                    </Field>
+                                    <Field Orientation="horizontal">
+                                        <Button Variant="ButtonVariant.Outline" Type="button">Reset</Button>
+                                        <Button Type="submit">Submit</Button>
+                                    </Field>
+                                </FieldGroup>
+                            </div>
+                        </Preview>
+                        <Code>@codeFieldGroup</Code>
+                    </ComponentExample>
                 </div>
 
                 <div class="mt-6">
@@ -376,27 +408,31 @@
     <Input Type=""text"" Placeholder=""Enter text"" />
 </div>";
 
-    private const string codeField = @"<div class=""grid w-full max-w-sm items-center gap-3"">
-    <Label For=""username"">Username</Label>
-    <Input id=""username"" Type=""text"" Placeholder=""Enter your username"" />
-    <p class=""text-muted-foreground text-sm"">Choose a unique username for your account.</p>
-</div>";
+    private const string codeField = """
+<Field>
+    <FieldLabel For="username">Username</FieldLabel>
+    <Input id="username" Type="text" Placeholder="Enter your username" />
+    <FieldDescription>Choose a unique username for your account.</FieldDescription>
+</Field>
+""";
 
-    private const string codeFieldGroup = @"<div class=""grid w-full max-w-sm gap-4"">
-    <div class=""grid gap-2"">
-        <Label For=""name"">Name</Label>
-        <Input id=""name"" Placeholder=""Evil Rabbit"" />
-    </div>
-    <div class=""grid gap-2"">
-        <Label For=""email"">Email</Label>
-        <Input id=""email"" Type=""email"" Placeholder=""Email"" />
-        <p class=""text-muted-foreground text-sm"">We will send updates to this address.</p>
-    </div>
-    <div class=""flex items-center justify-end gap-2"">
-        <Button Variant=""ButtonVariant.Outline"" Type=""button"">Reset</Button>
-        <Button Type=""submit"">Submit</Button>
-    </div>
-</div>";
+    private const string codeFieldGroup = """
+<FieldGroup>
+    <Field>
+        <FieldLabel For="name">Name</FieldLabel>
+        <Input id="name" Placeholder="Evil Rabbit" />
+    </Field>
+    <Field>
+        <FieldLabel For="email">Email</FieldLabel>
+        <Input id="email" Type="email" Placeholder="Email" />
+        <FieldDescription>We will send updates to this address.</FieldDescription>
+    </Field>
+    <Field Orientation="horizontal">
+        <Button Variant="ButtonVariant.Outline" Type="button">Reset</Button>
+        <Button Type="submit">Submit</Button>
+    </Field>
+</FieldGroup>
+""";
 
     private const string codeDisabled = @"<div class=""grid w-full max-w-sm items-center gap-3"">
     <Label For=""email-disabled"">Email</Label>
@@ -473,4 +509,3 @@
     </div>
 </form>";
 }
-

@@ -1,0 +1,18 @@
+@namespace ShadcnBlazor.Components.UI
+
+<div data-slot="sidebar-group"
+     data-sidebar="group"
+     class="@Cn("relative flex w-full min-w-0 flex-col p-2", Class)"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

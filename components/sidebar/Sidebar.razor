@@ -1,10 +1,12 @@
+@namespace ShadcnBlazor.Components.UI
+
 @if (Collapsible == "none")
 {
     <div data-slot="sidebar"
          data-side="@Side"
          data-variant="@Variant"
          data-collapsible="@Collapsible"
-         class="@Tw.Merge("flex h-full w-[var(--sidebar-width)] flex-col bg-sidebar text-sidebar-foreground", GetStaticClasses(), Class)"
+         class="@Cn("flex h-full w-[var(--sidebar-width)] flex-col bg-sidebar text-sidebar-foreground", GetStaticClasses(), Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
@@ -15,7 +17,7 @@ else
         <Sheet Open="@(Context?.OpenMobile ?? false)" OpenChanged="HandleMobileOpenChanged">
             <SheetContent Side="@Side"
                           ShowCloseButton="false"
-                          Class="@Tw.Merge("w-[var(--sidebar-width-mobile)] max-w-[var(--sidebar-width-mobile)] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden", GetStaticClasses())">
+                          Class="@Cn("w-[var(--sidebar-width-mobile)] max-w-[var(--sidebar-width-mobile)] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden", GetStaticClasses())">
                 <div data-slot="sidebar"
                      data-sidebar="sidebar"
                      data-mobile="true"
@@ -37,19 +39,19 @@ else
          data-variant="@Variant"
          data-side="@Side">
         <div data-slot="sidebar-gap"
-             class="@Tw.Merge("relative h-full w-[var(--sidebar-width)] bg-transparent transition-[width] duration-200 ease-linear",
-                              GetGapClasses())"></div>
+             class="@Cn("relative h-full w-[var(--sidebar-width)] bg-transparent transition-[width] duration-200 ease-linear",
+                        GetGapClasses())"></div>
 
         <div data-slot="sidebar-container"
              data-side="@Side"
-             class="@Tw.Merge("absolute inset-y-0 z-10 hidden h-full w-[var(--sidebar-width)] transition-[left,right,width] duration-200 ease-linear md:flex",
-                              GetContainerClasses(),
-                              Class)"
+             class="@Cn("absolute inset-y-0 z-10 hidden h-full w-[var(--sidebar-width)] transition-[left,right,width] duration-200 ease-linear md:flex",
+                        GetContainerClasses(),
+                        Class)"
              @attributes="AdditionalAttributes">
             <div data-slot="sidebar-inner"
                  data-sidebar="sidebar"
-                 class="@Tw.Merge("flex size-full flex-col bg-sidebar",
-                                  GetStaticClasses())">
+                 class="@Cn("flex size-full flex-col bg-sidebar",
+                            GetStaticClasses())">
                 @ChildContent
             </div>
         </div>
@@ -109,4 +111,7 @@ else
             "floating" => "rounded-lg shadow-sm ring-1 ring-sidebar-border",
             _ => string.Empty
         };
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

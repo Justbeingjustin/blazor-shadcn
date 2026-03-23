@@ -1,7 +1,9 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div role="group"
      data-slot="field"
      data-orientation="@ResolvedOrientation"
-     class="@Tw.Merge(BaseClasses, GetOrientationClasses(), Class)"
+     class="@GetClasses()"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -17,6 +19,11 @@
 
     private string ResolvedOrientation
         => Orientation is "horizontal" or "responsive" ? Orientation : "vertical";
+
+    private string GetClasses()
+        => string.IsNullOrWhiteSpace(Class)
+            ? $"{BaseClasses} {GetOrientationClasses()}"
+            : $"{BaseClasses} {GetOrientationClasses()} {Class}";
 
     private string GetOrientationClasses()
         => ResolvedOrientation switch

@@ -1,0 +1,16 @@
+<legend data-slot="field-legend"
+        data-variant="@ResolvedVariant"
+        class="@Tw.Merge("mb-3 font-medium data-[variant=legend]:text-base data-[variant=label]:text-sm", Class)"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</legend>
+
+@code {
+    [Parameter] public string Variant { get; set; } = "legend";
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string ResolvedVariant => Variant == "label" ? "label" : "legend";
+}

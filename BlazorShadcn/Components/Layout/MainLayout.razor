@@ -92,19 +92,22 @@
     }
 
     <CascadingValue Value="@ToggleLayout" Name="SidebarToggle" IsFixed="true">
-        <div class="layout-shell @GetLayoutShellClass() mx-auto w-full flex-1 min-h-0 px-2 lg:grid lg:grid-cols-[240px_minmax(0,1fr)]">
-            <aside class="sidebar-aside fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 flex lg:sticky lg:block">
-                <div class="sidebar-scroll-wrapper relative h-full min-w-0 flex-1 overflow-hidden flex flex-col">
-                    <div class="sidebar-top-spacer shrink-0" aria-hidden="true"></div>
-                    <div class="sidebar-fade-top" aria-hidden="true"></div>
-                    <div class="no-scrollbar sidebar-content flex-1 min-h-0 overflow-x-hidden overflow-y-auto pt-0 flex flex-col min-w-0">
-                        @SidebarNavigation(false)
+        <div class="layout-shell @GetLayoutShellClass() @GetLayoutColumnsClass() mx-auto w-full flex-1 min-h-0 px-2">
+            @if (ShowDesktopSidebar)
+            {
+                <aside class="sidebar-aside fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 flex lg:sticky lg:block">
+                    <div class="sidebar-scroll-wrapper relative h-full min-w-0 flex-1 overflow-hidden flex flex-col">
+                        <div class="sidebar-top-spacer shrink-0" aria-hidden="true"></div>
+                        <div class="sidebar-fade-top" aria-hidden="true"></div>
+                        <div class="no-scrollbar sidebar-content flex-1 min-h-0 overflow-x-hidden overflow-y-auto pt-0 flex flex-col min-w-0">
+                            @SidebarNavigation(false)
+                        </div>
+                        <div class="sidebar-bottom-spacer" aria-hidden="true"></div>
+                        <div class="sidebar-fade-bottom" aria-hidden="true"></div>
                     </div>
-                    <div class="sidebar-bottom-spacer" aria-hidden="true"></div>
-                    <div class="sidebar-fade-bottom" aria-hidden="true"></div>
-                </div>
-                <div class="sidebar-divider" aria-hidden="true"></div>
-            </aside>
+                    <div class="sidebar-divider" aria-hidden="true"></div>
+                </aside>
+            }
 
             <main class="min-w-0 h-full w-full">
                 @Body
@@ -128,6 +131,14 @@
     private string GetHeaderRowClass() => _fixedLayout ? "layout-fixed" : "layout-full";
 
     private string GetLayoutShellClass() => _fixedLayout ? "layout-shell-fixed" : "layout-shell-full";
+
+    private string GetLayoutColumnsClass() => ShowDesktopSidebar
+        ? "lg:grid lg:grid-cols-[240px_minmax(0,1fr)]"
+        : "lg:block";
+
+    private bool ShowDesktopSidebar => !IsComponentsIndexPage;
+
+    private bool IsComponentsIndexPage => Navigation.ToBaseRelativePath(Navigation.Uri).TrimEnd('/') == "docs/components";
 
     private void ToggleLayout() => _fixedLayout = !_fixedLayout;
 
@@ -179,6 +190,7 @@
                 <SidebarNavLink href="/components/checkbox" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Checkbox</SidebarNavLink>
                 <SidebarNavLink href="/components/dialog" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Dialog</SidebarNavLink>
                 <SidebarNavLink href="/components/dropdown-menu" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Dropdown Menu</SidebarNavLink>
+                <SidebarNavLink href="/components/field" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Field</SidebarNavLink>
                 <SidebarNavLink href="/components/input" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Input</SidebarNavLink>
                 <SidebarNavLink href="/components/kbd" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Kbd</SidebarNavLink>
                 <SidebarNavLink href="/components/label" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Label</SidebarNavLink>
@@ -187,6 +199,7 @@
                 <SidebarNavLink href="/components/scroll-area" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Scroll Area</SidebarNavLink>
                 <SidebarNavLink href="/components/select" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Select</SidebarNavLink>
                 <SidebarNavLink href="/components/separator" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Separator</SidebarNavLink>
+                <SidebarNavLink href="/components/sidebar" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Sidebar</SidebarNavLink>
                 <SidebarNavLink href="/components/skeleton" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Skeleton</SidebarNavLink>
                 <SidebarNavLink href="/components/slider" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Slider</SidebarNavLink>
                 <SidebarNavLink href="/components/spinner" ActiveClass="sidebar-nav-link-active" OnClick="@GetSidebarLinkClick(mobile)">Spinner</SidebarNavLink>

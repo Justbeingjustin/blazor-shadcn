@@ -115,10 +115,12 @@
                             <p class="text-muted-foreground text-sm">Use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code>, <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldLabel</code>, and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldDescription</code> to create a textarea with a label and description.</p>
                         </Description>
                         <Preview>
-                            <div class="grid w-full max-w-xs gap-2">
-                                <Label For="textarea-message">Message</Label>
-                                <p class="text-muted-foreground text-sm">Enter your message below.</p>
-                                <Textarea id="textarea-message" Placeholder="Type your message here." />
+                            <div class="w-full max-w-xs">
+                                <Field>
+                                    <FieldLabel For="textarea-message">Message</FieldLabel>
+                                    <Textarea id="textarea-message" Placeholder="Type your message here." />
+                                    <FieldDescription>Enter your message below.</FieldDescription>
+                                </Field>
                             </div>
                         </Preview>
                         <Code>@codeField</Code>
@@ -131,9 +133,11 @@
                             <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">disabled</code> prop to disable the textarea. To style the disabled state, add the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">data-disabled</code> attribute to the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> component.</p>
                         </Description>
                         <Preview>
-                            <div class="grid w-full max-w-xs gap-2" data-disabled="true">
-                                <Label For="textarea-disabled">Message</Label>
-                                <Textarea id="textarea-disabled" Placeholder="Type your message here." Disabled="true" />
+                            <div class="w-full max-w-xs">
+                                <Field data-disabled="true">
+                                    <FieldLabel For="textarea-disabled">Message</FieldLabel>
+                                    <Textarea id="textarea-disabled" Placeholder="Type your message here." Disabled="true" />
+                                </Field>
                             </div>
                         </Preview>
                         <Code>@codeDisabled</Code>
@@ -146,10 +150,12 @@
                             <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">aria-invalid</code> prop to mark the textarea as invalid. To style the invalid state, add the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">data-invalid</code> attribute to the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> component.</p>
                         </Description>
                         <Preview>
-                            <div class="grid w-full max-w-xs gap-2" data-invalid="true">
-                                <Label For="textarea-invalid" Class="text-destructive">Message</Label>
-                                <Textarea id="textarea-invalid" Placeholder="Type your message here." aria-invalid="true" />
-                                <p class="text-destructive text-sm">Please enter a valid message.</p>
+                            <div class="w-full max-w-xs">
+                                <Field data-invalid="true">
+                                    <FieldLabel For="textarea-invalid">Message</FieldLabel>
+                                    <Textarea id="textarea-invalid" Placeholder="Type your message here." aria-invalid="true" />
+                                    <FieldError>Please enter a valid message.</FieldError>
+                                </Field>
                             </div>
                         </Preview>
                         <Code>@codeInvalid</Code>
@@ -215,20 +221,26 @@
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private const string usageCode = "<Textarea Placeholder=\"Type your message here.\" />";
     private const string codeMainDemo = @"<Textarea Placeholder=""Type your message here."" />";
-    private const string codeField = @"<div class=""grid w-full max-w-xs gap-2"">
-    <Label For=""textarea-message"">Message</Label>
-    <p class=""text-muted-foreground text-sm"">Enter your message below.</p>
-    <Textarea id=""textarea-message"" Placeholder=""Type your message here."" />
-</div>";
-    private const string codeDisabled = @"<div class=""grid w-full max-w-xs gap-2"" data-disabled=""true"">
-    <Label For=""textarea-disabled"">Message</Label>
-    <Textarea id=""textarea-disabled"" Placeholder=""Type your message here."" Disabled=""true"" />
-</div>";
-    private const string codeInvalid = @"<div class=""grid w-full max-w-xs gap-2"" data-invalid=""true"">
-    <Label For=""textarea-invalid"" Class=""text-destructive"">Message</Label>
-    <Textarea id=""textarea-invalid"" Placeholder=""Type your message here."" aria-invalid=""true"" />
-    <p class=""text-destructive text-sm"">Please enter a valid message.</p>
-</div>";
+    private const string codeField = """
+<Field>
+    <FieldLabel For="textarea-message">Message</FieldLabel>
+    <Textarea id="textarea-message" Placeholder="Type your message here." />
+    <FieldDescription>Enter your message below.</FieldDescription>
+</Field>
+""";
+    private const string codeDisabled = """
+<Field data-disabled="true">
+    <FieldLabel For="textarea-disabled">Message</FieldLabel>
+    <Textarea id="textarea-disabled" Placeholder="Type your message here." Disabled="true" />
+</Field>
+""";
+    private const string codeInvalid = """
+<Field data-invalid="true">
+    <FieldLabel For="textarea-invalid">Message</FieldLabel>
+    <Textarea id="textarea-invalid" Placeholder="Type your message here." aria-invalid="true" />
+    <FieldError>Please enter a valid message.</FieldError>
+</Field>
+""";
     private const string codeButton = @"<div class=""grid w-full max-w-xs gap-2"">
     <Textarea Placeholder=""Type your message here."" />
     <Button>Send message</Button>

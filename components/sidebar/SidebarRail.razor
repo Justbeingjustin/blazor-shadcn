@@ -1,0 +1,30 @@
+@namespace ShadcnBlazor.Components.UI
+
+<button type="button"
+        data-slot="sidebar-rail"
+        data-sidebar="rail"
+        aria-label="Toggle Sidebar"
+        tabindex="-1"
+        title="Toggle Sidebar"
+        class="@Cn("absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear sm:flex", GetRailClasses(), Class)"
+        @onclick="HandleClick"
+        @attributes="AdditionalAttributes"></button>
+
+@code {
+    [CascadingParameter(Name = "SidebarContext")] private SidebarContext? Context { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task HandleClick()
+        => Context?.ToggleSidebarAsync() ?? Task.CompletedTask;
+
+    private string GetRailClasses()
+        => Context?.Open == false
+            ? "cursor-e-resize"
+            : "cursor-w-resize";
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

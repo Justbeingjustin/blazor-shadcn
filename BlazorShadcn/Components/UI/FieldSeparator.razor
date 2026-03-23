@@ -1,0 +1,21 @@
+<div data-slot="field-separator"
+     data-content="@(ChildContent is not null ? "true" : "false")"
+     class="@Tw.Merge("relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2", Class)"
+     @attributes="AdditionalAttributes">
+    <div class="bg-border absolute inset-x-0 top-1/2 h-px -translate-y-1/2"></div>
+
+    @if (ChildContent is not null)
+    {
+        <span data-slot="field-separator-content"
+              class="bg-background text-muted-foreground relative mx-auto block w-fit px-2">
+            @ChildContent
+        </span>
+    }
+</div>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

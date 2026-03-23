@@ -669,10 +669,94 @@
                 </SheetFooter>
             </SheetContent>
         </Sheet>,
-        "sidebar" => @<Sidebar Items="SidebarItems"
-                               Header="@SidebarHeader"
-                               Footer="@SidebarFooter" />,
-        "slider" => @<Slider DefaultValue="@([Convert.ToDouble(Math.Min(90, Math.Max(10, heading.Length * 5)))])" />,
+        "sidebar" => @<div class="h-[320px] w-full overflow-hidden rounded-lg border">
+            <SidebarProvider>
+                <Sidebar Collapsible="icon">
+                    <SidebarHeader>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton Size="lg">
+                                    <div class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg text-xs font-medium">A</div>
+                                    <div data-sidebar="menu-label" class="grid flex-1 text-left text-sm leading-tight">
+                                        <span class="truncate font-medium">Acme Inc.</span>
+                                        <span class="truncate text-xs">Enterprise</span>
+                                    </div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sidebar-menu-chevron ml-auto size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path d="m6 9 6 6 6-6" />
+                                    </svg>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarHeader>
+                    <SidebarContent>
+                        <SidebarGroup>
+                            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton Href="#" IsActive="true">
+                                            <span>Playground</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sidebar-menu-chevron ml-auto size-4 rotate-90" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                                <path d="m9 6 6 6-6 6" />
+                                            </svg>
+                                        </SidebarMenuButton>
+                                        <SidebarMenuSub>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton Href="#" IsActive="true">
+                                                    <span>History</span>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                            <SidebarMenuSubItem>
+                                                <SidebarMenuSubButton Href="#">
+                                                    <span>Starred</span>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                        </SidebarMenuSub>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton Href="#">
+                                            <span>Models</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sidebar-menu-chevron ml-auto size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                                <path d="m9 6 6 6-6 6" />
+                                            </svg>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton Href="#">
+                                            <span>Settings</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sidebar-menu-chevron ml-auto size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                                <path d="m9 6 6 6-6 6" />
+                                            </svg>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                        </SidebarGroup>
+                    </SidebarContent>
+                    <SidebarFooter>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton Size="lg">
+                                    <div class="bg-muted flex size-8 items-center justify-center rounded-lg text-xs font-medium">CN</div>
+                                    <div data-sidebar="menu-label" class="grid flex-1 text-left text-sm leading-tight">
+                                        <span class="truncate font-medium">shadcn</span>
+                                        <span class="truncate text-xs">m@example.com</span>
+                                    </div>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarFooter>
+                    <SidebarRail />
+                </Sidebar>
+                <SidebarInset>
+                    <header class="flex h-16 items-center gap-2 px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+                        <BlazorShadcn.Components.UI.SidebarTrigger />
+                    </header>
+                    <div class="flex flex-1"></div>
+                </SidebarInset>
+            </SidebarProvider>
+        </div>,
+        "slider" => @<Slider DefaultValue="@(new[] { Convert.ToDouble(Math.Min(90, Math.Max(10, heading.Length * 5))) })" />,
         "switch" => heading switch
         {
             "Demo" => @<div class="flex items-center space-x-2">
@@ -859,15 +943,6 @@
         new("Docs", "#")
     ];
 
-    private static readonly Sidebar.SidebarItem[] SidebarItems =
-    [
-        new("Dashboard", "#"),
-        new("Inbox", "#"),
-        new("Settings", "#")
-    ];
-
-    private RenderFragment SidebarHeader => @<div class="px-3 py-2"><p class="font-semibold">Acme Inc.</p></div>;
-    private RenderFragment SidebarFooter => @<div class="px-3 py-2 text-sm text-muted-foreground">jane@acme.com</div>;
     private RenderFragment FirstPanel => @<div class="space-y-1"><p class="font-medium">Navigation</p><p class="text-sm text-muted-foreground">Pinned folders and filters.</p></div>;
     private RenderFragment SecondPanel => @<div class="space-y-1"><p class="font-medium">Content</p><p class="text-sm text-muted-foreground">Main workspace canvas.</p></div>;
 }

@@ -214,6 +214,40 @@
             return { position };
         })();
 
+        window.blazorShadcnSidebar = (function () {
+            const handlers = new Map();
+            let nextId = 1;
+
+            function isMobile() {
+                return window.matchMedia("(max-width: 767px)").matches;
+            }
+
+            function registerShortcut(dotNetRef, key) {
+                const id = nextId++;
+                const shortcut = (key || "b").toLowerCase();
+
+                const handler = (event) => {
+                    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === shortcut) {
+                        event.preventDefault();
+                        dotNetRef.invokeMethodAsync("ToggleFromShortcut");
+                    }
+                };
+
+                window.addEventListener("keydown", handler);
+                handlers.set(id, handler);
+                return id;
+            }
+
+            function dispose(id) {
+                const handler = handlers.get(id);
+                if (!handler) return;
+                window.removeEventListener("keydown", handler);
+                handlers.delete(id);
+            }
+
+            return { isMobile, registerShortcut, dispose };
+        })();
+
         (function () {
             function getTargetFromHash(hash) {
                 if (!hash || hash[0] !== '#') return null;

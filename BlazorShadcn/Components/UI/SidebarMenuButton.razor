@@ -1,0 +1,93 @@
+@if (!string.IsNullOrWhiteSpace(Href))
+{
+    <a data-slot="sidebar-menu-button"
+       data-sidebar="menu-button"
+       data-size="@Size"
+       data-active="@IsActive"
+       href="@Href"
+       title="@Tooltip"
+       aria-current="@(IsActive ? "page" : null)"
+       class="@GetClasses()"
+       @attributes="AdditionalAttributes">
+        @ChildContent
+    </a>
+}
+else
+{
+    <button data-slot="sidebar-menu-button"
+            data-sidebar="menu-button"
+            data-size="@Size"
+            data-active="@IsActive"
+            type="button"
+            title="@Tooltip"
+            class="@GetClasses()"
+            @onclick="HandleClick"
+            @attributes="AdditionalAttributes">
+        @ChildContent
+    </button>
+}
+
+@code {
+    [CascadingParameter(Name = "SidebarContext")] private SidebarContext? Context { get; set; }
+
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public bool IsActive { get; set; }
+    [Parameter] public string Variant { get; set; } = "default";
+    [Parameter] public string Size { get; set; } = "default";
+    [Parameter] public string? Tooltip { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => Tw.Merge(
+            "peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:[&>span]:hidden group-data-[collapsible=icon]:[&>[data-sidebar=menu-label]]:hidden group-data-[collapsible=icon]:[&>.sidebar-menu-chevron]:hidden [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+            GetVariantClasses(),
+            GetSizeClasses(),
+            GetStateClasses(),
+            Class);
+
+    private string GetVariantClasses()
+        => Variant == "outline"
+            ? "bg-background shadow-[0_0_0_1px_var(--sidebar-border)]"
+            : string.Empty;
+
+    private string GetSizeClasses()
+        => Size switch
+        {
+            "sm" => "h-7 text-xs",
+            "lg" => "h-12 text-sm",
+            _ => "h-8 text-sm"
+        };
+
+    private string GetStateClasses()
+    {
+        var classes = new List<string>();
+
+        if (IsActive)
+        {
+            classes.Add("bg-sidebar-accent font-medium text-sidebar-accent-foreground");
+        }
+
+        if (Context?.Open == false)
+        {
+            classes.Add("justify-center");
+
+            if (Size == "lg")
+            {
+                classes.Add("p-0");
+            }
+            else
+            {
+                classes.Add("p-2");
+            }
+        }
+
+        return string.Join(" ", classes);
+    }
+
+    private Task HandleClick(MouseEventArgs args)
+        => OnClick.HasDelegate ? OnClick.InvokeAsync(args) : Task.CompletedTask;
+}

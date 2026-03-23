@@ -1,0 +1,52 @@
+@namespace ShadcnBlazor.Components.UI
+
+@if (!string.IsNullOrWhiteSpace(Href))
+{
+    <a data-slot="sidebar-menu-sub-button"
+       data-sidebar="menu-sub-button"
+       data-size="@Size"
+       aria-current="@(IsActive ? "page" : null)"
+       href="@Href"
+       class="@GetClasses()"
+       @attributes="AdditionalAttributes">
+        @ChildContent
+    </a>
+}
+else
+{
+    <button data-slot="sidebar-menu-sub-button"
+            data-sidebar="menu-sub-button"
+            data-size="@Size"
+            type="button"
+            class="@GetClasses()"
+            @onclick="HandleClick"
+            @attributes="AdditionalAttributes">
+        @ChildContent
+    </button>
+}
+
+@code {
+    [CascadingParameter(Name = "SidebarContext")] private SidebarContext? Context { get; set; }
+
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public string Size { get; set; } = "md";
+    [Parameter] public bool IsActive { get; set; }
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetClasses()
+        => Cn(
+            "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground ring-sidebar-ring outline-hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground group-data-[collapsible=icon]:hidden [&>span:last-child]:truncate [&_svg]:size-4 [&_svg]:shrink-0",
+            Size == "sm" ? "text-xs" : "text-sm",
+            IsActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : null,
+            Class);
+
+    private Task HandleClick(MouseEventArgs args)
+        => OnClick.HasDelegate ? OnClick.InvokeAsync(args) : Task.CompletedTask;
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

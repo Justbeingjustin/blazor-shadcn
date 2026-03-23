@@ -1,2 +1,1112 @@
 @page "/components/field"
-<GeneratedShowcase Slug="field" />
+
+<PageTitle>Field - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Field</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="@Button.ButtonVariant.Secondary"
+                                Size="@Button.ButtonSize.Icon"
+                                Href="/components/dropdown-menu"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                        </Button>
+                        <Button Variant="@Button.ButtonVariant.Secondary"
+                                Size="@Button.ButtonSize.Icon"
+                                Href="/components/input"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Combine labels, controls, and help text to compose accessible form fields and grouped inputs.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="w-full max-w-md">
+                            <form>
+                                <FieldGroup>
+                                    <FieldSet>
+                                        <FieldLegend>Payment Method</FieldLegend>
+                                        <FieldDescription>All transactions are secure and encrypted.</FieldDescription>
+                                        <FieldGroup>
+                                            <Field>
+                                                <FieldLabel For="field-card-name">Name on Card</FieldLabel>
+                                                <Input id="field-card-name" Placeholder="Evil Rabbit" required />
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel For="field-card-number">Card Number</FieldLabel>
+                                                <Input id="field-card-number" Placeholder="1234 5678 9012 3456" required />
+                                                <FieldDescription>Enter your 16-digit card number.</FieldDescription>
+                                            </Field>
+                                            <div class="grid grid-cols-3 gap-4">
+                                                <Field>
+                                                    <FieldLabel For="field-exp-month">Month</FieldLabel>
+                                                    <Select Class="w-full" DefaultValue="">
+                                                        <SelectTrigger Id="field-exp-month" Class="w-full">
+                                                            <SelectValue Placeholder="MM" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem Value="01">01</SelectItem>
+                                                            <SelectItem Value="02">02</SelectItem>
+                                                            <SelectItem Value="03">03</SelectItem>
+                                                            <SelectItem Value="04">04</SelectItem>
+                                                            <SelectItem Value="05">05</SelectItem>
+                                                            <SelectItem Value="06">06</SelectItem>
+                                                            <SelectItem Value="07">07</SelectItem>
+                                                            <SelectItem Value="08">08</SelectItem>
+                                                            <SelectItem Value="09">09</SelectItem>
+                                                            <SelectItem Value="10">10</SelectItem>
+                                                            <SelectItem Value="11">11</SelectItem>
+                                                            <SelectItem Value="12">12</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </Field>
+                                                <Field>
+                                                    <FieldLabel For="field-exp-year">Year</FieldLabel>
+                                                    <Select Class="w-full" DefaultValue="">
+                                                        <SelectTrigger Id="field-exp-year" Class="w-full">
+                                                            <SelectValue Placeholder="YYYY" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem Value="2026">2026</SelectItem>
+                                                            <SelectItem Value="2027">2027</SelectItem>
+                                                            <SelectItem Value="2028">2028</SelectItem>
+                                                            <SelectItem Value="2029">2029</SelectItem>
+                                                            <SelectItem Value="2030">2030</SelectItem>
+                                                            <SelectItem Value="2031">2031</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </Field>
+                                                <Field>
+                                                    <FieldLabel For="field-cvv">CVV</FieldLabel>
+                                                    <Input id="field-cvv" Placeholder="123" required />
+                                                </Field>
+                                            </div>
+                                        </FieldGroup>
+                                    </FieldSet>
+
+                                    <FieldSeparator />
+
+                                    <FieldSet>
+                                        <FieldLegend>Billing Address</FieldLegend>
+                                        <FieldDescription>The billing address associated with your payment method.</FieldDescription>
+                                        <FieldGroup>
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-same-as-shipping" DefaultChecked="true" />
+                                                <FieldLabel For="field-same-as-shipping" Class="font-normal">
+                                                    Same as shipping address
+                                                </FieldLabel>
+                                            </Field>
+                                        </FieldGroup>
+                                    </FieldSet>
+
+                                    <FieldSet>
+                                        <FieldGroup>
+                                            <Field>
+                                                <FieldLabel For="field-comments">Comments</FieldLabel>
+                                                <Textarea id="field-comments" Placeholder="Add any additional comments" Class="resize-none" />
+                                            </Field>
+                                        </FieldGroup>
+                                    </FieldSet>
+
+                                    <Field Orientation="horizontal">
+                                        <Button Type="submit">Submit</Button>
+                                        <Button Variant="@Button.ButtonVariant.Outline" Type="button">Cancel</Button>
+                                    </Field>
+                                </FieldGroup>
+                            </form>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <DocsInstallationSection ComponentLabel="field"
+                                         InstallCommand="@installCommand"
+                                         SourcePaths="@manualSourcePaths"
+                                         ImportStep="@manualImportStep" />
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="anatomy">Anatomy</h2>
+                <p class="text-muted-foreground mt-2 text-sm">
+                    The <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> family is designed for composing accessible forms with labels, controls, descriptions, and validation messaging.
+                </p>
+                <div class="mt-6">
+                    <CodeBlock RawText="@anatomyCode">@anatomyCode</CodeBlock>
+                </div>
+                <div class="mt-4 space-y-2 text-sm">
+                    <p><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> is the core wrapper for a single field.</p>
+                    <p><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldContent</code> groups a title, label, description, and error when the control sits beside the text.</p>
+                    <p>Wrap related controls with <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldGroup</code> and use <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldSet</code> plus <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldLegend</code> for semantic grouping.</p>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Input" Compact="true" CodeText="@codeInput">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldSet>
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel For="field-input-username">Username</FieldLabel>
+                                            <Input id="field-input-username" Placeholder="Max Leiter" />
+                                            <FieldDescription>Choose a unique username for your account.</FieldDescription>
+                                        </Field>
+                                        <Field>
+                                            <FieldLabel For="field-input-password">Password</FieldLabel>
+                                            <FieldDescription>Must be at least 8 characters long.</FieldDescription>
+                                            <Input id="field-input-password" Type="password" Placeholder="••••••••" />
+                                        </Field>
+                                    </FieldGroup>
+                                </FieldSet>
+                            </div>
+                        </Preview>
+                        <Code>@codeInput</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Textarea" Compact="true" CodeText="@codeTextarea">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldSet>
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel For="field-feedback">Feedback</FieldLabel>
+                                            <Textarea id="field-feedback" Placeholder="Your feedback helps us improve..." rows="4" />
+                                            <FieldDescription>Share your thoughts about our service.</FieldDescription>
+                                        </Field>
+                                    </FieldGroup>
+                                </FieldSet>
+                            </div>
+                        </Preview>
+                        <Code>@codeTextarea</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Select" Compact="true" CodeText="@codeSelect">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <Field>
+                                    <FieldLabel For="field-department">Department</FieldLabel>
+                                    <Select Class="w-full">
+                                        <SelectTrigger Id="field-department" Class="w-full">
+                                            <SelectValue Placeholder="Choose department" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem Value="engineering">Engineering</SelectItem>
+                                            <SelectItem Value="design">Design</SelectItem>
+                                            <SelectItem Value="marketing">Marketing</SelectItem>
+                                            <SelectItem Value="sales">Sales</SelectItem>
+                                            <SelectItem Value="support">Customer Support</SelectItem>
+                                            <SelectItem Value="finance">Finance</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FieldDescription>Select your department or area of work.</FieldDescription>
+                                </Field>
+                            </div>
+                        </Preview>
+                        <Code>@codeSelect</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Slider" Compact="true" CodeText="@codeSlider">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <Field>
+                                    <FieldTitle>Price Range</FieldTitle>
+                                    <FieldDescription>
+                                        Set your budget range ($<span class="font-medium tabular-nums">@((int)_priceRange[0])</span> -
+                                        <span class="font-medium tabular-nums">@((int)_priceRange[1])</span>).
+                                    </FieldDescription>
+                                    <Slider Value="@_priceRange"
+                                            ValueChanged="OnPriceRangeChanged"
+                                            Min="0"
+                                            Max="1000"
+                                            Step="10"
+                                            Class="mt-2 w-full"
+                                            aria-label="Price Range" />
+                                </Field>
+                            </div>
+                        </Preview>
+                        <Code>@codeSlider</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Fieldset" Compact="true" CodeText="@codeFieldset">
+                        <Preview>
+                            <div class="w-full max-w-md space-y-6">
+                                <FieldSet>
+                                    <FieldLegend>Address Information</FieldLegend>
+                                    <FieldDescription>We need your address to deliver your order.</FieldDescription>
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel For="field-street">Street Address</FieldLabel>
+                                            <Input id="field-street" Placeholder="123 Main St" />
+                                        </Field>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <Field>
+                                                <FieldLabel For="field-city">City</FieldLabel>
+                                                <Input id="field-city" Placeholder="New York" />
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel For="field-zip">Postal Code</FieldLabel>
+                                                <Input id="field-zip" Placeholder="90502" />
+                                            </Field>
+                                        </div>
+                                    </FieldGroup>
+                                </FieldSet>
+                            </div>
+                        </Preview>
+                        <Code>@codeFieldset</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Checkbox" Compact="true" CodeText="@codeCheckbox">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldGroup>
+                                    <FieldSet>
+                                        <FieldLegend Variant="label">Show these items on the desktop</FieldLegend>
+                                        <FieldDescription>Select the items you want to show on the desktop.</FieldDescription>
+                                        <FieldGroup Class="gap-3">
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-hard-disks" />
+                                                <FieldLabel For="field-hard-disks" Class="font-normal">Hard disks</FieldLabel>
+                                            </Field>
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-external-disks" />
+                                                <FieldLabel For="field-external-disks" Class="font-normal">External disks</FieldLabel>
+                                            </Field>
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-cds" />
+                                                <FieldLabel For="field-cds" Class="font-normal">CDs, DVDs, and iPods</FieldLabel>
+                                            </Field>
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-servers" />
+                                                <FieldLabel For="field-servers" Class="font-normal">Connected servers</FieldLabel>
+                                            </Field>
+                                        </FieldGroup>
+                                    </FieldSet>
+
+                                    <FieldSeparator />
+
+                                    <Field Orientation="horizontal">
+                                        <Checkbox id="field-sync-folders" DefaultChecked="true" />
+                                        <FieldContent>
+                                            <FieldLabel For="field-sync-folders">Sync Desktop &amp; Documents folders</FieldLabel>
+                                            <FieldDescription>
+                                                Your Desktop &amp; Documents folders are being synced with iCloud Drive. You can access them from other devices.
+                                            </FieldDescription>
+                                        </FieldContent>
+                                    </Field>
+                                </FieldGroup>
+                            </div>
+                        </Preview>
+                        <Code>@codeCheckbox</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Radio" Compact="true" CodeText="@codeRadio">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldSet>
+                                    <FieldLegend Variant="label">Subscription Plan</FieldLegend>
+                                    <FieldDescription>Yearly and lifetime plans offer significant savings.</FieldDescription>
+                                    <RadioGroup DefaultValue="monthly">
+                                        <Field Orientation="horizontal">
+                                            <RadioGroupItem Value="monthly" Id="field-plan-monthly" />
+                                            <FieldLabel For="field-plan-monthly" Class="font-normal">Monthly ($9.99/month)</FieldLabel>
+                                        </Field>
+                                        <Field Orientation="horizontal">
+                                            <RadioGroupItem Value="yearly" Id="field-plan-yearly" />
+                                            <FieldLabel For="field-plan-yearly" Class="font-normal">Yearly ($99.99/year)</FieldLabel>
+                                        </Field>
+                                        <Field Orientation="horizontal">
+                                            <RadioGroupItem Value="lifetime" Id="field-plan-lifetime" />
+                                            <FieldLabel For="field-plan-lifetime" Class="font-normal">Lifetime ($299.99)</FieldLabel>
+                                        </Field>
+                                    </RadioGroup>
+                                </FieldSet>
+                            </div>
+                        </Preview>
+                        <Code>@codeRadio</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Switch" Compact="true" CodeText="@codeSwitch">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <Field Orientation="horizontal">
+                                    <FieldContent>
+                                        <FieldLabel For="field-2fa">Multi-factor authentication</FieldLabel>
+                                        <FieldDescription>
+                                            Enable multi-factor authentication. If you do not have a two-factor device, you can use a one-time code sent to your email.
+                                        </FieldDescription>
+                                    </FieldContent>
+                                    <Switch id="field-2fa" />
+                                </Field>
+                            </div>
+                        </Preview>
+                        <Code>@codeSwitch</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Choice Card" Compact="true" CodeText="@codeChoiceCard">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldGroup>
+                                    <FieldSet>
+                                        <FieldLegend Variant="label">Compute Environment</FieldLegend>
+                                        <FieldDescription>Select the compute environment for your cluster.</FieldDescription>
+                                        <RadioGroup DefaultValue="kubernetes">
+                                            <FieldLabel For="field-kubernetes-choice">
+                                                <Field Orientation="horizontal">
+                                                    <FieldContent>
+                                                        <FieldTitle>Kubernetes</FieldTitle>
+                                                        <FieldDescription>Run GPU workloads on a K8s configured cluster.</FieldDescription>
+                                                    </FieldContent>
+                                                    <RadioGroupItem Value="kubernetes" Id="field-kubernetes-choice" />
+                                                </Field>
+                                            </FieldLabel>
+                                            <FieldLabel For="field-vm-choice">
+                                                <Field Orientation="horizontal">
+                                                    <FieldContent>
+                                                        <FieldTitle>Virtual Machine</FieldTitle>
+                                                        <FieldDescription>Access a VM configured cluster to run GPU workloads.</FieldDescription>
+                                                    </FieldContent>
+                                                    <RadioGroupItem Value="vm" Id="field-vm-choice" />
+                                                </Field>
+                                            </FieldLabel>
+                                        </RadioGroup>
+                                    </FieldSet>
+                                </FieldGroup>
+                            </div>
+                        </Preview>
+                        <Code>@codeChoiceCard</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Field Group" Compact="true" CodeText="@codeFieldGroup">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldGroup>
+                                    <FieldSet>
+                                        <FieldLegend Variant="label">Responses</FieldLegend>
+                                        <FieldDescription>
+                                            Get notified when ChatGPT responds to requests that take time, like research or image generation.
+                                        </FieldDescription>
+                                        <FieldGroup data-slot="checkbox-group">
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-push-responses" DefaultChecked="true" Disabled="true" />
+                                                <FieldLabel For="field-push-responses" Class="font-normal">Push notifications</FieldLabel>
+                                            </Field>
+                                        </FieldGroup>
+                                    </FieldSet>
+
+                                    <FieldSeparator />
+
+                                    <FieldSet>
+                                        <FieldLegend Variant="label">Tasks</FieldLegend>
+                                        <FieldDescription>
+                                            Get notified when tasks you've created have updates. <a href="#">Manage tasks</a>
+                                        </FieldDescription>
+                                        <FieldGroup data-slot="checkbox-group">
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-push-tasks" />
+                                                <FieldLabel For="field-push-tasks" Class="font-normal">Push notifications</FieldLabel>
+                                            </Field>
+                                            <Field Orientation="horizontal">
+                                                <Checkbox id="field-email-tasks" />
+                                                <FieldLabel For="field-email-tasks" Class="font-normal">Email notifications</FieldLabel>
+                                            </Field>
+                                        </FieldGroup>
+                                    </FieldSet>
+                                </FieldGroup>
+                            </div>
+                        </Preview>
+                        <Code>@codeFieldGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6">
+                    <ComponentExample Title="Responsive Layout" Compact="true" CodeText="@codeResponsive">
+                        <Preview>
+                            <div class="w-full max-w-4xl">
+                                <form>
+                                    <FieldSet>
+                                        <FieldLegend>Profile</FieldLegend>
+                                        <FieldDescription>Fill in your profile information.</FieldDescription>
+                                        <FieldSeparator />
+                                        <FieldGroup>
+                                            <Field Orientation="responsive">
+                                                <FieldContent>
+                                                    <FieldLabel For="field-profile-name">Name</FieldLabel>
+                                                    <FieldDescription>Provide your full name for identification.</FieldDescription>
+                                                </FieldContent>
+                                                <Input id="field-profile-name" Placeholder="Evil Rabbit" required />
+                                            </Field>
+                                            <FieldSeparator />
+                                            <Field Orientation="responsive">
+                                                <FieldContent>
+                                                    <FieldLabel For="field-profile-message">Message</FieldLabel>
+                                                    <FieldDescription>
+                                                        You can write your message here. Keep it short, preferably under 100 characters.
+                                                    </FieldDescription>
+                                                </FieldContent>
+                                                <Textarea id="field-profile-message"
+                                                          Placeholder="Hello, world!"
+                                                          Class="min-h-[100px] resize-none sm:min-w-[300px]"
+                                                          required />
+                                            </Field>
+                                            <FieldSeparator />
+                                            <Field Orientation="responsive">
+                                                <Button Type="submit">Submit</Button>
+                                                <Button Variant="@Button.ButtonVariant.Outline" Type="button">Cancel</Button>
+                                            </Field>
+                                        </FieldGroup>
+                                    </FieldSet>
+                                </form>
+                            </div>
+                        </Preview>
+                        <Code>@codeResponsive</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="validation-and-errors">Validation and Errors</h2>
+                <p class="text-muted-foreground mt-2 text-sm">
+                    Add <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">data-invalid="true"</code> to the field and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">aria-invalid="true"</code> to the control to switch the entire block into an error state.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Title="Invalid" Compact="true" CodeText="@codeInvalid">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <Field data-invalid="true">
+                                    <FieldLabel For="field-email-invalid">Email</FieldLabel>
+                                    <Input id="field-email-invalid" Type="email" Placeholder="name@company.com" aria-invalid="true" />
+                                    <FieldDescription>Use your company email address.</FieldDescription>
+                                    <FieldError Errors="@_invalidEmailErrors" />
+                                </Field>
+                            </div>
+                        </Preview>
+                        <Code>@codeInvalid</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="accessibility">Accessibility</h2>
+                <div class="mt-4 ml-6 list-disc space-y-2 text-sm">
+                    <p class="list-item"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldSet</code> and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldLegend</code> keep related controls grouped for assistive technologies.</p>
+                    <p class="list-item"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Field</code> renders <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">role="group"</code> so nested labels and descriptions stay associated.</p>
+                    <p class="list-item">Render <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">FieldError</code> after the control to expose validation feedback with <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">role="alert"</code>.</p>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldSet</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldLegend</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"legend" | "label"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"legend"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldGroup</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Field</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Orientation</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"vertical" | "horizontal" | "responsive"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"vertical"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldContent</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldLabel</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">For</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldTitle</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldDescription</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldSeparator</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">FieldError</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Errors</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">IEnumerable&lt;string?&gt;?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#anatomy" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Anatomy</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#input" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Input</a>
+                <a href="#textarea" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Textarea</a>
+                <a href="#select" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Select</a>
+                <a href="#slider" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Slider</a>
+                <a href="#fieldset" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Fieldset</a>
+                <a href="#checkbox" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Checkbox</a>
+                <a href="#radio" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Radio</a>
+                <a href="#switch" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Switch</a>
+                <a href="#choice-card" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Choice Card</a>
+                <a href="#field-group" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Field Group</a>
+                <a href="#responsive-layout" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Responsive Layout</a>
+                <a href="#validation-and-errors" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Validation and Errors</a>
+                <a href="#accessibility" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Accessibility</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/field";
+    private const string installCommand = "blazor-shadcn add field";
+    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
+    private const string usingStatement = """
+@using BlazorShadcn.Components.UI
+""";
+
+    private static readonly string[] manualSourcePaths =
+    [
+        "components/field/Field.razor",
+        "components/field/FieldSet.razor",
+        "components/field/FieldLegend.razor",
+        "components/field/FieldGroup.razor",
+        "components/field/FieldContent.razor",
+        "components/field/FieldLabel.razor",
+        "components/field/FieldTitle.razor",
+        "components/field/FieldDescription.razor",
+        "components/field/FieldSeparator.razor",
+        "components/field/FieldError.razor"
+    ];
+
+    private double[] _priceRange = [200, 800];
+
+    private readonly string[] _invalidEmailErrors =
+    [
+        "Enter a valid email address.",
+        "Use your company domain."
+    ];
+
+    private void OnPriceRangeChanged(double[] next)
+    {
+        _priceRange = next;
+    }
+
+    private const string usageCode = """
+<FieldSet>
+    <FieldLegend>Profile</FieldLegend>
+    <FieldDescription>This appears on invoices and emails.</FieldDescription>
+    <FieldGroup>
+        <Field>
+            <FieldLabel For="name">Full name</FieldLabel>
+            <Input id="name" Placeholder="Evil Rabbit" />
+            <FieldDescription>This appears on invoices and emails.</FieldDescription>
+        </Field>
+        <Field data-invalid="true">
+            <FieldLabel For="username">Username</FieldLabel>
+            <Input id="username" aria-invalid="true" />
+            <FieldError>Choose another username.</FieldError>
+        </Field>
+        <Field Orientation="horizontal">
+            <Switch id="newsletter" />
+            <FieldLabel For="newsletter">Subscribe to the newsletter</FieldLabel>
+        </Field>
+    </FieldGroup>
+</FieldSet>
+""";
+
+    private const string anatomyCode = """
+<Field>
+    <FieldLabel For="input-id">Label</FieldLabel>
+    <Input id="input-id" />
+    <FieldDescription>Optional helper text.</FieldDescription>
+    <FieldError>Validation message.</FieldError>
+</Field>
+""";
+
+    private const string codeMainDemo = """
+<form>
+    <FieldGroup>
+        <FieldSet>
+            <FieldLegend>Payment Method</FieldLegend>
+            <FieldDescription>All transactions are secure and encrypted.</FieldDescription>
+            <FieldGroup>
+                <Field>
+                    <FieldLabel For="card-name">Name on Card</FieldLabel>
+                    <Input id="card-name" Placeholder="Evil Rabbit" required />
+                </Field>
+                <Field>
+                    <FieldLabel For="card-number">Card Number</FieldLabel>
+                    <Input id="card-number" Placeholder="1234 5678 9012 3456" required />
+                    <FieldDescription>Enter your 16-digit card number.</FieldDescription>
+                </Field>
+                <div class="grid grid-cols-3 gap-4">
+                    <Field>
+                        <FieldLabel For="exp-month">Month</FieldLabel>
+                        <Select Class="w-full" DefaultValue="">
+                            <SelectTrigger Id="exp-month" Class="w-full">
+                                <SelectValue Placeholder="MM" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem Value="01">01</SelectItem>
+                                <SelectItem Value="02">02</SelectItem>
+                                <SelectItem Value="03">03</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </Field>
+                    <Field>
+                        <FieldLabel For="exp-year">Year</FieldLabel>
+                        <Select Class="w-full" DefaultValue="">
+                            <SelectTrigger Id="exp-year" Class="w-full">
+                                <SelectValue Placeholder="YYYY" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem Value="2026">2026</SelectItem>
+                                <SelectItem Value="2027">2027</SelectItem>
+                                <SelectItem Value="2028">2028</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </Field>
+                    <Field>
+                        <FieldLabel For="cvv">CVV</FieldLabel>
+                        <Input id="cvv" Placeholder="123" required />
+                    </Field>
+                </div>
+            </FieldGroup>
+        </FieldSet>
+
+        <FieldSeparator />
+
+        <FieldSet>
+            <FieldLegend>Billing Address</FieldLegend>
+            <FieldDescription>The billing address associated with your payment method.</FieldDescription>
+            <FieldGroup>
+                <Field Orientation="horizontal">
+                    <Checkbox id="same-as-shipping" DefaultChecked="true" />
+                    <FieldLabel For="same-as-shipping" Class="font-normal">
+                        Same as shipping address
+                    </FieldLabel>
+                </Field>
+            </FieldGroup>
+        </FieldSet>
+
+        <Field Orientation="horizontal">
+            <Button Type="submit">Submit</Button>
+            <Button Variant="@Button.ButtonVariant.Outline" Type="button">Cancel</Button>
+        </Field>
+    </FieldGroup>
+</form>
+""";
+
+    private const string codeInput = """
+<FieldSet>
+    <FieldGroup>
+        <Field>
+            <FieldLabel For="username">Username</FieldLabel>
+            <Input id="username" Placeholder="Max Leiter" />
+            <FieldDescription>Choose a unique username for your account.</FieldDescription>
+        </Field>
+        <Field>
+            <FieldLabel For="password">Password</FieldLabel>
+            <FieldDescription>Must be at least 8 characters long.</FieldDescription>
+            <Input id="password" Type="password" Placeholder="••••••••" />
+        </Field>
+    </FieldGroup>
+</FieldSet>
+""";
+
+    private const string codeTextarea = """
+<FieldSet>
+    <FieldGroup>
+        <Field>
+            <FieldLabel For="feedback">Feedback</FieldLabel>
+            <Textarea id="feedback" Placeholder="Your feedback helps us improve..." rows="4" />
+            <FieldDescription>Share your thoughts about our service.</FieldDescription>
+        </Field>
+    </FieldGroup>
+</FieldSet>
+""";
+
+    private const string codeSelect = """
+<Field>
+    <FieldLabel For="department">Department</FieldLabel>
+    <Select Class="w-full">
+        <SelectTrigger Id="department" Class="w-full">
+            <SelectValue Placeholder="Choose department" />
+        </SelectTrigger>
+        <SelectContent>
+            <SelectItem Value="engineering">Engineering</SelectItem>
+            <SelectItem Value="design">Design</SelectItem>
+            <SelectItem Value="marketing">Marketing</SelectItem>
+        </SelectContent>
+    </Select>
+    <FieldDescription>Select your department or area of work.</FieldDescription>
+</Field>
+""";
+
+    private const string codeSlider = """
+<Field>
+    <FieldTitle>Price Range</FieldTitle>
+    <FieldDescription>Set your budget range.</FieldDescription>
+    <Slider Value="@_priceRange"
+            ValueChanged="OnPriceRangeChanged"
+            Min="0"
+            Max="1000"
+            Step="10"
+            Class="mt-2 w-full"
+            aria-label="Price Range" />
+</Field>
+""";
+
+    private const string codeFieldset = """
+<FieldSet>
+    <FieldLegend>Address Information</FieldLegend>
+    <FieldDescription>We need your address to deliver your order.</FieldDescription>
+    <FieldGroup>
+        <Field>
+            <FieldLabel For="street">Street Address</FieldLabel>
+            <Input id="street" Placeholder="123 Main St" />
+        </Field>
+        <div class="grid grid-cols-2 gap-4">
+            <Field>
+                <FieldLabel For="city">City</FieldLabel>
+                <Input id="city" Placeholder="New York" />
+            </Field>
+            <Field>
+                <FieldLabel For="zip">Postal Code</FieldLabel>
+                <Input id="zip" Placeholder="90502" />
+            </Field>
+        </div>
+    </FieldGroup>
+</FieldSet>
+""";
+
+    private const string codeCheckbox = """
+<FieldGroup>
+    <FieldSet>
+        <FieldLegend Variant="label">Show these items on the desktop</FieldLegend>
+        <FieldDescription>Select the items you want to show on the desktop.</FieldDescription>
+        <FieldGroup Class="gap-3">
+            <Field Orientation="horizontal">
+                <Checkbox id="hard-disks" />
+                <FieldLabel For="hard-disks" Class="font-normal">Hard disks</FieldLabel>
+            </Field>
+        </FieldGroup>
+    </FieldSet>
+
+    <FieldSeparator />
+
+    <Field Orientation="horizontal">
+        <Checkbox id="sync-folders" DefaultChecked="true" />
+        <FieldContent>
+            <FieldLabel For="sync-folders">Sync Desktop & Documents folders</FieldLabel>
+            <FieldDescription>Your Desktop & Documents folders are being synced with iCloud Drive.</FieldDescription>
+        </FieldContent>
+    </Field>
+</FieldGroup>
+""";
+
+    private const string codeRadio = """
+<FieldSet>
+    <FieldLegend Variant="label">Subscription Plan</FieldLegend>
+    <FieldDescription>Yearly and lifetime plans offer significant savings.</FieldDescription>
+    <RadioGroup DefaultValue="monthly">
+        <Field Orientation="horizontal">
+            <RadioGroupItem Value="monthly" Id="plan-monthly" />
+            <FieldLabel For="plan-monthly" Class="font-normal">Monthly ($9.99/month)</FieldLabel>
+        </Field>
+        <Field Orientation="horizontal">
+            <RadioGroupItem Value="yearly" Id="plan-yearly" />
+            <FieldLabel For="plan-yearly" Class="font-normal">Yearly ($99.99/year)</FieldLabel>
+        </Field>
+        <Field Orientation="horizontal">
+            <RadioGroupItem Value="lifetime" Id="plan-lifetime" />
+            <FieldLabel For="plan-lifetime" Class="font-normal">Lifetime ($299.99)</FieldLabel>
+        </Field>
+    </RadioGroup>
+</FieldSet>
+""";
+
+    private const string codeSwitch = """
+<Field Orientation="horizontal">
+    <FieldContent>
+        <FieldLabel For="two-factor">Multi-factor authentication</FieldLabel>
+        <FieldDescription>Enable multi-factor authentication with an email fallback.</FieldDescription>
+    </FieldContent>
+    <Switch id="two-factor" />
+</Field>
+""";
+
+    private const string codeChoiceCard = """
+<FieldSet>
+    <FieldLegend Variant="label">Compute Environment</FieldLegend>
+    <FieldDescription>Select the compute environment for your cluster.</FieldDescription>
+    <RadioGroup DefaultValue="kubernetes">
+        <FieldLabel For="kubernetes-choice">
+            <Field Orientation="horizontal">
+                <FieldContent>
+                    <FieldTitle>Kubernetes</FieldTitle>
+                    <FieldDescription>Run GPU workloads on a K8s configured cluster.</FieldDescription>
+                </FieldContent>
+                <RadioGroupItem Value="kubernetes" Id="kubernetes-choice" />
+            </Field>
+        </FieldLabel>
+        <FieldLabel For="vm-choice">
+            <Field Orientation="horizontal">
+                <FieldContent>
+                    <FieldTitle>Virtual Machine</FieldTitle>
+                    <FieldDescription>Access a VM configured cluster to run GPU workloads.</FieldDescription>
+                </FieldContent>
+                <RadioGroupItem Value="vm" Id="vm-choice" />
+            </Field>
+        </FieldLabel>
+    </RadioGroup>
+</FieldSet>
+""";
+
+    private const string codeFieldGroup = """
+<FieldGroup>
+    <FieldSet>
+        <FieldLegend Variant="label">Responses</FieldLegend>
+        <FieldDescription>Get notified when ChatGPT responds to requests that take time.</FieldDescription>
+        <FieldGroup data-slot="checkbox-group">
+            <Field Orientation="horizontal">
+                <Checkbox id="push-responses" DefaultChecked="true" Disabled="true" />
+                <FieldLabel For="push-responses" Class="font-normal">Push notifications</FieldLabel>
+            </Field>
+        </FieldGroup>
+    </FieldSet>
+
+    <FieldSeparator />
+
+    <FieldSet>
+        <FieldLegend Variant="label">Tasks</FieldLegend>
+        <FieldDescription>
+            Get notified when tasks you've created have updates. <a href="#">Manage tasks</a>
+        </FieldDescription>
+        <FieldGroup data-slot="checkbox-group">
+            <Field Orientation="horizontal">
+                <Checkbox id="push-tasks" />
+                <FieldLabel For="push-tasks" Class="font-normal">Push notifications</FieldLabel>
+            </Field>
+            <Field Orientation="horizontal">
+                <Checkbox id="email-tasks" />
+                <FieldLabel For="email-tasks" Class="font-normal">Email notifications</FieldLabel>
+            </Field>
+        </FieldGroup>
+    </FieldSet>
+</FieldGroup>
+""";
+
+    private const string codeResponsive = """
+<FieldSet>
+    <FieldLegend>Profile</FieldLegend>
+    <FieldDescription>Fill in your profile information.</FieldDescription>
+    <FieldSeparator />
+    <FieldGroup>
+        <Field Orientation="responsive">
+            <FieldContent>
+                <FieldLabel For="name">Name</FieldLabel>
+                <FieldDescription>Provide your full name for identification.</FieldDescription>
+            </FieldContent>
+            <Input id="name" Placeholder="Evil Rabbit" required />
+        </Field>
+        <FieldSeparator />
+        <Field Orientation="responsive">
+            <FieldContent>
+                <FieldLabel For="message">Message</FieldLabel>
+                <FieldDescription>You can write your message here. Keep it short.</FieldDescription>
+            </FieldContent>
+            <Textarea id="message" Placeholder="Hello, world!" Class="min-h-[100px] resize-none sm:min-w-[300px]" required />
+        </Field>
+    </FieldGroup>
+</FieldSet>
+""";
+
+    private const string codeInvalid = """
+<Field data-invalid="true">
+    <FieldLabel For="email">Email</FieldLabel>
+    <Input id="email" Type="email" Placeholder="name@company.com" aria-invalid="true" />
+    <FieldDescription>Use your company email address.</FieldDescription>
+    <FieldError Errors="@_invalidEmailErrors" />
+</Field>
+""";
+}

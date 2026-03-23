@@ -1,0 +1,146 @@
+@namespace ShadcnBlazor.Components.UI
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<CascadingValue Name="SidebarContext" Value="@_context">
+    <div data-slot="sidebar-wrapper"
+         style="@GetStyle()"
+         class="@Cn("group/sidebar-wrapper relative flex h-full w-full has-data-[variant=inset]:bg-sidebar", Class)"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    [Parameter] public bool DefaultOpen { get; set; } = true;
+    [Parameter] public bool Open { get; set; }
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+    [Parameter] public string SidebarWidth { get; set; } = "16rem";
+    [Parameter] public string SidebarWidthMobile { get; set; } = "18rem";
+    [Parameter] public string SidebarWidthIcon { get; set; } = "3rem";
+    [Parameter] public string ShortcutKey { get; set; } = "b";
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public string? Style { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool _open;
+    private bool _openMobile;
+    private bool _initialized;
+    private int? _shortcutId;
+    private DotNetObjectReference<SidebarProvider>? _dotNetRef;
+    private SidebarContext _context = default!;
+
+    protected override void OnParametersSet()
+    {
+        if (OpenChanged.HasDelegate)
+        {
+            _open = Open;
+        }
+        else if (!_initialized)
+        {
+            _open = DefaultOpen;
+            _initialized = true;
+        }
+
+        UpdateContext();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        _dotNetRef = DotNetObjectReference.Create(this);
+        _shortcutId = await JS.InvokeAsync<int>("window.blazorShadcnSidebar.registerShortcut", _dotNetRef, ShortcutKey);
+    }
+
+    [JSInvokable]
+    public Task ToggleFromShortcut() => ToggleSidebarAsync();
+
+    private async Task ToggleSidebarAsync()
+    {
+        var isMobile = false;
+
+        try
+        {
+            isMobile = await JS.InvokeAsync<bool>("window.blazorShadcnSidebar.isMobile");
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+
+        if (isMobile)
+        {
+            await SetOpenMobileAsync(!_openMobile);
+            return;
+        }
+
+        await SetOpenAsync(!_open);
+    }
+
+    private async Task SetOpenAsync(bool value)
+    {
+        _open = value;
+        UpdateContext();
+
+        if (OpenChanged.HasDelegate)
+        {
+            await OpenChanged.InvokeAsync(value);
+        }
+
+        StateHasChanged();
+    }
+
+    private Task SetOpenMobileAsync(bool value)
+    {
+        _openMobile = value;
+        UpdateContext();
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private void UpdateContext()
+    {
+        _context = new SidebarContext
+        {
+            Open = _open,
+            OpenMobile = _openMobile,
+            State = _open ? "expanded" : "collapsed",
+            SetOpenAsync = SetOpenAsync,
+            SetOpenMobileAsync = SetOpenMobileAsync,
+            ToggleSidebarAsync = ToggleSidebarAsync
+        };
+    }
+
+    private string GetStyle()
+        => string.Join(" ", new[]
+        {
+            $"--sidebar-width: {SidebarWidth};",
+            $"--sidebar-width-mobile: {SidebarWidthMobile};",
+            $"--sidebar-width-icon: {SidebarWidthIcon};",
+            Style
+        }.Where(static value => !string.IsNullOrWhiteSpace(value)));
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_shortcutId is not null)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("window.blazorShadcnSidebar.dispose", _shortcutId.Value);
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+
+        _dotNetRef?.Dispose();
+    }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}

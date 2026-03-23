@@ -1,0 +1,13 @@
+<ul data-slot="sidebar-menu-sub"
+    data-sidebar="menu-sub"
+    class="@Tw.Merge("mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden", Class)"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</ul>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

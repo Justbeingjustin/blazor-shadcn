@@ -113,12 +113,76 @@
                     <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="label-in-field">Label in Field <span class="text-muted-foreground ml-2 align-middle text-sm font-normal">Coming soon</span></h2>
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="label-in-field">Label in Field</h2>
                 <p class="text-muted-foreground mt-4 text-sm">
-                    For full form-field patterns in shadcn, use the Field component family. This fallback uses Label + Input until Field is implemented.
+                    The Field component family builds on top of label semantics for accessible form groups and richer form layouts.
                 </p>
                 <div class="mt-6">
-                    <ComingSoonExample />
+                    <ComponentExample Compact="true" CodeText="@codeLabelInField">
+                        <Preview>
+                            <div class="w-full max-w-md">
+                                <FieldSet>
+                                    <FieldLegend>Payment Method</FieldLegend>
+                                    <FieldDescription>All transactions are secure and encrypted.</FieldDescription>
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel For="label-card-name">Name on Card</FieldLabel>
+                                            <Input id="label-card-name" Placeholder="Evil Rabbit" />
+                                        </Field>
+                                        <Field>
+                                            <FieldLabel For="label-card-number">Card Number</FieldLabel>
+                                            <Input id="label-card-number" Placeholder="1234 5678 9012 3456" />
+                                            <FieldDescription>Enter your 16-digit card number.</FieldDescription>
+                                        </Field>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <Field>
+                                                <FieldLabel For="label-exp-month">Month</FieldLabel>
+                                                <Select Class="w-full">
+                                                    <SelectTrigger Id="label-exp-month" Class="w-full">
+                                                        <SelectValue Placeholder="MM" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem Value="01" Text="01">01</SelectItem>
+                                                        <SelectItem Value="02" Text="02">02</SelectItem>
+                                                        <SelectItem Value="03" Text="03">03</SelectItem>
+                                                        <SelectItem Value="04" Text="04">04</SelectItem>
+                                                        <SelectItem Value="05" Text="05">05</SelectItem>
+                                                        <SelectItem Value="06" Text="06">06</SelectItem>
+                                                        <SelectItem Value="07" Text="07">07</SelectItem>
+                                                        <SelectItem Value="08" Text="08">08</SelectItem>
+                                                        <SelectItem Value="09" Text="09">09</SelectItem>
+                                                        <SelectItem Value="10" Text="10">10</SelectItem>
+                                                        <SelectItem Value="11" Text="11">11</SelectItem>
+                                                        <SelectItem Value="12" Text="12">12</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel For="label-exp-year">Year</FieldLabel>
+                                                <Select Class="w-full">
+                                                    <SelectTrigger Id="label-exp-year" Class="w-full">
+                                                        <SelectValue Placeholder="YYYY" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem Value="2026" Text="2026">2026</SelectItem>
+                                                        <SelectItem Value="2027" Text="2027">2027</SelectItem>
+                                                        <SelectItem Value="2028" Text="2028">2028</SelectItem>
+                                                        <SelectItem Value="2029" Text="2029">2029</SelectItem>
+                                                        <SelectItem Value="2030" Text="2030">2030</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel For="label-cvv">CVV</FieldLabel>
+                                                <Input id="label-cvv" Placeholder="123" />
+                                            </Field>
+                                        </div>
+                                    </FieldGroup>
+                                </FieldSet>
+                            </div>
+                        </Preview>
+                        <Code>@codeLabelInField</Code>
+                    </ComponentExample>
                 </div>
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
@@ -210,25 +274,23 @@
 </div>";
 
     private const string codeLabelInField = """
-<div class="w-full max-w-md space-y-6">
-    <div class="space-y-2">
-        <h3 class="text-base font-medium">Payment Method</h3>
-        <p class="text-muted-foreground text-sm">All transactions are secure and encrypted</p>
-    </div>
-    <div class="grid gap-4">
-        <div class="grid gap-2">
-            <Label For="card-name">Name on Card</Label>
+<FieldSet>
+    <FieldLegend>Payment Method</FieldLegend>
+    <FieldDescription>All transactions are secure and encrypted.</FieldDescription>
+    <FieldGroup>
+        <Field>
+            <FieldLabel For="card-name">Name on Card</FieldLabel>
             <Input id="card-name" Placeholder="Evil Rabbit" />
-        </div>
-        <div class="grid gap-2">
-            <Label For="card-number">Card Number</Label>
+        </Field>
+        <Field>
+            <FieldLabel For="card-number">Card Number</FieldLabel>
             <Input id="card-number" Placeholder="1234 5678 9012 3456" />
-            <p class="text-muted-foreground text-sm">Enter your 16-digit card number</p>
-        </div>
+            <FieldDescription>Enter your 16-digit card number.</FieldDescription>
+        </Field>
         <div class="grid grid-cols-3 gap-4">
-            <div class="grid gap-2">
-                <Label For="exp-month">Month</Label>
-                <Select>
+            <Field>
+                <FieldLabel For="exp-month">Month</FieldLabel>
+                <Select Class="w-full">
                     <SelectTrigger Id="exp-month" Class="w-full">
                         <SelectValue Placeholder="MM" />
                     </SelectTrigger>
@@ -236,21 +298,12 @@
                         <SelectItem Value="01" Text="01">01</SelectItem>
                         <SelectItem Value="02" Text="02">02</SelectItem>
                         <SelectItem Value="03" Text="03">03</SelectItem>
-                        <SelectItem Value="04" Text="04">04</SelectItem>
-                        <SelectItem Value="05" Text="05">05</SelectItem>
-                        <SelectItem Value="06" Text="06">06</SelectItem>
-                        <SelectItem Value="07" Text="07">07</SelectItem>
-                        <SelectItem Value="08" Text="08">08</SelectItem>
-                        <SelectItem Value="09" Text="09">09</SelectItem>
-                        <SelectItem Value="10" Text="10">10</SelectItem>
-                        <SelectItem Value="11" Text="11">11</SelectItem>
-                        <SelectItem Value="12" Text="12">12</SelectItem>
                     </SelectContent>
                 </Select>
-            </div>
-            <div class="grid gap-2">
-                <Label For="exp-year">Year</Label>
-                <Select>
+            </Field>
+            <Field>
+                <FieldLabel For="exp-year">Year</FieldLabel>
+                <Select Class="w-full">
                     <SelectTrigger Id="exp-year" Class="w-full">
                         <SelectValue Placeholder="YYYY" />
                     </SelectTrigger>
@@ -258,19 +311,16 @@
                         <SelectItem Value="2026" Text="2026">2026</SelectItem>
                         <SelectItem Value="2027" Text="2027">2027</SelectItem>
                         <SelectItem Value="2028" Text="2028">2028</SelectItem>
-                        <SelectItem Value="2029" Text="2029">2029</SelectItem>
-                        <SelectItem Value="2030" Text="2030">2030</SelectItem>
                     </SelectContent>
                 </Select>
-            </div>
-            <div class="grid gap-2">
-                <Label For="cvv">CVV</Label>
+            </Field>
+            <Field>
+                <FieldLabel For="cvv">CVV</FieldLabel>
                 <Input id="cvv" Placeholder="123" />
-            </div>
+            </Field>
         </div>
-    </div>
-</div>
+    </FieldGroup>
+</FieldSet>
 """;
 
 }
-

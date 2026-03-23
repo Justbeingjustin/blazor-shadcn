@@ -1,0 +1,12 @@
+<p data-slot="field-description"
+   class="@Tw.Merge("text-muted-foreground text-sm leading-normal font-normal group-data-[orientation=horizontal]/field:text-balance @md/field-group:group-data-[orientation=responsive]/field:text-balance last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5 [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary", Class)"
+   @attributes="AdditionalAttributes">
+    @ChildContent
+</p>
+
+@code {
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
