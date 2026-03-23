@@ -1,0 +1,45 @@
+@page "/docs"
+
+<PageTitle>blazor-shadcn Docs</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-heading mt-2 scroll-m-28 text-3xl font-semibold tracking-tight focus:outline-none">Introduction</h1>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                    </div>
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Beautifully designed components for Blazor.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <p class="leading-relaxed mt-6">
+                    Blazor ShadCN brings the shadcn/ui workflow to Blazor.
+                </p>
+
+                <p class="leading-relaxed mt-6">
+                    Inspired by <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-4">shadcn/ui</a>, it lets you add components as source code directly to your app instead of consuming a packaged UI library.
+                </p>
+
+                <p class="leading-relaxed mt-6">
+                    That means the components live in your project, follow your architecture, and can be changed without fighting a third-party abstraction.
+                </p>
+
+                <p class="leading-relaxed mt-6">
+                    Use the CLI to scaffold a project and add components as you need them. Once they are installed, the code is yours to inspect, refactor, and extend.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs";
+}

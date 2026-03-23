@@ -29,7 +29,7 @@
             <div class="w-full flex-1">
                 <ComponentExample Compact="true" CodeText="@codeDemo">
                     <Preview>
-                        <div class="flex items-center justify-center min-h-screen">
+                        <div class="flex items-center justify-center py-10 min-h-[240px]">
                             <Popover>
                                 <PopoverTrigger>
                                     <Button Variant="@Button.ButtonVariant.Outline">Open popover</Button>
@@ -86,7 +86,7 @@
                             <p class="text-muted-foreground text-sm">A popover with editable dimensions.</p>
                         </Description>
                         <Preview>
-                        <div class="flex items-center justify-center min-h-screen">
+                        <div class="flex items-center justify-center py-10 min-h-[240px]">
                             <Popover>
                                 <PopoverTrigger>
                                     <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
@@ -130,7 +130,7 @@
                             <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Align</code> parameter on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">PopoverContent</code> to control the horizontal alignment.</p>
                         </Description>
                         <Preview>
-                            <div class="flex items-center justify-center min-h-screen">
+                            <div class="flex items-center justify-center py-10 min-h-[240px]">
                                 <div class="flex flex-wrap justify-center gap-6">
                                     <Popover>
                                         <PopoverTrigger>
@@ -169,7 +169,7 @@
                             <p class="text-muted-foreground text-sm">A popover with form fields inside.</p>
                         </Description>
                         <Preview>
-                            <div class="flex items-center justify-center min-h-screen">
+                            <div class="flex items-center justify-center py-10 min-h-[240px]">
                                 <Popover>
                                     <PopoverTrigger>
                                         <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
@@ -179,20 +179,20 @@
                                             <PopoverTitle>Dimensions</PopoverTitle>
                                             <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
                                         </PopoverHeader>
-                                        <div class="grid gap-4">
-                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                        <div class="space-y-3">
+                                            <div class="space-y-1.5">
                                                 <Label For="popover-form-width">Width</Label>
                                                 <Input id="popover-form-width" Value="100%" />
                                             </div>
-                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                            <div class="space-y-1.5">
                                                 <Label For="popover-form-max-width">Max. width</Label>
                                                 <Input id="popover-form-max-width" Value="300px" />
                                             </div>
-                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                            <div class="space-y-1.5">
                                                 <Label For="popover-form-height">Height</Label>
                                                 <Input id="popover-form-height" Value="25px" />
                                             </div>
-                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                            <div class="space-y-1.5">
                                                 <Label For="popover-form-max-height">Max. height</Label>
                                                 <Input id="popover-form-max-height" Value="none" />
                                             </div>
@@ -321,7 +321,7 @@
     ];
 
     private const string codeDemo = """
-<div class="flex items-center justify-center min-h-screen">
+<div class="flex items-center justify-center py-10 min-h-[240px]">
     <Popover>
         <PopoverTrigger>
             <Button Variant="@Button.ButtonVariant.Outline">Open popover</Button>
@@ -357,7 +357,7 @@
 """;
 
     private const string codeBasic = """
-<div class="flex items-center justify-center min-h-screen">
+<div class="flex items-center justify-center py-10 min-h-[240px]">
     <Popover>
         <PopoverTrigger>
             <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
@@ -393,7 +393,7 @@
 """;
 
     private const string codeAlign = """
-<div class="flex items-center justify-center min-h-screen">
+<div class="flex items-center justify-center py-10 min-h-[240px]">
     <div class="flex flex-wrap justify-center gap-6">
         <Popover>
             <PopoverTrigger>
@@ -424,7 +424,7 @@
 """;
 
     private const string codeForm = """
-<div class="flex items-center justify-center min-h-screen">
+<div class="flex items-center justify-center py-10 min-h-[240px]">
     <Popover>
         <PopoverTrigger>
             <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>

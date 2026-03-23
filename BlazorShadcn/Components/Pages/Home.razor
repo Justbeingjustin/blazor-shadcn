@@ -1,45 +1,105 @@
 @page "/"
+@layout LandingLayout
 
 <PageTitle>blazor-shadcn</PageTitle>
 
-<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
-    <div class="flex min-w-0 flex-1 flex-col">
-        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
-            <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between md:items-start">
-                    <div class="flex items-center gap-2">
-                        <h1 class="font-heading mt-2 scroll-m-28 text-3xl font-semibold tracking-tight focus:outline-none">Introduction</h1>
-                    </div>
-                    <div class="ml-auto flex items-center gap-2">
-                        <DocsCopyPage PageUrl="@referenceUrl" />
-                    </div>
-                </div>
-                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
-                    Beautifully designed components for Blazor.
-                </p>
+<div class="flex flex-1 flex-col">
+    <section class="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 pb-8 pt-8 md:px-6 lg:pt-12">
+        <div class="mx-auto flex w-full max-w-4xl flex-col items-center gap-4 text-center">
+            <div class="inline-flex items-center gap-2 rounded-full border bg-background px-3 py-1 text-xs font-medium text-muted-foreground shadow-xs">
+                <span class="inline-flex size-2 rounded-full bg-primary"></span>
+                Blazor port of the shadcn/ui vibe
             </div>
 
-            <div class="w-full flex-1">
-                <p class="leading-relaxed mt-6">
-                    Blazor ShadCN brings the shadcn/ui workflow to Blazor.
-                </p>
+            <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
+                The Foundation for your Design System
+            </h1>
 
-                <p class="leading-relaxed mt-6">
-                    Inspired by <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-4">shadcn/ui</a>, it lets you add components as source code directly to your app instead of consuming a packaged UI library.
-                </p>
+            <p class="max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                A set of beautifully designed components that you can customize, extend, and build on.
+                Start here, steal what works, and make it your own in Blazor.
+            </p>
 
-                <p class="leading-relaxed mt-6">
-                    That means the components live in your project, follow your architecture, and can be changed without fighting a third-party abstraction.
-                </p>
-
-                <p class="leading-relaxed mt-6">
-                    Use the CLI to scaffold a project and add components as you need them. Once they are installed, the code is yours to inspect, refactor, and extend.
-                </p>
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <Button Variant="@Button.ButtonVariant.Default" Size="@Button.ButtonSize.Sm" Class="h-[31px] rounded-lg px-4" Href="/docs/installation">
+                    Get Started
+                </Button>
+                <Button Variant="@Button.ButtonVariant.Ghost" Size="@Button.ButtonSize.Sm" Class="rounded-lg px-4" Href="/docs/components">
+                    View Components
+                </Button>
             </div>
         </div>
-    </div>
+
+        <section class="mt-8 overflow-hidden rounded-2xl border border-border/60 bg-linear-to-br from-background via-background to-muted/40 shadow-sm md:mt-10">
+            <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+                <div class="border-b border-border/60 p-6 lg:border-b-0 lg:border-r md:p-8">
+                    <div class="mb-6 flex items-center justify-between gap-3">
+                        <div>
+                            <h2 class="text-xl font-semibold tracking-tight">Home page preview</h2>
+                            <p class="mt-1 text-sm text-muted-foreground">A more shadcn-style front page instead of the plain docs stub.</p>
+                        </div>
+                        <Badge>WIP</Badge>
+                    </div>
+
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <Card Class="rounded-xl border-border/60 bg-background shadow-none">
+                            <CardHeader>
+                                <CardTitle Class="text-sm">Source-first</CardTitle>
+                                <CardDescription>Components live in your app, so they are easy to inspect and change.</CardDescription>
+                            </CardHeader>
+                        </Card>
+                        <Card Class="rounded-xl border-border/60 bg-background shadow-none">
+                            <CardHeader>
+                                <CardTitle Class="text-sm">Composable</CardTitle>
+                                <CardDescription>Build pages from small primitives like Button, Card, Popover, and more.</CardDescription>
+                            </CardHeader>
+                        </Card>
+                        <Card Class="rounded-xl border-border/60 bg-background shadow-none sm:col-span-2">
+                            <CardHeader>
+                                <CardTitle Class="text-sm">Reference-driven porting</CardTitle>
+                                <CardDescription>Use the reference folder as truth, then translate the surface into clean Blazor components and pages.</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8">
+                    <div class="rounded-xl border border-border/60 bg-background shadow-sm">
+                        <div class="border-b border-border/60 p-4">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <p class="text-sm font-medium">Featured components</p>
+                                    <p class="text-xs text-muted-foreground">Quick jump links</p>
+                                </div>
+                                <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Xs" Href="/docs/components">See all</Button>
+                            </div>
+                        </div>
+                        <div class="grid gap-2 p-4">
+                            @foreach (var link in FeaturedLinks)
+                            {
+                                <a href="@link.Href" class="flex items-center justify-between rounded-lg border border-transparent px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
+                                    <span>@link.Name</span>
+                                    <span class="text-muted-foreground">→</span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
 </div>
 
 @code {
-    private const string referenceUrl = "https://ui.shadcn.com/docs";
+    private static readonly FeaturedLink[] FeaturedLinks =
+    [
+        new("Button", "/components/button"),
+        new("Card", "/components/card"),
+        new("Popover", "/components/popover"),
+        new("Dialog", "/components/dialog"),
+        new("Dropdown Menu", "/components/dropdown-menu"),
+        new("Tooltip", "/components/tooltip")
+    ];
+
+    private sealed record FeaturedLink(string Name, string Href);
 }
