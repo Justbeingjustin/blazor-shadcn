@@ -7,10 +7,6 @@ A set of beautifully designed components that you can customize, extend, and bui
 
 Visit [https://ui.shadcn.com/docs](https://blazor-shadcn.fly.dev/docs) to view the documentation.
 
-## Contributing
-
-Please read the [contributing guide](/CONTRIBUTING.md).
-
 ## License
 
 Licensed under the [MIT license](./LICENSE.md).
