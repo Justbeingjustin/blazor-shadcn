@@ -5,7 +5,7 @@ A set of beautifully designed components that you can customize, extend, and bui
 
 ## Documentation
 
-Visit https://ui.shadcn.com/docs to view the documentation.
+Visit [https://ui.shadcn.com/docs](https://blazor-shadcn.fly.dev/docs) to view the documentation.
 
 ## Contributing
 
