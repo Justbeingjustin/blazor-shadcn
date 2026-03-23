@@ -91,13 +91,25 @@
                     : Math.max(0, viewport.scrollWidth - viewport.clientWidth);
             }
 
+            function getTrack(viewport) {
+                return viewport.firstElementChild || null;
+            }
+
             function getSlides(viewport) {
-                return Array.from(viewport.children || []);
+                const track = getTrack(viewport);
+                return Array.from(track?.children || []);
             }
 
             function getSlidePositions(viewport, axis) {
-                const offsetProp = 'offset' + (axis === 'y' ? 'Top' : 'Left');
-                return getSlides(viewport).map(slide => slide[offsetProp] || 0);
+                const viewportRect = viewport.getBoundingClientRect();
+
+                return getSlides(viewport).map((slide) => {
+                    const anchor = slide.firstElementChild || slide;
+                    const slideRect = anchor.getBoundingClientRect();
+                    return axis === 'y'
+                        ? slideRect.top - viewportRect.top + viewport.scrollTop
+                        : slideRect.left - viewportRect.left + viewport.scrollLeft;
+                });
             }
 
             function notify(id) {

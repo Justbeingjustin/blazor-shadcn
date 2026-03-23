@@ -1,7 +1,8 @@
 @namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
 
 <div data-slot="field-content"
-     class="@GetClasses()"
+     class="@Tw.Merge("group/field-content flex flex-1 flex-col gap-1.5 leading-snug", Class)"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -11,9 +12,4 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-
-    private const string BaseClasses = "group/field-content flex flex-1 flex-col gap-1.5 leading-snug";
-
-    private string GetClasses()
-        => string.IsNullOrWhiteSpace(Class) ? BaseClasses : $"{BaseClasses} {Class}";
 }

@@ -24,7 +24,7 @@
 
     private string GetClasses()
         => Tw.Merge(
-            "min-w-0 shrink-0 grow-0 basis-full snap-start",
+            "min-w-0 shrink-0 grow-0 basis-full",
             CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal ? "pl-4" : "pt-4",
             Class);
 }

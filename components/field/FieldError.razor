@@ -1,10 +1,11 @@
 @namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
 
 @if (ChildContent is not null)
 {
     <div role="alert"
          data-slot="field-error"
-         class="@GetClasses()"
+         class="@Tw.Merge(BaseClasses, Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
@@ -13,7 +14,7 @@ else if (_messages.Count == 1)
 {
     <div role="alert"
          data-slot="field-error"
-         class="@GetClasses()"
+         class="@Tw.Merge(BaseClasses, Class)"
          @attributes="AdditionalAttributes">
         @_messages[0]
     </div>
@@ -22,7 +23,7 @@ else if (_messages.Count > 1)
 {
     <div role="alert"
          data-slot="field-error"
-         class="@GetClasses()"
+         class="@Tw.Merge(BaseClasses, Class)"
          @attributes="AdditionalAttributes">
         <ul class="ml-4 flex list-disc flex-col gap-1">
             @foreach (var message in _messages)
@@ -65,7 +66,4 @@ else if (_messages.Count > 1)
             _messages.Add(error);
         }
     }
-
-    private string GetClasses()
-        => string.IsNullOrWhiteSpace(Class) ? BaseClasses : $"{BaseClasses} {Class}";
 }

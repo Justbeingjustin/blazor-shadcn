@@ -1,8 +1,9 @@
 @namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
 
 <div data-slot="field-separator"
      data-content="@(ChildContent is not null ? "true" : "false")"
-     class="@GetClasses()"
+     class="@Tw.Merge("relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2", Class)"
      @attributes="AdditionalAttributes">
     <div class="bg-border absolute inset-x-0 top-1/2 h-px -translate-y-1/2"></div>
 
@@ -20,9 +21,4 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-
-    private const string BaseClasses = "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2";
-
-    private string GetClasses()
-        => string.IsNullOrWhiteSpace(Class) ? BaseClasses : $"{BaseClasses} {Class}";
 }

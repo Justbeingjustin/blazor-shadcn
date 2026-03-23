@@ -1,8 +1,9 @@
 @namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
 
 <label data-slot="field-label"
        for="@For"
-       class="@GetClasses()"
+       class="@Tw.Merge(BaseClasses, CardClasses, SelectionClasses, Class)"
        @attributes="AdditionalAttributes">
     @ChildContent
 </label>
@@ -26,10 +27,4 @@
         "has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 " +
         "dark:has-data-[state=checked]:bg-primary/10 has-[input:checked]:border-primary has-[input:checked]:bg-primary/5 " +
         "dark:has-[input:checked]:bg-primary/10";
-
-    private string GetClasses()
-    {
-        var classes = $"{BaseClasses} {CardClasses} {SelectionClasses}";
-        return string.IsNullOrWhiteSpace(Class) ? classes : $"{classes} {Class}";
-    }
 }

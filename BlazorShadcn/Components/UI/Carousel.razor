@@ -7,7 +7,7 @@
      class="@GetClasses()"
      @onkeydown="HandleKeyDown"
      @attributes="AdditionalAttributes">
-    <CascadingValue Value="_context" IsFixed="true">
+    <CascadingValue Value="_context">
         @ChildContent
     </CascadingValue>
 </div>
@@ -44,13 +44,10 @@
     internal string CarouselId => _carouselId;
     internal string ViewportId => $"{_carouselId}-viewport";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    internal async Task RegisterViewportAsync(ElementReference viewportRef)
     {
-        if (!_initialized)
-        {
-            return;
-        }
-
+        _viewportRef = viewportRef;
+        _initialized = true;
         _dotNetRef ??= DotNetObjectReference.Create(this);
 
         if (!_jsInitialized)
@@ -70,23 +67,11 @@
         }
     }
 
-    internal void RegisterViewport(ElementReference viewportRef)
-    {
-        var wasInitialized = _initialized;
-        _viewportRef = viewportRef;
-        _initialized = true;
-
-        if (!wasInitialized)
-        {
-            _ = InvokeAsync(StateHasChanged);
-        }
-    }
-
     internal Task ScrollPrevAsync()
-        => _initialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollPrev", _carouselId, OrientationToAxis(Orientation)).AsTask() : Task.CompletedTask;
+        => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollPrev", _carouselId, OrientationToAxis(Orientation)).AsTask() : Task.CompletedTask;
 
     internal Task ScrollNextAsync()
-        => _initialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollNext", _carouselId, OrientationToAxis(Orientation)).AsTask() : Task.CompletedTask;
+        => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollNext", _carouselId, OrientationToAxis(Orientation)).AsTask() : Task.CompletedTask;
 
     [JSInvokable]
     public async Task UpdateState(bool canScrollPrev, bool canScrollNext)

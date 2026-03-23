@@ -1,8 +1,8 @@
-<div data-slot="carousel-content"
-     class="overflow-hidden">
-    <div id="@Carousel?.ViewportId"
-         @ref="_viewportRef"
-         class="@GetTrackClasses()"
+<div id="@Carousel?.ViewportId"
+     @ref="_viewportRef"
+     data-slot="carousel-content"
+     class="@GetViewportClasses()">
+    <div class="@GetTrackClasses()"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
@@ -27,16 +27,26 @@
         }
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Carousel?.RegisterViewport(_viewportRef);
+        if (Carousel is not null)
+        {
+            await Carousel.RegisterViewportAsync(_viewportRef);
+        }
     }
+
+    private string GetViewportClasses()
+        => Tw.Merge(
+            "overflow-hidden no-scrollbar scroll-smooth",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
+                ? "overflow-x-auto overflow-y-hidden touch-pan-y"
+                : "h-full overflow-y-auto overflow-x-hidden touch-pan-x");
 
     private string GetTrackClasses()
         => Tw.Merge(
-            "no-scrollbar flex overflow-auto scroll-smooth snap-mandatory",
+            "flex",
             CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
-                ? "-ml-4 snap-x touch-pan-y"
-                : "-mt-4 h-full snap-y flex-col touch-pan-x",
+                ? "-ml-4"
+                : "-mt-4 h-full flex-col",
             Class);
 }

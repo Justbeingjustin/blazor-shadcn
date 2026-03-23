@@ -1,8 +1,9 @@
 @namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
 
 <legend data-slot="field-legend"
         data-variant="@ResolvedVariant"
-        class="@GetClasses()"
+        class="@Tw.Merge("mb-3 font-medium data-[variant=legend]:text-base data-[variant=label]:text-sm", Class)"
         @attributes="AdditionalAttributes">
     @ChildContent
 </legend>
@@ -14,10 +15,5 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private const string BaseClasses = "mb-3 font-medium data-[variant=legend]:text-base data-[variant=label]:text-sm";
-
     private string ResolvedVariant => Variant == "label" ? "label" : "legend";
-
-    private string GetClasses()
-        => string.IsNullOrWhiteSpace(Class) ? BaseClasses : $"{BaseClasses} {Class}";
 }

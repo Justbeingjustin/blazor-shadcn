@@ -740,11 +740,12 @@
     private const string installCommand = "blazor-shadcn add field";
     private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
     private const string usingStatement = """
-@using BlazorShadcn.Components.UI
+@using ShadcnBlazor.Components.UI
 """;
 
     private static readonly string[] manualSourcePaths =
     [
+        "components/Utilities/Tw.cs",
         "components/field/Field.razor",
         "components/field/FieldSet.razor",
         "components/field/FieldLegend.razor",

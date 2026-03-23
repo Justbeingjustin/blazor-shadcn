@@ -1,7 +1,8 @@
 @namespace ShadcnBlazor.Components.UI
+@using BlazorShadcn.Utilities
 
 <p data-slot="field-description"
-   class="@GetClasses()"
+   class="@Tw.Merge(BaseClasses, Class)"
    @attributes="AdditionalAttributes">
     @ChildContent
 </p>
@@ -16,7 +17,4 @@
         "text-muted-foreground text-sm leading-normal font-normal group-data-[orientation=horizontal]/field:text-balance " +
         "@md/field-group:group-data-[orientation=responsive]/field:text-balance last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5 " +
         "[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary";
-
-    private string GetClasses()
-        => string.IsNullOrWhiteSpace(Class) ? BaseClasses : $"{BaseClasses} {Class}";
 }
