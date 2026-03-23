@@ -1,3 +1,5 @@
+@namespace ShadcnBlazor.Components.UI
+
 @if (Context?.Open == true)
 {
     <button type="button"
@@ -12,7 +14,7 @@
          data-side="@Side"
          dir="@Dir"
          tabindex="-1"
-         class="@Tw.Merge("bg-popover text-popover-foreground absolute z-[60] flex flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 ring-foreground/10 outline-hidden", GetDefaultWidthClass(), GetPositionClasses(), Class)"
+         class="@Cn("bg-popover text-popover-foreground absolute z-[60] flex flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 ring-foreground/10 outline-hidden", GetDefaultWidthClass(), GetPositionClasses(), Class)"
          @onkeydown="HandleKeyDown"
          @attributes="AdditionalAttributes">
         @ChildContent
@@ -21,6 +23,7 @@
 
 @code {
     [CascadingParameter(Name = "PopoverContext")] private PopoverContext? Context { get; set; }
+
     [Parameter] public string Align { get; set; } = "center";
     [Parameter] public string Side { get; set; } = "bottom";
     [Parameter] public string? Dir { get; set; }
@@ -137,4 +140,7 @@
             ? ("", token)
             : (token[..(lastColon + 1)], token[(lastColon + 1)..]);
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

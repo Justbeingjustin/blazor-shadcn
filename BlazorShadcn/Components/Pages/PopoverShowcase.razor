@@ -1,5 +1,4 @@
 @page "/components/popover"
-@inject IWebHostEnvironment Environment
 
 <PageTitle>Popover - blazor-shadcn</PageTitle>
 
@@ -8,109 +7,68 @@
         <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
             <div class="flex flex-col gap-2">
                 <div class="flex items-center justify-between md:items-start">
-                    <div class="flex items-center gap-2">
-                        <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Popover</h1>
-                    </div>
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Popover</h1>
                     <div class="ml-auto flex items-center gap-2">
                         <DocsCopyPage PageUrl="@referenceUrl" />
-                        <Button Variant="@Button.ButtonVariant.Secondary"
-                                Size="@Button.ButtonSize.Icon"
-                                Href="/components/pagination"
-                                Class="extend-touch-target size-8 shadow-none md:size-7"
-                                aria-label="Previous">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12l14 0" />
-                                <path d="M5 12l6 6" />
-                                <path d="M5 12l6 -6" />
-                            </svg>
-                            <span class="sr-only">Previous</span>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/pagination" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                         </Button>
-                        <Button Variant="@Button.ButtonVariant.Secondary"
-                                Size="@Button.ButtonSize.Icon"
-                                Href="/components/progress"
-                                Class="extend-touch-target size-8 shadow-none md:size-7"
-                                aria-label="Next">
-                            <span class="sr-only">Next</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12l14 0" />
-                                <path d="M13 18l6 -6" />
-                                <path d="M13 6l6 6" />
-                            </svg>
+                        <Button Variant="ButtonVariant.Secondary" Size="ButtonSize.Icon" Href="/components/progress" Class="extend-touch-target size-8 shadow-none md:size-7" aria-label="Next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
                         </Button>
                     </div>
                 </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
                 <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
-                    Displays rich content in a small floating panel, triggered by a button.
+                    Displays rich content in a floating panel, triggered by a button.
                 </p>
             </div>
 
             <div class="w-full flex-1">
-                <ComponentExample CodeText="@codeMainDemo">
+                <ComponentExample Compact="true" CodeText="@codeDemo">
                     <Preview>
-                        <Popover>
-                            <PopoverTrigger>
-                                <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
-                            </PopoverTrigger>
-                            <PopoverContent Align="start">
-                                <PopoverHeader>
-                                    <PopoverTitle>Dimensions</PopoverTitle>
-                                    <PopoverDescription>
-                                        Set the dimensions for the layer.
-                                    </PopoverDescription>
-                                </PopoverHeader>
-                            </PopoverContent>
-                        </Popover>
+                        <div class="flex flex-col items-center py-6">
+                            <Popover>
+                                <PopoverTrigger>
+                                    <Button Variant="ButtonVariant.Outline">Open popover</Button>
+                                </PopoverTrigger>
+                                <PopoverContent Class="w-80">
+                                    <div class="grid gap-4">
+                                        <div class="space-y-2">
+                                            <h4 class="leading-none font-medium">Dimensions</h4>
+                                            <p class="text-muted-foreground text-sm">Set the dimensions for the layer.</p>
+                                        </div>
+                                        <div class="grid gap-2">
+                                            <div class="grid grid-cols-3 items-center gap-4">
+                                                <Label For="popover-demo-width">Width</Label>
+                                                <Input id="popover-demo-width" Value="100%" Class="col-span-2 h-8" />
+                                            </div>
+                                            <div class="grid grid-cols-3 items-center gap-4">
+                                                <Label For="popover-demo-max-width">Max. width</Label>
+                                                <Input id="popover-demo-max-width" Value="300px" Class="col-span-2 h-8" />
+                                            </div>
+                                            <div class="grid grid-cols-3 items-center gap-4">
+                                                <Label For="popover-demo-height">Height</Label>
+                                                <Input id="popover-demo-height" Value="25px" Class="col-span-2 h-8" />
+                                            </div>
+                                            <div class="grid grid-cols-3 items-center gap-4">
+                                                <Label For="popover-demo-max-height">Max. height</Label>
+                                                <Input id="popover-demo-max-height" Value="none" Class="col-span-2 h-8" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
                     </Preview>
-                    <Code>@codeMainDemo</Code>
+                    <Code>@codeDemo</Code>
                 </ComponentExample>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12" id="installation">Installation</h2>
-                <p class="leading-relaxed mt-6">Install the popover component using the command or copy the Blazor components manually.</p>
-
-                <div class="mt-4">
-                    <div class="inline-flex w-fit items-center justify-start gap-4 rounded-none bg-transparent px-0">
-                        <button type="button"
-                                @onclick="() => _installationTab = InstallationTab.Command"
-                                data-state="@(_installationTab == InstallationTab.Command ? "active" : "inactive")"
-                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
-                            Command
-                        </button>
-                        <button type="button"
-                                @onclick="() => _installationTab = InstallationTab.Manual"
-                                data-state="@(_installationTab == InstallationTab.Manual ? "active" : "inactive")"
-                                class="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring relative inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 pt-1 text-base font-medium whitespace-nowrap transition-all focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 text-muted-foreground hover:text-primary data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none dark:data-[state=active]:bg-transparent">
-                            Manual
-                        </button>
-                    </div>
-                </div>
-
-                @if (_installationTab == InstallationTab.Command)
-                {
-                    <div class="mt-4">
-                        <CodeBlock RawText="@installCommand">@installCommand</CodeBlock>
-                    </div>
-                }
-                else
-                {
-                    <div class="mt-6 space-y-6">
-                        <div class="flex gap-4">
-                            <div class="bg-muted text-muted-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">1</div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium">Copy and paste the following components into your project.</p>
-                                <p class="text-muted-foreground mt-2 text-sm">Components/UI/Popover*.razor</p>
-                                <div class="mt-3 space-y-4">
-                                    @foreach (var source in _manualSources)
-                                    {
-                                        <div>
-                                            <p class="text-muted-foreground mb-2 text-sm">@source.Name</p>
-                                            <CodeBlock RawText="@source.Content">@source.Content</CodeBlock>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                <DocsInstallationSection ComponentLabel="popover"
+                                         InstallCommand="@installCommand"
+                                         SourcePaths="@manualSourcePaths" />
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -125,22 +83,42 @@
                 <div class="mt-6" id="basic">
                     <ComponentExample Title="Basic" Compact="true" CodeText="@codeBasic">
                         <Description>
-                            <p class="text-muted-foreground text-sm">A simple popover with a header, title, and description.</p>
+                            <p class="text-muted-foreground text-sm">A popover with editable dimensions.</p>
                         </Description>
                         <Preview>
-                            <Popover>
-                                <PopoverTrigger>
-                                    <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
-                                </PopoverTrigger>
-                                <PopoverContent Align="start">
-                                    <PopoverHeader>
-                                        <PopoverTitle>Dimensions</PopoverTitle>
-                                        <PopoverDescription>
-                                            Set the dimensions for the layer.
-                                        </PopoverDescription>
-                                    </PopoverHeader>
-                                </PopoverContent>
-                            </Popover>
+                            <div class="flex flex-col items-center py-6">
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <Button Variant="ButtonVariant.Outline">Open Popover</Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent Align="start" Class="w-80">
+                                        <div class="grid gap-4">
+                                            <div class="space-y-2">
+                                                <h4 class="leading-none font-medium">Dimensions</h4>
+                                                <p class="text-muted-foreground text-sm">Set the dimensions for the layer.</p>
+                                            </div>
+                                            <div class="grid gap-2">
+                                                <div class="grid grid-cols-3 items-center gap-4">
+                                                    <Label For="popover-basic-width">Width</Label>
+                                                    <Input id="popover-basic-width" Value="100%" Class="col-span-2 h-8" />
+                                                </div>
+                                                <div class="grid grid-cols-3 items-center gap-4">
+                                                    <Label For="popover-basic-max-width">Max. width</Label>
+                                                    <Input id="popover-basic-max-width" Value="300px" Class="col-span-2 h-8" />
+                                                </div>
+                                                <div class="grid grid-cols-3 items-center gap-4">
+                                                    <Label For="popover-basic-height">Height</Label>
+                                                    <Input id="popover-basic-height" Value="25px" Class="col-span-2 h-8" />
+                                                </div>
+                                                <div class="grid grid-cols-3 items-center gap-4">
+                                                    <Label For="popover-basic-max-height">Max. height</Label>
+                                                    <Input id="popover-basic-max-height" Value="none" Class="col-span-2 h-8" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
                         </Preview>
                         <Code>@codeBasic</Code>
                     </ComponentExample>
@@ -149,13 +127,13 @@
                 <div class="mt-6" id="align">
                     <ComponentExample Title="Align" Compact="true" CodeText="@codeAlign">
                         <Description>
-                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Align</code> parameter on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">PopoverContent</code> to control horizontal alignment.</p>
+                            <p class="text-muted-foreground text-sm">Use the <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Align</code> parameter on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">PopoverContent</code> to control the horizontal alignment.</p>
                         </Description>
                         <Preview>
-                            <div class="flex flex-wrap gap-6">
+                            <div class="flex flex-wrap justify-center gap-6 py-6">
                                 <Popover>
                                     <PopoverTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Start</Button>
+                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Start</Button>
                                     </PopoverTrigger>
                                     <PopoverContent Align="start" Class="w-40">
                                         Aligned to start
@@ -163,7 +141,7 @@
                                 </Popover>
                                 <Popover>
                                     <PopoverTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Center</Button>
+                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Center</Button>
                                     </PopoverTrigger>
                                     <PopoverContent Align="center" Class="w-40">
                                         Aligned to center
@@ -171,7 +149,7 @@
                                 </Popover>
                                 <Popover>
                                     <PopoverTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">End</Button>
+                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">End</Button>
                                     </PopoverTrigger>
                                     <PopoverContent Align="end" Class="w-40">
                                         Aligned to end
@@ -186,76 +164,104 @@
                 <div class="mt-6" id="with-form">
                     <ComponentExample Title="With Form" Compact="true" CodeText="@codeForm">
                         <Description>
-                            <p class="text-muted-foreground text-sm">A popover can hold form fields just like the shadcn reference example.</p>
+                            <p class="text-muted-foreground text-sm">A popover with form fields inside.</p>
                         </Description>
                         <Preview>
-                            <Popover>
-                                <PopoverTrigger>
-                                    <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
-                                </PopoverTrigger>
-                                <PopoverContent Align="start" Class="w-64">
-                                    <PopoverHeader>
-                                        <PopoverTitle>Dimensions</PopoverTitle>
-                                        <PopoverDescription>
-                                            Set the dimensions for the layer.
-                                        </PopoverDescription>
-                                    </PopoverHeader>
-                                    <div class="grid gap-4">
-                                        <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
-                                            <Label For="popover-width">Width</Label>
-                                            <Input id="popover-width" Value="100%" />
+                            <div class="flex flex-col items-center py-6">
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <Button Variant="ButtonVariant.Outline">Open Popover</Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent Align="start" Class="w-80">
+                                        <PopoverHeader>
+                                            <PopoverTitle>Dimensions</PopoverTitle>
+                                            <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
+                                        </PopoverHeader>
+                                        <div class="grid gap-4">
+                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                                <Label For="popover-form-width">Width</Label>
+                                                <Input id="popover-form-width" Value="100%" />
+                                            </div>
+                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                                <Label For="popover-form-max-width">Max. width</Label>
+                                                <Input id="popover-form-max-width" Value="300px" />
+                                            </div>
+                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                                <Label For="popover-form-height">Height</Label>
+                                                <Input id="popover-form-height" Value="25px" />
+                                            </div>
+                                            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                                                <Label For="popover-form-max-height">Max. height</Label>
+                                                <Input id="popover-form-max-height" Value="none" />
+                                            </div>
                                         </div>
-                                        <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
-                                            <Label For="popover-height">Height</Label>
-                                            <Input id="popover-height" Value="25px" />
-                                        </div>
-                                    </div>
-                                </PopoverContent>
-                            </Popover>
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
                         </Preview>
                         <Code>@codeForm</Code>
                     </ComponentExample>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="rtl">RTL</h2>
-                <div class="mt-6">
-                    <ComponentExample Compact="true" CodeText="@codeRtl">
-                        <Preview>
-                            <div dir="rtl" class="flex justify-center py-4">
-                                <Popover>
-                                    <PopoverTrigger>
-                                        <Button Variant="@Button.ButtonVariant.Outline">افتح القائمة</Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent Align="start" Class="w-52">
-                                        <PopoverHeader>
-                                            <PopoverTitle>الأبعاد</PopoverTitle>
-                                            <PopoverDescription>اضبط أبعاد الطبقة العائمة.</PopoverDescription>
-                                        </PopoverHeader>
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-                        </Preview>
-                        <Code>@codeRtl</Code>
-                    </ComponentExample>
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+                <p class="text-muted-foreground mt-2 text-sm">
+                    See the <a class="underline underline-offset-4" href="https://base-ui.com/react/components/popover#api-reference" target="_blank" rel="noreferrer">Base UI Popover documentation</a> for the original surface. This Blazor port supports the common composition primitives plus <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Align</code>, <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Side</code>, and <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">dir</code> on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">PopoverContent</code>.
+                </p>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Popover</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Open</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">OpenChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;bool&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">DefaultOpen</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">bool</code></td><td class="px-4 py-2 text-left whitespace-nowrap">false</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
-                <p class="text-muted-foreground mt-2 text-sm">See the <a class="underline underline-offset-4" href="https://www.radix-ui.com/docs/primitives/components/popover#api-reference" target="_blank" rel="noreferrer">Radix UI Popover API reference</a> for the original surface. This Blazor port currently supports the common composition primitives plus <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Align</code> on <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">PopoverContent</code>.</p>
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">PopoverContent</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Align</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"start" | "center" | "end"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"center"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Side</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"top" | "right" | "bottom" | "left" | "inline-start" | "inline-end"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"bottom"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Dir</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
         <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
             <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
                 <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
-                <a href="#basic" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Basic</a>
-                <a href="#align" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">Align</a>
-                <a href="#with-form" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4">With Form</a>
-                <a href="#rtl" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">RTL</a>
+                <a href="#basic" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Basic</a>
+                <a href="#align" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Align</a>
+                <a href="#with-form" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">With Form</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -263,64 +269,144 @@
 </div>
 
 @code {
-    private InstallationTab _installationTab = InstallationTab.Command;
-    private readonly List<ManualSource> _manualSources = [];
-
-    private enum InstallationTab
-    {
-        Command,
-        Manual
-    }
-
-    private sealed record ManualSource(string Name, string Content);
-
-    private const string installCommand = "blazor-shadcn add popover";
     private const string referenceUrl = "https://ui.shadcn.com/docs/components/popover";
+    private const string installCommand = "blazor-shadcn add popover";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
-
-    private const string codeMainDemo = """
+    private const string usageCode = """
 <Popover>
     <PopoverTrigger>
-        <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
+        <Button Variant="ButtonVariant.Outline">Open Popover</Button>
     </PopoverTrigger>
-    <PopoverContent Align="start">
-        <PopoverHeader>
-            <PopoverTitle>Dimensions</PopoverTitle>
-            <PopoverDescription>
-                Set the dimensions for the layer.
-            </PopoverDescription>
-        </PopoverHeader>
+    <PopoverContent Align="start" Class="w-80">
+        <div class="grid gap-4">
+            <div class="space-y-2">
+                <h4 class="leading-none font-medium">Dimensions</h4>
+                <p class="text-muted-foreground text-sm">Set the dimensions for the layer.</p>
+            </div>
+            <div class="grid gap-2">
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-width">Width</Label>
+                    <Input id="popover-width" Value="100%" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-max-width">Max. width</Label>
+                    <Input id="popover-max-width" Value="300px" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-height">Height</Label>
+                    <Input id="popover-height" Value="25px" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-max-height">Max. height</Label>
+                    <Input id="popover-max-height" Value="none" Class="col-span-2 h-8" />
+                </div>
+            </div>
+        </div>
     </PopoverContent>
 </Popover>
 """;
 
-    private const string usageCode = codeMainDemo;
+    private static readonly string[] manualSourcePaths =
+    [
+        "components/popover/Popover.razor",
+        "components/popover/PopoverAnchor.razor",
+        "components/popover/PopoverContent.razor",
+        "components/popover/PopoverDescription.razor",
+        "components/popover/PopoverHeader.razor",
+        "components/popover/PopoverTitle.razor",
+        "components/popover/PopoverTrigger.razor",
+        "components/popover/PopoverContext.cs"
+    ];
 
-    private const string codeBasic = codeMainDemo;
+    private const string codeDemo = """
+<Popover>
+    <PopoverTrigger>
+        <Button Variant="ButtonVariant.Outline">Open popover</Button>
+    </PopoverTrigger>
+    <PopoverContent Class="w-80">
+        <div class="grid gap-4">
+            <div class="space-y-2">
+                <h4 class="leading-none font-medium">Dimensions</h4>
+                <p class="text-muted-foreground text-sm">Set the dimensions for the layer.</p>
+            </div>
+            <div class="grid gap-2">
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-demo-width">Width</Label>
+                    <Input id="popover-demo-width" Value="100%" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-demo-max-width">Max. width</Label>
+                    <Input id="popover-demo-max-width" Value="300px" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-demo-height">Height</Label>
+                    <Input id="popover-demo-height" Value="25px" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-demo-max-height">Max. height</Label>
+                    <Input id="popover-demo-max-height" Value="none" Class="col-span-2 h-8" />
+                </div>
+            </div>
+        </div>
+    </PopoverContent>
+</Popover>
+""";
+
+    private const string codeBasic = """
+<Popover>
+    <PopoverTrigger>
+        <Button Variant="ButtonVariant.Outline">Open Popover</Button>
+    </PopoverTrigger>
+    <PopoverContent Align="start" Class="w-80">
+        <div class="grid gap-4">
+            <div class="space-y-2">
+                <h4 class="leading-none font-medium">Dimensions</h4>
+                <p class="text-muted-foreground text-sm">Set the dimensions for the layer.</p>
+            </div>
+            <div class="grid gap-2">
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-basic-width">Width</Label>
+                    <Input id="popover-basic-width" Value="100%" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-basic-max-width">Max. width</Label>
+                    <Input id="popover-basic-max-width" Value="300px" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-basic-height">Height</Label>
+                    <Input id="popover-basic-height" Value="25px" Class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label For="popover-basic-max-height">Max. height</Label>
+                    <Input id="popover-basic-max-height" Value="none" Class="col-span-2 h-8" />
+                </div>
+            </div>
+        </div>
+    </PopoverContent>
+</Popover>
+""";
 
     private const string codeAlign = """
-<div class="flex flex-wrap gap-6">
+<div class="flex gap-6">
     <Popover>
         <PopoverTrigger>
-            <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Start</Button>
+            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Start</Button>
         </PopoverTrigger>
         <PopoverContent Align="start" Class="w-40">
             Aligned to start
         </PopoverContent>
     </Popover>
-
     <Popover>
         <PopoverTrigger>
-            <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Center</Button>
+            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Center</Button>
         </PopoverTrigger>
         <PopoverContent Align="center" Class="w-40">
             Aligned to center
         </PopoverContent>
     </Popover>
-
     <Popover>
         <PopoverTrigger>
-            <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">End</Button>
+            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">End</Button>
         </PopoverTrigger>
         <PopoverContent Align="end" Class="w-40">
             Aligned to end
@@ -332,67 +418,33 @@
     private const string codeForm = """
 <Popover>
     <PopoverTrigger>
-        <Button Variant="@Button.ButtonVariant.Outline">Open Popover</Button>
+        <Button Variant="ButtonVariant.Outline">Open Popover</Button>
     </PopoverTrigger>
-    <PopoverContent Align="start" Class="w-64">
+    <PopoverContent Align="start" Class="w-80">
         <PopoverHeader>
             <PopoverTitle>Dimensions</PopoverTitle>
-            <PopoverDescription>
-                Set the dimensions for the layer.
-            </PopoverDescription>
+            <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
         </PopoverHeader>
         <div class="grid gap-4">
             <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
-                <Label For="popover-width">Width</Label>
-                <Input id="popover-width" Value="100%" />
+                <Label For="popover-form-width">Width</Label>
+                <Input id="popover-form-width" Value="100%" />
             </div>
             <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
-                <Label For="popover-height">Height</Label>
-                <Input id="popover-height" Value="25px" />
+                <Label For="popover-form-max-width">Max. width</Label>
+                <Input id="popover-form-max-width" Value="300px" />
+            </div>
+            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                <Label For="popover-form-height">Height</Label>
+                <Input id="popover-form-height" Value="25px" />
+            </div>
+            <div class="grid grid-cols-[1fr_1fr] items-center gap-4">
+                <Label For="popover-form-max-height">Max. height</Label>
+                <Input id="popover-form-max-height" Value="none" />
             </div>
         </div>
     </PopoverContent>
 </Popover>
 """;
 
-    private const string codeRtl = """
-<div dir="rtl" class="flex justify-center py-4">
-    <Popover>
-        <PopoverTrigger>
-            <Button Variant="@Button.ButtonVariant.Outline">افتح القائمة</Button>
-        </PopoverTrigger>
-        <PopoverContent Align="start" Class="w-52">
-            <PopoverHeader>
-                <PopoverTitle>الأبعاد</PopoverTitle>
-                <PopoverDescription>اضبط أبعاد الطبقة العائمة.</PopoverDescription>
-            </PopoverHeader>
-        </PopoverContent>
-    </Popover>
-</div>
-""";
-
-    protected override void OnInitialized()
-    {
-        var root = Path.Combine(Environment.ContentRootPath, "Components", "UI");
-        var fileNames = new[]
-        {
-            "Popover.razor",
-            "PopoverAnchor.razor",
-            "PopoverContent.razor",
-            "PopoverDescription.razor",
-            "PopoverHeader.razor",
-            "PopoverTitle.razor",
-            "PopoverTrigger.razor",
-            "PopoverContext.cs"
-        };
-
-        foreach (var fileName in fileNames)
-        {
-            var path = Path.Combine(root, fileName);
-            if (File.Exists(path))
-            {
-                _manualSources.Add(new ManualSource($"Components/UI/{fileName}", File.ReadAllText(path)));
-            }
-        }
-    }
 }

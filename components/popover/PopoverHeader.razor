@@ -1,5 +1,7 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="popover-header"
-     class="@Tw.Merge("flex flex-col gap-0.5 text-sm", Class)"
+     class="@Cn("flex flex-col gap-0.5 text-sm", Class)"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -9,4 +11,7 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

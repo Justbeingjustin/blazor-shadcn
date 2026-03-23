@@ -1,5 +1,7 @@
+@namespace ShadcnBlazor.Components.UI
+
 <span data-slot="popover-trigger"
-      class="@Tw.Merge("inline-flex", Class)"
+      class="@Cn("inline-flex", Class)"
       tabindex="0"
       role="button"
       aria-haspopup="dialog"
@@ -26,4 +28,7 @@
 
     private Task HandleKeyDown(KeyboardEventArgs args)
         => args.Key is "Enter" or " " ? ToggleAsync() : Task.CompletedTask;
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

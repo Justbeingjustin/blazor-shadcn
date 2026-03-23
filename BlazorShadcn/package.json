@@ -19,11 +19,13 @@
     "test:typography:headed": "playwright test tests/typography-compare.spec.ts --headed",
     "test:nav": "playwright test tests/nav-compare.spec.ts",
     "test:nav:headed": "playwright test tests/nav-compare.spec.ts --headed",
+    "test:popover": "playwright test tests/popover-compare.spec.ts",
+    "test:popover:headed": "playwright test tests/popover-compare.spec.ts --headed",
     "test:sidebar": "playwright test tests/sidebar-compare.spec.ts",
-"test:sidebar:headed": "playwright test tests/sidebar-compare.spec.ts --headed",
+    "test:sidebar:headed": "playwright test tests/sidebar-compare.spec.ts --headed",
     "test:pixel": "playwright test tests/pixel-perfect.spec.ts",
     "test:pixel:headed": "playwright test tests/pixel-perfect.spec.ts --headed"
-},
+  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@tailwindcss/cli": "^4",

@@ -1,4 +1,6 @@
-namespace BlazorShadcn.Components.UI;
+using Microsoft.AspNetCore.Components;
+
+namespace ShadcnBlazor.Components.UI;
 
 public sealed class PopoverContext
 {

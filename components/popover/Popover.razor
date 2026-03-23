@@ -1,7 +1,9 @@
+@namespace ShadcnBlazor.Components.UI
+
 <CascadingValue Name="PopoverContext" Value="@_context">
     <div data-slot="popover"
          data-state="@(_context.Open ? "open" : "closed")"
-         class="@Tw.Merge("relative inline-block", Class)"
+         class="@Cn("relative inline-block", Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
@@ -61,4 +63,7 @@
             SetOpenAsync = SetOpenAsync
         };
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

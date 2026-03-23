@@ -89,8 +89,17 @@ else
 
     private string LoadSource(string relativePath)
     {
-        var path = Path.Combine(Environment.ContentRootPath, relativePath.Replace('/', Path.DirectorySeparatorChar));
-        return File.Exists(path) ? File.ReadAllText(path) : $"Missing source: {relativePath}";
+        var normalizedPath = relativePath.Replace('/', Path.DirectorySeparatorChar);
+        var contentRootPath = Path.Combine(Environment.ContentRootPath, normalizedPath);
+        if (File.Exists(contentRootPath))
+        {
+            return File.ReadAllText(contentRootPath);
+        }
+
+        var workspaceRootPath = Path.GetFullPath(Path.Combine(Environment.ContentRootPath, "..", normalizedPath));
+        return File.Exists(workspaceRootPath)
+            ? File.ReadAllText(workspaceRootPath)
+            : $"Missing source: {relativePath}";
     }
 
     private enum InstallationTab
@@ -101,4 +110,3 @@ else
 
     private sealed record LoadedSource(string Path, string Content);
 }
-
