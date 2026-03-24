@@ -1,0 +1,155 @@
+@namespace ShadcnBlazor.Components.UI
+
+<div id="@Carousel?.ViewportId"
+     @ref="_viewportRef"
+     data-slot="carousel-content"
+     class="@GetViewportClasses()">
+    <div class="@GetTrackClasses()"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] private CarouselContext? CarouselContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private ElementReference _viewportRef;
+    private Carousel? Carousel => CarouselContext?.Root;
+
+    protected override void OnParametersSet()
+    {
+        if (CarouselContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(CarouselContent)} must be used inside {nameof(Carousel)}.");
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Carousel is not null)
+        {
+            await Carousel.RegisterViewportAsync(_viewportRef);
+        }
+    }
+
+    private string GetViewportClasses()
+        => Cn(
+            "overflow-hidden no-scrollbar scroll-smooth",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
+                ? "overflow-x-auto overflow-y-hidden touch-pan-y"
+                : "h-full overflow-y-auto overflow-x-hidden touch-pan-x");
+
+    private string GetTrackClasses()
+        => MergeClasses(
+            "flex",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
+                ? "-ml-4"
+                : "-mt-4 h-full flex-col",
+            Class);
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+
+    private static string MergeClasses(params string?[] classes)
+    {
+        var tokens = new List<string>();
+        var lastIndexByKey = new Dictionary<string, int>(StringComparer.Ordinal);
+
+        foreach (var chunk in classes)
+        {
+            if (string.IsNullOrWhiteSpace(chunk))
+            {
+                continue;
+            }
+
+            foreach (var token in chunk.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var key = GetMergeKey(token);
+                if (key is null)
+                {
+                    tokens.Add(token);
+                    continue;
+                }
+
+                if (lastIndexByKey.TryGetValue(key, out var previousIndex))
+                {
+                    tokens[previousIndex] = string.Empty;
+                }
+
+                lastIndexByKey[key] = tokens.Count;
+                tokens.Add(token);
+            }
+        }
+
+        return string.Join(" ", tokens.Where(static token => !string.IsNullOrWhiteSpace(token)));
+    }
+
+    private static string? GetMergeKey(string token)
+    {
+        var (variants, utility) = SplitVariants(token);
+        var normalized = utility.Length > 0 && utility[0] == '!' ? utility[1..] : utility;
+        if (normalized.Length > 0 && normalized[0] == '-')
+        {
+            normalized = normalized[1..];
+        }
+
+        if (normalized.StartsWith("ml-", StringComparison.Ordinal))
+        {
+            return variants + "ml";
+        }
+
+        if (normalized.StartsWith("mt-", StringComparison.Ordinal))
+        {
+            return variants + "mt";
+        }
+
+        if (normalized.StartsWith("h-", StringComparison.Ordinal))
+        {
+            return variants + "h";
+        }
+
+        if (normalized.StartsWith("w-", StringComparison.Ordinal))
+        {
+            return variants + "w";
+        }
+
+        return null;
+    }
+
+    private static (string variants, string utility) SplitVariants(string token)
+    {
+        var bracketDepth = 0;
+        var lastColon = -1;
+
+        for (var i = 0; i < token.Length; i++)
+        {
+            switch (token[i])
+            {
+                case '[':
+                    bracketDepth++;
+                    break;
+                case ']':
+                    if (bracketDepth > 0)
+                    {
+                        bracketDepth--;
+                    }
+                    break;
+                case ':':
+                    if (bracketDepth == 0)
+                    {
+                        lastColon = i;
+                    }
+                    break;
+            }
+        }
+
+        return lastColon < 0
+            ? ("", token)
+            : (token[..(lastColon + 1)], token[(lastColon + 1)..]);
+    }
+}

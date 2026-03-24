@@ -1,0 +1,168 @@
+@namespace ShadcnBlazor.Components.UI
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div data-slot="carousel"
+     role="region"
+     aria-roledescription="carousel"
+     class="@Cn("relative", Class)"
+     @onkeydown="HandleKeyDown"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_context">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    private readonly CarouselContext _context;
+    private readonly string _carouselId = $"carousel-{Guid.NewGuid():N}";
+    private DotNetObjectReference<Carousel>? _dotNetRef;
+    private CarouselApi? _api;
+    private ElementReference _viewportRef;
+    private bool _initialized;
+    private bool _jsInitialized;
+    private bool _apiEmitted;
+    private bool _canScrollPrev;
+    private bool _canScrollNext;
+    private int _selectedIndex;
+    private int _slideCount;
+
+    public Carousel()
+    {
+        _context = new CarouselContext
+        {
+            Root = this,
+            GetOrientation = () => Orientation
+        };
+    }
+
+    [Parameter] public CarouselOrientation Orientation { get; set; } = CarouselOrientation.Horizontal;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback<CarouselApi> ApiChanged { get; set; }
+    [Parameter] public EventCallback<CarouselApi> StateChanged { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    internal bool CanScrollPrev => _canScrollPrev;
+    internal bool CanScrollNext => _canScrollNext;
+    internal int SelectedIndex => _selectedIndex;
+    internal int SlideCount => _slideCount;
+    internal string CarouselId => _carouselId;
+    internal string ViewportId => $"{_carouselId}-viewport";
+
+    internal async Task RegisterViewportAsync(ElementReference viewportRef)
+    {
+        _viewportRef = viewportRef;
+        _initialized = true;
+        _dotNetRef ??= DotNetObjectReference.Create(this);
+
+        if (!_jsInitialized)
+        {
+            await JS.InvokeVoidAsync("window.blazorShadcnCarousel.init", _carouselId, _viewportRef, _dotNetRef, OrientationToAxis(Orientation));
+            _jsInitialized = true;
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("window.blazorShadcnCarousel.refresh", _carouselId, OrientationToAxis(Orientation));
+        }
+
+        if (ApiChanged.HasDelegate && !_apiEmitted)
+        {
+            await ApiChanged.InvokeAsync(GetApi());
+            _apiEmitted = true;
+        }
+    }
+
+    internal Task ScrollPrevAsync()
+        => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollPrev", _carouselId).AsTask() : Task.CompletedTask;
+
+    internal Task ScrollNextAsync()
+        => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollNext", _carouselId).AsTask() : Task.CompletedTask;
+
+    internal Task ScrollToAsync(int index)
+        => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollTo", _carouselId, index).AsTask() : Task.CompletedTask;
+
+    [JSInvokable]
+    public async Task UpdateState(bool canScrollPrev, bool canScrollNext, int selectedIndex, int slideCount)
+    {
+        if (_canScrollPrev == canScrollPrev &&
+            _canScrollNext == canScrollNext &&
+            _selectedIndex == selectedIndex &&
+            _slideCount == slideCount)
+        {
+            return;
+        }
+
+        _canScrollPrev = canScrollPrev;
+        _canScrollNext = canScrollNext;
+        _selectedIndex = selectedIndex;
+        _slideCount = slideCount;
+
+        if (StateChanged.HasDelegate)
+        {
+            await StateChanged.InvokeAsync(GetApi());
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private CarouselApi GetApi() => _api ??= new CarouselApi(this);
+
+    private Task HandleKeyDown(KeyboardEventArgs args)
+    {
+        if (Orientation == CarouselOrientation.Horizontal)
+        {
+            if (args.Key == "ArrowLeft")
+            {
+                return ScrollPrevAsync();
+            }
+
+            if (args.Key == "ArrowRight")
+            {
+                return ScrollNextAsync();
+            }
+
+            return Task.CompletedTask;
+        }
+
+        if (args.Key == "ArrowUp")
+        {
+            return ScrollPrevAsync();
+        }
+
+        return args.Key == "ArrowDown" ? ScrollNextAsync() : Task.CompletedTask;
+    }
+
+    private static string OrientationToAxis(CarouselOrientation orientation)
+        => orientation == CarouselOrientation.Vertical ? "y" : "x";
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_initialized)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("window.blazorShadcnCarousel.dispose", _carouselId);
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+
+        _jsInitialized = false;
+        _apiEmitted = false;
+        _dotNetRef?.Dispose();
+    }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+
+    public enum CarouselOrientation
+    {
+        Horizontal,
+        Vertical
+    }
+}

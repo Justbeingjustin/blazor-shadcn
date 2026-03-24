@@ -58,7 +58,8 @@
 
                 <DocsInstallationSection ComponentLabel="carousel"
                                          InstallCommand="blazor-shadcn add carousel"
-                                         SourcePaths="@_manualSourcePaths" />
+                                         SourcePaths="@_manualSourcePaths"
+                                         ImportStep="@manualImportStep" />
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
                 <div class="mt-6">
@@ -372,6 +373,10 @@
 </div>
 
 @code {
+    private const string manualImportStep = """
+Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor
+Copy components/carousel/carousel.js into your project and include it from Components/App.razor or your main layout.
+""";
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private static readonly int[] slides = [1, 2, 3, 4, 5];
     private int _apiExampleCurrent;
@@ -655,12 +660,13 @@
 
     private static readonly string[] _manualSourcePaths =
     [
-        "Components/UI/Carousel.razor",
-        "Components/UI/CarouselContent.razor",
-        "Components/UI/CarouselItem.razor",
-        "Components/UI/CarouselPrevious.razor",
-        "Components/UI/CarouselNext.razor",
-        "Components/UI/CarouselApi.cs",
-        "Components/UI/CarouselContext.cs"
+        "components/carousel/Carousel.razor",
+        "components/carousel/CarouselContent.razor",
+        "components/carousel/CarouselItem.razor",
+        "components/carousel/CarouselPrevious.razor",
+        "components/carousel/CarouselNext.razor",
+        "components/carousel/CarouselApi.cs",
+        "components/carousel/CarouselContext.cs",
+        "components/carousel/carousel.js"
     ];
 }

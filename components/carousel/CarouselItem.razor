@@ -1,0 +1,125 @@
+@namespace ShadcnBlazor.Components.UI
+
+<div data-slot="carousel-item"
+     role="group"
+     aria-roledescription="slide"
+     class="@GetClasses()"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [CascadingParameter] private CarouselContext? CarouselContext { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (CarouselContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(CarouselItem)} must be used inside {nameof(Carousel)}.");
+        }
+    }
+
+    private string GetClasses()
+        => MergeClasses(
+            "min-w-0 shrink-0 grow-0 basis-full",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal ? "pl-4" : "pt-4",
+            Class);
+
+    private static string MergeClasses(params string?[] classes)
+    {
+        var tokens = new List<string>();
+        var lastIndexByKey = new Dictionary<string, int>(StringComparer.Ordinal);
+
+        foreach (var chunk in classes)
+        {
+            if (string.IsNullOrWhiteSpace(chunk))
+            {
+                continue;
+            }
+
+            foreach (var token in chunk.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var key = GetMergeKey(token);
+                if (key is null)
+                {
+                    tokens.Add(token);
+                    continue;
+                }
+
+                if (lastIndexByKey.TryGetValue(key, out var previousIndex))
+                {
+                    tokens[previousIndex] = string.Empty;
+                }
+
+                lastIndexByKey[key] = tokens.Count;
+                tokens.Add(token);
+            }
+        }
+
+        return string.Join(" ", tokens.Where(static token => !string.IsNullOrWhiteSpace(token)));
+    }
+
+    private static string? GetMergeKey(string token)
+    {
+        var (variants, utility) = SplitVariants(token);
+        var normalized = utility.Length > 0 && utility[0] == '!' ? utility[1..] : utility;
+        if (normalized.Length > 0 && normalized[0] == '-')
+        {
+            normalized = normalized[1..];
+        }
+
+        if (normalized.StartsWith("basis-", StringComparison.Ordinal))
+        {
+            return variants + "basis";
+        }
+
+        if (normalized.StartsWith("pl-", StringComparison.Ordinal))
+        {
+            return variants + "pl";
+        }
+
+        if (normalized.StartsWith("pt-", StringComparison.Ordinal))
+        {
+            return variants + "pt";
+        }
+
+        return null;
+    }
+
+    private static (string variants, string utility) SplitVariants(string token)
+    {
+        var bracketDepth = 0;
+        var lastColon = -1;
+
+        for (var i = 0; i < token.Length; i++)
+        {
+            switch (token[i])
+            {
+                case '[':
+                    bracketDepth++;
+                    break;
+                case ']':
+                    if (bracketDepth > 0)
+                    {
+                        bracketDepth--;
+                    }
+                    break;
+                case ':':
+                    if (bracketDepth == 0)
+                    {
+                        lastColon = i;
+                    }
+                    break;
+            }
+        }
+
+        return lastColon < 0
+            ? ("", token)
+            : (token[..(lastColon + 1)], token[(lastColon + 1)..]);
+    }
+}

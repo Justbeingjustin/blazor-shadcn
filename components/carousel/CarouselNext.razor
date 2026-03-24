@@ -1,0 +1,58 @@
+@namespace ShadcnBlazor.Components.UI
+@using Microsoft.AspNetCore.Components.Web
+
+<Button data-slot="carousel-next"
+        Variant="@Variant"
+        Size="@Size"
+        Disabled="@ComputedDisabled"
+        Class="@GetClasses()"
+        OnClick="HandleClick"
+        @attributes="AdditionalAttributes">
+    @if (ChildContent is null)
+    {
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18l6-6-6-6" />
+        </svg>
+        <span class="sr-only">Next slide</span>
+    }
+    else
+    {
+        @ChildContent
+    }
+</Button>
+
+@code {
+    [CascadingParameter] private CarouselContext? CarouselContext { get; set; }
+
+    [Parameter] public Button.ButtonVariant Variant { get; set; } = Button.ButtonVariant.Outline;
+    [Parameter] public Button.ButtonSize Size { get; set; } = Button.ButtonSize.Icon;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (CarouselContext is null)
+        {
+            throw new InvalidOperationException($"{nameof(CarouselNext)} must be used inside {nameof(Carousel)}.");
+        }
+    }
+
+    private bool ComputedDisabled => Disabled || CarouselContext?.Root.CanScrollNext != true;
+
+    private Task HandleClick(MouseEventArgs _)
+        => CarouselContext?.Root.ScrollNextAsync() ?? Task.CompletedTask;
+
+    private string GetClasses()
+        => Cn(
+            "absolute size-8 rounded-full",
+            CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
+                ? "top-1/2 -right-12 -translate-y-1/2"
+                : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+            Class);
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
+}
