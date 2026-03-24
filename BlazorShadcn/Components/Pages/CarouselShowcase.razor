@@ -1,4 +1,5 @@
 @page "/components/carousel"
+@implements IDisposable
 
 <PageTitle>Carousel - blazor-shadcn</PageTitle>
 
@@ -32,7 +33,7 @@
                 <ComponentExample Compact="true" CodeText="@usageCode">
                     <Preview>
                         <div class="mx-auto max-w-xs px-12">
-                            <Carousel>
+                            <Carousel Class="w-full max-w-xs">
                                 <CarouselContent>
                                     @foreach (var slide in slides)
                                     {
@@ -67,6 +68,178 @@
                     <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
                 </div>
 
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="sizes">Sizes</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    Use basis utilities on <code>CarouselItem</code> to control how many slides are visible at each breakpoint.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@sizeCode">
+                        <Preview>
+                            <div class="mx-auto max-w-sm px-12">
+                                <Carousel Class="w-full max-w-sm">
+                                    <CarouselContent>
+                                        @foreach (var slide in slides)
+                                        {
+                                            <CarouselItem Class="md:basis-1/2 lg:basis-1/3">
+                                                <div class="p-1">
+                                                    <Card>
+                                                        <CardContent Class="flex aspect-square items-center justify-center p-6">
+                                                            <span class="text-3xl font-semibold">@slide</span>
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </CarouselItem>
+                                        }
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+                            </div>
+                        </Preview>
+                        <Code>@sizeCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="spacing">Spacing</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    Override the default spacing with matching negative margin on <code>CarouselContent</code> and padding on each <code>CarouselItem</code>.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@spacingCode">
+                        <Preview>
+                            <div class="mx-auto max-w-sm px-12">
+                                <Carousel Class="w-full max-w-sm">
+                                    <CarouselContent Class="-ml-1">
+                                        @foreach (var slide in slides)
+                                        {
+                                            <CarouselItem Class="pl-1 md:basis-1/2 lg:basis-1/3">
+                                                <div class="p-1">
+                                                    <Card>
+                                                        <CardContent Class="flex aspect-square items-center justify-center p-6">
+                                                            <span class="text-2xl font-semibold">@slide</span>
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </CarouselItem>
+                                        }
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+                            </div>
+                        </Preview>
+                        <Code>@spacingCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="orientation">Orientation</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    Set <code>Orientation</code> to <code>Vertical</code> to stack slides and move the navigation controls above and below the viewport.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@orientationCode">
+                        <Preview>
+                            <div class="mx-auto max-w-md px-12 py-12">
+                                <Carousel Orientation="Carousel.CarouselOrientation.Vertical" Class="h-[220px] w-full max-w-md">
+                                    <CarouselContent Class="-mt-1 h-full">
+                                        @foreach (var slide in slides)
+                                        {
+                                            <CarouselItem Class="pt-1 basis-1/2">
+                                                <div class="p-1">
+                                                    <Card Class="h-full">
+                                                        <CardContent Class="flex h-full items-center justify-center">
+                                                            <span class="text-3xl font-semibold">@slide</span>
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </CarouselItem>
+                                        }
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+                            </div>
+                        </Preview>
+                        <Code>@orientationCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="api">API</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    Use <code>ApiChanged</code> to capture the carousel API and <code>StateChanged</code> to react to selection changes.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@apiCode">
+                        <Preview>
+                            <div class="mx-auto max-w-xs px-12">
+                                <Carousel Class="w-full max-w-xs"
+                                          ApiChanged="HandleApiExampleApiChanged"
+                                          StateChanged="HandleApiExampleStateChanged">
+                                    <CarouselContent>
+                                        @foreach (var slide in slides)
+                                        {
+                                            <CarouselItem>
+                                                <Card>
+                                                    <CardContent Class="flex aspect-square items-center justify-center p-6">
+                                                        <span class="text-4xl font-semibold">@slide</span>
+                                                    </CardContent>
+                                                </Card>
+                                            </CarouselItem>
+                                        }
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+                                <div class="py-2 text-center text-sm text-muted-foreground">
+                                    Slide @ApiExampleDisplayCurrent of @_apiExampleCount
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@apiCode</Code>
+                    </ComponentExample>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="autoplay">Autoplay</h3>
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    This mirrors the reference plugin demo with a timer-driven autoplay example that pauses while the preview is hovered.
+                </p>
+                <div class="mt-6">
+                    <ComponentExample Compact="true" CodeText="@autoplayCode">
+                        <Preview>
+                            <div class="mx-auto max-w-xs px-12"
+                                 @onmouseenter="PauseAutoplay"
+                                 @onmouseleave="ResumeAutoplay">
+                                <Carousel Class="w-full max-w-xs"
+                                          ApiChanged="HandleAutoplayApiChanged"
+                                          StateChanged="HandleAutoplayStateChanged">
+                                    <CarouselContent>
+                                        @foreach (var slide in slides)
+                                        {
+                                            <CarouselItem>
+                                                <div class="p-1">
+                                                    <Card>
+                                                        <CardContent Class="flex aspect-square items-center justify-center p-6">
+                                                            <span class="text-4xl font-semibold">@slide</span>
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </CarouselItem>
+                                        }
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+                                <div class="py-2 text-center text-sm text-muted-foreground">
+                                    Hover to pause. Slide @AutoplayDisplayCurrent of @_autoplayCount.
+                                </div>
+                            </div>
+                        </Preview>
+                        <Code>@autoplayCode</Code>
+                    </ComponentExample>
+                </div>
+
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
 
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Carousel</h3>
@@ -84,6 +257,7 @@
                             <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
                             <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
                             <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ApiChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;CarouselApi&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">StateChanged</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">EventCallback&lt;CarouselApi&gt;</code></td><td class="px-4 py-2 text-left whitespace-nowrap">-</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -163,13 +337,16 @@
                 </div>
 
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">CarouselApi</h3>
-                <p class="text-muted-foreground mt-2 text-sm">
-                    The <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ApiChanged</code> callback provides a
-                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">CarouselApi</code> instance with
+                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    The <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">CarouselApi</code> instance exposes
                     <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">CanScrollPrev</code>,
                     <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">CanScrollNext</code>,
-                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ScrollPrevAsync()</code>, and
-                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ScrollNextAsync()</code>.
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SelectedIndex</code>,
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">SlideCount</code>,
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ScrollPrevAsync()</code>,
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ScrollNextAsync()</code>, and
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ScrollToAsync(int index)</code>.
+                    <span class="block mt-2">SelectedIndex is zero-based, so add 1 when rendering human-readable slide numbers.</span>
                 </p>
             </div>
         </div>
@@ -182,6 +359,12 @@
                 <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
                 <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
                 <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#sizes" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Sizes</a>
+                <a href="#spacing" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Spacing</a>
+                <a href="#orientation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Orientation</a>
+                <a href="#api" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">API</a>
+                <a href="#autoplay" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors pl-4" data-depth="3">Autoplay</a>
                 <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
             </div>
         </div>
@@ -191,39 +374,285 @@
 @code {
     private const string usingStatement = "@using BlazorShadcn.Components.UI";
     private static readonly int[] slides = [1, 2, 3, 4, 5];
-    private const string usageCode = @"<Carousel class=""w-full max-w-xs"">
+    private int _apiExampleCurrent;
+    private int _apiExampleCount = slides.Length;
+    private CarouselApi? _autoplayApi;
+    private int _autoplayCurrent;
+    private int _autoplayCount = slides.Length;
+    private bool _autoplayPaused;
+    private bool _autoplayTickInProgress;
+    private System.Threading.Timer? _autoplayTimer;
+
+    private int ApiExampleDisplayCurrent => _apiExampleCount == 0 ? 0 : _apiExampleCurrent + 1;
+    private int AutoplayDisplayCurrent => _autoplayCount == 0 ? 0 : _autoplayCurrent + 1;
+
+    private const string usageCode = """
+<Carousel Class="w-full max-w-xs">
     <CarouselContent>
-        <CarouselItem>
-            <div class=""p-1"">
-                <Card>
-                    <CardContent Class=""flex aspect-square items-center justify-center p-6"">
-                        <span class=""text-4xl font-semibold"">1</span>
-                    </CardContent>
-                </Card>
-            </div>
-        </CarouselItem>
-        <CarouselItem>
-            <div class=""p-1"">
-                <Card>
-                    <CardContent Class=""flex aspect-square items-center justify-center p-6"">
-                        <span class=""text-4xl font-semibold"">2</span>
-                    </CardContent>
-                </Card>
-            </div>
-        </CarouselItem>
-        <CarouselItem>
-            <div class=""p-1"">
-                <Card>
-                    <CardContent Class=""flex aspect-square items-center justify-center p-6"">
-                        <span class=""text-4xl font-semibold"">3</span>
-                    </CardContent>
-                </Card>
-            </div>
-        </CarouselItem>
+        @foreach (var slide in slides)
+        {
+            <CarouselItem>
+                <div class="p-1">
+                    <Card>
+                        <CardContent Class="flex aspect-square items-center justify-center p-6">
+                            <span class="text-4xl font-semibold">@slide</span>
+                        </CardContent>
+                    </Card>
+                </div>
+            </CarouselItem>
+        }
     </CarouselContent>
     <CarouselPrevious />
     <CarouselNext />
-</Carousel>";
+</Carousel>
+""";
+
+    private const string sizeCode = """
+<Carousel Class="w-full max-w-sm">
+    <CarouselContent>
+        @foreach (var slide in slides)
+        {
+            <CarouselItem Class="md:basis-1/2 lg:basis-1/3">
+                <div class="p-1">
+                    <Card>
+                        <CardContent Class="flex aspect-square items-center justify-center p-6">
+                            <span class="text-3xl font-semibold">@slide</span>
+                        </CardContent>
+                    </Card>
+                </div>
+            </CarouselItem>
+        }
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+</Carousel>
+""";
+
+    private const string spacingCode = """
+<Carousel Class="w-full max-w-sm">
+    <CarouselContent Class="-ml-1">
+        @foreach (var slide in slides)
+        {
+            <CarouselItem Class="pl-1 md:basis-1/2 lg:basis-1/3">
+                <div class="p-1">
+                    <Card>
+                        <CardContent Class="flex aspect-square items-center justify-center p-6">
+                            <span class="text-2xl font-semibold">@slide</span>
+                        </CardContent>
+                    </Card>
+                </div>
+            </CarouselItem>
+        }
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+</Carousel>
+""";
+
+    private const string orientationCode = """
+<Carousel Orientation="Carousel.CarouselOrientation.Vertical" Class="h-[220px] w-full max-w-md">
+    <CarouselContent Class="-mt-1 h-full">
+        @foreach (var slide in slides)
+        {
+            <CarouselItem Class="pt-1 basis-1/2">
+                <div class="p-1">
+                    <Card Class="h-full">
+                        <CardContent Class="flex h-full items-center justify-center">
+                            <span class="text-3xl font-semibold">@slide</span>
+                        </CardContent>
+                    </Card>
+                </div>
+            </CarouselItem>
+        }
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+</Carousel>
+""";
+
+    private const string apiCode = """
+<Carousel Class="w-full max-w-xs"
+          ApiChanged="HandleCarouselApi"
+          StateChanged="HandleCarouselStateChanged">
+    <CarouselContent>
+        @foreach (var slide in slides)
+        {
+            <CarouselItem>
+                <Card>
+                    <CardContent Class="flex aspect-square items-center justify-center p-6">
+                        <span class="text-4xl font-semibold">@slide</span>
+                    </CardContent>
+                </Card>
+            </CarouselItem>
+        }
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+</Carousel>
+
+<div class="py-2 text-center text-sm text-muted-foreground">
+    Slide @(current + 1) of @count
+</div>
+
+@code {
+    private int current;
+    private int count = slides.Length;
+
+    private Task HandleCarouselApi(CarouselApi carouselApi)
+    {
+        SyncCarouselState(carouselApi);
+        return Task.CompletedTask;
+    }
+
+    private Task HandleCarouselStateChanged(CarouselApi carouselApi)
+    {
+        SyncCarouselState(carouselApi);
+        return Task.CompletedTask;
+    }
+
+    private void SyncCarouselState(CarouselApi carouselApi)
+    {
+        current = carouselApi.SelectedIndex;
+        count = carouselApi.SlideCount;
+    }
+}
+""";
+
+    private const string autoplayCode = """
+<div @onmouseenter="PauseAutoplay" @onmouseleave="ResumeAutoplay">
+    <Carousel Class="w-full max-w-xs"
+              ApiChanged="HandleAutoplayApi"
+              StateChanged="HandleAutoplayStateChanged">
+        <CarouselContent>
+            @foreach (var slide in slides)
+            {
+                <CarouselItem>
+                    <div class="p-1">
+                        <Card>
+                            <CardContent Class="flex aspect-square items-center justify-center p-6">
+                                <span class="text-4xl font-semibold">@slide</span>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </CarouselItem>
+            }
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+    </Carousel>
+</div>
+
+@code {
+    private CarouselApi? autoplayApi;
+
+    private Task HandleAutoplayApi(CarouselApi carouselApi)
+    {
+        autoplayApi = carouselApi;
+        StartAutoplay();
+        return Task.CompletedTask;
+    }
+
+    private Task HandleAutoplayStateChanged(CarouselApi carouselApi)
+    {
+        autoplayApi = carouselApi;
+        return Task.CompletedTask;
+    }
+
+    private Task StartAutoplay()
+    {
+        // Advance every 2 seconds and pause while hovered.
+        return Task.CompletedTask;
+    }
+}
+""";
+
+    private Task HandleApiExampleApiChanged(CarouselApi carouselApi)
+    {
+        SyncApiExampleState(carouselApi);
+        return Task.CompletedTask;
+    }
+
+    private Task HandleApiExampleStateChanged(CarouselApi carouselApi)
+    {
+        SyncApiExampleState(carouselApi);
+        return Task.CompletedTask;
+    }
+
+    private Task HandleAutoplayApiChanged(CarouselApi carouselApi)
+    {
+        _autoplayApi = carouselApi;
+        SyncAutoplayState(carouselApi);
+        EnsureAutoplayTimer();
+        return Task.CompletedTask;
+    }
+
+    private Task HandleAutoplayStateChanged(CarouselApi carouselApi)
+    {
+        _autoplayApi = carouselApi;
+        SyncAutoplayState(carouselApi);
+        return Task.CompletedTask;
+    }
+
+    private void SyncApiExampleState(CarouselApi carouselApi)
+    {
+        _apiExampleCurrent = carouselApi.SelectedIndex;
+        _apiExampleCount = carouselApi.SlideCount == 0 ? slides.Length : carouselApi.SlideCount;
+    }
+
+    private void SyncAutoplayState(CarouselApi carouselApi)
+    {
+        _autoplayCurrent = carouselApi.SelectedIndex;
+        _autoplayCount = carouselApi.SlideCount == 0 ? slides.Length : carouselApi.SlideCount;
+    }
+
+    private void EnsureAutoplayTimer()
+    {
+        _autoplayTimer ??= new System.Threading.Timer(_ =>
+        {
+            _ = InvokeAsync(HandleAutoplayTickAsync);
+        }, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
+    }
+
+    private async Task HandleAutoplayTickAsync()
+    {
+        if (_autoplayTickInProgress || _autoplayPaused || _autoplayApi is null || _autoplayApi.SlideCount == 0)
+        {
+            return;
+        }
+
+        _autoplayTickInProgress = true;
+
+        try
+        {
+            if (_autoplayApi.SelectedIndex >= _autoplayApi.SlideCount - 1)
+            {
+                await _autoplayApi.ScrollToAsync(0);
+                return;
+            }
+
+            await _autoplayApi.ScrollNextAsync();
+        }
+        finally
+        {
+            _autoplayTickInProgress = false;
+        }
+    }
+
+    private void PauseAutoplay(MouseEventArgs _)
+    {
+        _autoplayPaused = true;
+    }
+
+    private void ResumeAutoplay(MouseEventArgs _)
+    {
+        _autoplayPaused = false;
+    }
+
+    public void Dispose()
+    {
+        _autoplayTimer?.Dispose();
+    }
+
     private static readonly string[] _manualSourcePaths =
     [
         "Components/UI/Carousel.razor",
@@ -235,4 +664,3 @@
         "Components/UI/CarouselContext.cs"
     ];
 }
-

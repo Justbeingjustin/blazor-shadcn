@@ -16,12 +16,15 @@
     private readonly CarouselContext _context;
     private readonly string _carouselId = $"carousel-{Guid.NewGuid():N}";
     private DotNetObjectReference<Carousel>? _dotNetRef;
+    private CarouselApi? _api;
     private ElementReference _viewportRef;
     private bool _initialized;
     private bool _jsInitialized;
     private bool _apiEmitted;
     private bool _canScrollPrev;
     private bool _canScrollNext;
+    private int _selectedIndex;
+    private int _slideCount;
 
     public Carousel()
     {
@@ -36,11 +39,14 @@
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public EventCallback<CarouselApi> ApiChanged { get; set; }
+    [Parameter] public EventCallback<CarouselApi> StateChanged { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     internal bool CanScrollPrev => _canScrollPrev;
     internal bool CanScrollNext => _canScrollNext;
+    internal int SelectedIndex => _selectedIndex;
+    internal int SlideCount => _slideCount;
     internal string CarouselId => _carouselId;
     internal string ViewportId => $"{_carouselId}-viewport";
 
@@ -62,7 +68,7 @@
 
         if (ApiChanged.HasDelegate && !_apiEmitted)
         {
-            await ApiChanged.InvokeAsync(new CarouselApi(this));
+            await ApiChanged.InvokeAsync(GetApi());
             _apiEmitted = true;
         }
     }
@@ -73,18 +79,34 @@
     internal Task ScrollNextAsync()
         => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollNext", _carouselId, OrientationToAxis(Orientation)).AsTask() : Task.CompletedTask;
 
+    internal Task ScrollToAsync(int index)
+        => _jsInitialized ? JS.InvokeVoidAsync("window.blazorShadcnCarousel.scrollTo", _carouselId, index).AsTask() : Task.CompletedTask;
+
     [JSInvokable]
-    public async Task UpdateState(bool canScrollPrev, bool canScrollNext)
+    public async Task UpdateState(bool canScrollPrev, bool canScrollNext, int selectedIndex, int slideCount)
     {
-        if (_canScrollPrev == canScrollPrev && _canScrollNext == canScrollNext)
+        if (_canScrollPrev == canScrollPrev &&
+            _canScrollNext == canScrollNext &&
+            _selectedIndex == selectedIndex &&
+            _slideCount == slideCount)
         {
             return;
         }
 
         _canScrollPrev = canScrollPrev;
         _canScrollNext = canScrollNext;
+        _selectedIndex = selectedIndex;
+        _slideCount = slideCount;
+
+        if (StateChanged.HasDelegate)
+        {
+            await StateChanged.InvokeAsync(GetApi());
+        }
+
         await InvokeAsync(StateHasChanged);
     }
+
+    private CarouselApi GetApi() => _api ??= new CarouselApi(this);
 
     private Task HandleKeyDown(KeyboardEventArgs args)
     {

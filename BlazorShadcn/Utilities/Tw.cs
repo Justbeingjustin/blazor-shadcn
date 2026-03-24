@@ -67,6 +67,72 @@ public static class Tw
 
         // "!..." is Tailwind's important modifier (can appear after variants as well).
         var utilityForKey = utility.Length > 0 && utility[0] == '!' ? utility[1..] : utility;
+        var normalizedUtility = utilityForKey.Length > 0 && utilityForKey[0] == '-'
+            ? utilityForKey[1..]
+            : utilityForKey;
+
+        if (normalizedUtility.StartsWith("basis-", StringComparison.Ordinal))
+            return variants + "basis";
+
+        if (normalizedUtility.StartsWith("max-w-", StringComparison.Ordinal))
+            return variants + "max-w";
+
+        if (normalizedUtility.StartsWith("min-w-", StringComparison.Ordinal))
+            return variants + "min-w";
+
+        if (normalizedUtility.StartsWith("w-", StringComparison.Ordinal))
+            return variants + "w";
+
+        if (normalizedUtility.StartsWith("max-h-", StringComparison.Ordinal))
+            return variants + "max-h";
+
+        if (normalizedUtility.StartsWith("min-h-", StringComparison.Ordinal))
+            return variants + "min-h";
+
+        if (normalizedUtility.StartsWith("h-", StringComparison.Ordinal))
+            return variants + "h";
+
+        if (normalizedUtility.StartsWith("mx-", StringComparison.Ordinal))
+            return variants + "mx";
+
+        if (normalizedUtility.StartsWith("my-", StringComparison.Ordinal))
+            return variants + "my";
+
+        if (normalizedUtility.StartsWith("mt-", StringComparison.Ordinal))
+            return variants + "mt";
+
+        if (normalizedUtility.StartsWith("mr-", StringComparison.Ordinal))
+            return variants + "mr";
+
+        if (normalizedUtility.StartsWith("mb-", StringComparison.Ordinal))
+            return variants + "mb";
+
+        if (normalizedUtility.StartsWith("ml-", StringComparison.Ordinal))
+            return variants + "ml";
+
+        if (normalizedUtility.StartsWith("m-", StringComparison.Ordinal))
+            return variants + "m";
+
+        if (normalizedUtility.StartsWith("px-", StringComparison.Ordinal))
+            return variants + "px";
+
+        if (normalizedUtility.StartsWith("py-", StringComparison.Ordinal))
+            return variants + "py";
+
+        if (normalizedUtility.StartsWith("pt-", StringComparison.Ordinal))
+            return variants + "pt";
+
+        if (normalizedUtility.StartsWith("pr-", StringComparison.Ordinal))
+            return variants + "pr";
+
+        if (normalizedUtility.StartsWith("pb-", StringComparison.Ordinal))
+            return variants + "pb";
+
+        if (normalizedUtility.StartsWith("pl-", StringComparison.Ordinal))
+            return variants + "pl";
+
+        if (normalizedUtility.StartsWith("p-", StringComparison.Ordinal))
+            return variants + "p";
 
         // Background color utilities.
         if (utilityForKey.StartsWith("bg-", StringComparison.Ordinal))
@@ -151,4 +217,3 @@ public static class Tw
         return (token[..(lastColon + 1)], token[(lastColon + 1)..]);
     }
 }
-

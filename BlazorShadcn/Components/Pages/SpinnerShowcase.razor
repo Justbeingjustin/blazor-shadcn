@@ -193,7 +193,27 @@
                     <ComingSoonExample Title="Input Group" TitleNote="Coming soon" />
                 </div>
                 <div class="mt-6">
-                    <ComingSoonExample Title="Empty" TitleNote="Coming soon" />
+                    <ComponentExample Title="Empty" Compact="true" CodeText="@emptyCode">
+                        <Preview>
+                            <div class="flex min-h-[280px] w-full items-center justify-center">
+                                <Empty Class="w-full max-w-md">
+                                    <EmptyHeader>
+                                        <EmptyMedia Variant="icon">
+                                            <Spinner />
+                                        </EmptyMedia>
+                                        <EmptyTitle>Processing your request</EmptyTitle>
+                                        <EmptyDescription>
+                                            Please wait while we process your request. Do not refresh the page.
+                                        </EmptyDescription>
+                                    </EmptyHeader>
+                                    <EmptyContent>
+                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Cancel</Button>
+                                    </EmptyContent>
+                                </Empty>
+                            </div>
+                        </Preview>
+                        <Code>@emptyCode</Code>
+                    </ComponentExample>
                 </div>
 
             </div>
@@ -372,18 +392,19 @@
 </div>
 """;
     private const string emptyCode = """
-<div data-slot="empty" class="flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center text-balance md:p-12">
-    <div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2 text-center">
-        <div data-slot="empty-icon" data-variant="icon" class="bg-muted text-foreground mb-2 flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6">
+<Empty Class="w-full max-w-md">
+    <EmptyHeader>
+        <EmptyMedia Variant="icon">
             <Spinner />
-        </div>
-        <div data-slot="empty-title" class="text-lg font-medium tracking-tight">Processing your request</div>
-        <div data-slot="empty-description" class="text-muted-foreground text-sm/relaxed">Please wait while we process your request. Do not refresh the page.</div>
-    </div>
-    <div data-slot="empty-content" class="flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance">
+        </EmptyMedia>
+        <EmptyTitle>Processing your request</EmptyTitle>
+        <EmptyDescription>
+            Please wait while we process your request. Do not refresh the page.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
         <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Cancel</Button>
-    </div>
-</div>
+    </EmptyContent>
+</Empty>
 """;
 }
-

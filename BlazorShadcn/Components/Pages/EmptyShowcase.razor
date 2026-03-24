@@ -1,2 +1,447 @@
 @page "/components/empty"
-<GeneratedShowcase Slug="empty" />
+
+<PageTitle>Empty - blazor-shadcn</PageTitle>
+
+<div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
+    <div class="flex min-w-0 flex-1 flex-col">
+        <div class="mx-auto flex w-full max-w-[40rem] min-w-0 flex-1 flex-col gap-6 px-4 py-6 md:px-0 lg:py-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between md:items-start">
+                    <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Empty</h1>
+                    <div class="ml-auto flex items-center gap-2">
+                        <DocsCopyPage PageUrl="@referenceUrl" />
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/dropdown-menu"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </Button>
+                        <Button Variant="ButtonVariant.Secondary"
+                                Size="ButtonSize.Icon"
+                                Href="/components/field"
+                                Class="extend-touch-target size-8 shadow-none md:size-7"
+                                aria-label="Next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l14 0" />
+                                <path d="M13 18l6 -6" />
+                                <path d="M13 6l6 6" />
+                            </svg>
+                            <span class="sr-only">Next</span>
+                        </Button>
+                    </div>
+                </div>
+                <div class="xl:hidden">
+                    <DocsPageLinks Padded="false" />
+                </div>
+                <p class="text-muted-foreground text-base text-balance md:max-w-[80%]">
+                    Display an empty state when a list, inbox, or workspace has no data yet.
+                </p>
+            </div>
+
+            <div class="w-full flex-1">
+                <ComponentExample Compact="true" CodeText="@codeMainDemo">
+                    <Preview>
+                        <div class="flex min-h-[320px] w-full items-center justify-center">
+                            <Empty Class="w-full max-w-md">
+                                <EmptyHeader>
+                                    <EmptyMedia Variant="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true">
+                                            <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                            <path d="M3 10h18" />
+                                        </svg>
+                                    </EmptyMedia>
+                                    <EmptyTitle>No Projects Yet</EmptyTitle>
+                                    <EmptyDescription>
+                                        You haven't created any projects yet. Get started by creating your first project.
+                                    </EmptyDescription>
+                                </EmptyHeader>
+                                <EmptyContent Class="flex-row justify-center gap-2">
+                                    <Button>Create Project</Button>
+                                    <Button Variant="ButtonVariant.Outline">Import Project</Button>
+                                </EmptyContent>
+                                <Button Variant="ButtonVariant.Link"
+                                        Size="ButtonSize.Sm"
+                                        Href="#"
+                                        Class="text-muted-foreground">
+                                    Learn More
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+                                        <path d="M7 7h10v10" />
+                                        <path d="M7 17 17 7" />
+                                    </svg>
+                                </Button>
+                            </Empty>
+                        </div>
+                    </Preview>
+                    <Code>@codeMainDemo</Code>
+                </ComponentExample>
+
+                <DocsInstallationSection ComponentLabel="empty"
+                                         InstallCommand="@installCommand"
+                                         SourcePaths="@manualSourcePaths"
+                                         ImportStep="@manualImportStep" />
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="usage">Usage</h2>
+                <div class="mt-6">
+                    <CodeBlock RawText="@usingStatement">@usingStatement</CodeBlock>
+                </div>
+                <div class="mt-4">
+                    <CodeBlock RawText="@usageCode">@usageCode</CodeBlock>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="anatomy">Anatomy</h2>
+                <p class="text-muted-foreground mt-2 text-sm">
+                    The <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Empty</code> family is a small composition surface for titles, supporting text, optional media, and follow-up actions.
+                </p>
+                <div class="mt-6">
+                    <CodeBlock RawText="@anatomyCode">@anatomyCode</CodeBlock>
+                </div>
+                <div class="mt-4 space-y-2 text-sm">
+                    <p><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Empty</code> centers the empty state content and sets the overall spacing.</p>
+                    <p><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">EmptyHeader</code> groups the media, title, and description.</p>
+                    <p><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">EmptyContent</code> is intended for actions or secondary details below the header.</p>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="examples">Examples</h2>
+
+                <div class="mt-6" id="outline">
+                    <ComponentExample Title="Outline" Compact="true" CodeText="@codeOutline">
+                        <Preview>
+                            <div class="flex min-h-[280px] w-full items-center justify-center">
+                                <Empty Class="w-full max-w-md border">
+                                    <EmptyHeader>
+                                        <EmptyMedia Variant="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true">
+                                                <path d="M6 19a4 4 0 0 1 0-8 5 5 0 0 1 9.7-1A4.5 4.5 0 1 1 18 19Z" />
+                                            </svg>
+                                        </EmptyMedia>
+                                        <EmptyTitle>Cloud Storage Empty</EmptyTitle>
+                                        <EmptyDescription>
+                                            Upload files to your cloud storage to access them anywhere.
+                                        </EmptyDescription>
+                                    </EmptyHeader>
+                                    <EmptyContent>
+                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Upload Files</Button>
+                                    </EmptyContent>
+                                </Empty>
+                            </div>
+                        </Preview>
+                        <Code>@codeOutline</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6" id="avatar-group">
+                    <ComponentExample Title="Avatar Group" Compact="true" CodeText="@codeAvatarGroup">
+                        <Preview>
+                            <div class="flex min-h-[300px] w-full items-center justify-center">
+                                <Empty Class="w-full max-w-md">
+                                    <EmptyHeader>
+                                        <EmptyMedia>
+                                            <div class="flex -space-x-2 *:data-[slot=avatar]:size-12 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale">
+                                                <Avatar>
+                                                    <AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" />
+                                                    <AvatarFallback>CN</AvatarFallback>
+                                                </Avatar>
+                                                <Avatar>
+                                                    <AvatarImage Src="https://github.com/maxleiter.png" Alt="maxleiter" />
+                                                    <AvatarFallback>ML</AvatarFallback>
+                                                </Avatar>
+                                                <Avatar>
+                                                    <AvatarImage Src="https://github.com/evilrabbit.png" Alt="evilrabbit" />
+                                                    <AvatarFallback>ER</AvatarFallback>
+                                                </Avatar>
+                                            </div>
+                                        </EmptyMedia>
+                                        <EmptyTitle>No Team Members</EmptyTitle>
+                                        <EmptyDescription>
+                                            Invite your team to collaborate on this project.
+                                        </EmptyDescription>
+                                    </EmptyHeader>
+                                    <EmptyContent>
+                                        <Button Size="ButtonSize.Sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+                                                <path d="M5 12h14" />
+                                                <path d="M12 5v14" />
+                                            </svg>
+                                            Invite Members
+                                        </Button>
+                                    </EmptyContent>
+                                </Empty>
+                            </div>
+                        </Preview>
+                        <Code>@codeAvatarGroup</Code>
+                    </ComponentExample>
+                </div>
+
+                <div class="mt-6" id="background">
+                    <ComponentExample Title="Background" Compact="true" CodeText="@codeBackground">
+                        <Preview>
+                            <div class="flex min-h-[300px] w-full items-center justify-center">
+                                <Empty Class="min-h-[280px] w-full max-w-md bg-muted/30">
+                                    <EmptyHeader>
+                                        <EmptyMedia Variant="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true">
+                                                <path d="M10.3 21a1 1 0 0 0 3.4 0" />
+                                                <path d="M4.3 18h15.4" />
+                                                <path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 10h18c0-2-3-3-3-10" />
+                                            </svg>
+                                        </EmptyMedia>
+                                        <EmptyTitle>No Notifications</EmptyTitle>
+                                        <EmptyDescription Class="max-w-xs text-pretty">
+                                            You're all caught up. New notifications will appear here.
+                                        </EmptyDescription>
+                                    </EmptyHeader>
+                                    <EmptyContent>
+                                        <Button Variant="ButtonVariant.Outline">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+                                                <path d="M21 2v6h-6" />
+                                                <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                                                <path d="M3 22v-6h6" />
+                                                <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                                            </svg>
+                                            Refresh
+                                        </Button>
+                                    </EmptyContent>
+                                </Empty>
+                            </div>
+                        </Preview>
+                        <Code>@codeBackground</Code>
+                    </ComponentExample>
+                </div>
+
+                <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">Empty</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight">EmptyMedia</h3>
+                <div class="no-scrollbar my-6 w-full overflow-x-auto overflow-y-hidden rounded-xl border">
+                    <table class="relative w-full min-w-max overflow-hidden border-none text-sm">
+                        <thead>
+                            <tr class="m-0 border-b">
+                                <th class="px-4 py-2 text-left font-bold">Prop</th>
+                                <th class="px-4 py-2 text-left font-bold">Type</th>
+                                <th class="px-4 py-2 text-left font-bold">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_tr:last-child]:border-b-0">
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Variant</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">"default" | "icon"</code></td><td class="px-4 py-2 text-left whitespace-nowrap">"default"</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">Class</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">string?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                            <tr class="m-0 border-b"><td class="px-4 py-2 text-left whitespace-nowrap">ChildContent</td><td class="px-4 py-2 text-left whitespace-nowrap"><code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] whitespace-nowrap">RenderFragment?</code></td><td class="px-4 py-2 text-left whitespace-nowrap">null</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-muted-foreground mt-2 text-sm">
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">EmptyHeader</code>,
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">EmptyTitle</code>,
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">EmptyDescription</code>, and
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">EmptyContent</code> each accept
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">Class</code> and
+                    <code class="bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem]">ChildContent</code>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-14 z-30 ml-auto hidden h-[90svh] w-[280px] flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+        <div class="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+            <DocsPageLinks />
+            <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+                <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs font-medium">On This Page</p>
+                <a href="#installation" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Installation</a>
+                <a href="#usage" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Usage</a>
+                <a href="#anatomy" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Anatomy</a>
+                <a href="#examples" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">Examples</a>
+                <a href="#outline" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Outline</a>
+                <a href="#avatar-group" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Avatar Group</a>
+                <a href="#background" class="text-muted-foreground hover:text-foreground pl-4 text-[0.8rem] no-underline transition-colors">Background</a>
+                <a href="#api-reference" class="text-muted-foreground hover:text-foreground text-[0.8rem] no-underline transition-colors">API Reference</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private const string referenceUrl = "https://ui.shadcn.com/docs/components/empty";
+    private const string installCommand = "blazor-shadcn add empty";
+    private const string manualImportStep = "Add @using ShadcnBlazor.Components.UI to Components/_Imports.razor";
+    private const string usingStatement = """
+@using ShadcnBlazor.Components.UI
+""";
+
+    private static readonly string[] manualSourcePaths =
+    [
+        "components/empty/Empty.razor",
+        "components/empty/EmptyHeader.razor",
+        "components/empty/EmptyMedia.razor",
+        "components/empty/EmptyTitle.razor",
+        "components/empty/EmptyDescription.razor",
+        "components/empty/EmptyContent.razor"
+    ];
+
+    private const string usageCode = """
+<Empty Class="w-full max-w-md">
+    <EmptyHeader>
+        <EmptyMedia Variant="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <path d="M3 10h18" />
+            </svg>
+        </EmptyMedia>
+        <EmptyTitle>No Projects Yet</EmptyTitle>
+        <EmptyDescription>
+            You haven't created any projects yet. Get started by creating your first project.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent Class="flex-row justify-center gap-2">
+        <Button>Create Project</Button>
+        <Button Variant="ButtonVariant.Outline">Import Project</Button>
+    </EmptyContent>
+</Empty>
+""";
+
+    private const string anatomyCode = """
+<Empty>
+    <EmptyHeader>
+        <EmptyMedia Variant="icon">...</EmptyMedia>
+        <EmptyTitle>Title</EmptyTitle>
+        <EmptyDescription>Description</EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
+        ...
+    </EmptyContent>
+</Empty>
+""";
+
+    private const string codeMainDemo = """
+<Empty Class="w-full max-w-md">
+    <EmptyHeader>
+        <EmptyMedia Variant="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <path d="M3 10h18" />
+            </svg>
+        </EmptyMedia>
+        <EmptyTitle>No Projects Yet</EmptyTitle>
+        <EmptyDescription>
+            You haven't created any projects yet. Get started by creating your first project.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent Class="flex-row justify-center gap-2">
+        <Button>Create Project</Button>
+        <Button Variant="ButtonVariant.Outline">Import Project</Button>
+    </EmptyContent>
+    <Button Variant="ButtonVariant.Link" Size="ButtonSize.Sm" Href="#" Class="text-muted-foreground">
+        Learn More
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 7h10v10" />
+            <path d="M7 17 17 7" />
+        </svg>
+    </Button>
+</Empty>
+""";
+
+    private const string codeOutline = """
+<Empty Class="w-full max-w-md border">
+    <EmptyHeader>
+        <EmptyMedia Variant="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 19a4 4 0 0 1 0-8 5 5 0 0 1 9.7-1A4.5 4.5 0 1 1 18 19Z" />
+            </svg>
+        </EmptyMedia>
+        <EmptyTitle>Cloud Storage Empty</EmptyTitle>
+        <EmptyDescription>
+            Upload files to your cloud storage to access them anywhere.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
+        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Upload Files</Button>
+    </EmptyContent>
+</Empty>
+""";
+
+    private const string codeAvatarGroup = """
+<Empty Class="w-full max-w-md">
+    <EmptyHeader>
+        <EmptyMedia>
+            <div class="flex -space-x-2 *:data-[slot=avatar]:size-12 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale">
+                <Avatar>
+                    <AvatarImage Src="https://github.com/shadcn.png" Alt="shadcn" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <Avatar>
+                    <AvatarImage Src="https://github.com/maxleiter.png" Alt="maxleiter" />
+                    <AvatarFallback>ML</AvatarFallback>
+                </Avatar>
+                <Avatar>
+                    <AvatarImage Src="https://github.com/evilrabbit.png" Alt="evilrabbit" />
+                    <AvatarFallback>ER</AvatarFallback>
+                </Avatar>
+            </div>
+        </EmptyMedia>
+        <EmptyTitle>No Team Members</EmptyTitle>
+        <EmptyDescription>
+            Invite your team to collaborate on this project.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
+        <Button Size="ButtonSize.Sm">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+            </svg>
+            Invite Members
+        </Button>
+    </EmptyContent>
+</Empty>
+""";
+
+    private const string codeBackground = """
+<Empty Class="min-h-[280px] w-full max-w-md bg-muted/30">
+    <EmptyHeader>
+        <EmptyMedia Variant="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.3 21a1 1 0 0 0 3.4 0" />
+                <path d="M4.3 18h15.4" />
+                <path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 10h18c0-2-3-3-3-10" />
+            </svg>
+        </EmptyMedia>
+        <EmptyTitle>No Notifications</EmptyTitle>
+        <EmptyDescription Class="max-w-xs text-pretty">
+            You're all caught up. New notifications will appear here.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
+        <Button Variant="ButtonVariant.Outline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 2v6h-6" />
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                <path d="M3 22v-6h6" />
+                <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+            </svg>
+            Refresh
+        </Button>
+    </EmptyContent>
+</Empty>
+""";
+}
