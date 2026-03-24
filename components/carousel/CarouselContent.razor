@@ -41,7 +41,7 @@
         => Cn(
             "overflow-hidden no-scrollbar scroll-smooth",
             CarouselContext?.GetOrientation() == Carousel.CarouselOrientation.Horizontal
-                ? "overflow-x-auto overflow-y-hidden touch-pan-y"
+                ? "overflow-x-hidden overflow-y-hidden touch-pan-y"
                 : "h-full overflow-y-auto overflow-x-hidden touch-pan-x");
 
     private string GetTrackClasses()

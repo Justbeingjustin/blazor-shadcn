@@ -10,8 +10,8 @@
                     <h1 class="scroll-m-24 text-3xl font-semibold tracking-tight">Empty</h1>
                     <div class="ml-auto flex items-center gap-2">
                         <DocsCopyPage PageUrl="@referenceUrl" />
-                        <Button Variant="ButtonVariant.Secondary"
-                                Size="ButtonSize.Icon"
+                        <Button Variant="@Button.ButtonVariant.Secondary"
+                                Size="@Button.ButtonSize.Icon"
                                 Href="/components/dropdown-menu"
                                 Class="extend-touch-target size-8 shadow-none md:size-7"
                                 aria-label="Previous">
@@ -22,8 +22,8 @@
                             </svg>
                             <span class="sr-only">Previous</span>
                         </Button>
-                        <Button Variant="ButtonVariant.Secondary"
-                                Size="ButtonSize.Icon"
+                        <Button Variant="@Button.ButtonVariant.Secondary"
+                                Size="@Button.ButtonSize.Icon"
                                 Href="/components/field"
                                 Class="extend-touch-target size-8 shadow-none md:size-7"
                                 aria-label="Next">
@@ -63,10 +63,10 @@
                                 </EmptyHeader>
                                 <EmptyContent Class="flex-row justify-center gap-2">
                                     <Button>Create Project</Button>
-                                    <Button Variant="ButtonVariant.Outline">Import Project</Button>
+                                    <Button Variant="@Button.ButtonVariant.Outline">Import Project</Button>
                                 </EmptyContent>
-                                <Button Variant="ButtonVariant.Link"
-                                        Size="ButtonSize.Sm"
+                                <Button Variant="@Button.ButtonVariant.Link"
+                                        Size="@Button.ButtonSize.Sm"
                                         Href="#"
                                         Class="text-muted-foreground">
                                     Learn More
@@ -126,7 +126,7 @@
                                         </EmptyDescription>
                                     </EmptyHeader>
                                     <EmptyContent>
-                                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Upload Files</Button>
+                                        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Upload Files</Button>
                                     </EmptyContent>
                                 </Empty>
                             </div>
@@ -163,7 +163,7 @@
                                         </EmptyDescription>
                                     </EmptyHeader>
                                     <EmptyContent>
-                                        <Button Size="ButtonSize.Sm">
+                                        <Button Size="@Button.ButtonSize.Sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
                                                 <path d="M5 12h14" />
                                                 <path d="M12 5v14" />
@@ -197,7 +197,7 @@
                                         </EmptyDescription>
                                     </EmptyHeader>
                                     <EmptyContent>
-                                        <Button Variant="ButtonVariant.Outline">
+                                        <Button Variant="@Button.ButtonVariant.Outline">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
                                                 <path d="M21 2v6h-6" />
                                                 <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
@@ -315,7 +315,7 @@
     </EmptyHeader>
     <EmptyContent Class="flex-row justify-center gap-2">
         <Button>Create Project</Button>
-        <Button Variant="ButtonVariant.Outline">Import Project</Button>
+        <Button Variant="@Button.ButtonVariant.Outline">Import Project</Button>
     </EmptyContent>
 </Empty>
 """;
@@ -349,9 +349,9 @@
     </EmptyHeader>
     <EmptyContent Class="flex-row justify-center gap-2">
         <Button>Create Project</Button>
-        <Button Variant="ButtonVariant.Outline">Import Project</Button>
+        <Button Variant="@Button.ButtonVariant.Outline">Import Project</Button>
     </EmptyContent>
-    <Button Variant="ButtonVariant.Link" Size="ButtonSize.Sm" Href="#" Class="text-muted-foreground">
+    <Button Variant="@Button.ButtonVariant.Link" Size="@Button.ButtonSize.Sm" Href="#" Class="text-muted-foreground">
         Learn More
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M7 7h10v10" />
@@ -375,7 +375,7 @@
         </EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">Upload Files</Button>
+        <Button Variant="@Button.ButtonVariant.Outline" Size="@Button.ButtonSize.Sm">Upload Files</Button>
     </EmptyContent>
 </Empty>
 """;
@@ -405,7 +405,7 @@
         </EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-        <Button Size="ButtonSize.Sm">
+        <Button Size="@Button.ButtonSize.Sm">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />
@@ -432,7 +432,7 @@
         </EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-        <Button Variant="ButtonVariant.Outline">
+        <Button Variant="@Button.ButtonVariant.Outline">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 2v6h-6" />
                 <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />

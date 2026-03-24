@@ -7,7 +7,7 @@
 <div data-slot="carousel"
      role="region"
      aria-roledescription="carousel"
-     class="@Cn("relative", Class)"
+     class="@GetClasses()"
      @onkeydown="HandleKeyDown"
      @attributes="AdditionalAttributes">
     <CascadingValue Value="_context">
@@ -138,6 +138,12 @@
 
     private static string OrientationToAxis(CarouselOrientation orientation)
         => orientation == CarouselOrientation.Vertical ? "y" : "x";
+
+    private string GetClasses()
+        => Cn(
+            "relative",
+            Orientation == CarouselOrientation.Horizontal ? "px-12" : "py-12",
+            Class);
 
     public async ValueTask DisposeAsync()
     {
