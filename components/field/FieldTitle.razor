@@ -1,8 +1,7 @@
 @namespace ShadcnBlazor.Components.UI
-@using BlazorShadcn.Utilities
 
 <div data-slot="field-title"
-     class="@Tw.Merge("flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50", Class)"
+     class="@Cn("flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50", Class)"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -12,4 +11,7 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

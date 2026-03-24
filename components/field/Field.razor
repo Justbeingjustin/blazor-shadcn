@@ -1,10 +1,9 @@
 @namespace ShadcnBlazor.Components.UI
-@using BlazorShadcn.Utilities
 
 <div role="group"
      data-slot="field"
      data-orientation="@ResolvedOrientation"
-     class="@Tw.Merge(BaseClasses, GetOrientationClasses(), Class)"
+     class="@Cn(BaseClasses, GetOrientationClasses(), Class)"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
@@ -28,4 +27,7 @@
             "responsive" => "flex-col @md/field-group:flex-row @md/field-group:items-center [&>*]:w-full @md/field-group:[&>*]:w-auto [&>.sr-only]:w-auto @md/field-group:[&>[data-slot=field-label]]:flex-auto @md/field-group:has-[>[data-slot=field-content]]:items-start",
             _ => "flex-col [&>*]:w-full [&>.sr-only]:w-auto"
         };
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

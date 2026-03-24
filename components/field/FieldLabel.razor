@@ -1,9 +1,8 @@
 @namespace ShadcnBlazor.Components.UI
-@using BlazorShadcn.Utilities
 
 <label data-slot="field-label"
        for="@For"
-       class="@Tw.Merge(BaseClasses, CardClasses, SelectionClasses, Class)"
+       class="@Cn(BaseClasses, CardClasses, SelectionClasses, Class)"
        @attributes="AdditionalAttributes">
     @ChildContent
 </label>
@@ -27,4 +26,7 @@
         "has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 " +
         "dark:has-data-[state=checked]:bg-primary/10 has-[input:checked]:border-primary has-[input:checked]:bg-primary/5 " +
         "dark:has-[input:checked]:bg-primary/10";
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

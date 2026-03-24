@@ -1,8 +1,7 @@
 @namespace ShadcnBlazor.Components.UI
-@using BlazorShadcn.Utilities
 
 <fieldset data-slot="field-set"
-          class="@Tw.Merge("flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3", Class)"
+          class="@Cn("flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3", Class)"
           @attributes="AdditionalAttributes">
     @ChildContent
 </fieldset>
@@ -12,4 +11,7 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
