@@ -136,9 +136,7 @@
         ? "lg:grid lg:grid-cols-[240px_minmax(0,1fr)]"
         : "lg:block";
 
-    private bool ShowDesktopSidebar => !IsComponentsIndexPage;
-
-    private bool IsComponentsIndexPage => Navigation.ToBaseRelativePath(Navigation.Uri).TrimEnd('/') == "docs/components";
+    private bool ShowDesktopSidebar => true;
 
     private void ToggleLayout() => _fixedLayout = !_fixedLayout;
 
