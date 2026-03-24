@@ -1,6 +1,4 @@
 @page "/components/carousel"
-@implements IDisposable
-
 <PageTitle>Carousel - blazor-shadcn</PageTitle>
 
 <div data-slot="docs" class="flex scroll-mt-24 items-stretch pb-8 text-[15px] xl:w-full">
@@ -138,37 +136,9 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="orientation">Orientation</h3>
-                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    Set <code>Orientation</code> to <code>Vertical</code> to stack slides and move the navigation controls above and below the viewport.
-                </p>
+                <div id="orientation" class="scroll-m-28"></div>
                 <div class="mt-6">
-                    @* Reference ComponentPreview: carousel-orientation *@
-                    <ComponentExample Compact="true" CodeText="@orientationCode">
-                        <Preview>
-                            <div class="mx-auto max-w-md px-12 py-12">
-                                <Carousel Orientation="Carousel.CarouselOrientation.Vertical" Class="h-[220px] w-full max-w-md">
-                                    <CarouselContent Class="-mt-1 h-full">
-                                        @foreach (var slide in slides)
-                                        {
-                                            <CarouselItem Class="pt-1 basis-1/2">
-                                                <div class="p-1">
-                                                    <Card Class="h-full">
-                                                        <CardContent Class="flex h-full items-center justify-center">
-                                                            <span class="text-3xl font-semibold">@slide</span>
-                                                        </CardContent>
-                                                    </Card>
-                                                </div>
-                                            </CarouselItem>
-                                        }
-                                    </CarouselContent>
-                                    <CarouselPrevious />
-                                    <CarouselNext />
-                                </Carousel>
-                            </div>
-                        </Preview>
-                        <Code>@orientationCode</Code>
-                    </ComponentExample>
+                    <ComingSoonExample Title="Orientation" TitleNote="Coming soon" />
                 </div>
 
                 <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="api">API</h3>
@@ -207,44 +177,9 @@
                     </ComponentExample>
                 </div>
 
-                <h3 class="font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight" id="autoplay">Autoplay</h3>
-                <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    This mirrors the reference plugin demo with a timer-driven autoplay example that pauses while the preview is hovered.
-                </p>
+                <div id="autoplay" class="scroll-m-28"></div>
                 <div class="mt-6">
-                    @* Reference ComponentPreview: carousel-plugin *@
-                    <ComponentExample Compact="true" CodeText="@autoplayCode">
-                        <Preview>
-                            <div class="mx-auto max-w-xs px-12"
-                                 @onmouseenter="PauseAutoplay"
-                                 @onmouseleave="ResumeAutoplay">
-                                <Carousel Class="w-full max-w-xs"
-                                          ApiChanged="HandleAutoplayApiChanged"
-                                          StateChanged="HandleAutoplayStateChanged">
-                                    <CarouselContent>
-                                        @foreach (var slide in slides)
-                                        {
-                                            <CarouselItem>
-                                                <div class="p-1">
-                                                    <Card>
-                                                        <CardContent Class="flex aspect-square items-center justify-center p-6">
-                                                            <span class="text-4xl font-semibold">@slide</span>
-                                                        </CardContent>
-                                                    </Card>
-                                                </div>
-                                            </CarouselItem>
-                                        }
-                                    </CarouselContent>
-                                    <CarouselPrevious />
-                                    <CarouselNext />
-                                </Carousel>
-                                <div class="py-2 text-center text-sm text-muted-foreground">
-                                    Hover to pause. Slide @AutoplayDisplayCurrent of @_autoplayCount.
-                                </div>
-                            </div>
-                        </Preview>
-                        <Code>@autoplayCode</Code>
-                    </ComponentExample>
+                    <ComingSoonExample Title="Autoplay" TitleNote="Coming soon" />
                 </div>
 
                 <h2 class="font-heading mt-10 scroll-m-28 text-xl font-medium tracking-tight lg:mt-12" id="api-reference">API Reference</h2>
@@ -388,15 +323,8 @@ Copy components/carousel/carousel.js into your project and include it from Compo
     private static readonly int[] slides = [1, 2, 3, 4, 5];
     private int _apiExampleCurrent;
     private int _apiExampleCount = slides.Length;
-    private CarouselApi? _autoplayApi;
-    private int _autoplayCurrent;
-    private int _autoplayCount = slides.Length;
-    private bool _autoplayPaused;
-    private bool _autoplayTickInProgress;
-    private System.Threading.Timer? _autoplayTimer;
 
     private int ApiExampleDisplayCurrent => _apiExampleCount == 0 ? 0 : _apiExampleCurrent + 1;
-    private int AutoplayDisplayCurrent => _autoplayCount == 0 ? 0 : _autoplayCurrent + 1;
 
     private const string usageCode = """
 <Carousel Class="w-full max-w-xs">
@@ -473,31 +401,6 @@ Copy components/carousel/carousel.js into your project and include it from Compo
 }
 """;
 
-    private const string orientationCode = """
-<Carousel Orientation="Carousel.CarouselOrientation.Vertical" Class="h-[220px] w-full max-w-md">
-    <CarouselContent Class="-mt-1 h-full">
-        @foreach (var slide in slides)
-        {
-            <CarouselItem Class="pt-1 basis-1/2">
-                <div class="p-1">
-                    <Card Class="h-full">
-                        <CardContent Class="flex h-full items-center justify-center">
-                            <span class="text-3xl font-semibold">@slide</span>
-                        </CardContent>
-                    </Card>
-                </div>
-            </CarouselItem>
-        }
-    </CarouselContent>
-    <CarouselPrevious />
-    <CarouselNext />
-</Carousel>
-
-@code {
-    private static readonly int[] slides = [1, 2, 3, 4, 5];
-}
-""";
-
     private const string apiCode = """
 <Carousel Class="w-full max-w-xs"
           ApiChanged="HandleCarouselApi"
@@ -547,55 +450,6 @@ Copy components/carousel/carousel.js into your project and include it from Compo
 }
 """;
 
-    private const string autoplayCode = """
-<div @onmouseenter="PauseAutoplay" @onmouseleave="ResumeAutoplay">
-    <Carousel Class="w-full max-w-xs"
-              ApiChanged="HandleAutoplayApi"
-              StateChanged="HandleAutoplayStateChanged">
-        <CarouselContent>
-            @foreach (var slide in slides)
-            {
-                <CarouselItem>
-                    <div class="p-1">
-                        <Card>
-                            <CardContent Class="flex aspect-square items-center justify-center p-6">
-                                <span class="text-4xl font-semibold">@slide</span>
-                            </CardContent>
-                        </Card>
-                    </div>
-                </CarouselItem>
-            }
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-    </Carousel>
-</div>
-
-@code {
-    private static readonly int[] slides = [1, 2, 3, 4, 5];
-    private CarouselApi? autoplayApi;
-
-    private Task HandleAutoplayApi(CarouselApi carouselApi)
-    {
-        autoplayApi = carouselApi;
-        StartAutoplay();
-        return Task.CompletedTask;
-    }
-
-    private Task HandleAutoplayStateChanged(CarouselApi carouselApi)
-    {
-        autoplayApi = carouselApi;
-        return Task.CompletedTask;
-    }
-
-    private Task StartAutoplay()
-    {
-        // Advance every 2 seconds and pause while hovered.
-        return Task.CompletedTask;
-    }
-}
-""";
-
     private Task HandleApiExampleApiChanged(CarouselApi carouselApi)
     {
         SyncApiExampleState(carouselApi);
@@ -608,79 +462,10 @@ Copy components/carousel/carousel.js into your project and include it from Compo
         return Task.CompletedTask;
     }
 
-    private Task HandleAutoplayApiChanged(CarouselApi carouselApi)
-    {
-        _autoplayApi = carouselApi;
-        SyncAutoplayState(carouselApi);
-        EnsureAutoplayTimer();
-        return Task.CompletedTask;
-    }
-
-    private Task HandleAutoplayStateChanged(CarouselApi carouselApi)
-    {
-        _autoplayApi = carouselApi;
-        SyncAutoplayState(carouselApi);
-        return Task.CompletedTask;
-    }
-
     private void SyncApiExampleState(CarouselApi carouselApi)
     {
         _apiExampleCurrent = carouselApi.SelectedIndex;
         _apiExampleCount = carouselApi.SlideCount == 0 ? slides.Length : carouselApi.SlideCount;
-    }
-
-    private void SyncAutoplayState(CarouselApi carouselApi)
-    {
-        _autoplayCurrent = carouselApi.SelectedIndex;
-        _autoplayCount = carouselApi.SlideCount == 0 ? slides.Length : carouselApi.SlideCount;
-    }
-
-    private void EnsureAutoplayTimer()
-    {
-        _autoplayTimer ??= new System.Threading.Timer(_ =>
-        {
-            _ = InvokeAsync(HandleAutoplayTickAsync);
-        }, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
-    }
-
-    private async Task HandleAutoplayTickAsync()
-    {
-        if (_autoplayTickInProgress || _autoplayPaused || _autoplayApi is null || _autoplayApi.SlideCount == 0)
-        {
-            return;
-        }
-
-        _autoplayTickInProgress = true;
-
-        try
-        {
-            if (_autoplayApi.SelectedIndex >= _autoplayApi.SlideCount - 1)
-            {
-                await _autoplayApi.ScrollToAsync(0);
-                return;
-            }
-
-            await _autoplayApi.ScrollNextAsync();
-        }
-        finally
-        {
-            _autoplayTickInProgress = false;
-        }
-    }
-
-    private void PauseAutoplay(MouseEventArgs _)
-    {
-        _autoplayPaused = true;
-    }
-
-    private void ResumeAutoplay(MouseEventArgs _)
-    {
-        _autoplayPaused = false;
-    }
-
-    public void Dispose()
-    {
-        _autoplayTimer?.Dispose();
     }
 
     private static readonly string[] _manualSourcePaths =
