@@ -248,6 +248,7 @@
     private string? ApiReferenceUrl => Slug switch
     {
         "switch" => "https://www.radix-ui.com/docs/primitives/components/switch#api-reference",
+        "tabs" => "https://www.radix-ui.com/docs/primitives/components/tabs#api-reference",
         _ => null
     };
     private string InstallCommand => $"blazor-shadcn add {Slug}";
@@ -275,7 +276,20 @@
     <Label For="airplane-mode">Airplane Mode</Label>
 </div>
 """,
-        "tabs" => """<Tabs DefaultValue="account"><TabsList><TabsTrigger Value="account">Account</TabsTrigger><TabsTrigger Value="password">Password</TabsTrigger></TabsList><TabsContent Value="account">Account content</TabsContent><TabsContent Value="password">Password content</TabsContent></Tabs>""",
+        "tabs" => """
+<Tabs DefaultValue="overview" Class="w-[400px]">
+    <TabsList>
+        <TabsTrigger Value="overview">Overview</TabsTrigger>
+        <TabsTrigger Value="analytics">Analytics</TabsTrigger>
+        <TabsTrigger Value="reports">Reports</TabsTrigger>
+        <TabsTrigger Value="settings">Settings</TabsTrigger>
+    </TabsList>
+    <TabsContent Value="overview">View your key metrics and recent project activity.</TabsContent>
+    <TabsContent Value="analytics">Track performance and user engagement metrics.</TabsContent>
+    <TabsContent Value="reports">Generate and download your detailed reports.</TabsContent>
+    <TabsContent Value="settings">Manage your account preferences and options.</TabsContent>
+</Tabs>
+""",
         "textarea" => """<Textarea Placeholder="Type your message here." Class="max-w-sm" />""",
         "toggle" => """
 <div class="flex flex-col items-center py-6">
@@ -304,11 +318,19 @@
     private bool HasRtl => Slug != "tooltip" && Sections.Contains("RTL");
     private bool HasApiReference => Sections.Contains("API Reference");
     private bool HasDataTable => Sections.Contains("Data Table");
-    private List<string> Sections => ParseSection("Keep the docs page section order identical to the reference:");
-    private List<string> ExampleHeadings => ParseSection("Implement these example headings in this exact order:");
+    private List<string> Sections => Slug switch
+    {
+        "tabs" => ["Installation", "Usage", "Examples", "API Reference"],
+        _ => ParseSection("Keep the docs page section order identical to the reference:")
+    };
+    private List<string> ExampleHeadings => Slug switch
+    {
+        "tabs" => ["Line", "Vertical", "Disabled", "Icons"],
+        _ => ParseSection("Implement these example headings in this exact order:")
+    };
     private IReadOnlyList<string> ManualSourcePaths => LoadSourcePaths();
     private IReadOnlyList<string> DependencyCommands => ParseSection("Manual tab dependency steps called out in the docs:");
-    private string? ExampleTitle(string heading) => Slug is "switch" or "tooltip" ? heading : null;
+    private string? ExampleTitle(string heading) => Slug is "switch" or "tooltip" or "tabs" ? heading : null;
     private string? ExampleTitleNote(string heading) => Slug == "switch" && heading != "Demo" ? "Coming soon" : null;
 
     private string? PrevNext(int offset)
@@ -443,7 +465,56 @@
 """,
             _ => """<div class="text-sm text-muted-foreground">Coming soon.</div>"""
         },
-        "tabs" => $"""<Tabs DefaultValue="first"><TabsList><TabsTrigger Value="first">{heading}</TabsTrigger><TabsTrigger Value="second">Details</TabsTrigger></TabsList><TabsContent Value="first">Primary panel</TabsContent><TabsContent Value="second">Secondary panel</TabsContent></Tabs>""",
+        "tabs" => heading switch
+        {
+            "Line" => """
+<Tabs DefaultValue="overview">
+    <TabsList Variant="line">
+        <TabsTrigger Value="overview">Overview</TabsTrigger>
+        <TabsTrigger Value="analytics">Analytics</TabsTrigger>
+        <TabsTrigger Value="reports">Reports</TabsTrigger>
+    </TabsList>
+</Tabs>
+""",
+            "Vertical" => """
+<Tabs DefaultValue="account" Orientation="vertical">
+    <TabsList>
+        <TabsTrigger Value="account">Account</TabsTrigger>
+        <TabsTrigger Value="password">Password</TabsTrigger>
+        <TabsTrigger Value="notifications">Notifications</TabsTrigger>
+    </TabsList>
+</Tabs>
+""",
+            "Disabled" => """
+<Tabs DefaultValue="home">
+    <TabsList>
+        <TabsTrigger Value="home">Home</TabsTrigger>
+        <TabsTrigger Value="settings" Disabled="true">Disabled</TabsTrigger>
+    </TabsList>
+</Tabs>
+""",
+            "Icons" => """
+<Tabs DefaultValue="preview">
+    <TabsList>
+        <TabsTrigger Value="preview">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="14" rx="2" />
+                <path d="M8 20h8" />
+            </svg>
+            Preview
+        </TabsTrigger>
+        <TabsTrigger Value="code">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m8 9-3 3 3 3" />
+                <path d="m16 9 3 3-3 3" />
+            </svg>
+            Code
+        </TabsTrigger>
+    </TabsList>
+</Tabs>
+""",
+            _ => UsageCode
+        },
         "textarea" => $"""<Textarea Placeholder="{heading}..." Class="min-h-28 max-w-sm" />""",
         "toggle" => heading switch
         {
@@ -815,18 +886,102 @@
             </div>,
             _ => @<div class="text-sm text-muted-foreground">Coming soon.</div>
         },
-        "tabs" => @<Tabs DefaultValue="account" Class="w-full max-w-md">
-            <TabsList>
-                <TabsTrigger Value="account">Account</TabsTrigger>
-                <TabsTrigger Value="password">Password</TabsTrigger>
-            </TabsList>
-            <TabsContent Value="account">
-                <div class="border rounded-lg p-4 text-sm">Manage profile details and display settings.</div>
-            </TabsContent>
-            <TabsContent Value="password">
-                <div class="border rounded-lg p-4 text-sm">Rotate credentials and review security preferences.</div>
-            </TabsContent>
-        </Tabs>,
+        "tabs" => heading switch
+        {
+            "Demo" => @<div class="flex w-full max-w-sm flex-col gap-6">
+                <Tabs DefaultValue="overview" Class="w-full">
+                    <TabsList>
+                        <TabsTrigger Value="overview">Overview</TabsTrigger>
+                        <TabsTrigger Value="analytics">Analytics</TabsTrigger>
+                        <TabsTrigger Value="reports">Reports</TabsTrigger>
+                        <TabsTrigger Value="settings">Settings</TabsTrigger>
+                    </TabsList>
+                    <TabsContent Value="overview">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Overview</CardTitle>
+                                <CardDescription>View your key metrics and recent project activity. Track progress across all your active projects.</CardDescription>
+                            </CardHeader>
+                            <CardContent Class="text-sm text-muted-foreground">
+                                You have 12 active projects and 3 pending tasks.
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent Value="analytics">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Analytics</CardTitle>
+                                <CardDescription>Track performance and user engagement metrics. Monitor trends and identify growth opportunities.</CardDescription>
+                            </CardHeader>
+                            <CardContent Class="text-sm text-muted-foreground">
+                                Page views are up 25% compared to last month.
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent Value="reports">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Reports</CardTitle>
+                                <CardDescription>Generate and download your detailed reports. Export data in multiple formats for analysis.</CardDescription>
+                            </CardHeader>
+                            <CardContent Class="text-sm text-muted-foreground">
+                                You have 5 reports ready and available to export.
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent Value="settings">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Settings</CardTitle>
+                                <CardDescription>Manage your account preferences and options. Customize your experience to fit your needs.</CardDescription>
+                            </CardHeader>
+                            <CardContent Class="text-sm text-muted-foreground">
+                                Configure notifications, security, and themes.
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                </Tabs>
+            </div>,
+            "Line" => @<Tabs DefaultValue="overview">
+                <TabsList Variant="line">
+                    <TabsTrigger Value="overview">Overview</TabsTrigger>
+                    <TabsTrigger Value="analytics">Analytics</TabsTrigger>
+                    <TabsTrigger Value="reports">Reports</TabsTrigger>
+                </TabsList>
+            </Tabs>,
+            "Vertical" => @<Tabs DefaultValue="account" Orientation="vertical">
+                <TabsList>
+                    <TabsTrigger Value="account">Account</TabsTrigger>
+                    <TabsTrigger Value="password">Password</TabsTrigger>
+                    <TabsTrigger Value="notifications">Notifications</TabsTrigger>
+                </TabsList>
+            </Tabs>,
+            "Disabled" => @<Tabs DefaultValue="home">
+                <TabsList>
+                    <TabsTrigger Value="home">Home</TabsTrigger>
+                    <TabsTrigger Value="settings" Disabled="true">Disabled</TabsTrigger>
+                </TabsList>
+            </Tabs>,
+            "Icons" => @<Tabs DefaultValue="preview">
+                <TabsList>
+                    <TabsTrigger Value="preview">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="14" rx="2" />
+                            <path d="M8 20h8" />
+                        </svg>
+                        Preview
+                    </TabsTrigger>
+                    <TabsTrigger Value="code">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="m8 9-3 3 3 3" />
+                            <path d="m16 9 3 3-3 3" />
+                        </svg>
+                        Code
+                    </TabsTrigger>
+                </TabsList>
+            </Tabs>,
+            _ => @<div class="text-sm text-muted-foreground">Coming soon.</div>
+        },
         "textarea" => @<Textarea Placeholder="@($"{heading}...")" Class="min-h-28 max-w-sm" />,
         "toggle" => heading switch
         {

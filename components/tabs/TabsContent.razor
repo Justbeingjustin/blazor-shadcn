@@ -1,21 +1,26 @@
-@if (string.Equals(Context?.ActiveValue, Value, StringComparison.Ordinal))
+@namespace ShadcnBlazor.Components.UI
+
+@if (_context?.IsActive(Value) == true)
 {
     <div data-slot="tabs-content"
-         id="@(Context?.GetContentId(Value) ?? Value)"
+         id="@(_context.GetContentId(Value))"
          role="tabpanel"
-         aria-labelledby="@(Context?.GetTriggerId(Value) ?? Value)"
+         aria-labelledby="@(_context.GetTriggerId(Value))"
          tabindex="0"
-         class="@Tw.Merge("flex-1 outline-none", Class)"
+         class="@Cn("flex-1 outline-none", Class)"
          @attributes="AdditionalAttributes">
         @ChildContent
     </div>
 }
 
 @code {
-    [CascadingParameter(Name = "TabsContext")] private TabsContext? Context { get; set; }
+    [CascadingParameter] private TabsContext? _context { get; set; }
     [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

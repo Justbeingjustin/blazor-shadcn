@@ -1,3 +1,6 @@
+@namespace ShadcnBlazor.Components.UI
+@using Microsoft.AspNetCore.Components.Web
+
 <button type="button"
         id="@TriggerId"
         @ref="_element"
@@ -7,7 +10,7 @@
         aria-selected="@IsActive"
         aria-controls="@ContentId"
         tabindex="@(IsActive ? 0 : -1)"
-        class="@Tw.Merge(GetClasses(), Class)"
+        class="@Cn(GetClasses(), Class)"
         disabled="@Disabled"
         @onclick="ActivateAsync"
         @onkeydown="HandleKeyDownAsync"
@@ -16,7 +19,7 @@
 </button>
 
 @code {
-    [CascadingParameter(Name = "TabsContext")] private TabsContext? Context { get; set; }
+    [CascadingParameter] private TabsContext? _context { get; set; }
     [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public string? Class { get; set; }
@@ -25,19 +28,19 @@
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private ElementReference _element;
-    private bool IsActive => Context?.IsActive(Value) == true;
-    private string TriggerId => Context?.GetTriggerId(Value) ?? Value;
-    private string ContentId => Context?.GetContentId(Value) ?? Value;
+    private bool IsActive => _context?.IsActive(Value) == true;
+    private string TriggerId => _context?.GetTriggerId(Value) ?? Value;
+    private string ContentId => _context?.GetContentId(Value) ?? Value;
 
     protected override void OnParametersSet()
     {
-        Context?.RegisterTrigger(Value, Disabled, () => _element.FocusAsync().AsTask());
+        _context?.RegisterTrigger(Value, Disabled, () => _element.FocusAsync().AsTask());
     }
 
     private string GetClasses()
     {
-        var orientation = Context?.Orientation ?? "horizontal";
-        var variant = Context?.Variant ?? "default";
+        var orientation = _context?.Orientation ?? "horizontal";
+        var variant = _context?.Variant ?? "default";
         var baseClasses = "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4";
         var orientationClasses = orientation == "vertical" ? "w-full justify-start" : string.Empty;
         var variantClasses = variant == "line"
@@ -51,25 +54,28 @@
     }
 
     private Task ActivateAsync()
-        => Context?.ActivateAsync(Value) ?? Task.CompletedTask;
+        => _context?.ActivateAsync(Value) ?? Task.CompletedTask;
 
     private Task HandleKeyDownAsync(KeyboardEventArgs args)
     {
-        if (Context is null || Disabled)
+        if (_context is null || Disabled)
         {
             return Task.CompletedTask;
         }
 
         return args.Key switch
         {
-            "ArrowRight" when Context.Orientation == "horizontal" => Context.FocusAdjacentAsync(Value, 1),
-            "ArrowLeft" when Context.Orientation == "horizontal" => Context.FocusAdjacentAsync(Value, -1),
-            "ArrowDown" when Context.Orientation == "vertical" => Context.FocusAdjacentAsync(Value, 1),
-            "ArrowUp" when Context.Orientation == "vertical" => Context.FocusAdjacentAsync(Value, -1),
-            "Home" => Context.FocusFirstAsync(),
-            "End" => Context.FocusLastAsync(),
+            "ArrowRight" when _context.Orientation == "horizontal" => _context.FocusAdjacentAsync(Value, 1),
+            "ArrowLeft" when _context.Orientation == "horizontal" => _context.FocusAdjacentAsync(Value, -1),
+            "ArrowDown" when _context.Orientation == "vertical" => _context.FocusAdjacentAsync(Value, 1),
+            "ArrowUp" when _context.Orientation == "vertical" => _context.FocusAdjacentAsync(Value, -1),
+            "Home" => _context.FocusFirstAsync(),
+            "End" => _context.FocusLastAsync(),
             "Enter" or " " => ActivateAsync(),
             _ => Task.CompletedTask
         };
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

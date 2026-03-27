@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorShadcn.Components.UI;
+namespace ShadcnBlazor.Components.UI;
 
-public sealed class TabsContext
+internal sealed class TabsContext
 {
     private readonly List<string> _orderedTriggers = [];
     private readonly Dictionary<string, bool> _disabledTriggers = new(StringComparer.Ordinal);

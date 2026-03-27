@@ -1,13 +1,18 @@
-<CascadingValue Name="TabsContext" Value="@_context" IsFixed="true">
-    <div data-slot="tabs"
-         data-orientation="@Orientation"
-         class="@Tw.Merge("group/tabs flex gap-2", Orientation == "vertical" ? "flex-row" : "flex-col", Class)"
-         @attributes="AdditionalAttributes">
+@namespace ShadcnBlazor.Components.UI
+
+<div data-slot="tabs"
+     data-orientation="@Orientation"
+     class="@Cn("group/tabs flex gap-2", Orientation == "vertical" ? "flex-row" : "flex-col", Class)"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="_context" IsFixed="true">
         @ChildContent
-    </div>
-</CascadingValue>
+    </CascadingValue>
+</div>
 
 @code {
+    private readonly TabsContext _context = new();
+    private bool _defaultsInitialized;
+
     [Parameter] public string? Value { get; set; }
     [Parameter] public EventCallback<string?> ValueChanged { get; set; }
     [Parameter] public string? DefaultValue { get; set; }
@@ -17,9 +22,6 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
-
-    private readonly TabsContext _context = new();
-    private bool _defaultsInitialized;
 
     protected override void OnParametersSet()
     {
@@ -36,4 +38,7 @@
             _defaultsInitialized = true;
         }
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }

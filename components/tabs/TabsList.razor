@@ -1,14 +1,16 @@
+@namespace ShadcnBlazor.Components.UI
+
 <div data-slot="tabs-list"
      role="tablist"
-     aria-orientation="@(Context?.Orientation ?? "horizontal")"
+     aria-orientation="@(_context?.Orientation ?? "horizontal")"
      data-variant="@Variant"
-     class="@Tw.Merge(GetClasses(), Class)"
+     class="@Cn(GetClasses(), Class)"
      @attributes="AdditionalAttributes">
     @ChildContent
 </div>
 
 @code {
-    [CascadingParameter(Name = "TabsContext")] private TabsContext? Context { get; set; }
+    [CascadingParameter] private TabsContext? _context { get; set; }
     [Parameter] public string Variant { get; set; } = "default";
     [Parameter] public string? Class { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -17,15 +19,18 @@
 
     protected override void OnParametersSet()
     {
-        Context?.SetVariant(Variant);
+        _context?.SetVariant(Variant);
     }
 
     private string GetClasses()
     {
-        var orientation = Context?.Orientation ?? "horizontal";
+        var orientation = _context?.Orientation ?? "horizontal";
         var baseClasses = "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground";
         var orientationClasses = orientation == "vertical" ? "h-fit flex-col" : "h-9";
         var variantClasses = Variant == "line" ? "gap-1 rounded-none bg-transparent" : "bg-muted";
         return $"{baseClasses} {orientationClasses} {variantClasses}";
     }
+
+    private static string Cn(params string?[] classes)
+        => string.Join(" ", classes.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
