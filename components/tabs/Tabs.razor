@@ -4,7 +4,7 @@
      data-orientation="@Orientation"
      class="@Cn("group/tabs flex gap-2", Orientation == "vertical" ? "flex-row" : "flex-col", Class)"
      @attributes="AdditionalAttributes">
-    <CascadingValue Value="_context" IsFixed="true">
+    <CascadingValue Value="_context">
         @ChildContent
     </CascadingValue>
 </div>
